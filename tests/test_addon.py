@@ -76,6 +76,23 @@ class AddonTests(unittest.TestCase):
             handlers.unload()
         ''')
 
+    def test_halver_mode_142_and_faurie_replay_regression(self):
+        self.lua.execute('''
+            -- Actual full modes from the two in-game captures.
+            handlers.text_in({mode=654, message='Halver : I believe it will take some time for us to reach a decision.' .. string.char(127,49)})
+            handlers.text_in({mode=662, message='Faurie : Leaving the chateau?'})
+            for i=1,2 do
+                handlers.text_in({mode=66200, message='[10:05pm] Faurie : Leaving the chateau?', blocked=true, injected=false})
+            end
+            handlers.text_in({mode=654, message='An unnamed system notice.'})
+            handlers.text_in({mode=654, message=' : Missing speaker.'})
+            handlers.text_in({mode=654, message='Halver : Injected.', injected=true})
+            handlers.text_in({mode=14, message='Halver : Player linkshell message.'})
+            assert(#sent == 2)
+            assert(sent[1]:find(string.char(9) .. '142' .. string.char(10), 1, true))
+            assert(sent[2]:find(string.char(9) .. '150' .. string.char(10), 1, true))
+        ''')
+
     def test_trace_captures_filtered_and_injected_without_speaking_them(self):
         self.lua.execute('''
             handlers.command({command='/xis trace on'})

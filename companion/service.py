@@ -190,7 +190,9 @@ class Server:
             self.speech.stop()
         else:
             dialogue = clean_dialogue(frame.raw)
-            if dialogue:
+            # Mode 142 also carries system notices. Only named dialogue is
+            # eligible, even if another local sender bypasses the Lua filter.
+            if dialogue and (frame.mode != 142 or dialogue.speaker):
                 self.speech.submit(dialogue)
 
     def run(self, stopped):

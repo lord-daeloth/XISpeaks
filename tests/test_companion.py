@@ -140,6 +140,18 @@ class QueueTests(unittest.TestCase):
             thread.join(2)
             server.close()
 
+    def test_mode_142_named_dialogue_only(self):
+        server = Server(self.queue, 0)
+        try:
+            server.handle(b'XIS1\tspeak\t1\t142\nAn unnamed system notice.', ('127.0.0.1', 12345))
+            server.handle(b'XIS1\tspeak\t2\t142\nHalver : Be well.\x7f1', ('127.0.0.1', 12345))
+            server.handle(b'XIS1\tspeak\t3\t152\n[10:05pm] Faurie : Goodbye.', ('127.0.0.1', 12345))
+            eventually(lambda: bool(self.backend.started))
+            self.assertEqual(self.backend.started, [('Be well.', 'af_heart')])
+            self.assertFalse(self.queue.pending)
+        finally:
+            server.close()
+
 
 class StartupTests(unittest.TestCase):
     def test_stop_during_model_load_does_not_replay_old_lines(self):

@@ -1,6 +1,6 @@
 addon.name = 'XISpeaks'
 addon.author = 'Daeloth'
-addon.version = '0.2.0'
+addon.version = '0.2.1'
 addon.desc = 'NPC dialogue speech through a local Kokoro companion.'
 
 require('common')
@@ -14,6 +14,13 @@ local trace, trace_sequence = nil, 0
 
 local function report(text)
     print('[XISpeaks] ' .. text)
+end
+
+local function is_named_dialogue(message)
+    if type(message) ~= 'string' then return false end
+    local plain = message:gsub('[\030\031].', '')
+    local name, body = plain:match('^%s*(.-)%s+:%s+(.+)$')
+    return name ~= nil and #name > 0 and #name <= 48 and body:find('%S') ~= nil
 end
 
 -- Tracing precedes all speech filters. Buffer writes until present so text_in
@@ -126,7 +133,8 @@ ashita.events.register('text_in', 'xispeaks_text', function(e)
     local decision = 'speech'
     if e.injected then decision = 'injected'
     elseif not config.enabled then decision = 'disabled'
-    elseif mode ~= 150 and not (config.system and mode == 151) then decision = 'mode-filter'
+    elseif mode == 142 and not is_named_dialogue(e.message) then decision = 'unnamed-mode-142'
+    elseif mode ~= 142 and mode ~= 150 and not (config.system and mode == 151) then decision = 'mode-filter'
     elseif type(e.message) ~= 'string' or e.message == '' then decision = 'empty' end
     trace_event('text', e, decision)
     if decision ~= 'speech' then return end

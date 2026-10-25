@@ -1,8 +1,11 @@
 # XISpeaks
 
 An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
-Version 0.2.0 adds opt-in dialogue tracing. The first version was verified in game
-with Faurie; Halver's missed dialogue is being investigated before changing filters.
+Version 0.2.1 supports named dialogue on mode 142, identified in Halver's in-game
+trace, as well as mode 150 used by Faurie. Opt-in dialogue tracing remains available.
+Restart the companion and reload the addon when upgrading from 0.2.0: both sides
+must accept mode 142. The fix is covered by regression tests; a fresh Halver
+conversation is still needed to verify playback in game.
 
 Initial validation: 13 Python/LuaJIT tests passed, and Kokoro generated a 2.71-second
 non-silent WAV through RealtimeTTS. The project `.venv` is installed in this checkout;
@@ -21,7 +24,8 @@ is local. Dialogue is not sent to a remote speech provider.
 
 This follows Esper's RealtimeTTS/Kokoro architecture and default `af_heart` voice.
 Balloon's channel and encoding handling informed the parser: channel 150 is NPC
-dialogue; 151 includes system narration. Unlike Balloon, XISpeaks does not inspect
+dialogue; 151 includes system narration. Named mode 142 dialogue was added based
+on an actual capture. Unlike Balloon, XISpeaks does not inspect
 game memory, hide text, advance dialogue, or change the camera. It reads original
 `e.message`, so Balloon's changes to `e.message_modified` should coexist.
 
@@ -141,6 +145,14 @@ log entries without assuming the server sent duplicates. If Halver is entirely
 absent, the trace cannot establish why: check the name filter and consider testing
 with chat-formatting addons temporarily unloaded to isolate event delivery/order.
 
+The first comparison found Halver at full mode 654 (low byte 142), not injected or
+blocked. Faurie's originals were full mode 662 (low byte 150), followed by two
+timestamped copies per line at full mode 66200 (low byte 152). Those copies were
+blocked but **not** flagged injected, so checking the injection flag alone would
+not exclude them. Mode 152 remains excluded. The trace does not identify which
+component generated the copies. Halver's line also arrived after packet 0x052;
+an interaction-active-only filter could therefore miss this closing dialogue.
+
 Captures stop at 120 seconds or 1,000 records. Each text field is limited to 1,024
 bytes; original lengths are retained to identify truncation. The in-memory buffer
 holds at most 64 records and flushes on presentation every half second; overflow
@@ -152,6 +164,11 @@ lose the final buffer. Tracing makes no changes to speech-channel acceptance.
 - Channel 150 is a useful filter, not a guarantee that every line is spoken by an
   NPC. Unnamed channel 150 text is read in the default voice. Player say, party,
   linkshell, combat messages and injected addon messages are excluded.
+- Channel 142 is accepted only when it has a nonempty `Speaker : dialogue` prefix
+  (up to 48 speaker bytes in the addon). Unnamed notices remain excluded. Both the
+  addon and companion enforce this restriction. This is a text-format heuristic,
+  not a lookup proving the named speaker is an NPC. Other dialogue modes may still
+  require future traces; this does not claim exhaustive NPC coverage.
 - Channel 151 is opt-in because it also contains Home Point and other notices.
   Cutscene-only narration detection is not implemented. Some server-specific
   dialogue modes may need additions after real capture testing.
@@ -179,8 +196,9 @@ Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue orde
 duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
 a controlled speech backend. They do not require Kokoro or launch the game.
 Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those tests are skipped. The tracing revision passes 17 tests,
-including raw capture, name filtering, timeout, buffer limits and write errors.
+tests; otherwise those tests are skipped. Version 0.2.1 passes 19 tests, including
+the observed Halver/Faurie modes, exclusion of unnamed mode 142 notices and mode
+152 duplicates, raw capture, name filtering, timeout, buffer limits and write errors.
 Run `python tests/smoke_kokoro.py`
 for a real-model test that writes `smoke-test.wav` without playing it aloud.
 

@@ -33,7 +33,7 @@ def parse_frame(data: bytes) -> Message:
     if command not in {'speak', 'stop', 'ping'} or not re.fullmatch(r'[\w-]{1,80}', identity):
         raise ValueError('Invalid command or identity')
     mode = int(mode)
-    if command == 'speak' and mode not in {150, 151}:
+    if command == 'speak' and mode not in {142, 150, 151}:
         raise ValueError('Not an NPC/narration channel')
     if command != 'speak' and (raw or mode != 0):
         raise ValueError('Invalid control frame')
