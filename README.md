@@ -96,6 +96,15 @@ Stop is requested immediately, but Kokoro may take time to finish an active
 inference operation before cancellation returns. Model startup is not interruptible
 by the in-game stop command; queued lines are still discarded.
 
+## LandSandBoat starter catalog
+
+A generated catalog now covers 6,817 named groups from a pinned upstream source.
+Only 3,128 names with consistent, verified race/model classifications are eligible
+for import. Unknown and conflicting names stay available for further research.
+See [catalog documentation](data/README.md) for provenance, coverage, backup and
+import commands. Imports are explicit; they do not overwrite your edits on startup.
+Use **All NPCs** to browse seeded entries, or **Recent** for actual conversations.
+
 ## NPC presets
 
 Select an NPC in `/xis voices` and click a preset checkbox. These save immediately;
@@ -323,7 +332,7 @@ Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue orde
 duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
 a controlled speech backend. They do not require Kokoro or launch the game.
 Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those tests are skipped. Version 0.6.1 passes 55 tests, including
+tests; otherwise those tests are skipped. The current suite passes 58 tests, including
 the observed Halver/Faurie modes, exclusion of unnamed mode 142 notices and mode
 152 duplicates, raw capture, name filtering, timeout, buffer limits and write errors.
 Registry/editor tests additionally cover stable hashing across restarts/pool changes,
