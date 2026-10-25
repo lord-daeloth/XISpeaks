@@ -47,14 +47,26 @@ class RegistryTests(RegistryFixture):
             self.registry.set_globals(1.5, 2, 'invalid')
         self.assertEqual(self.registry.globals(), dict(speed=1, volume=1, pitch_engine='librosa'))
 
+    def test_updated_race_presets_and_tarutaru_voice_pool(self):
+        self.registry.encounter('Halver')
+        before = self.registry.page(search='halver')['rows'][0]
+        npc = self.registry.edit('halver', 'preset', dict(name='tarutaru', enabled=True))
+        self.assertEqual(npc['voice'], before['voice'])
+        self.assertAlmostEqual(npc['speed'], before['speed'] * 1.1)
+        self.assertAlmostEqual(npc['pitch'], before['pitch'] + 1)
+        self.registry.edit('maat', 'profile', dict(voice='am_michael', speed=1, pitch=0))
+        npc = self.registry.edit('maat', 'preset', dict(name='galka', enabled=True))
+        self.assertEqual(npc['speed'], .9)
+        self.assertEqual(npc['pitch'], -4)
+
     def test_presets_stack_restore_and_persist(self):
         self.registry.encounter('Halver')
         original = self.registry.playback('Halver')
         self.registry.edit('halver', 'preset', dict(name='child', enabled=True))
         npc = self.registry.edit('halver', 'preset', dict(name='tarutaru', enabled=True))
         self.assertIn(npc['voice'], ('af_sky', 'af_bella', 'bf_lily', 'am_puck'))
-        self.assertAlmostEqual(npc['speed'], npc['base_speed'] * 1.03**2)
-        self.assertAlmostEqual(npc['pitch'], npc['base_pitch'] + .4)
+        self.assertAlmostEqual(npc['speed'], npc['base_speed'] * 1.03 * 1.1)
+        self.assertAlmostEqual(npc['pitch'], npc['base_pitch'] + 1.2)
         self.registry.close()
         self.registry = Registry(self.path, self.config)
         self.assertTrue(self.registry.page(search='halver')['rows'][0]['presets']['child'])
@@ -73,7 +85,7 @@ class RegistryTests(RegistryFixture):
         self.assertEqual(npc['pitch'], 4)
         self.assertAlmostEqual(npc['speed'], 1.38)
         npc = self.registry.edit('maat', 'preset', dict(name='galka', enabled=True))
-        self.assertEqual(npc['pitch'], 3.5)
+        self.assertEqual(npc['pitch'], .5)
         self.registry.set_globals(2, 2)
         self.assertEqual(self.registry.playback('Maat')['speed'], 2)
         for value in (dict(name='bad', enabled=True), dict(name='child', enabled=1)):

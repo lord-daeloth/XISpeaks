@@ -13,8 +13,8 @@ VOICES = sorted('''af_heart af_alloy af_aoede af_bella af_jessica af_kore af_nic
 af_nova af_river af_sarah af_sky am_adam am_echo am_eric am_fenrir am_liam
 am_michael am_onyx am_puck am_santa bf_alice bf_emma bf_isabella bf_lily
 bm_daniel bm_fable bm_george bm_lewis'''.split())
-PRESETS = {'goblin': (1.15, 3.5), 'child': (1.03, 0.2), 'galka': (1.0, -1.0),
-           'mithra': (1.0, 0.0), 'tarutaru': (1.03, 0.2)}
+PRESETS = {'goblin': (1.15, 3.5), 'child': (1.03, 0.2), 'galka': (0.9, -4.0),
+           'mithra': (1.0, 0.0), 'tarutaru': (1.1, 1.0)}
 YOUNG_VOICES = ('af_sky', 'af_bella', 'bf_lily', 'am_puck')
 
 
@@ -189,12 +189,12 @@ class Registry:
         if not result['manual_voice'] and any(presets.values()):
             preference = 'feminine' if presets['mithra'] else result['preference']
             pool = self.pool
-            if presets['child'] or presets['tarutaru']:
+            if presets['child']:
                 young = [v for v in pool if v in YOUNG_VOICES and
                          (preference == 'unknown' or v[1] == ('f' if preference == 'feminine' else 'm'))]
                 if young:
                     pool = young
-            if presets['mithra'] or presets['child'] or presets['tarutaru']:
+            if presets['mithra'] or presets['child']:
                 result['voice'] = choose_voice(result['key'], preference, pool)
         return apply_presets(result, presets)
 

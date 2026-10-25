@@ -1,7 +1,7 @@
 # XISpeaks
 
 An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
-Version 0.6.0 adds a global pitch-engine selector: Rubber Band R3 (higher quality,
+Version 0.6.1 updates Galka and Tarutaru presets. Version 0.6.0 added a global pitch-engine selector: Rubber Band R3 (higher quality,
 default) or Librosa (faster). Restart the companion and `/addon reload XISpeaks`,
 then use `/xis voices`. Dialogue capture still supports Halver's mode 142 and
 Faurie's mode 150; tracing remains available.
@@ -105,18 +105,18 @@ NPC types are assigned by you, not inferred from names or game memory.
 | --- | --- | --- | --- |
 | Goblin | Existing voice | 115% | +3.5 semitones |
 | Child | Small youthful candidate pool | 103% | +0.2 semitones |
-| Galka | Existing voice | 100% | -1 semitone |
+| Galka | Existing voice | 90% | -4 semitones |
 | Mithra | Feminine pool | 100% | None |
-| Tarutaru | Same pool as Child | 103% | +0.2 semitones |
+| Tarutaru | Existing voice (full configured pool) | 110% | +1 semitone |
 
-Child/Tarutaru candidates are `af_sky`, `af_bella`, `bf_lily`, and `am_puck`,
+Child candidates are `af_sky`, `af_bella`, `bf_lily`, and `am_puck`,
 restricted to your configured pool and voice preference. These are starting points
 for auditioning, not dedicated child voice models. If no preferred candidate is
 enabled, selection falls back to the configured pool with the same preference.
 Mithra takes precedence over the automatic gender preference; a manual voice
 always wins. A preset requiring a missing gender pool reports an error.
 
-Toggles stack: Child + Tarutaru gives 106.09% speed and +0.4 semitones. Speed
+Toggles stack: Child + Tarutaru gives 113.3% speed and +1.2 semitones. Speed
 multipliers combine with NPC tuning and global speed; pitch offsets add to NPC
 tuning. Final speed is capped at 50–200% and pitch at -4 to +4 semitones. The
 sliders edit base NPC tuning; the effective readout and preview include presets.
@@ -323,7 +323,7 @@ Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue orde
 duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
 a controlled speech backend. They do not require Kokoro or launch the game.
 Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those tests are skipped. Version 0.6.0 passes 54 tests, including
+tests; otherwise those tests are skipped. Version 0.6.1 passes 55 tests, including
 the observed Halver/Faurie modes, exclusion of unnamed mode 142 notices and mode
 152 duplicates, raw capture, name filtering, timeout, buffer limits and write errors.
 Registry/editor tests additionally cover stable hashing across restarts/pool changes,
