@@ -1,6 +1,6 @@
 addon.name = 'XISpeaks'
 addon.author = 'Daeloth'
-addon.version = '0.1.0'
+addon.version = '0.2.0'
 addon.desc = 'NPC dialogue speech through a local Kokoro companion.'
 
 require('common')
@@ -10,9 +10,72 @@ local config = settings.load(T{enabled = true, system = false, port = 49152})
 local udp, pending_ping, sequence = nil, nil, 0
 local session = tostring(os.time()) .. '-' .. tostring(math.random(100000, 999999))
 local busy = false
+local trace, trace_sequence = nil, 0
 
 local function report(text)
     print('[XISpeaks] ' .. text)
+end
+
+-- Tracing precedes all speech filters. Buffer writes until present so text_in
+-- only copies bounded data. Original game bytes are preserved as hex.
+local function hex(text)
+    if type(text) ~= 'string' then return '' end
+    return (text:sub(1, 1024):gsub('.', function(c) return ('%02X'):format(c:byte()) end))
+end
+
+local function flush_trace()
+    if not trace or #trace.lines == 0 then return true end
+    local ok, result = pcall(function()
+        local written = trace.file:write(table.concat(trace.lines))
+        if not written then return false end
+        return trace.file:flush() ~= nil
+    end)
+    trace.lines = {}
+    trace.flushed = socket.gettime()
+    return ok and result
+end
+
+local function stop_trace(reason)
+    if not trace then return end
+    local ok = flush_trace()
+    local old = trace
+    trace = nil -- Ignore report text even if another addon reinjects it.
+    old.file:close()
+    report(('Trace %s: %d records, %d buffer drops. %s%s'):format(
+        reason or 'saved', old.count, old.dropped, old.path, ok and '' or ' (write failed)'))
+end
+
+local function start_trace(filter)
+    stop_trace('saved')
+    trace_sequence = trace_sequence + 1
+    local root = addon.path
+    if type(root) ~= 'string' or root == '' then report('Addon path unavailable; cannot trace.'); return end
+    local path = root:gsub('[/\\]+$', '') .. '/trace-' .. os.date('%Y%m%d-%H%M%S')
+        .. '-' .. session .. '-' .. trace_sequence .. '.tsv'
+    local file, err = io.open(path, 'wb')
+    if not file then report('Cannot create trace: ' .. tostring(err)); return end
+    local now = socket.gettime()
+    trace = {file=file, path=path, started=now, flushed=now, count=0, dropped=0,
+        filter=filter and filter:lower(), lines={
+            'elapsed_ms\tkind\tmode_or_packet\tmode_low\tmode_modified\tinjected\tblocked\tdecision\toriginal_bytes\tmodified_bytes\toriginal_hex\tmodified_hex\n'}}
+    report('Tracing for 120 seconds' .. (filter and ('; text filter: ' .. filter) or '; all chat text')
+        .. '. Talk to the NPCs, then /xis trace off. File: ' .. path)
+end
+
+local function trace_event(kind, e, decision)
+    if not trace or socket.gettime() - trace.started >= 120 or trace.count >= 1000 then return end
+    local original, modified = e.message or '', e.message_modified or ''
+    if kind == 'text' and trace.filter and not original:lower():find(trace.filter, 1, true)
+            and not modified:lower():find(trace.filter, 1, true) then return end
+    if #trace.lines >= 64 then trace.dropped = trace.dropped + 1; return end
+    local mode = kind == 'text' and e.mode or e.id
+    trace.count = trace.count + 1
+    trace.lines[#trace.lines + 1] = table.concat({
+        tostring(math.floor((socket.gettime() - trace.started) * 1000)), kind,
+        tostring(mode), kind == 'text' and tostring(bit.band(mode, 0xFF)) or '',
+        tostring(e.mode_modified or ''), tostring(e.injected or false), tostring(e.blocked or false),
+        decision, tostring(#original), tostring(#modified), hex(original), hex(modified),
+    }, '\t') .. '\n'
 end
 
 local function connect()
@@ -51,26 +114,44 @@ ashita.events.register('load', 'xispeaks_load', function()
 end)
 
 ashita.events.register('unload', 'xispeaks_unload', function()
+    stop_trace('saved on unload')
     send('stop')
     if udp then udp:close(); udp = nil end
 end)
 
 ashita.events.register('text_in', 'xispeaks_text', function(e)
-    if busy or e.injected or not config.enabled then return end
+    if busy then return end
     -- Always use original text: Balloon may hide or reformat message_modified.
     local mode = bit.band(e.mode, 0xFF)
-    if mode ~= 150 and not (config.system and mode == 151) then return end
-    if type(e.message) ~= 'string' or e.message == '' then return end
+    local decision = 'speech'
+    if e.injected then decision = 'injected'
+    elseif not config.enabled then decision = 'disabled'
+    elseif mode ~= 150 and not (config.system and mode == 151) then decision = 'mode-filter'
+    elseif type(e.message) ~= 'string' or e.message == '' then decision = 'empty' end
+    trace_event('text', e, decision)
+    if decision ~= 'speech' then return end
     busy = true
     send('speak', mode, e.message)
     busy = false
 end)
 
 ashita.events.register('packet_in', 'xispeaks_zone', function(e)
+    -- Correlation only: never record packet payloads or infer dialogue from them.
+    if e.id == 0x017 or e.id == 0x032 or e.id == 0x033 or e.id == 0x034
+            or e.id == 0x052 or e.id == 0x00A or e.id == 0x00B then
+        trace_event('packet', e, 'metadata-only')
+    end
     if e.id == 0x00A or e.id == 0x00B then send('stop') end
 end)
 
 ashita.events.register('d3d_present', 'xispeaks_poll', function()
+    if trace then
+        if socket.gettime() - trace.started >= 120 or trace.count >= 1000 then
+            stop_trace('saved at capture limit')
+        elseif socket.gettime() - trace.flushed >= 0.5 and not flush_trace() then
+            stop_trace('stopped after write error')
+        end
+    end
     if not udp or not pending_ping then return end
     -- Bounded work; never wait for the companion on the game thread.
     for _ = 1, 4 do
@@ -93,7 +174,13 @@ ashita.events.register('command', 'xispeaks_command', function(e)
     if #args == 0 or (args[1]:lower() ~= '/xispeaks' and args[1]:lower() ~= '/xis') then return end
     e.blocked = true
     local command = (args[2] or 'help'):lower()
-    if command == 'on' or command == 'off' then
+    if command == 'trace' then
+        local option = (args[3] or ''):lower()
+        if option == 'off' then stop_trace('saved')
+        elseif option == 'on' then start_trace()
+        elseif option ~= '' then start_trace(table.concat(args, ' ', 3))
+        else report('/xis trace on | off | <NPC name>; capture lasts up to 120 seconds.') end
+    elseif command == 'on' or command == 'off' then
         config.enabled = command == 'on'
         if not config.enabled then send('stop') end
         settings.save()
@@ -118,6 +205,6 @@ ashita.events.register('command', 'xispeaks_command', function(e)
         config.port = tonumber(args[3]); settings.save(); connect()
         report('Port set to ' .. config.port .. '. Match the companion --port option.')
     else
-        report('/xispeaks on | off | stop | status | test | system on/off | port <1024-65535>')
+        report('/xispeaks on | off | stop | status | test | system on/off | port <1024-65535> | trace on/off/<NPC>')
     end
 end)

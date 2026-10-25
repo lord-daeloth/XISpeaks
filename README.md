@@ -1,13 +1,14 @@
 # XISpeaks
 
 An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
-Version 0.1.0 is an initial implementation; actual Vanacore event compatibility and
-dialogue coverage need an in-game smoke test.
+Version 0.2.0 adds opt-in dialogue tracing. The first version was verified in game
+with Faurie; Halver's missed dialogue is being investigated before changing filters.
 
-Local validation: 13 Python/LuaJIT tests passed, and Kokoro generated a 2.71-second
+Initial validation: 13 Python/LuaJIT tests passed, and Kokoro generated a 2.71-second
 non-silent WAV through RealtimeTTS. The project `.venv` is installed in this checkout;
-you can go straight to `install-addon.ps1` and `run.cmd`. The addon has not yet been
-copied into the game installation. `setup.ps1` remains available for fresh installs.
+you can go straight to `install-addon.ps1` and `run.cmd`. The tracing revision has
+also been copied into the Vanacore addon folder; reload XISpeaks in game to use it.
+`setup.ps1` remains available for fresh installs.
 
 ## Design
 
@@ -81,6 +82,8 @@ python .\companion\service.py --dry-run
 | `test` | Send a test line even when capture is off |
 | `system on` / `system off` | Include/exclude all channel 151 messages; default off |
 | `port 49152` | Set local UDP port; match companion `--port` |
+| `trace on` / `trace off` | Start/save a bounded local diagnostic capture of all text events |
+| `trace Halver` | Capture only text containing Halver (case-insensitive) plus packet metadata |
 
 Zone-in/out clears speech. Finishing an NPC interaction does not clear speech, so
 the final line can finish. Rapidly advancing dialogue queues it in order; at most
@@ -100,6 +103,49 @@ are examples, not inferred character identities. No gender/race guessing is used
 for the default output. `duplicate_seconds` suppresses immediately repeated,
 identical speaker/text within the chosen interval; set it to 0 to disable this.
 Unknown config fields fail validation to catch typos.
+
+## Investigating missed dialogue
+
+Install the updated Lua file with `install-addon.ps1`, then `/addon reload XISpeaks`.
+The companion does not need restarting for tracing. For a focused comparison:
+
+1. `/xis trace Halver`, speak to Halver, then `/xis trace off`.
+2. `/xis trace Faurie`, speak to Faurie, then `/xis trace off`.
+
+Each capture prints its path and creates a separate `trace-*.tsv` file in the
+installed XISpeaks addon folder. `/xis trace on` records all text instead, including
+player conversations; use named captures when you only need those NPCs. Logs stay
+local and are not sent to the companion. Captures are not enabled automatically.
+
+The trace includes full and low-byte modes, modified mode, injected/blocked flags,
+the speech filter's decision, and original/modified text as hex (to preserve game
+encoding and control bytes). `speech` means the line passed the addon filter, not
+confirmation of UDP delivery or audible playback. Selected incoming chat/dialogue/
+zone packet IDs and times are recorded for correlation; packet payloads are not.
+Metadata packet records are included even with a name filter and are not proof of
+a particular speaker. Text flags reflect what this callback sees, not necessarily
+the final state after all other addons have processed the event.
+
+Readable inspection from this project folder:
+
+```powershell
+.\.venv\Scripts\python.exe companion\inspect_trace.py 'D:\path\to\trace-file.tsv'
+# For an all-chat capture, optionally filter the report:
+.\.venv\Scripts\python.exe companion\inspect_trace.py 'D:\path\to\trace-file.tsv' --contains Halver
+```
+
+Compare Halver's low mode and decision with Faurie's. A different mode calls for
+examining that channel before adding it; an injected line calls for checking the
+addon producing it. Original/modified text and injected copies can explain replayed
+log entries without assuming the server sent duplicates. If Halver is entirely
+absent, the trace cannot establish why: check the name filter and consider testing
+with chat-formatting addons temporarily unloaded to isolate event delivery/order.
+
+Captures stop at 120 seconds or 1,000 records. Each text field is limited to 1,024
+bytes; original lengths are retained to identify truncation. The in-memory buffer
+holds at most 64 records and flushes on presentation every half second; overflow
+is counted in the completion message. Logs are buffered, so an abrupt game exit can
+lose the final buffer. Tracing makes no changes to speech-channel acceptance.
 
 ## Scope and limitations
 
@@ -133,7 +179,9 @@ Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue orde
 duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
 a controlled speech backend. They do not require Kokoro or launch the game.
 Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those two tests are skipped. Run `python tests/smoke_kokoro.py`
+tests; otherwise those tests are skipped. The tracing revision passes 17 tests,
+including raw capture, name filtering, timeout, buffer limits and write errors.
+Run `python tests/smoke_kokoro.py`
 for a real-model test that writes `smoke-test.wav` without playing it aloud.
 
 In-game checklist: run dry mode; speak to an NPC; verify speaker and text; send

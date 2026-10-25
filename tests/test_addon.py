@@ -13,7 +13,13 @@ class AddonTests(unittest.TestCase):
     def setUp(self):
         self.lua = LuaRuntime(unpack_returned_tuples=True)
         self.lua.execute('''
-            addon = {}; handlers = {}; sent = {}; printed = {}; saved = 0
+            addon = {path='C:/test/'}; handlers = {}; sent = {}; printed = {}; saved = 0; now = 1
+            captured = ''; file_closed = false
+            io.open = function(path, mode) return {
+                write = function(self, text) captured = captured .. text; return self end,
+                flush = function() return true end,
+                close = function() file_closed = true; return true end
+            } end
             function print(s) table.insert(printed, s) end
             function T(t) return t end
             bit = require('bit')
@@ -28,7 +34,7 @@ class AddonTests(unittest.TestCase):
                 save = function() saved = saved + 1 end
             } end
             package.preload.socket = function() return {
-                gettime = function() return 1 end,
+                gettime = function() return now end,
                 udp = function() return {
                     close = function() end, settimeout = function() end,
                     setpeername = function() return true end,
@@ -68,6 +74,63 @@ class AddonTests(unittest.TestCase):
             handlers.packet_in({id=0x00B})
             assert(sent[4]:find('stop', 1, true))
             handlers.unload()
+        ''')
+
+    def test_trace_captures_filtered_and_injected_without_speaking_them(self):
+        self.lua.execute('''
+            handlers.command({command='/xis trace on'})
+            handlers.text_in({mode=151, mode_modified=150, message='Halver : Wait.', blocked=true})
+            handlers.text_in({mode=150, message='Faurie : Goodbye.', message_modified='[9:54pm] Faurie : Goodbye.'})
+            handlers.text_in({mode=150, message='Faurie : Goodbye.', injected=true})
+            handlers.packet_in({id=0x034})
+            handlers.command({command='/xis trace off'})
+            assert(#sent == 1)
+            assert(captured:find('mode-filter', 1, true))
+            assert(captured:find('injected', 1, true))
+            assert(captured:find('metadata-only', 1, true))
+            assert(file_closed)
+        ''')
+        import csv
+        import io
+        rows = list(csv.DictReader(io.StringIO(self.lua.globals().captured), delimiter='\t'))
+        self.assertEqual(len(rows), 4)
+        self.assertEqual(rows[0]['mode_low'], '151')
+        self.assertEqual(rows[0]['mode_modified'], '150')
+        self.assertEqual(bytes.fromhex(rows[0]['original_hex']), b'Halver : Wait.')
+
+    def test_trace_name_filter_and_timeout(self):
+        self.lua.execute('''
+            handlers.command({command='/xis trace Halver'})
+            handlers.text_in({mode=151, message='Halver : Wait.'})
+            handlers.text_in({mode=14, message='Linkshell conversation'})
+            now = 122; handlers.d3d_present()
+            assert(file_closed)
+            local old = captured
+            handlers.text_in({mode=151, message='Halver : Later.'})
+            assert(captured == old)
+            assert(not captured:find('4C696E6B7368656C6C', 1, true))
+        ''')
+
+    def test_trace_bounded_buffer_and_byte_truncation(self):
+        self.lua.execute('''
+            handlers.command({command='/xis trace on'})
+            for i=1,200 do handlers.text_in({mode=151, message=string.rep('a', 2048)}) end
+            handlers.command({command='/xis trace off'})
+            assert(#captured < 150000)
+            assert(printed[#printed]:find('137 buffer drops', 1, true))
+        ''')
+
+    def test_trace_write_error_closes_capture(self):
+        self.lua.execute('''
+            io.open = function() return {
+                write=function() return nil, 'disk full' end,
+                close=function() file_closed=true end
+            } end
+            handlers.command({command='/xis trace on'})
+            handlers.text_in({mode=151, message='Halver : Wait.'})
+            now=2; handlers.d3d_present()
+            assert(file_closed)
+            assert(printed[#printed]:find('write error', 1, true))
         ''')
 
 
