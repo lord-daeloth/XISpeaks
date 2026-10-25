@@ -5,3 +5,4 @@ transformers==4.57.6
 # Verified Windows tokenizer pair; 3.8.16/3.0.14 failed model loading locally.
 spacy==3.8.14
 preshed==3.0.13
+librosa==0.11.0

@@ -5,6 +5,8 @@ local M = {}
 function M.new(send, clock, session)
     local ui = {visible=false, rows={}, voices={}, total=0, page=0, search='', filter='all',
         selected=nil, draft=nil, pending=nil, next_refresh=0, serial=0,
+        draft_speed=100, draft_pitch=0, global_speed=100, global_volume=100, global_dirty=false,
+        globals={speed=1,volume=1},
         message='Start the companion, then Refresh.', status='Not connected'}
 
     function ui:request(payload)
@@ -43,6 +45,14 @@ function M.new(send, clock, session)
         if not result.ok then self.message = 'Error: ' .. tostring(result.error); return true end
         self.status = result.status or 'Connected'
         self.message = (result.error and result.error ~= '') and ('Speech error: ' .. result.error) or ''
+        if type(result.globals) == 'table' then
+            self.globals = result.globals
+            if not self.global_dirty or action == 'globals' then
+                self.global_speed = math.floor(result.globals.speed*100+0.5)
+                self.global_volume = math.floor(result.globals.volume*100+0.5)
+                self.global_dirty = false
+            end
+        end
         if action == 'list' and type(result.rows) == 'table' and type(result.voices) == 'table' then
             self.rows, self.voices = result.rows, result.voices
             self.total, self.page = result.total or 0, result.page or 0
@@ -54,10 +64,14 @@ function M.new(send, clock, session)
         elseif action == 'edit' and type(result.npc) == 'table' then
             self.selected = result.npc
             self.draft = result.npc.voice
+            self.draft_speed = math.floor((result.npc.speed or 1)*100+0.5)
+            self.draft_pitch = math.floor((result.npc.pitch or 0)*10+0.5)
             self.message = 'Saved.'
             self.next_refresh = 0
         elseif action == 'preview' then
             self.message = 'Preview queued. First use of a voice may download its assets.'
+        elseif action == 'globals' then
+            self.message = 'Global audio settings saved. Applies to the next line.'
         end
         return true
     end
@@ -87,11 +101,22 @@ function M.new(send, clock, session)
 
     function ui:draw()
         if not self.visible then return end
-        imgui.SetNextWindowSize({760, 620}, ImGuiCond_FirstUseEver)
+        imgui.SetNextWindowSize({780, 790}, ImGuiCond_FirstUseEver)
         local open = {self.visible}
         if imgui.Begin('XISpeaks - NPC voices', open) then
             imgui.Text('Companion: ' .. self.status)
             if self.pending then imgui.SameLine(); imgui.TextDisabled('Updating...') end
+            local base, volume = {self.global_speed}, {self.global_volume}
+            imgui.SetNextItemWidth(220)
+            if imgui.SliderInt('Global speed (%)', base, 50, 200) then self.global_speed=base[1]; self.global_dirty=true end
+            imgui.SetNextItemWidth(220)
+            if imgui.SliderInt('Voice volume (%)', volume, 0, 300) then self.global_volume=volume[1]; self.global_dirty=true end
+            imgui.SameLine()
+            if imgui.Button('Apply global audio') and not self.pending then
+                self:request({action='globals', speed=self.global_speed/100, volume=self.global_volume/100})
+            end
+            imgui.TextDisabled('100% = normal. Boosted peaks are limited. Apply before previewing global changes.')
+            imgui.Separator()
             local search = {self.search}
             imgui.SetNextItemWidth(280)
             local cursor = ImGuiCol_InputTextCursor or ImGuiCol_Text
@@ -112,12 +137,14 @@ function M.new(send, clock, session)
                 imgui.EndCombo()
             end
             imgui.Text(('%d NPCs | Page %d'):format(self.total, self.page+1))
-            if imgui.BeginChild('npc_list', {0, 210}, true) then
+            if imgui.BeginChild('npc_list', {0, 160}, true) then
                 for _, row in ipairs(self.rows) do
                     local label = row.name .. '  |  ' .. row.voice .. '  |  ' .. row.source
                         .. (row.muted and '  [muted]' or '') .. '###npc-' .. row.key
                     if imgui.Selectable(label, self.selected and self.selected.key == row.key or false) and not self.pending then
                         self.selected=row; self.draft=row.voice
+                        self.draft_speed=math.floor((row.speed or 1)*100+0.5)
+                        self.draft_pitch=math.floor((row.pitch or 0)*10+0.5)
                     end
                 end
                 if #self.rows == 0 then imgui.TextWrapped('No matching NPCs yet. Talk to an NPC with speech capture enabled.') end
@@ -149,13 +176,27 @@ function M.new(send, clock, session)
                     end
                     imgui.EndCombo()
                 end
+                local speed, pitch = {self.draft_speed}, {self.draft_pitch/10}
+                imgui.SetNextItemWidth(230)
+                if imgui.SliderInt('NPC speed (%)', speed, 70, 130) then self.draft_speed=speed[1] end
+                imgui.SetNextItemWidth(230)
+                if imgui.SliderFloat('Pitch (semitones)', pitch, -4, 4, '%.1f') then
+                    self.draft_pitch=math.floor(pitch[1]*10+0.5)
+                end
+                imgui.Text(('Pitch: %+.1f semitones | Effective speed: %.0f%%'):format(
+                    self.draft_pitch/10, math.max(50,math.min(200,self.globals.speed*self.draft_speed))))
+                imgui.TextDisabled(('Automatic: %.0f%% speed, %+.1f semitones | Tuning: %s'):format(
+                    (npc.auto_speed or 1)*100, npc.auto_pitch or 0, npc.tuning_source or 'automatic'))
                 if imgui.Button('Preview voice') and not self.pending then
-                    self:request({action='preview', voice=self.draft or npc.voice})
+                    self:request({action='preview', voice=self.draft or npc.voice, speed=self.draft_speed/100, pitch=self.draft_pitch/10})
                 end
                 imgui.SameLine()
-                if imgui.Button('Save override') then self:edit('voice', self.draft or npc.voice) end
+                if imgui.Button('Save override') then
+                    self:edit('profile', {voice=self.draft or npc.voice, speed=self.draft_speed/100, pitch=self.draft_pitch/10})
+                end
                 imgui.SameLine()
                 if imgui.Button('Reset to automatic') then self:edit('reset') end
+                if imgui.Button('Reset pitch/speed only') then self:edit('reset_tuning') end
                 local mute = {npc.muted}
                 if imgui.Checkbox('Mute this NPC', mute) then self:edit('mute', mute[1]) end
                 imgui.TextWrapped('Preview replaces queued speech. Edits apply to the next line; the current line finishes. Preference affects automatic assignments only.')

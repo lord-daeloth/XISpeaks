@@ -14,14 +14,19 @@ from dialogue import Dialogue
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--voices', nargs='+', default=['af_heart'])
+    parser.add_argument('--speed', type=float, default=1.0)
+    parser.add_argument('--pitch', type=float, default=0.0)
+    parser.add_argument('--volume', type=float, default=1.0)
     args = parser.parse_args()
     backend = KokoroBackend(DEFAULTS)
     try:
         play_async = backend.stream.play_async
         for voice in args.voices:
+            backend.configure(args.speed, args.pitch, args.volume)
             if not voice.replace('_', '').isalnum():
                 raise ValueError('Expected a simple voice ID')
-            output = Path(__file__).resolve().parents[1] / f'smoke-{voice}.wav'
+            suffix = f'-s{args.speed}-p{args.pitch}-v{args.volume}' if (args.speed,args.pitch,args.volume) != (1,0,1) else ''
+            output = Path(__file__).resolve().parents[1] / f'smoke-{voice}{suffix}.wav'
             with patch.object(backend.stream, 'play_async', side_effect=lambda: play_async(muted=True, output_wavfile=str(output))):
                 backend.speak(Dialogue('', "Welcome to Vana'diel. Your voice companion is ready."), voice, lambda: False)
             with wave.open(str(output), 'rb') as audio:

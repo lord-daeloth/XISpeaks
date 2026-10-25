@@ -31,6 +31,8 @@ class VoiceUITests(unittest.TestCase):
                 BeginChild=function() depth=depth+1; return true end, EndChild=function() depth=depth-1 end,
                 BeginCombo=function() depth=depth+1; return true end, EndCombo=function() depth=depth-1 end,
                 InputText=function() return false end, SameLine=function() end, Separator=function() end,
+                SliderInt=function() return false end,
+                SliderFloat=function(label,value) if next_pitch then value[1]=next_pitch; next_pitch=nil; return true end; return false end,
                 Text=function(text) table.insert(texts,text) end, TextDisabled=function() end,
                 TextWrapped=function() end, Button=clicked, Selectable=clicked,
                 Checkbox=function(label,value) if clicked(label) then value[1]=not value[1]; return true end; return false end
@@ -74,7 +76,7 @@ class VoiceUITests(unittest.TestCase):
             clicks['Save override']=true; ui:draw(); assert(depth==0)
             assert(ui.selected.voice=='am_michael')
         ''')
-        self.assertEqual(self.last_request()[1], dict(action='edit',key='halver',edit='voice',value='af_heart'))
+        self.assertEqual(self.last_request()[1], dict(action='edit',key='halver',edit='profile',value=dict(voice='af_heart',speed=1,pitch=0)))
         self.respond(dict(npc=dict(self.npc, voice='af_heart', source='manual')))
         self.lua.execute("clicks['Reset to automatic']=true; ui:draw()")
         self.assertEqual(self.last_request()[1]['edit'], 'reset')
@@ -83,7 +85,7 @@ class VoiceUITests(unittest.TestCase):
     def test_preview_and_preference_and_mute_controls(self):
         self.load_list()
         self.lua.execute("clicks['Halver  |  am_michael  |  automatic###npc-halver']=true; ui:draw(); clicks['Preview voice']=true; ui:draw()")
-        self.assertEqual(self.last_request()[1], dict(action='preview', voice='am_michael'))
+        self.assertEqual(self.last_request()[1], dict(action='preview', voice='am_michael',speed=1,pitch=0))
         self.respond(dict(message='Preview queued'))
         self.lua.execute("clicks['Feminine voices']=true; ui:draw()")
         self.assertEqual(self.last_request()[1]['value'], 'feminine')
@@ -108,6 +110,15 @@ class VoiceUITests(unittest.TestCase):
         self.lua.execute('ui:tick()')
         self.assertEqual(self.last_request()[1]['search'], 'Faurie')
         self.assertEqual(self.last_request()[1]['page'], 0)
+
+    def test_global_audio_and_tuned_preview(self):
+        self.load_list()
+        self.lua.execute("ui.global_speed=120; ui.global_volume=180; ui.global_dirty=true; clicks['Apply global audio']=true; ui:draw()")
+        self.assertEqual(self.last_request()[1],dict(action='globals',speed=1.2,volume=1.8))
+        self.respond({'globals':dict(speed=1.2,volume=1.8)})
+        self.assertFalse(self.lua.globals().ui.global_dirty)
+        self.lua.execute("ui.selected=ui.rows[1]; ui.draft_speed=105; next_pitch=-.5; clicks['Preview voice']=true; ui:draw()")
+        self.assertEqual(self.last_request()[1],dict(action='preview',voice='am_michael',speed=1.05,pitch=-.5))
 
 
 if __name__ == '__main__':

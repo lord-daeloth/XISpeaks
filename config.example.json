@@ -1,6 +1,7 @@
 {
   "voice": "af_heart",
   "speed": 1.0,
+  "volume": 1.0,
   "voices": {
     "Shantotto": "bf_emma",
     "Maat": "am_michael"

@@ -11,7 +11,7 @@ import threading
 import time
 
 from dialogue import MAX_DATAGRAM, Dialogue, clean_dialogue, parse_frame
-from registry import Registry, VOICES
+from registry import Registry, VOICES, number
 
 LOG = logging.getLogger('XISpeaks')
 
@@ -19,10 +19,22 @@ LOG = logging.getLogger('XISpeaks')
 class KokoroBackend:
     def __init__(self, config):
         from RealtimeTTS import KokoroEngine, TextToAudioStream
+        from audio_effects import EffectsQueue, warm_pitch
+        warm_pitch()
         self.engine = KokoroEngine(voice=config['voice'], default_speed=config['speed'])
+        # The pinned engine emits complete generated chunks as mono int16 PCM.
+        # Processing before queue insertion also affects previews and WAV output.
+        self.effects = EffectsQueue()
+        self.engine.queue = self.effects
         self.stream = TextToAudioStream(self.engine, output_device_index=config.get('output_device_index'))
 
+    def configure(self, speed, pitch, volume):
+        self.engine.set_speed(speed)
+        self.effects.pitch, self.effects.volume = pitch, volume
+        self.effects.error = None
+
     def speak(self, dialogue, voice, cancelled):
+        self.effects.cancelled = cancelled
         self.engine.set_voice(voice)
         if cancelled():
             return
@@ -34,6 +46,8 @@ class KokoroBackend:
             time.sleep(0.03)
         if getattr(self.stream, 'error_flag', False):
             raise RuntimeError('RealtimeTTS reported a playback/synthesis failure; see its console log')
+        if self.effects.error:
+            raise RuntimeError('Audio processing failed') from self.effects.error
 
     def close(self):
         self.stream.stop()
@@ -42,11 +56,14 @@ class KokoroBackend:
 
 class DryBackend:
     def __init__(self, config):
-        pass
+        self.parameters = {}
+
+    def configure(self, speed, pitch, volume):
+        self.parameters = dict(speed=speed, pitch=pitch, volume=volume)
 
     def speak(self, dialogue, voice, cancelled):
         if not cancelled():
-            LOG.info('[%s] %s: %s', voice, dialogue.speaker or 'Narrator', dialogue.text)
+            LOG.info('[%s %s] %s: %s', voice, self.parameters, dialogue.speaker or 'Narrator', dialogue.text)
 
     def close(self):
         pass
@@ -54,7 +71,7 @@ class DryBackend:
 
 DEFAULTS = dict(voice='af_heart', speed=1.0, voices={}, queue_limit=12,
                 max_age_seconds=30.0, duplicate_seconds=1.0, output_device_index=None,
-                voice_pool=VOICES)
+                voice_pool=VOICES, volume=1.0)
 
 
 def load_config(path):
@@ -70,7 +87,7 @@ def load_config(path):
         isinstance(k, str) and isinstance(v, str) and v.strip() for k, v in config['voices'].items()
     ):
         raise ValueError('voices must map NPC names to voice names')
-    for key, low, high in [('speed', 0.5, 2), ('queue_limit', 1, 100),
+    for key, low, high in [('speed', 0.5, 2), ('volume', 0, 3), ('queue_limit', 1, 100),
                            ('max_age_seconds', 1, 300), ('duplicate_seconds', 0, 10)]:
         value = config[key]
         if isinstance(value, bool) or not isinstance(value, (float, int)) or not low <= value <= high:
@@ -153,10 +170,16 @@ class SpeechQueue:
                 def cancelled():
                     with self.condition:
                         return self.closed or generation != self.generation
-                voice = voice_override or (self.registry.voice_for(dialogue.speaker) if self.registry else
-                                          self.config['voices'].get(dialogue.speaker, self.config['voice']))
+                if self.registry:
+                    profile = self.registry.playback(dialogue.speaker, voice_override)
+                else:
+                    profile = dict(voice=voice_override or self.config['voices'].get(dialogue.speaker, self.config['voice']),
+                                   speed=self.config['speed'], pitch=0, volume=self.config.get('volume', 1.0))
+                voice = profile.pop('voice')
                 try:
                     if voice is not None and not cancelled():
+                        if hasattr(backend, 'configure'):
+                            backend.configure(**profile)
                         backend.speak(dialogue, voice, cancelled)
                         self.last_error = ''
                 except Exception as exc:
@@ -215,14 +238,20 @@ class Server:
             if action == 'list':
                 result = self.registry.page(request.get('search', ''), request.get('filter', 'all'), request.get('page', 0))
                 result['voices'] = VOICES
+                result['globals'] = self.registry.globals()
             elif action == 'edit':
                 result = {'npc': self.registry.edit(request.get('key'), request.get('edit'), request.get('value'))}
+            elif action == 'globals':
+                result = {'globals': self.registry.set_globals(request.get('speed'), request.get('volume'))}
             elif action == 'preview':
                 voice = request.get('voice')
                 if voice not in VOICES:
                     raise ValueError('Choose a supported English voice')
+                profile = dict(voice=voice,
+                               speed=number(request.get('speed', 1.0), 0.7, 1.3, 'NPC speed'),
+                               pitch=number(request.get('pitch', 0.0), -4, 4, 'Pitch'))
                 self.speech.stop()
-                if not self.speech.submit(Dialogue('', "Welcome to Vana'diel. May your travels be safe, my friend."), voice):
+                if not self.speech.submit(Dialogue('', "Welcome to Vana'diel. May your travels be safe, my friend."), profile):
                     raise ValueError('Speech engine is unavailable; check the companion console')
                 result = {'message': 'Preview queued'}
             else:

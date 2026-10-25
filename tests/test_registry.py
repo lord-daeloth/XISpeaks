@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'companion'))
-from registry import Registry, VOICES, choose_voice, name_key
+from registry import Registry, VOICES, choose_voice, name_key, choose_tuning
 from service import DEFAULTS, Server, SpeechQueue
 from dialogue import Dialogue
 from test_companion import ControlledBackend, eventually
@@ -26,6 +26,61 @@ class RegistryFixture(unittest.TestCase):
 
 
 class RegistryTests(RegistryFixture):
+    def test_rare_hash_variations_and_determinism(self):
+        values = [choose_tuning(f'npc-{i}') for i in range(10000)]
+        changed = sum(v != (1,0) for v in values)
+        self.assertTrue(650 < changed < 950)
+        self.assertTrue(all(.95 <= speed <= 1.05 and abs(pitch) <= 1 for speed,pitch in values))
+        self.assertEqual(choose_tuning('halver'),choose_tuning('halver'))
+
+    def test_tuning_global_composition_reset_and_restart(self):
+        self.registry.encounter('Halver')
+        original = self.registry.page(search='halver')['rows'][0]
+        self.registry.edit('halver','profile',dict(voice='am_michael',speed=1.1,pitch=-1.5))
+        self.registry.set_globals(1.2,2)
+        profile = self.registry.playback('Halver')
+        self.assertAlmostEqual(profile['speed'],1.32)
+        self.assertEqual(profile['volume'],2)
+        self.assertEqual(profile['pitch'],-1.5)
+        self.assertEqual(self.registry.playback('')['speed'],1.2)
+        self.registry.close()
+        self.registry = Registry(self.path,self.config)
+        self.assertEqual(self.registry.playback('Halver'),profile)
+        reset = self.registry.edit('halver','reset_tuning')
+        self.assertEqual(reset['voice'],'am_michael')
+        self.assertEqual((reset['speed'],reset['pitch']),(original['auto_speed'],original['auto_pitch']))
+        self.registry.edit('halver','reset')
+        self.assertEqual(self.registry.voice_for('Halver'),original['auto_voice'])
+
+    def test_invalid_tuning_is_atomic_and_effective_speed_is_clamped(self):
+        for speed,volume in [(float('nan'),1),(1,float('inf')),(True,1),(1,4)]:
+            with self.assertRaises(ValueError): self.registry.set_globals(speed,volume)
+        for pitch in [float('nan'),5,False]:
+            with self.assertRaises(ValueError):
+                self.registry.edit('maat','profile',dict(voice='af_heart',speed=1,pitch=pitch))
+        self.assertEqual(self.registry.voice_for('maat'),'am_michael')
+        self.registry.edit('maat','profile',dict(voice='am_michael',speed=1.3,pitch=0))
+        self.registry.set_globals(2,1)
+        self.assertEqual(self.registry.playback('maat')['speed'],2)
+
+    def test_old_database_migration_keeps_voice_and_mute(self):
+        import sqlite3
+        path = Path(self.temp.name)/'old.sqlite3'
+        with sqlite3.connect(path) as db:
+            db.execute('''CREATE TABLE npcs (key TEXT PRIMARY KEY,name TEXT NOT NULL,auto_voice TEXT NOT NULL,
+                manual_voice TEXT,preference TEXT NOT NULL DEFAULT 'unknown',muted INTEGER NOT NULL DEFAULT 0,
+                last_seen REAL NOT NULL DEFAULT 0,encounters INTEGER NOT NULL DEFAULT 0)''')
+            db.execute("INSERT INTO npcs (key,name,auto_voice,manual_voice,muted) VALUES ('halver','Halver','am_adam','bm_george',1)")
+        db.close()
+        registry = Registry(path,self.config)
+        try:
+            row = registry.page(search='halver')['rows'][0]
+            self.assertEqual(row['voice'],'bm_george')
+            self.assertTrue(row['muted'])
+            self.assertIsNotNone(row['auto_speed'])
+            self.assertTrue(Path(str(path)+'.v030.bak').exists())
+        finally:
+            registry.close()
     def test_hash_is_stable_and_saved_across_pool_changes(self):
         self.registry.encounter('Halver')
         voice = self.registry.voice_for('Halver')
@@ -154,6 +209,17 @@ class EditorIntegrationTests(RegistryFixture):
                         {'action':'edit', 'key':[]}, {'action':'preview', 'voice':'nope'}]:
             self.assertFalse(self.request(request)['ok'])
         self.assertTrue(self.request({'action':'list'})['ok'])
+
+    def test_preview_uses_global_speed_volume_and_requested_tuning(self):
+        parameters = []
+        self.backend.configure = lambda **kwargs: parameters.append(kwargs)
+        result = self.request(dict(action='globals',speed=1.2,volume=1.8))
+        self.assertEqual(result['globals'],dict(speed=1.2,volume=1.8))
+        self.request(dict(action='preview',voice='af_heart',speed=1.05,pitch=-.5))
+        eventually(lambda: bool(self.backend.started))
+        self.assertAlmostEqual(parameters[0]['speed'],1.26)
+        self.assertEqual(parameters[0]['volume'],1.8)
+        self.assertEqual(parameters[0]['pitch'],-.5)
 
 
 if __name__ == '__main__':

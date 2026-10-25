@@ -1,8 +1,8 @@
 # XISpeaks
 
 An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
-Version 0.3.0 adds a persistent NPC registry, stable automatic voice assignments,
-and an in-game voice editor. Restart the companion and `/addon reload XISpeaks`,
+Version 0.4.0 adds per-NPC pitch/speed, rare automatic variations, global speed,
+and voice volume boost to the persistent NPC voice editor. Restart the companion and `/addon reload XISpeaks`,
 then use `/xis voices`. Dialogue capture still supports Halver's mode 142 and
 Faurie's mode 150; tracing remains available.
 
@@ -107,11 +107,14 @@ Select an NPC to:
 
 - Choose a voice and **Preview voice** without saving. Preview uses a fixed sample,
   replaces current/queued speech, and does not create a new NPC entry.
-- **Save override** to persist the selected voice. The UI confirms after the
+- Adjust **NPC speed** (70–130%) and **Pitch** (-4 to +4 semitones), then
+  **Save override** to persist voice, speed, and pitch together. Preview includes
+  the unsaved NPC adjustments and the currently applied global settings.
+  The UI confirms after the
   companion commits it; failures/timeouts are shown. On timeout, Refresh to check
   whether an edit was saved before the acknowledgement was lost.
-- **Reset to automatic** to remove the manual override and restore the saved
-  automatic voice. It is not a reroll.
+- **Reset to automatic** restores saved automatic voice, speed, and pitch.
+  **Reset pitch/speed only** preserves the chosen voice. Neither is a reroll.
 - Choose **Unknown / mixed pool**, **Masculine**, or **Feminine** automatic voice
   preference. Changing preference recalculates the automatic voice using that
   pool, but keeps any manual override until Reset. No gender is inferred from names.
@@ -122,6 +125,34 @@ line finishes; `/xis stop` stops it immediately. The preview dropdown labels voi
 by US/UK accent and masculine/feminine category. First use can download voice assets.
 One failed voice playback is logged without disabling every subsequent NPC.
 
+### Global audio and automatic variation
+
+At the top of `/xis voices`, **Global speed** ranges from 50–200% and **Voice volume**
+from 0–300%. Click **Apply global audio** to save. These settings affect all speech,
+including narration, the test command, and previews. They apply on the next line,
+not midway through existing audio. Volume defaults to 100%; use a higher setting
+to boost quiet voices. Boosting uses a soft peak limiter to avoid PCM overflow and
+hard clipping. High gain compresses peaks rather than increasing them without limit.
+
+Effective speaking speed is `global speed × NPC speed`, clamped to 50–200%.
+For example, 120% global and 105% NPC gives 126%. Kokoro controls the rate during
+synthesis; pitch processing preserves duration. A pitch of zero bypasses pitch
+processing, and zero pitch plus 100% volume passes PCM through unchanged.
+
+A separate stable name hash assigns approximately 92% of NPCs neutral settings,
+3% pitch-only changes, 3% speed-only changes, and 2% both. Automatic pitch is
+±0.5 or ±1 semitone; automatic speed is ±3% or ±5%. These values are saved once,
+including for already-known NPCs during the upgrade. Existing voices, preferences,
+manual voice choices, and mute states are preserved. Set NPC speed to 100% and
+pitch to zero and Save override if you want a specific NPC neutral.
+
+Pitch is applied to each generated chunk before playback, using librosa. The
+companion warms the processor before reporting ready, avoiding a cold first-use
+delay during dialogue. On the development machine, a 2.71-second real speech sample
+took about 9–10 ms for warmed ±1-semitone pitch plus 200% volume; volume alone took
+about 0.08 ms. Warmup took about 2.2 seconds in that measurement. These are DSP
+measurements, not total synthesis/first-audio latency guarantees.
+
 The default pool contains the 28 English voices exposed by the pinned Kokoro engine.
 On first encounter, a SHA-256 hash of the normalized NPC name picks an automatic
 voice, and the result is saved. Pool changes do not reshuffle existing assignments.
@@ -130,7 +161,9 @@ identity; NPCs with the same name share an assignment across zones/characters.
 Unnamed narration uses `config.json`'s `voice` and does not enter the registry.
 
 Assignments, preferences, mute state and last-seen times live in **npcs.sqlite3**
-beside `config.json`. Back up that file with the companion stopped. SQLite commits
+beside `config.json`. Pitch, speed and global audio settings are stored there too.
+The first upgrade from v0.3 creates `npcs.sqlite3.v030.bak` using SQLite's backup
+API before adding tuning fields. Back up the database with the companion stopped. SQLite commits
 each edit/encounter atomically. Do not delete it unless you want to reset the registry.
 Use `--registry 'C:\path\to\npcs.sqlite3'` to keep separate profiles. Use a separate
 port per simultaneous companion, as before.
@@ -142,14 +175,16 @@ overwrite UI choices or undo resets. Legacy custom/blended voice values are
 preserved for playback, but the editor currently selects/previews English stock
 voices only. An unknown saved voice can be replaced using the dropdown.
 
-Setup copies `config.example.json` to `config.json` if missing. Engine settings still
-live there and require restarting the companion. An optional `voice_pool` list
+Setup copies `config.example.json` to `config.json` if missing. The `speed` and
+`volume` config values seed global settings only on first creation of the audio
+settings table; subsequent changes belong in the UI. Other engine settings still
+live in config and require restarting the companion. An optional `voice_pool` list
 restricts automatic assignments, for example `["af_heart", "am_michael", "bf_emma",
 "bm_george"]`. Include at least one voice of each category if using both preferences;
 an empty category produces an error instead of silently choosing the wrong pool.
 Manual assignments can use any of the 28 stock voices regardless of this pool.
 
-`speed` accepts 0.5–2.0. `output_device_index` is a PyAudio device index, or `null`
+The initial `speed` accepts 0.5–2.0 and `volume` 0–3. `output_device_index` is a PyAudio device index, or `null`
 for the default output. `duplicate_seconds` suppresses immediately repeated,
 identical speaker/text within the chosen interval; set it to 0 to disable this.
 Unknown config fields fail validation to catch typos.
@@ -242,14 +277,19 @@ Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue orde
 duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
 a controlled speech backend. They do not require Kokoro or launch the game.
 Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those tests are skipped. Version 0.3.0 passes 35 tests, including
+tests; otherwise those tests are skipped. Version 0.4.0 passes 45 tests, including
 the observed Halver/Faurie modes, exclusion of unnamed mode 142 notices and mode
 152 duplicates, raw capture, name filtering, timeout, buffer limits and write errors.
 Registry/editor tests additionally cover stable hashing across restarts/pool changes,
 one-time migration, preferences, overrides/reset/mute, literal search/pagination,
 live queued-line changes, UI acknowledgements and retry deduplication.
+Audio tests cover pitch frequency and duration, bypass, volume limiting, cancellation
+during processing, rare hash distribution, database migration and atomic validation.
+The audio tests require the project's installed NumPy/librosa dependencies.
 Run `python tests/smoke_kokoro.py --voices af_heart am_michael bf_emma`
 for real-model switching tests that write `smoke-<voice>.wav` without playing aloud.
+Add `--speed 1.2 --pitch -1 --volume 2` to exercise all effects together.
+`python tests/benchmark_effects.py` measures processing time using `smoke-af_heart.wav`.
 Lua UI tests use mocked ImGui calls; actual in-game layout and interaction require
 a smoke test after reload.
 
