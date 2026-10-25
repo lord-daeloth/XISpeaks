@@ -111,6 +111,17 @@ class VoiceUITests(unittest.TestCase):
         self.assertEqual(self.last_request()[1]['search'], 'Faurie')
         self.assertEqual(self.last_request()[1]['page'], 0)
 
+    def test_preset_toggle_and_preview_uses_base_tuning(self):
+        self.load_list()
+        self.lua.execute("ui.selected=ui.rows[1]; clicks['Goblin']=true; ui:draw()")
+        self.assertEqual(self.last_request()[1], dict(action='edit', key='halver', edit='preset', value=dict(name='goblin', enabled=True)))
+        self.respond(dict(npc=dict(self.npc, presets=dict(goblin=True), speed=1.15, pitch=3.5,
+                                  base_speed=1, base_pitch=0, preset_speed=1.15, preset_pitch=3.5)))
+        self.assertEqual(self.lua.globals().ui.draft_speed, 100)
+        self.assertEqual(self.lua.globals().ui.draft_pitch, 0)
+        self.lua.execute("clicks['Preview voice']=true; ui:draw()")
+        self.assertEqual(self.last_request()[1], dict(action='preview', voice='am_michael', speed=1, pitch=0, presets=dict(goblin=True)))
+
     def test_global_audio_and_tuned_preview(self):
         self.load_list()
         self.lua.execute("ui.global_speed=120; ui.global_volume=180; ui.global_dirty=true; clicks['Apply global audio']=true; ui:draw()")

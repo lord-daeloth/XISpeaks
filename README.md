@@ -1,8 +1,8 @@
 # XISpeaks
 
 An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
-Version 0.4.0 adds per-NPC pitch/speed, rare automatic variations, global speed,
-and voice volume boost to the persistent NPC voice editor. Restart the companion and `/addon reload XISpeaks`,
+Version 0.5.0 adds per-NPC Goblin, Child, Galka, Mithra, and Tarutaru presets
+to the persistent voice editor. Restart the companion and `/addon reload XISpeaks`,
 then use `/xis voices`. Dialogue capture still supports Halver's mode 142 and
 Faurie's mode 150; tracing remains available.
 
@@ -95,6 +95,37 @@ the final line can finish. Rapidly advancing dialogue queues it in order; at mos
 Stop is requested immediately, but Kokoro may take time to finish an active
 inference operation before cancellation returns. Model startup is not interruptible
 by the in-game stop command; queued lines are still discarded.
+
+## NPC presets
+
+Select an NPC in `/xis voices` and click a preset checkbox. These save immediately;
+NPC types are assigned by you, not inferred from names or game memory.
+
+| Toggle | Automatic voice choice | Speed multiplier | Pitch offset |
+| --- | --- | --- | --- |
+| Goblin | Existing voice | 115% | +3.5 semitones |
+| Child | Small youthful candidate pool | 103% | +0.2 semitones |
+| Galka | Existing voice | 100% | -1 semitone |
+| Mithra | Feminine pool | 100% | None |
+| Tarutaru | Same pool as Child | 103% | +0.2 semitones |
+
+Child/Tarutaru candidates are `af_sky`, `af_bella`, `bf_lily`, and `am_puck`,
+restricted to your configured pool and voice preference. These are starting points
+for auditioning, not dedicated child voice models. If no preferred candidate is
+enabled, selection falls back to the configured pool with the same preference.
+Mithra takes precedence over the automatic gender preference; a manual voice
+always wins. A preset requiring a missing gender pool reports an error.
+
+Toggles stack: Child + Tarutaru gives 106.09% speed and +0.4 semitones. Speed
+multipliers combine with NPC tuning and global speed; pitch offsets add to NPC
+tuning. Final speed is capped at 50–200% and pitch at -4 to +4 semitones. The
+sliders edit base NPC tuning; the effective readout and preview include presets.
+Reset buttons keep the checked presets. Uncheck them to restore the original
+assignment/tuning. NPCs with presets also appear under Manual overrides.
+
+Assignments and existing controls are preserved during migration; the companion
+backs up an older database to `npcs.sqlite3.v040.bak` before adding preset fields.
+Mithra repeated-r text normalization is deferred.
 
 ## Voices
 
@@ -277,7 +308,7 @@ Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue orde
 duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
 a controlled speech backend. They do not require Kokoro or launch the game.
 Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those tests are skipped. Version 0.4.0 passes 45 tests, including
+tests; otherwise those tests are skipped. Version 0.5.0 passes 50 tests, including
 the observed Halver/Faurie modes, exclusion of unnamed mode 142 notices and mode
 152 duplicates, raw capture, name filtering, timeout, buffer limits and write errors.
 Registry/editor tests additionally cover stable hashing across restarts/pool changes,

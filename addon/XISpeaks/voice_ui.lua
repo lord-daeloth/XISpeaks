@@ -64,8 +64,8 @@ function M.new(send, clock, session)
         elseif action == 'edit' and type(result.npc) == 'table' then
             self.selected = result.npc
             self.draft = result.npc.voice
-            self.draft_speed = math.floor((result.npc.speed or 1)*100+0.5)
-            self.draft_pitch = math.floor((result.npc.pitch or 0)*10+0.5)
+            self.draft_speed = math.floor((result.npc.base_speed or result.npc.speed or 1)*100+0.5)
+            self.draft_pitch = math.floor((result.npc.base_pitch or result.npc.pitch or 0)*10+0.5)
             self.message = 'Saved.'
             self.next_refresh = 0
         elseif action == 'preview' then
@@ -143,8 +143,8 @@ function M.new(send, clock, session)
                         .. (row.muted and '  [muted]' or '') .. '###npc-' .. row.key
                     if imgui.Selectable(label, self.selected and self.selected.key == row.key or false) and not self.pending then
                         self.selected=row; self.draft=row.voice
-                        self.draft_speed=math.floor((row.speed or 1)*100+0.5)
-                        self.draft_pitch=math.floor((row.pitch or 0)*10+0.5)
+                        self.draft_speed=math.floor((row.base_speed or row.speed or 1)*100+0.5)
+                        self.draft_pitch=math.floor((row.base_pitch or row.pitch or 0)*10+0.5)
                     end
                 end
                 if #self.rows == 0 then imgui.TextWrapped('No matching NPCs yet. Talk to an NPC with speech capture enabled.') end
@@ -159,6 +159,13 @@ function M.new(send, clock, session)
                 imgui.Text(npc.name .. ' | Assigned: ' .. npc.voice .. ' (' .. npc.source .. ')')
                 local seen = (npc.last_seen or 0) > 0 and os.date('%Y-%m-%d %H:%M', math.floor(npc.last_seen)) or 'Not encountered yet'
                 imgui.TextDisabled('Last heard: ' .. seen)
+                for i, preset in ipairs({'goblin','child','galka','mithra','tarutaru'}) do
+                    if i > 1 then imgui.SameLine() end
+                    local enabled = {npc.presets and npc.presets[preset] or false}
+                    local label = preset:sub(1,1):upper() .. preset:sub(2)
+                    if imgui.Checkbox(label, enabled) then self:edit('preset', {name=preset, enabled=enabled[1]}) end
+                end
+                imgui.TextDisabled('Presets save immediately and stack. Manual voices take priority. Reset keeps presets.')
                 imgui.SetNextItemWidth(230)
                 local labels = {unknown='Unknown / mixed pool', masculine='Masculine voices', feminine='Feminine voices'}
                 if imgui.BeginCombo('Automatic voice preference', labels[npc.preference] or 'Unknown') then
@@ -184,11 +191,11 @@ function M.new(send, clock, session)
                     self.draft_pitch=math.floor(pitch[1]*10+0.5)
                 end
                 imgui.Text(('Pitch: %+.1f semitones | Effective speed: %.0f%%'):format(
-                    self.draft_pitch/10, math.max(50,math.min(200,self.globals.speed*self.draft_speed))))
+                    math.max(-4,math.min(4,self.draft_pitch/10+(npc.preset_pitch or 0))), math.max(50,math.min(200,self.globals.speed*self.draft_speed*(npc.preset_speed or 1)))))
                 imgui.TextDisabled(('Automatic: %.0f%% speed, %+.1f semitones | Tuning: %s'):format(
                     (npc.auto_speed or 1)*100, npc.auto_pitch or 0, npc.tuning_source or 'automatic'))
                 if imgui.Button('Preview voice') and not self.pending then
-                    self:request({action='preview', voice=self.draft or npc.voice, speed=self.draft_speed/100, pitch=self.draft_pitch/10})
+                    self:request({action='preview', voice=self.draft or npc.voice, speed=self.draft_speed/100, pitch=self.draft_pitch/10, presets=npc.presets})
                 end
                 imgui.SameLine()
                 if imgui.Button('Save override') then

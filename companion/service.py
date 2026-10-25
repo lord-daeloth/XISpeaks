@@ -11,7 +11,7 @@ import threading
 import time
 
 from dialogue import MAX_DATAGRAM, Dialogue, clean_dialogue, parse_frame
-from registry import Registry, VOICES, number
+from registry import Registry, VOICES, number, apply_presets
 
 LOG = logging.getLogger('XISpeaks')
 
@@ -250,6 +250,7 @@ class Server:
                 profile = dict(voice=voice,
                                speed=number(request.get('speed', 1.0), 0.7, 1.3, 'NPC speed'),
                                pitch=number(request.get('pitch', 0.0), -4, 4, 'Pitch'))
+                profile = apply_presets(profile, request.get('presets', {}))
                 self.speech.stop()
                 if not self.speech.submit(Dialogue('', "Welcome to Vana'diel. May your travels be safe, my friend."), profile):
                     raise ValueError('Speech engine is unavailable; check the companion console')

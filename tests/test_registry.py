@@ -26,6 +26,52 @@ class RegistryFixture(unittest.TestCase):
 
 
 class RegistryTests(RegistryFixture):
+    def test_presets_stack_restore_and_persist(self):
+        self.registry.encounter('Halver')
+        original = self.registry.playback('Halver')
+        self.registry.edit('halver', 'preset', dict(name='child', enabled=True))
+        npc = self.registry.edit('halver', 'preset', dict(name='tarutaru', enabled=True))
+        self.assertIn(npc['voice'], ('af_sky', 'af_bella', 'bf_lily', 'am_puck'))
+        self.assertAlmostEqual(npc['speed'], npc['base_speed'] * 1.03**2)
+        self.assertAlmostEqual(npc['pitch'], npc['base_pitch'] + .4)
+        self.registry.close()
+        self.registry = Registry(self.path, self.config)
+        self.assertTrue(self.registry.page(search='halver')['rows'][0]['presets']['child'])
+        for name in ('child', 'tarutaru'):
+            self.registry.edit('halver', 'preset', dict(name=name, enabled=False))
+        self.assertEqual(self.registry.playback('Halver'), original)
+
+    def test_presets_manual_precedence_and_limits(self):
+        self.registry.edit('maat', 'preset', dict(name='mithra', enabled=True))
+        self.assertEqual(self.registry.voice_for('Maat'), 'am_michael')
+        npc = self.registry.edit('maat', 'reset')
+        self.assertEqual(npc['voice'][1], 'f')
+        self.registry.edit('maat', 'profile', dict(voice='am_puck', speed=1.2, pitch=1))
+        npc = self.registry.edit('maat', 'preset', dict(name='goblin', enabled=True))
+        self.assertEqual(npc['voice'], 'am_puck')
+        self.assertEqual(npc['pitch'], 4)
+        self.assertAlmostEqual(npc['speed'], 1.38)
+        npc = self.registry.edit('maat', 'preset', dict(name='galka', enabled=True))
+        self.assertEqual(npc['pitch'], 3.5)
+        self.registry.set_globals(2, 2)
+        self.assertEqual(self.registry.playback('Maat')['speed'], 2)
+        for value in (dict(name='bad', enabled=True), dict(name='child', enabled=1)):
+            with self.assertRaises(ValueError):
+                self.registry.edit('maat', 'preset', value)
+        self.assertFalse(self.registry.page(search='maat')['rows'][0]['presets']['child'])
+
+    def test_v040_migration_preserves_assignments(self):
+        self.registry.close()
+        import sqlite3
+        with sqlite3.connect(self.path) as db:
+            for key in ('goblin', 'child', 'galka', 'mithra', 'tarutaru'):
+                db.execute('ALTER TABLE npcs DROP COLUMN preset_' + key)
+        db.close()
+        self.registry = Registry(self.path, self.config)
+        self.assertTrue(Path(str(self.path) + '.v040.bak').exists())
+        self.assertEqual(self.registry.voice_for('Maat'), 'am_michael')
+        self.assertFalse(any(self.registry.page()['rows'][0]['presets'].values()))
+
     def test_rare_hash_variations_and_determinism(self):
         values = [choose_tuning(f'npc-{i}') for i in range(10000)]
         changed = sum(v != (1,0) for v in values)
@@ -209,6 +255,21 @@ class EditorIntegrationTests(RegistryFixture):
                         {'action':'edit', 'key':[]}, {'action':'preview', 'voice':'nope'}]:
             self.assertFalse(self.request(request)['ok'])
         self.assertTrue(self.request({'action':'list'})['ok'])
+
+    def test_preset_preview_matches_playback(self):
+        parameters = []
+        self.backend.configure = lambda **kwargs: parameters.append(kwargs)
+        self.registry.edit('maat', 'profile', dict(voice='am_puck', speed=1.1, pitch=.5))
+        self.registry.edit('maat', 'preset', dict(name='goblin', enabled=True))
+        self.registry.set_globals(1.2, 1.8)
+        result = self.request(dict(action='preview', voice='am_puck', speed=1.1, pitch=.5,
+                                   presets=dict(goblin=True)))
+        self.assertTrue(result['ok'])
+        eventually(lambda: bool(self.backend.started))
+        expected = self.registry.playback('Maat')
+        expected.pop('voice')
+        self.assertEqual(parameters[0], expected)
+        self.assertFalse(self.request(dict(action='preview', voice='am_puck', presets=dict(child=1)))['ok'])
 
     def test_preview_uses_global_speed_volume_and_requested_tuning(self):
         parameters = []
