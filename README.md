@@ -1,16 +1,14 @@
 # XISpeaks
 
 An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
-Version 0.2.1 supports named dialogue on mode 142, identified in Halver's in-game
-trace, as well as mode 150 used by Faurie. Opt-in dialogue tracing remains available.
-Restart the companion and reload the addon when upgrading from 0.2.0: both sides
-must accept mode 142. The fix is covered by regression tests; a fresh Halver
-conversation is still needed to verify playback in game.
+Version 0.3.0 adds a persistent NPC registry, stable automatic voice assignments,
+and an in-game voice editor. Restart the companion and `/addon reload XISpeaks`,
+then use `/xis voices`. Dialogue capture still supports Halver's mode 142 and
+Faurie's mode 150; tracing remains available.
 
 Initial validation: 13 Python/LuaJIT tests passed, and Kokoro generated a 2.71-second
 non-silent WAV through RealtimeTTS. The project `.venv` is installed in this checkout;
-you can go straight to `install-addon.ps1` and `run.cmd`. The tracing revision has
-also been copied into the Vanacore addon folder; reload XISpeaks in game to use it.
+you can go straight to `install-addon.ps1` and `run.cmd`.
 `setup.ps1` remains available for fresh installs.
 
 ## Design
@@ -80,6 +78,8 @@ python .\companion\service.py --dry-run
 
 | Command | Effect |
 | --- | --- |
+| `voices` / `ui` / no arguments | Toggle the NPC voice editor |
+| `help` | Print the command list |
 | `on` / `off` | Enable or disable capture; off also stops current/queued speech |
 | `stop` | Stop current speech and clear the queue; capture stays enabled |
 | `status` | Display capture settings and request companion health |
@@ -98,10 +98,56 @@ by the in-game stop command; queued lines are still discarded.
 
 ## Voices
 
-Setup copies `config.example.json` to `config.json` if it does not exist. Edit
-`config.json`, then restart the companion. NPC names are exact, case-sensitive
-matches. Unassigned or unnamed dialogue uses `voice`. The Shantotto and Maat entries
-are examples, not inferred character identities. No gender/race guessing is used.
+Open `/xis voices`. Talk to NPCs while capture is enabled and the companion is
+running; they appear with their latest encounter first. All NPCs, Recent (last
+24 hours), Manual overrides, search, and pagination keep the list manageable.
+Old conversations are not imported from chat logs; entries accumulate from now on.
+
+Select an NPC to:
+
+- Choose a voice and **Preview voice** without saving. Preview uses a fixed sample,
+  replaces current/queued speech, and does not create a new NPC entry.
+- **Save override** to persist the selected voice. The UI confirms after the
+  companion commits it; failures/timeouts are shown. On timeout, Refresh to check
+  whether an edit was saved before the acknowledgement was lost.
+- **Reset to automatic** to remove the manual override and restore the saved
+  automatic voice. It is not a reroll.
+- Choose **Unknown / mixed pool**, **Masculine**, or **Feminine** automatic voice
+  preference. Changing preference recalculates the automatic voice using that
+  pool, but keeps any manual override until Reset. No gender is inferred from names.
+- **Mute this NPC** without losing the chosen voice.
+
+Edits apply to subsequent playback, including waiting lines. An already playing
+line finishes; `/xis stop` stops it immediately. The preview dropdown labels voices
+by US/UK accent and masculine/feminine category. First use can download voice assets.
+One failed voice playback is logged without disabling every subsequent NPC.
+
+The default pool contains the 28 English voices exposed by the pinned Kokoro engine.
+On first encounter, a SHA-256 hash of the normalized NPC name picks an automatic
+voice, and the result is saved. Pool changes do not reshuffle existing assignments.
+Names are Unicode-normalized, whitespace-normalized, and case-insensitive for
+identity; NPCs with the same name share an assignment across zones/characters.
+Unnamed narration uses `config.json`'s `voice` and does not enter the registry.
+
+Assignments, preferences, mute state and last-seen times live in **npcs.sqlite3**
+beside `config.json`. Back up that file with the companion stopped. SQLite commits
+each edit/encounter atomically. Do not delete it unless you want to reset the registry.
+Use `--registry 'C:\path\to\npcs.sqlite3'` to keep separate profiles. Use a separate
+port per simultaneous companion, as before.
+
+Existing `config.json` `voices` entries are imported **once**, on registry creation,
+as manual overrides (including the Maat/Shantotto examples, if still configured).
+After that the editor/database is authoritative; editing that old mapping does not
+overwrite UI choices or undo resets. Legacy custom/blended voice values are
+preserved for playback, but the editor currently selects/previews English stock
+voices only. An unknown saved voice can be replaced using the dropdown.
+
+Setup copies `config.example.json` to `config.json` if missing. Engine settings still
+live there and require restarting the companion. An optional `voice_pool` list
+restricts automatic assignments, for example `["af_heart", "am_michael", "bf_emma",
+"bm_george"]`. Include at least one voice of each category if using both preferences;
+an empty category produces an error instead of silently choosing the wrong pool.
+Manual assignments can use any of the 28 stock voices regardless of this pool.
 
 `speed` accepts 0.5–2.0. `output_device_index` is a PyAudio device index, or `null`
 for the default output. `duplicate_seconds` suppresses immediately repeated,
@@ -181,7 +227,7 @@ lose the final buffer. Tracing makes no changes to speech-channel acceptance.
 - One game client per companion/port is supported. Multiple clients sharing a
   port would share the queue and stop controls. Use separate ports for multiboxing.
 - The listener binds only to `127.0.0.1`. Other local programs can send speech or
-  stop commands; it is not an authenticated local service.
+  stop commands and edit voice assignments; it is not an authenticated local service.
 - RealtimeTTS may log internal synthesis/audio errors without raising exceptions.
   A `ready` status confirms engine initialization, not audible output. Check the
   console and `/xispeaks test` for audio device/model issues.
@@ -196,11 +242,16 @@ Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue orde
 duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
 a controlled speech backend. They do not require Kokoro or launch the game.
 Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those tests are skipped. Version 0.2.1 passes 19 tests, including
+tests; otherwise those tests are skipped. Version 0.3.0 passes 35 tests, including
 the observed Halver/Faurie modes, exclusion of unnamed mode 142 notices and mode
 152 duplicates, raw capture, name filtering, timeout, buffer limits and write errors.
-Run `python tests/smoke_kokoro.py`
-for a real-model test that writes `smoke-test.wav` without playing it aloud.
+Registry/editor tests additionally cover stable hashing across restarts/pool changes,
+one-time migration, preferences, overrides/reset/mute, literal search/pagination,
+live queued-line changes, UI acknowledgements and retry deduplication.
+Run `python tests/smoke_kokoro.py --voices af_heart am_michael bf_emma`
+for real-model switching tests that write `smoke-<voice>.wav` without playing aloud.
+Lua UI tests use mocked ImGui calls; actual in-game layout and interaction require
+a smoke test after reload.
 
 In-game checklist: run dry mode; speak to an NPC; verify speaker and text; send
 player chat and verify silence; test with Balloon loaded; change zones while speech

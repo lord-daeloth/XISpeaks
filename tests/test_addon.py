@@ -14,7 +14,7 @@ class AddonTests(unittest.TestCase):
         self.lua = LuaRuntime(unpack_returned_tuples=True)
         self.lua.execute('''
             addon = {path='C:/test/'}; handlers = {}; sent = {}; printed = {}; saved = 0; now = 1
-            captured = ''; file_closed = false
+            captured = ''; file_closed = false; incoming = {}
             io.open = function(path, mode) return {
                 write = function(self, text) captured = captured .. text; return self end,
                 flush = function() return true end,
@@ -39,7 +39,7 @@ class AddonTests(unittest.TestCase):
                     close = function() end, settimeout = function() end,
                     setpeername = function() return true end,
                     send = function(self, text) table.insert(sent, text); return #text end,
-                    receive = function() return nil end
+                    receive = function() return table.remove(incoming,1) end
                 } end
             } end
         ''')
@@ -148,6 +148,21 @@ class AddonTests(unittest.TestCase):
             now=2; handlers.d3d_present()
             assert(file_closed)
             assert(printed[#printed]:find('write error', 1, true))
+        ''')
+
+    def test_editor_receives_replies_without_status_ping(self):
+        self.lua.execute('''
+            ui_opened=false; ui_received=false
+            package.preload.voice_ui=function() return {new=function(send,clock,session) return {
+                open=function() ui_opened=true; send('XISUI' .. string.char(9) .. 'test' .. string.char(10) .. '{}') end,
+                tick=function() end, draw=function() end,
+                receive=function(self,wire) ui_received=true end
+            } end} end
+            handlers.command({command='/xis voices'})
+            assert(ui_opened and #sent==1)
+            incoming[1]='XISUI' .. string.char(9) .. 'test' .. string.char(10) .. '{}'
+            handlers.d3d_present()
+            assert(ui_received)
         ''')
 
 

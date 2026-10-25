@@ -4,4 +4,5 @@ if (-not (Test-Path -LiteralPath $AddonRoot -PathType Container)) { throw "Addon
 $destination = Join-Path $AddonRoot 'XISpeaks'
 New-Item -ItemType Directory -Path $destination -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'addon\XISpeaks\XISpeaks.lua') -Destination $destination
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'addon\XISpeaks\voice_ui.lua') -Destination $destination
 Write-Host "Installed to $destination. Load with /addon load XISpeaks"

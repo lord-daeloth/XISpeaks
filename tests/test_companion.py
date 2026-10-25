@@ -110,8 +110,8 @@ class QueueTests(unittest.TestCase):
         eventually(lambda: bool(self.backend.started))
         self.queue.submit(Dialogue('', 'stale'))
         with self.queue.condition:
-            generation, _, dialogue = self.queue.pending[0]
-            self.queue.pending[0] = (generation, time.monotonic() - 60, dialogue)
+            generation, _, dialogue, voice = self.queue.pending[0]
+            self.queue.pending[0] = (generation, time.monotonic() - 60, dialogue, voice)
         self.backend.release.set()
         eventually(lambda: not self.queue.pending and self.queue.state == 'ready')
         self.assertEqual(len(self.backend.started), 1)
@@ -154,6 +154,25 @@ class QueueTests(unittest.TestCase):
 
 
 class StartupTests(unittest.TestCase):
+    def test_failed_voice_does_not_disable_next_line(self):
+        class Backend(ControlledBackend):
+            def speak(self, dialogue, voice, cancelled):
+                if dialogue.text == 'bad':
+                    raise RuntimeError('Voice asset unavailable')
+                self.started.append((dialogue.text, voice))
+        backend = Backend({})
+        queue = SpeechQueue(dict(DEFAULTS), lambda _: backend)
+        try:
+            with self.assertLogs('XISpeaks', level='ERROR'):
+                queue.submit(Dialogue('', 'bad'))
+                eventually(lambda: bool(queue.last_error))
+            queue.submit(Dialogue('', 'good'))
+            eventually(lambda: len(backend.started) == 1)
+            self.assertEqual(queue.state, 'ready')
+            self.assertEqual(queue.last_error, '')
+        finally:
+            queue.close()
+
     def test_stop_during_model_load_does_not_replay_old_lines(self):
         loaded = threading.Event()
         backend = ControlledBackend({})

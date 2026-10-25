@@ -1,6 +1,6 @@
 addon.name = 'XISpeaks'
 addon.author = 'Daeloth'
-addon.version = '0.2.1'
+addon.version = '0.3.0'
 addon.desc = 'NPC dialogue speech through a local Kokoro companion.'
 
 require('common')
@@ -11,6 +11,16 @@ local udp, pending_ping, sequence = nil, nil, 0
 local session = tostring(os.time()) .. '-' .. tostring(math.random(100000, 999999))
 local busy = false
 local trace, trace_sequence = nil, 0
+local voice_ui
+
+local function editor()
+    if not voice_ui then
+        voice_ui = require('voice_ui').new(function(wire)
+            if udp then return udp:send(wire) end
+        end, socket.gettime, session)
+    end
+    return voice_ui
+end
 
 local function report(text)
     print('[XISpeaks] ' .. text)
@@ -160,12 +170,15 @@ ashita.events.register('d3d_present', 'xispeaks_poll', function()
             stop_trace('stopped after write error')
         end
     end
-    if not udp or not pending_ping then return end
+    if voice_ui then voice_ui:tick(); voice_ui:draw() end
+    if not udp then return end
     -- Bounded work; never wait for the companion on the game thread.
     for _ = 1, 4 do
         local response = udp:receive()
         if not response then break end
-        if response:sub(1, 7) == 'XIS1\tOK' then
+        if voice_ui and response:sub(1,6) == 'XISUI\t' then
+            voice_ui:receive(response)
+        elseif pending_ping and response:sub(1, 7) == 'XIS1\tOK' then
             report(response:sub(9):gsub('[%c]', ' '))
             pending_ping = nil
             break
@@ -181,8 +194,10 @@ ashita.events.register('command', 'xispeaks_command', function(e)
     local args = e.command:args()
     if #args == 0 or (args[1]:lower() ~= '/xispeaks' and args[1]:lower() ~= '/xis') then return end
     e.blocked = true
-    local command = (args[2] or 'help'):lower()
-    if command == 'trace' then
+    local command = (args[2] or 'voices'):lower()
+    if command == 'voices' or command == 'ui' then
+        editor():open()
+    elseif command == 'trace' then
         local option = (args[3] or ''):lower()
         if option == 'off' then stop_trace('saved')
         elseif option == 'on' then start_trace()
@@ -206,13 +221,13 @@ ashita.events.register('command', 'xispeaks_command', function(e)
         report(('Addon %s; system %s; port %d.'):format(
             config.enabled and 'on' or 'off', config.system and 'on' or 'off', config.port))
     elseif command == 'test' then
-        send('speak', 150, 'XISpeaks : Welcome to Vana\'diel. Your voice companion is ready.')
+        send('speak', 150, 'Welcome to Vana\'diel. Your voice companion is ready.')
     elseif command == 'port' and tonumber(args[3]) and tonumber(args[3]) % 1 == 0
             and tonumber(args[3]) >= 1024 and tonumber(args[3]) <= 65535 then
         send('stop')
         config.port = tonumber(args[3]); settings.save(); connect()
         report('Port set to ' .. config.port .. '. Match the companion --port option.')
     else
-        report('/xispeaks on | off | stop | status | test | system on/off | port <1024-65535> | trace on/off/<NPC>')
+        report('/xispeaks voices | on | off | stop | status | test | system on/off | port <1024-65535> | trace on/off/<NPC>')
     end
 end)
