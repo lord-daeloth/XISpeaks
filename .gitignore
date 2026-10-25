@@ -1,0 +1,6 @@
+.reference/
+.venv/
+__pycache__/
+*.pyc
+config.json
+*.wav

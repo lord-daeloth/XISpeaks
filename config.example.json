@@ -1,0 +1,12 @@
+{
+  "voice": "af_heart",
+  "speed": 1.0,
+  "voices": {
+    "Shantotto": "bf_emma",
+    "Maat": "am_michael"
+  },
+  "queue_limit": 12,
+  "max_age_seconds": 30,
+  "duplicate_seconds": 1,
+  "output_device_index": null
+}
