@@ -106,7 +106,10 @@ class Registry:
                 if 'preset_' + preset not in columns:
                     self.db.execute(f'ALTER TABLE npcs ADD COLUMN preset_{preset} INTEGER NOT NULL DEFAULT 0')
             self.db.execute('CREATE TABLE IF NOT EXISTS audio_settings (id INTEGER PRIMARY KEY CHECK(id=1), speed REAL, volume REAL)')
-            self.db.execute('INSERT OR IGNORE INTO audio_settings VALUES (1,?,?)', (config['speed'], config.get('volume', 1.0)))
+            self.db.execute('INSERT OR IGNORE INTO audio_settings (id,speed,volume) VALUES (1,?,?)', (config['speed'], config.get('volume', 1.0)))
+            audio_columns = {row[1] for row in self.db.execute('PRAGMA table_info(audio_settings)')}
+            if 'pitch_engine' not in audio_columns:
+                self.db.execute("ALTER TABLE audio_settings ADD COLUMN pitch_engine TEXT NOT NULL DEFAULT 'rubberband'")
             if not self.db.execute("SELECT 1 FROM metadata WHERE key='legacy_imported'").fetchone():
                 for name, voice in config['voices'].items():
                     # Preserve legacy choices, including user-supplied blended voices.
@@ -129,13 +132,17 @@ class Registry:
 
     def globals(self):
         with self.lock:
-            row = self.db.execute('SELECT speed,volume FROM audio_settings WHERE id=1').fetchone()
+            row = self.db.execute('SELECT speed,volume,pitch_engine FROM audio_settings WHERE id=1').fetchone()
             return dict(row)
 
-    def set_globals(self, speed, volume):
+    def set_globals(self, speed, volume, pitch_engine=None):
         speed = number(speed, 0.5, 2, 'Global speed')
         volume = number(volume, 0, 3, 'Volume')
+        if pitch_engine is not None and pitch_engine not in ('librosa', 'rubberband'):
+            raise ValueError('Unknown pitch engine')
         with self.lock, self.db:
+            if pitch_engine is not None:
+                self.db.execute('UPDATE audio_settings SET pitch_engine=? WHERE id=1', (pitch_engine,))
             self.db.execute('UPDATE audio_settings SET speed=?,volume=? WHERE id=1', (speed, volume))
             return self.globals()
 
@@ -156,7 +163,7 @@ class Registry:
                     if npc['muted']:
                         voice = None
             return dict(voice=voice, speed=max(0.5, min(2.0, settings['speed'] * speed)),
-                        pitch=pitch, volume=settings['volume'])
+                        pitch=pitch, volume=settings['volume'], pitch_engine=settings['pitch_engine'])
 
     def voice_for(self, name):
         if not name:

@@ -26,6 +26,27 @@ class RegistryFixture(unittest.TestCase):
 
 
 class RegistryTests(RegistryFixture):
+    def test_pitch_engine_migration_preserves_global_settings(self):
+        self.registry.set_globals(1.2, 1.8)
+        self.registry.db.execute('ALTER TABLE audio_settings DROP COLUMN pitch_engine')
+        self.registry.db.commit()
+        self.registry.close()
+        self.registry = Registry(self.path, self.config)
+        self.assertEqual(self.registry.globals(), dict(speed=1.2, volume=1.8, pitch_engine='rubberband'))
+        self.assertEqual(self.registry.voice_for('Maat'), 'am_michael')
+
+    def test_pitch_engine_persistence_and_validation(self):
+        self.assertEqual(self.registry.globals()['pitch_engine'], 'rubberband')
+        self.registry.set_globals(1.2, 1.8, 'librosa')
+        self.registry.close()
+        self.registry = Registry(self.path, self.config)
+        self.assertEqual(self.registry.playback('Maat')['pitch_engine'], 'librosa')
+        self.registry.set_globals(1, 1)
+        self.assertEqual(self.registry.globals()['pitch_engine'], 'librosa')
+        with self.assertRaises(ValueError):
+            self.registry.set_globals(1.5, 2, 'invalid')
+        self.assertEqual(self.registry.globals(), dict(speed=1, volume=1, pitch_engine='librosa'))
+
     def test_presets_stack_restore_and_persist(self):
         self.registry.encounter('Halver')
         original = self.registry.playback('Halver')
@@ -275,7 +296,7 @@ class EditorIntegrationTests(RegistryFixture):
         parameters = []
         self.backend.configure = lambda **kwargs: parameters.append(kwargs)
         result = self.request(dict(action='globals',speed=1.2,volume=1.8))
-        self.assertEqual(result['globals'],dict(speed=1.2,volume=1.8))
+        self.assertEqual(result['globals'],dict(speed=1.2,volume=1.8,pitch_engine='rubberband'))
         self.request(dict(action='preview',voice='af_heart',speed=1.05,pitch=-.5))
         eventually(lambda: bool(self.backend.started))
         self.assertAlmostEqual(parameters[0]['speed'],1.26)

@@ -1,8 +1,8 @@
 # XISpeaks
 
 An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
-Version 0.5.0 adds per-NPC Goblin, Child, Galka, Mithra, and Tarutaru presets
-to the persistent voice editor. Restart the companion and `/addon reload XISpeaks`,
+Version 0.6.0 adds a global pitch-engine selector: Rubber Band R3 (higher quality,
+default) or Librosa (faster). Restart the companion and `/addon reload XISpeaks`,
 then use `/xis voices`. Dialogue capture still supports Halver's mode 142 and
 Faurie's mode 150; tracing remains available.
 
@@ -177,12 +177,27 @@ including for already-known NPCs during the upgrade. Existing voices, preference
 manual voice choices, and mute states are preserved. Set NPC speed to 100% and
 pitch to zero and Save override if you want a specific NPC neutral.
 
-Pitch is applied to each generated chunk before playback, using librosa. The
-companion warms the processor before reporting ready, avoiding a cold first-use
-delay during dialogue. On the development machine, a 2.71-second real speech sample
-took about 9–10 ms for warmed ±1-semitone pitch plus 200% volume; volume alone took
-about 0.08 ms. Warmup took about 2.2 seconds in that measurement. These are DSP
-measurements, not total synthesis/first-audio latency guarantees.
+Choose **Pitch engine** at the top of `/xis voices`, then **Apply global audio**.
+**Rubber Band R3 - Higher quality** is the default, with formant preservation off.
+**Librosa - Faster** retains the previous algorithm. The choice persists across
+restarts and applies to the next line, including previews; the current line finishes.
+All NPC assignments, presets, pitch/speed settings, and volume remain intact.
+
+Pitch is applied to each complete generated chunk before playback. Rubber Band
+uses the same official 4.0 R3 utility auditioned in the experiment, with a hidden
+process and temporary WAV files that are cleaned up after each chunk. No process
+is launched for zero pitch. Librosa is warmed at startup so switching to it does
+not incur its initial import/compilation delay during dialogue.
+
+The standalone comparison measured roughly 44-75 ms for R3 (including process
+startup and WAV I/O) versus 10-14 ms for warm in-memory Librosa, on 2.7-2.9-second
+speech recordings. These are processing measurements, not live latency guarantees.
+
+`setup.ps1` installs the official utility and verifies the downloaded archive's
+SHA-256. Existing installations can run `./setup-rubberband.ps1` separately.
+The executable, DLL, and supplied GPL license stay together under `tools/` and
+are not committed to this repository. If unavailable, pitched R3 speech reports
+an error; select Librosa or install the utility. There is no silent engine fallback.
 
 The default pool contains the 28 English voices exposed by the pinned Kokoro engine.
 On first encounter, a SHA-256 hash of the normalized NPC name picks an automatic
@@ -308,7 +323,7 @@ Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue orde
 duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
 a controlled speech backend. They do not require Kokoro or launch the game.
 Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those tests are skipped. Version 0.5.0 passes 50 tests, including
+tests; otherwise those tests are skipped. Version 0.6.0 passes 54 tests, including
 the observed Halver/Faurie modes, exclusion of unnamed mode 142 notices and mode
 152 duplicates, raw capture, name filtering, timeout, buffer limits and write errors.
 Registry/editor tests additionally cover stable hashing across restarts/pool changes,

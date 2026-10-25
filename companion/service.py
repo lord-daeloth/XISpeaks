@@ -28,9 +28,10 @@ class KokoroBackend:
         self.engine.queue = self.effects
         self.stream = TextToAudioStream(self.engine, output_device_index=config.get('output_device_index'))
 
-    def configure(self, speed, pitch, volume):
+    def configure(self, speed, pitch, volume, pitch_engine='rubberband'):
         self.engine.set_speed(speed)
         self.effects.pitch, self.effects.volume = pitch, volume
+        self.effects.pitch_engine = pitch_engine
         self.effects.error = None
 
     def speak(self, dialogue, voice, cancelled):
@@ -58,8 +59,8 @@ class DryBackend:
     def __init__(self, config):
         self.parameters = {}
 
-    def configure(self, speed, pitch, volume):
-        self.parameters = dict(speed=speed, pitch=pitch, volume=volume)
+    def configure(self, speed, pitch, volume, pitch_engine='rubberband'):
+        self.parameters = dict(speed=speed, pitch=pitch, volume=volume, pitch_engine=pitch_engine)
 
     def speak(self, dialogue, voice, cancelled):
         if not cancelled():
@@ -242,7 +243,7 @@ class Server:
             elif action == 'edit':
                 result = {'npc': self.registry.edit(request.get('key'), request.get('edit'), request.get('value'))}
             elif action == 'globals':
-                result = {'globals': self.registry.set_globals(request.get('speed'), request.get('volume'))}
+                result = {'globals': self.registry.set_globals(request.get('speed'), request.get('volume'), request.get('pitch_engine'))}
             elif action == 'preview':
                 voice = request.get('voice')
                 if voice not in VOICES:

@@ -6,7 +6,7 @@ function M.new(send, clock, session)
     local ui = {visible=false, rows={}, voices={}, total=0, page=0, search='', filter='all',
         selected=nil, draft=nil, pending=nil, next_refresh=0, serial=0,
         draft_speed=100, draft_pitch=0, global_speed=100, global_volume=100, global_dirty=false,
-        globals={speed=1,volume=1},
+        globals={speed=1,volume=1}, pitch_engine='rubberband',
         message='Start the companion, then Refresh.', status='Not connected'}
 
     function ui:request(payload)
@@ -50,6 +50,7 @@ function M.new(send, clock, session)
             if not self.global_dirty or action == 'globals' then
                 self.global_speed = math.floor(result.globals.speed*100+0.5)
                 self.global_volume = math.floor(result.globals.volume*100+0.5)
+                self.pitch_engine = result.globals.pitch_engine or 'rubberband'
                 self.global_dirty = false
             end
         end
@@ -106,6 +107,16 @@ function M.new(send, clock, session)
         if imgui.Begin('XISpeaks - NPC voices', open) then
             imgui.Text('Companion: ' .. self.status)
             if self.pending then imgui.SameLine(); imgui.TextDisabled('Updating...') end
+            local engines = {rubberband='Rubber Band R3 - Higher quality', librosa='Librosa - Faster'}
+            imgui.SetNextItemWidth(300)
+            if imgui.BeginCombo('Pitch engine', engines[self.pitch_engine]) then
+                for _, engine in ipairs({'rubberband','librosa'}) do
+                    if imgui.Selectable(engines[engine], engine == self.pitch_engine) then
+                        self.pitch_engine=engine; self.global_dirty=true
+                    end
+                end
+                imgui.EndCombo()
+            end
             local base, volume = {self.global_speed}, {self.global_volume}
             imgui.SetNextItemWidth(220)
             if imgui.SliderInt('Global speed (%)', base, 50, 200) then self.global_speed=base[1]; self.global_dirty=true end
@@ -113,7 +124,7 @@ function M.new(send, clock, session)
             if imgui.SliderInt('Voice volume (%)', volume, 0, 300) then self.global_volume=volume[1]; self.global_dirty=true end
             imgui.SameLine()
             if imgui.Button('Apply global audio') and not self.pending then
-                self:request({action='globals', speed=self.global_speed/100, volume=self.global_volume/100})
+                self:request({action='globals', speed=self.global_speed/100, volume=self.global_volume/100, pitch_engine=self.pitch_engine})
             end
             imgui.TextDisabled('100% = normal. Boosted peaks are limited. Apply before previewing global changes.')
             imgui.Separator()

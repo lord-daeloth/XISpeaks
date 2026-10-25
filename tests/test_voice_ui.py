@@ -122,10 +122,18 @@ class VoiceUITests(unittest.TestCase):
         self.lua.execute("clicks['Preview voice']=true; ui:draw()")
         self.assertEqual(self.last_request()[1], dict(action='preview', voice='am_michael', speed=1, pitch=0, presets=dict(goblin=True)))
 
+    def test_pitch_engine_selection_saves_with_globals(self):
+        self.load_list()
+        self.lua.execute("clicks['Librosa - Faster']=true; ui:draw(); clicks['Apply global audio']=true; ui:draw()")
+        self.assertEqual(self.last_request()[1]['pitch_engine'], 'librosa')
+        self.respond({'globals':dict(speed=1,volume=1,pitch_engine='librosa')})
+        self.assertEqual(self.lua.globals().ui.pitch_engine, 'librosa')
+        self.assertFalse(self.lua.globals().ui.global_dirty)
+
     def test_global_audio_and_tuned_preview(self):
         self.load_list()
         self.lua.execute("ui.global_speed=120; ui.global_volume=180; ui.global_dirty=true; clicks['Apply global audio']=true; ui:draw()")
-        self.assertEqual(self.last_request()[1],dict(action='globals',speed=1.2,volume=1.8))
+        self.assertEqual(self.last_request()[1],dict(action='globals',speed=1.2,volume=1.8,pitch_engine='rubberband'))
         self.respond({'globals':dict(speed=1.2,volume=1.8)})
         self.assertFalse(self.lua.globals().ui.global_dirty)
         self.lua.execute("ui.selected=ui.rows[1]; ui.draft_speed=105; next_pitch=-.5; clicks['Preview voice']=true; ui:draw()")

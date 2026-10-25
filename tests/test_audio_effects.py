@@ -34,11 +34,21 @@ class AudioEffectsTests(unittest.TestCase):
         peak = np.fft.rfftfreq(len(samples),1/24000)[spectrum.argmax()]
         self.assertAlmostEqual(peak,220*2**(1/12),delta=2)
 
+    def test_rubberband_dispatch_and_neutral_bypass(self):
+        raw = np.array([100, -100], dtype='<i2').tobytes()
+        with patch('audio_effects.rubberband_pitch', return_value=np.array([.1, -.1], dtype=np.float32)) as shift:
+            self.assertIs(process_pcm(raw, pitch_engine='rubberband'), raw)
+            shift.assert_not_called()
+            process_pcm(raw, pitch=1, pitch_engine='rubberband')
+            shift.assert_called_once_with(raw, 1)
+        with self.assertRaises(ValueError):
+            process_pcm(raw, pitch_engine='invalid')
+
     def test_stop_during_processing_discards_output(self):
         queue = EffectsQueue()
         state = [False]
         queue.cancelled = lambda: state[0]
-        def process(data,pitch,volume):
+        def process(data,pitch,volume,pitch_engine):
             state[0]=True
             return data
         with patch('audio_effects.process_pcm',side_effect=process):

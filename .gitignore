@@ -6,3 +6,4 @@ config.json
 *.wav
 trace-*.tsv
 npcs.sqlite3*
+tools/
