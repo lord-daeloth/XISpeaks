@@ -5,13 +5,28 @@ import unittest
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 sys.path.insert(0,str(ROOT/'companion'))
-from build_npc_catalog import classify, decode_hex, resolve
+from build_npc_catalog import classify, decode_hex, resolve, apply_reviewed_overrides
 from import_npc_catalog import import_catalog
 from registry import Registry
 from service import DEFAULTS
 
 
 class CatalogTests(unittest.TestCase):
+    def test_reviewed_overrides_are_exact_names_and_keep_model_evidence(self):
+        import json
+        reviewed=json.loads((ROOT/'data/goblin_npc_overrides.json').read_text(encoding='utf-8'))
+        self.assertEqual(len(reviewed['associations']),79)
+        self.assertNotIn('trust: fablinix',reviewed['associations'])
+        self.assertIn('goblin grenadier',reviewed['associations'])
+        document=dict(statistics={},associations={
+            'mystrix':dict(name='Mystrix',status='unknown',profile=None,entities=[dict(id=1)]),
+            'other':dict(name='Other',status='unknown',profile=None,entities=[])})
+        apply_reviewed_overrides(document,reviewed)
+        self.assertEqual(document['associations']['mystrix']['profile']['presets'],['goblin'])
+        self.assertEqual(document['associations']['mystrix']['model_classification']['status'],'unknown')
+        self.assertEqual(document['associations']['mystrix']['entities'],[dict(id=1)])
+        self.assertEqual(document['associations']['other']['status'],'unknown')
+
     def test_race_bytes_and_unknown_models(self):
         look=decode_hex('0x0100060600101320133013401350006000700000')
         self.assertEqual(classify(look,set())['preference'],'feminine')

@@ -70,6 +70,27 @@ def resolve(entries):
     return ('confirmed' if all(e['classification'] for e in entries) else 'partial'), profile
 
 
+def apply_reviewed_overrides(document, overrides):
+    if overrides.get('schema') != 1:
+        raise ValueError('Unsupported override schema')
+    for key, override in overrides['associations'].items():
+        if key != name_key(override['name']) or override['status'] != 'confirmed':
+            raise ValueError('Invalid reviewed NPC override')
+        previous = document['associations'].get(key, {})
+        entry = dict(previous)
+        if previous:
+            entry['model_classification'] = dict(status=previous['status'], profile=previous['profile'])
+        entry.update(override)
+        entry.setdefault('entities', [])
+        entry['suggested_voice'] = choose_voice(key, override['profile']['preference'], VOICES)
+        document['associations'][key] = entry
+    document['reviewed_sources'] = [overrides['source']]
+    document['statistics']['named_groups'] = len(document['associations'])
+    document['statistics']['classifications'] = dict(Counter(v['status'] for v in document['associations'].values()))
+    document['statistics']['reviewed_overrides'] = len(overrides['associations'])
+    return document
+
+
 def generate(source, output):
     revision = subprocess.check_output(['git','-C',str(source),'rev-parse','HEAD'], text=True).strip()
     ecosystems = read_yaml(source/'data/ecosystems.yaml')['ecosystems']
@@ -127,6 +148,9 @@ def generate(source, output):
         statistics=dict(entities=len(entities), named_groups=len(groups), classifications=dict(counts), excluded=dict(excluded)),
         goblin_model_evidence={str(m):sorted(set(model_sources[m])) for m in sorted(goblin_models)},
         associations=associations)
+    override_path = ROOT/'data/goblin_npc_overrides.json'
+    if override_path.exists():
+        apply_reviewed_overrides(document, json.loads(override_path.read_text(encoding='utf-8')))
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(document, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     print(json.dumps(document['statistics'], indent=2))

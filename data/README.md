@@ -7,8 +7,8 @@ Generated from the upstream LandSandBoat NPC definitions; this is a starting cat
 ## Coverage
 
 - 37,870 entity records inspected (YAML plus remaining legacy SQL).
-- 6,817 normalized display-name groups retained, including unclassified objects.
-- 3,128 confirmed names eligible for import; 113 partial, 72 conflicting, and 3,504 unknown groups retained for review.
+- 6,829 normalized display-name groups retained, including unclassified objects.
+- 3,201 confirmed names eligible for import; 112 partial, 72 conflicting, and 3,444 unknown groups retained for review.
 - No gender/age guessed from names. No inference of adulthood from race. Child flags are not generated.
 
 ## Sources and rules
@@ -40,7 +40,7 @@ The generator requires PyYAML (already available in this development environment
 
 - elvaan: 922
 - galka: 283
-- goblin: 17
+- goblin: 90
 - hume: 930
 - mithra: 362
 - tarutaru: 614
@@ -48,3 +48,17 @@ The generator requires PyYAML (already available in this development environment
 ## Attribution
 
 Derived from https://github.com/LandSandBoat/server at the pinned revision above. Upstream copyright and GPL terms are retained in `LandSandBoat-LICENSE`. Per-entity source paths and Goblin-model evidence are included in the JSON.
+
+## Reviewed Goblin supplement
+
+The FFXIclopedia [Goblin NPC category](https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs), reviewed October 25, 2026, supplies explicit race evidence for 79 speaker names in `goblin_npc_overrides.json`. The category contains 80 pages: `Trust: Fablinix` duplicates Fablinix, and `Goblin Grenadier (NPC)` is normalized to its spoken name. Category membership does not establish gender, so preference remains unknown.
+
+The generator applies these exact-name overrides after model classification and preserves the previous model result and source records. It does not classify additional NPCs solely because they share model 85. This raises confirmed coverage by 73 names (six were already confirmed), to 3,201, including 90 Goblins. Twelve wiki names are absent from the pinned LandSandBoat catalog but are still useful name-based seeds.
+
+To apply only this supplement, without resetting unrelated NPC choices:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/import_npc_catalog.py --catalog data/goblin_npc_overrides.json --overwrite
+```
+
+This makes a fresh database backup and replaces the listed NPCs' voice/tuning defaults and race presets, retaining Child, mute, and encounter history. No addon changes or restart are needed; refresh the voice editor.

@@ -5,16 +5,17 @@
   "rules": "Only confirmed entries are eligible for import; partial/unknown/conflicting names require review.",
   "statistics": {
     "entities": 37870,
-    "named_groups": 6817,
+    "named_groups": 6829,
     "classifications": {
-      "unknown": 3504,
-      "partial": 113,
+      "unknown": 3444,
+      "partial": 112,
       "conflict": 72,
-      "confirmed": 3128
+      "confirmed": 3201
     },
     "excluded": {
       "unnamed_placeholder_or_debug": 12540
-    }
+    },
+    "reviewed_overrides": 79
   },
   "goblin_model_evidence": {
     "484": [
@@ -18328,8 +18329,14 @@
     },
     "antiqix": {
       "name": "Antiqix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_jessica",
       "entities": [
         {
@@ -18344,7 +18351,16 @@
           "source": "data/zones/castle_oztroja/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "antiquated sluice gate": {
       "name": "Antiquated Sluice Gate",
@@ -19804,8 +19820,14 @@
     },
     "arbitrix": {
       "name": "Arbitrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_aoede",
       "entities": [
         {
@@ -19820,7 +19842,16 @@
           "source": "data/zones/windurst_walls/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "arboreal grove": {
       "name": "Arboreal Grove",
@@ -32492,8 +32523,14 @@
     },
     "aurix": {
       "name": "Aurix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bf_lily",
       "entities": [
         {
@@ -32508,7 +32545,16 @@
           "source": "data/zones/rulude_gardens/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "auroral updraft": {
       "name": "Auroral Updraft",
@@ -42449,8 +42495,14 @@
     },
     "blabbivix": {
       "name": "Blabbivix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bm_george",
       "entities": [
         {
@@ -42465,7 +42517,16 @@
           "source": "data/zones/port_bastok/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "black badge mamool ja": {
       "name": "Black Badge Mamool Ja",
@@ -42784,8 +42845,14 @@
     },
     "blatherix": {
       "name": "Blatherix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_jessica",
       "entities": [
         {
@@ -42836,7 +42903,16 @@
           "source": "data/zones/north_gustaberg_s/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "blayne": {
       "name": "Blayne",
@@ -42948,8 +43024,14 @@
     },
     "blingbrix": {
       "name": "Blingbrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_adam",
       "entities": [
         {
@@ -42964,7 +43046,16 @@
           "source": "data/zones/bastok_markets_s/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "blockaded path": {
       "name": "Blockaded Path",
@@ -43276,8 +43367,14 @@
     },
     "bluffnix": {
       "name": "Bluffnix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_echo",
       "entities": [
         {
@@ -43292,7 +43389,16 @@
           "source": "data/zones/lower_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "bodaway": {
       "name": "Bodaway",
@@ -44701,8 +44807,14 @@
     },
     "bountibox": {
       "name": "Bountibox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_jessica",
       "entities": [
         {
@@ -44717,7 +44829,16 @@
           "source": "data/zones/bastok_mines/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "box": {
       "name": "BOX",
@@ -65248,8 +65369,14 @@
     },
     "coelestrox": {
       "name": "Coelestrox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_nova",
       "entities": [
         {
@@ -65264,7 +65391,16 @@
           "source": "data/zones/reisenjima/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "coffer": {
       "name": "Coffer",
@@ -69455,8 +69591,14 @@
     },
     "creepstix": {
       "name": "Creepstix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_nicole",
       "entities": [
         {
@@ -69471,7 +69613,16 @@
           "source": "data/zones/lower_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "crematory hatch": {
       "name": "Crematory Hatch",
@@ -79069,8 +79220,14 @@
     },
     "dibstix": {
       "name": "Dibstix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bm_fable",
       "entities": [
         {
@@ -79085,7 +79242,16 @@
           "source": "data/zones/garlaige_citadel_s/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "diederik": {
       "name": "Diederik",
@@ -96972,11 +97138,11 @@
       "name": "Eggblix",
       "status": "confirmed",
       "profile": {
+        "race": "goblin",
         "preference": "unknown",
         "presets": [
           "goblin"
-        ],
-        "race": "goblin"
+        ]
       },
       "suggested_voice": "bm_daniel",
       "entities": [
@@ -97016,7 +97182,22 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "confirmed",
+        "profile": {
+          "preference": "unknown",
+          "presets": [
+            "goblin"
+          ],
+          "race": "goblin"
+        }
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "eggsperiment a": {
       "name": "Eggsperiment A",
@@ -102657,8 +102838,14 @@
     },
     "emporox": {
       "name": "Emporox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_jessica",
       "entities": [
         {
@@ -102673,7 +102860,16 @@
           "source": "data/zones/reisenjima/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "emrys": {
       "name": "Emrys",
@@ -113104,8 +113300,14 @@
     },
     "fablinix": {
       "name": "Fablinix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_river",
       "entities": [
         {
@@ -113132,7 +113334,16 @@
           "source": "data/zones/south_gustaberg/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "faboise": {
       "name": "Faboise",
@@ -117386,8 +117597,14 @@
     },
     "fickblix": {
       "name": "Fickblix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bf_lily",
       "entities": [
         {
@@ -117438,7 +117655,16 @@
           "source": "data/zones/upper_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "field manual": {
       "name": "Field Manual",
@@ -124448,8 +124674,14 @@
     },
     "funtrox": {
       "name": "Funtrox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_puck",
       "entities": [
         {
@@ -124464,7 +124696,16 @@
           "source": "data/zones/windurst_woods/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "furakku-norakku": {
       "name": "Furakku-Norakku",
@@ -126693,11 +126934,11 @@
       "name": "Gambilox Wanderling",
       "status": "confirmed",
       "profile": {
+        "race": "goblin",
         "preference": "unknown",
         "presets": [
           "goblin"
-        ],
-        "race": "goblin"
+        ]
       },
       "suggested_voice": "bf_isabella",
       "entities": [
@@ -126719,7 +126960,22 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "confirmed",
+        "profile": {
+          "preference": "unknown",
+          "presets": [
+            "goblin"
+          ],
+          "race": "goblin"
+        }
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "game table": {
       "name": "Game Table",
@@ -129159,8 +129415,14 @@
     },
     "gaudylox": {
       "name": "Gaudylox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bm_lewis",
       "entities": [
         {
@@ -129175,7 +129437,16 @@
           "source": "data/zones/northern_san_doria/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "gauger trunk": {
       "name": "Gauger Trunk",
@@ -129667,8 +129938,14 @@
     },
     "geltpix": {
       "name": "Geltpix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_eric",
       "entities": [
         {
@@ -129683,7 +129960,16 @@
           "source": "data/zones/southern_san_doria_s/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "gelzerio": {
       "name": "Gelzerio",
@@ -135793,13 +136079,13 @@
     },
     "gloom phantom": {
       "name": "Gloom Phantom",
-      "status": "partial",
+      "status": "confirmed",
       "profile": {
+        "race": "goblin",
         "preference": "unknown",
         "presets": [
           "goblin"
-        ],
-        "race": "goblin"
+        ]
       },
       "suggested_voice": "af_kore",
       "entities": [
@@ -136103,7 +136389,22 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "partial",
+        "profile": {
+          "preference": "unknown",
+          "presets": [
+            "goblin"
+          ],
+          "race": "goblin"
+        }
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "glowing hearth": {
       "name": "Glowing Hearth",
@@ -140171,8 +140472,14 @@
     },
     "goblin enforcer": {
       "name": "Goblin Enforcer",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_santa",
       "entities": [
         {
@@ -140199,7 +140506,16 @@
           "source": "data/zones/upper_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "goblin festival site": {
       "name": "Goblin Festival Site",
@@ -142307,8 +142623,14 @@
     },
     "goblin geologist": {
       "name": "Goblin Geologist",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_nova",
       "entities": [
         {
@@ -142323,17 +142645,26 @@
           "source": "data/zones/quicksand_caves/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "goblin grenadier": {
       "name": "Goblin Grenadier",
       "status": "confirmed",
       "profile": {
+        "race": "goblin",
         "preference": "unknown",
         "presets": [
           "goblin"
-        ],
-        "race": "goblin"
+        ]
       },
       "suggested_voice": "am_michael",
       "entities": [
@@ -142355,12 +142686,33 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "confirmed",
+        "profile": {
+          "preference": "unknown",
+          "presets": [
+            "goblin"
+          ],
+          "race": "goblin"
+        }
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "goblin intimidator": {
       "name": "Goblin Intimidator",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_puck",
       "entities": [
         {
@@ -142387,12 +142739,27 @@
           "source": "data/zones/upper_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "goblin merrymaker": {
       "name": "Goblin Merrymaker",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_jessica",
       "entities": [
         {
@@ -142755,7 +143122,16 @@
           "source": "data/zones/windurst_waters/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "goblin preceptor": {
       "name": "Goblin Preceptor",
@@ -142791,8 +143167,14 @@
     },
     "goblin repossessor": {
       "name": "Goblin Repossessor",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_puck",
       "entities": [
         {
@@ -142819,7 +143201,16 @@
           "source": "data/zones/upper_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "goblin rider": {
       "name": "Goblin Rider",
@@ -145402,11 +145793,11 @@
       "name": "Grasswix",
       "status": "confirmed",
       "profile": {
+        "race": "goblin",
         "preference": "unknown",
         "presets": [
           "goblin"
-        ],
-        "race": "goblin"
+        ]
       },
       "suggested_voice": "am_adam",
       "entities": [
@@ -145446,7 +145837,22 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "confirmed",
+        "profile": {
+          "preference": "unknown",
+          "presets": [
+            "goblin"
+          ],
+          "race": "goblin"
+        }
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "grassy mound": {
       "name": "Grassy Mound",
@@ -148237,8 +148643,14 @@
     },
     "grumblix": {
       "name": "Grumblix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bf_lily",
       "entities": [
         {
@@ -148361,7 +148773,16 @@
           "source": "data/zones/walk_of_echoes/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "gsibou1": {
       "name": "Gsibou1",
@@ -150023,8 +150444,14 @@
     },
     "guttrix": {
       "name": "Guttrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_bella",
       "entities": [
         {
@@ -150039,7 +150466,16 @@
           "source": "data/zones/lower_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "guwanana": {
       "name": "Guwanana",
@@ -150523,8 +150959,14 @@
     },
     "habitox": {
       "name": "Habitox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bf_isabella",
       "entities": [
         {
@@ -150539,7 +150981,16 @@
           "source": "data/zones/port_san_doria/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "hadahda": {
       "name": "Hadahda",
@@ -150959,8 +151410,14 @@
     },
     "haggleblix": {
       "name": "Haggleblix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_jessica",
       "entities": [
         {
@@ -150975,7 +151432,16 @@
           "source": "data/zones/beadeaux/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "hagreface": {
       "name": "Hagreface",
@@ -164364,8 +164830,14 @@
     },
     "hooknox": {
       "name": "Hooknox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_alloy",
       "entities": [
         {
@@ -164380,7 +164852,16 @@
           "source": "data/zones/altar_room/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "horand": {
       "name": "Horand",
@@ -167553,8 +168034,14 @@
     },
     "incantrix": {
       "name": "Incantrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_alloy",
       "entities": [
         {
@@ -167569,7 +168056,16 @@
           "source": "data/zones/reisenjima/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "incensed pineapple": {
       "name": "Incensed Pineapple",
@@ -187272,8 +187768,14 @@
     },
     "kindlix": {
       "name": "Kindlix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_sarah",
       "entities": [
         {
@@ -187288,7 +187790,16 @@
           "source": "data/zones/port_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "king of batons": {
       "name": "King of Batons",
@@ -198861,8 +199372,14 @@
     },
     "leadavox": {
       "name": "Leadavox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_nova",
       "entities": [
         {
@@ -198937,7 +199454,16 @@
           "source": "data/zones/vunkerl_inlet_s/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "leafkin": {
       "name": "Leafkin",
@@ -206088,8 +206614,14 @@
     },
     "lokpix": {
       "name": "Lokpix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_sarah",
       "entities": [
         {
@@ -206104,7 +206636,16 @@
           "source": "data/zones/eastern_altepa_desert/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "lola": {
       "name": "Lola",
@@ -206176,8 +206717,14 @@
     },
     "lollyspox": {
       "name": "Lollyspox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bf_isabella",
       "entities": [
         {
@@ -206192,7 +206739,16 @@
           "source": "data/zones/crawlers_nest_s/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "loloroon": {
       "name": "Loloroon",
@@ -206332,8 +206888,14 @@
     },
     "lootblox": {
       "name": "Lootblox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_kore",
       "entities": [
         {
@@ -206348,7 +206910,16 @@
           "source": "data/zones/davoi/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "lorena": {
       "name": "Lorena",
@@ -265249,8 +265820,14 @@
     },
     "muckvix": {
       "name": "Muckvix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_aoede",
       "entities": [
         {
@@ -265277,7 +265854,16 @@
           "source": "data/zones/mine_shaft_2716/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "mufaal ja": {
       "name": "Mufaal Ja",
@@ -267382,8 +267968,14 @@
     },
     "mystrix": {
       "name": "Mystrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bf_lily",
       "entities": [
         {
@@ -267398,7 +267990,16 @@
           "source": "data/zones/southern_san_doria/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "mythily": {
       "name": "Mythily",
@@ -294858,8 +295459,14 @@
     },
     "pawkrix": {
       "name": "Pawkrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_nicole",
       "entities": [
         {
@@ -294874,12 +295481,27 @@
           "source": "data/zones/lower_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "pawnpix": {
       "name": "Pawnpix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bf_alice",
       "entities": [
         {
@@ -294918,7 +295540,16 @@
           "source": "data/zones/oldton_movalpolos/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "paya-sabya": {
       "name": "Paya-Sabya",
@@ -295488,11 +296119,11 @@
       "name": "Peddlestox",
       "status": "confirmed",
       "profile": {
+        "race": "goblin",
         "preference": "unknown",
         "presets": [
           "goblin"
-        ],
-        "race": "goblin"
+        ]
       },
       "suggested_voice": "af_heart",
       "entities": [
@@ -295550,7 +296181,22 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "confirmed",
+        "profile": {
+          "preference": "unknown",
+          "presets": [
+            "goblin"
+          ],
+          "race": "goblin"
+        }
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "pedestal of darkness": {
       "name": "Pedestal of Darkness",
@@ -295950,8 +296596,14 @@
     },
     "pelftrix": {
       "name": "Pelftrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bm_lewis",
       "entities": [
         {
@@ -295966,7 +296618,16 @@
           "source": "data/zones/windurst_waters_s/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "pelinvarde": {
       "name": "Pelinvarde",
@@ -306581,8 +307242,14 @@
     },
     "priztrix": {
       "name": "Priztrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_aoede",
       "entities": [
         {
@@ -306597,7 +307264,16 @@
           "source": "data/zones/upper_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "producer": {
       "name": "PRODUCER",
@@ -309006,8 +309682,14 @@
     },
     "pyropox": {
       "name": "Pyropox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_onyx",
       "entities": [
         {
@@ -309022,7 +309704,16 @@
           "source": "data/zones/port_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "pyru-copyru": {
       "name": "Pyru-Copyru",
@@ -315790,8 +316481,14 @@
     },
     "ramblix": {
       "name": "Ramblix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bm_lewis",
       "entities": [
         {
@@ -317690,7 +318387,16 @@
           "source": "data/zones/zeruhn_mines/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "ramchacha": {
       "name": "Ramchacha",
@@ -325620,8 +326326,14 @@
     },
     "rewardox": {
       "name": "Rewardox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bm_fable",
       "entities": [
         {
@@ -325636,7 +326348,16 @@
           "source": "data/zones/western_adoulin/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "rex": {
       "name": "Rex",
@@ -336420,8 +337141,14 @@
     },
     "ruspix": {
       "name": "Ruspix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_adam",
       "entities": [
         {
@@ -336436,7 +337163,16 @@
           "source": "data/zones/leafallia/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "russel": {
       "name": "Russel",
@@ -338347,11 +339083,11 @@
       "name": "Saltvix",
       "status": "confirmed",
       "profile": {
+        "race": "goblin",
         "preference": "unknown",
         "presets": [
           "goblin"
-        ],
-        "race": "goblin"
+        ]
       },
       "suggested_voice": "am_adam",
       "entities": [
@@ -338391,7 +339127,22 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "confirmed",
+        "profile": {
+          "preference": "unknown",
+          "presets": [
+            "goblin"
+          ],
+          "race": "goblin"
+        }
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "saluhwa": {
       "name": "Saluhwa",
@@ -340734,8 +341485,14 @@
     },
     "scamplix": {
       "name": "Scamplix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bf_alice",
       "entities": [
         {
@@ -340750,7 +341507,16 @@
           "source": "data/zones/rabao/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "scarlette, c.a.": {
       "name": "Scarlette, C.A.",
@@ -340830,8 +341596,14 @@
     },
     "scavnix": {
       "name": "Scavnix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_bella",
       "entities": [
         {
@@ -340846,7 +341618,16 @@
           "source": "data/zones/windurst_walls/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "scenarioboss": {
       "name": "ScenarioBoss",
@@ -347624,8 +348405,14 @@
     },
     "shiftrix": {
       "name": "Shiftrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_echo",
       "entities": [
         {
@@ -347640,7 +348427,16 @@
           "source": "data/zones/reisenjima/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "shigezane, i.m.": {
       "name": "Shigezane, I.M.",
@@ -355796,8 +356592,14 @@
     },
     "sniggnix": {
       "name": "Sniggnix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_santa",
       "entities": [
         {
@@ -355812,7 +356614,16 @@
           "source": "data/zones/lower_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "sobane": {
       "name": "Sobane",
@@ -358482,8 +359293,14 @@
     },
     "soupox": {
       "name": "Soupox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_kore",
       "entities": [
         {
@@ -358498,7 +359315,16 @@
           "source": "data/zones/leafallia/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "souren": {
       "name": "Souren",
@@ -359942,8 +360768,14 @@
     },
     "specilox": {
       "name": "Specilox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bf_isabella",
       "entities": [
         {
@@ -359958,7 +360790,16 @@
           "source": "data/zones/bastok_markets/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "spell-worked snow": {
       "name": "Spell-worked Snow",
@@ -360130,8 +360971,14 @@
     },
     "spondulix": {
       "name": "Spondulix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_kore",
       "entities": [
         {
@@ -360146,7 +360993,16 @@
           "source": "data/zones/fort_karugo_narugo_s/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "spotter": {
       "name": "Spotter",
@@ -360450,8 +361306,14 @@
     },
     "squintrox dryeyes": {
       "name": "Squintrox Dryeyes",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_echo",
       "entities": [
         {
@@ -360466,7 +361328,16 @@
           "source": "data/zones/port_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "st_moogle": {
       "name": "St_moogle",
@@ -361374,8 +362245,14 @@
     },
     "stinknix": {
       "name": "Stinknix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bm_george",
       "entities": [
         {
@@ -361390,7 +362267,16 @@
           "source": "data/zones/lower_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "stone door": {
       "name": "Stone Door",
@@ -363191,8 +364077,14 @@
     },
     "stufstix": {
       "name": "Stufstix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_santa",
       "entities": [
         {
@@ -363231,7 +364123,16 @@
           "source": "data/zones/oldton_movalpolos/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "sturdy door": {
       "name": "Sturdy Door",
@@ -375441,8 +376342,14 @@
     },
     "sweepstox": {
       "name": "Sweepstox",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_michael",
       "entities": [
         {
@@ -375457,7 +376364,16 @@
           "source": "data/zones/lower_jeuno/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "swift": {
       "name": "Swift",
@@ -376163,8 +377079,14 @@
     },
     "switchstix": {
       "name": "Switchstix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "af_sarah",
       "entities": [
         {
@@ -376179,7 +377101,16 @@
           "source": "data/zones/castle_zvahl_baileys/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "swtich test": {
       "name": "Swtich Test",
@@ -383977,8 +384908,14 @@
     },
     "temprix": {
       "name": "Temprix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_santa",
       "entities": [
         {
@@ -383993,7 +384930,16 @@
           "source": "data/zones/reisenjima/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "ten of clubs": {
       "name": "Ten of Clubs",
@@ -391228,8 +392174,14 @@
     },
     "trailmix": {
       "name": "Trailmix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bf_alice",
       "entities": [
         {
@@ -391304,7 +392256,16 @@
           "source": "data/zones/the_garden_of_ruhmet/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "transcendental radiance": {
       "name": "Transcendental Radiance",
@@ -407978,8 +408939,14 @@
     },
     "twinkbrix": {
       "name": "Twinkbrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_eric",
       "entities": [
         {
@@ -407994,7 +408961,16 @@
           "source": "data/zones/oldton_movalpolos/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "twinkle tree": {
       "name": "Twinkle Tree",
@@ -436269,8 +437245,14 @@
     },
     "winrix": {
       "name": "Winrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "bf_emma",
       "entities": [
         {
@@ -436285,7 +437267,16 @@
           "source": "data/zones/eastern_adoulin/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "wise owl": {
       "name": "Wise Owl",
@@ -437072,8 +438063,14 @@
     },
     "wondrix": {
       "name": "Wondrix",
-      "status": "unknown",
-      "profile": null,
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
       "suggested_voice": "am_puck",
       "entities": [
         {
@@ -437088,7 +438085,16 @@
           "source": "data/zones/aht_urhgan_whitegate/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "unknown",
+        "profile": null
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
     },
     "wooden cabinet": {
       "name": "Wooden Cabinet",
@@ -449342,6 +450348,225 @@
           }
         }
       ]
+    },
+    "1st legion mercenary": {
+      "name": "1st Legion Mercenary",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "bf_lily"
+    },
+    "bouncebix": {
+      "name": "Bouncebix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "bf_alice"
+    },
+    "chaperix": {
+      "name": "Chaperix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "af_bella"
+    },
+    "choplix": {
+      "name": "Choplix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "af_sky"
+    },
+    "fetchafox": {
+      "name": "Fetchafox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "am_liam"
+    },
+    "goblin lansquenet": {
+      "name": "Goblin Lansquenet",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "af_kore"
+    },
+    "goblin rejoicer": {
+      "name": "Goblin Rejoicer",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "bf_lily"
+    },
+    "goblin year-ringer": {
+      "name": "Goblin Year-ringer",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "bf_alice"
+    },
+    "slayalox": {
+      "name": "Slayalox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "af_aoede"
+    },
+    "smashlix": {
+      "name": "Smashlix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "af_jessica"
+    },
+    "switchlox": {
+      "name": "Switchlox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "bm_fable"
+    },
+    "vendastox": {
+      "name": "Vendastox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      },
+      "entities": [],
+      "suggested_voice": "bf_lily"
     }
-  }
+  },
+  "reviewed_sources": [
+    "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs"
+  ]
 }

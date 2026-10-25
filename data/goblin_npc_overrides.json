@@ -1,0 +1,1275 @@
+{
+  "schema": 1,
+  "revision": "ffxiclopedia-goblin-npcs-2026-10-25",
+  "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+  "notes": [
+    "80 category pages normalize to 79 speakers: Trust: Fablinix is not a separate speaker; Goblin Grenadier (NPC) uses Goblin Grenadier.",
+    "Race only: category membership does not establish gender. No extrapolation to other NPCs sharing a model."
+  ],
+  "associations": {
+    "1st legion mercenary": {
+      "name": "1st Legion Mercenary",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "antiqix": {
+      "name": "Antiqix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "arbitrix": {
+      "name": "Arbitrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "aurix": {
+      "name": "Aurix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "blabbivix": {
+      "name": "Blabbivix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "blatherix": {
+      "name": "Blatherix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "blingbrix": {
+      "name": "Blingbrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "bluffnix": {
+      "name": "Bluffnix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "bouncebix": {
+      "name": "Bouncebix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "bountibox": {
+      "name": "Bountibox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "chaperix": {
+      "name": "Chaperix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "choplix": {
+      "name": "Choplix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "coelestrox": {
+      "name": "Coelestrox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "creepstix": {
+      "name": "Creepstix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "dibstix": {
+      "name": "Dibstix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "eggblix": {
+      "name": "Eggblix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "emporox": {
+      "name": "Emporox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "fablinix": {
+      "name": "Fablinix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "fetchafox": {
+      "name": "Fetchafox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "fickblix": {
+      "name": "Fickblix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "funtrox": {
+      "name": "Funtrox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "gambilox wanderling": {
+      "name": "Gambilox Wanderling",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "gaudylox": {
+      "name": "Gaudylox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "geltpix": {
+      "name": "Geltpix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "gloom phantom": {
+      "name": "Gloom Phantom",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "goblin enforcer": {
+      "name": "Goblin Enforcer",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "goblin geologist": {
+      "name": "Goblin Geologist",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "goblin grenadier": {
+      "name": "Goblin Grenadier",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "goblin intimidator": {
+      "name": "Goblin Intimidator",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "goblin lansquenet": {
+      "name": "Goblin Lansquenet",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "goblin merrymaker": {
+      "name": "Goblin Merrymaker",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "goblin rejoicer": {
+      "name": "Goblin Rejoicer",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "goblin repossessor": {
+      "name": "Goblin Repossessor",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "goblin year-ringer": {
+      "name": "Goblin Year-ringer",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "grasswix": {
+      "name": "Grasswix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "grumblix": {
+      "name": "Grumblix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "guttrix": {
+      "name": "Guttrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "habitox": {
+      "name": "Habitox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "haggleblix": {
+      "name": "Haggleblix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "hooknox": {
+      "name": "Hooknox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "incantrix": {
+      "name": "Incantrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "kindlix": {
+      "name": "Kindlix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "leadavox": {
+      "name": "Leadavox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "lokpix": {
+      "name": "Lokpix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "lollyspox": {
+      "name": "Lollyspox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "lootblox": {
+      "name": "Lootblox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "muckvix": {
+      "name": "Muckvix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "mystrix": {
+      "name": "Mystrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "pawkrix": {
+      "name": "Pawkrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "pawnpix": {
+      "name": "Pawnpix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "peddlestox": {
+      "name": "Peddlestox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "pelftrix": {
+      "name": "Pelftrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "priztrix": {
+      "name": "Priztrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "pyropox": {
+      "name": "Pyropox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "ramblix": {
+      "name": "Ramblix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "rewardox": {
+      "name": "Rewardox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "ruspix": {
+      "name": "Ruspix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "saltvix": {
+      "name": "Saltvix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "scamplix": {
+      "name": "Scamplix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "scavnix": {
+      "name": "Scavnix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "shiftrix": {
+      "name": "Shiftrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "slayalox": {
+      "name": "Slayalox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "smashlix": {
+      "name": "Smashlix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "sniggnix": {
+      "name": "Sniggnix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "soupox": {
+      "name": "Soupox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "specilox": {
+      "name": "Specilox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "spondulix": {
+      "name": "Spondulix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "squintrox dryeyes": {
+      "name": "Squintrox Dryeyes",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "stinknix": {
+      "name": "Stinknix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "stufstix": {
+      "name": "Stufstix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "sweepstox": {
+      "name": "Sweepstox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "switchlox": {
+      "name": "Switchlox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "switchstix": {
+      "name": "Switchstix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "temprix": {
+      "name": "Temprix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "trailmix": {
+      "name": "Trailmix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "twinkbrix": {
+      "name": "Twinkbrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "vendastox": {
+      "name": "Vendastox",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "winrix": {
+      "name": "Winrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    },
+    "wondrix": {
+      "name": "Wondrix",
+      "status": "confirmed",
+      "profile": {
+        "race": "goblin",
+        "preference": "unknown",
+        "presets": [
+          "goblin"
+        ]
+      },
+      "evidence": {
+        "source": "https://ffxiclopedia.fandom.com/wiki/Category:Goblin_NPCs",
+        "reviewed": "2026-10-25",
+        "method": "Explicit membership in Goblin NPC category"
+      }
+    }
+  }
+}
