@@ -122,6 +122,14 @@ class VoiceUITests(unittest.TestCase):
         self.lua.execute("clicks['Preview voice']=true; ui:draw()")
         self.assertEqual(self.last_request()[1], dict(action='preview', voice='am_michael', speed=1, pitch=0, presets=dict(goblin=True)))
 
+    def test_blend_controls_preview_and_disable(self):
+        self.load_list()
+        self.lua.execute("ui.selected=ui.rows[1]; ui.draft='0.70*am_michael + 0.30*am_fenrir'; clicks['Preview voice']=true; ui:draw()")
+        self.assertEqual(self.last_request()[1]['voice'],'0.70*am_michael + 0.30*am_fenrir')
+        self.respond(dict(message='Preview queued'))
+        self.lua.execute("clicks['Blend two voices']=true; clicks['Save override']=true; ui:draw()")
+        self.assertEqual(self.last_request()[1]['value']['voice'],'am_michael')
+
     def test_pitch_engine_selection_saves_with_globals(self):
         self.load_list()
         self.lua.execute("clicks['Librosa - Faster']=true; ui:draw(); clicks['Apply global audio']=true; ui:draw()")

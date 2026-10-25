@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'companion'))
-from registry import Registry, VOICES, choose_voice, name_key, choose_tuning
+from registry import Registry, VOICES, choose_voice, name_key, choose_tuning, choose_blend, validate_voice
 from service import DEFAULTS, Server, SpeechQueue
 from dialogue import Dialogue
 from test_companion import ControlledBackend, eventually
@@ -26,6 +26,35 @@ class RegistryFixture(unittest.TestCase):
 
 
 class RegistryTests(RegistryFixture):
+    def test_automatic_blend_distribution_and_compatibility(self):
+        values=[choose_blend(f'blend-{i}', 'am_michael', VOICES) for i in range(10000)]
+        self.assertTrue(2300 < sum('*' in v for v in values) < 2700)
+        for voice in values:
+            validate_voice(voice)
+            if '*' in voice:
+                self.assertIn('*am_michael + ',voice)
+                self.assertTrue(voice.split('*')[-1].startswith('am_'))
+        self.assertEqual(choose_blend('x','af_heart',['af_heart']), 'af_heart')
+        self.assertEqual(choose_blend('x','af_heart',VOICES),choose_blend('x','af_heart',list(reversed(VOICES))))
+
+    def test_manual_blend_save_reset_and_restart(self):
+        key=next(f'blend-{i}' for i in range(100) if '*' in choose_blend(f'blend-{i}', 'am_michael', VOICES))
+        self.registry.encounter(key)
+        self.registry.db.execute('UPDATE npcs SET auto_voice=? WHERE key=?',('am_michael',key))
+        self.registry.db.commit()
+        automatic=self.registry.voice_for(key)
+        self.assertIn('*',automatic)
+        blend='0.70*af_heart + 0.30*af_bella'
+        self.registry.edit(key,'profile',dict(voice=blend,speed=1,pitch=0))
+        self.registry.close()
+        self.registry=Registry(self.path,self.config)
+        self.assertEqual(self.registry.voice_for(key),blend)
+        self.registry.edit(key,'voice','am_michael')
+        self.assertEqual(self.registry.voice_for(key),'am_michael')
+        self.assertEqual(self.registry.edit(key,'reset')['voice'],automatic)
+        for bad in ('0.70*af_heart + 0.70*af_bella','0.70*af_heart + 0.30*af_heart', '1*af_heart + nan*af_bella'):
+            with self.assertRaises(ValueError): self.registry.edit(key,'voice',bad)
+
     def test_pitch_engine_migration_preserves_global_settings(self):
         self.registry.set_globals(1.2, 1.8)
         self.registry.db.execute('ALTER TABLE audio_settings DROP COLUMN pitch_engine')
@@ -288,6 +317,13 @@ class EditorIntegrationTests(RegistryFixture):
                         {'action':'edit', 'key':[]}, {'action':'preview', 'voice':'nope'}]:
             self.assertFalse(self.request(request)['ok'])
         self.assertTrue(self.request({'action':'list'})['ok'])
+
+    def test_blend_preview_reaches_backend(self):
+        blend='0.70*am_michael + 0.30*am_fenrir'
+        self.assertTrue(self.request(dict(action='preview',voice=blend))['ok'])
+        eventually(lambda: bool(self.backend.started))
+        self.assertEqual(self.backend.started[0][1],blend)
+        self.assertFalse(self.request(dict(action='preview',voice='0.70*bad + 0.30*am_fenrir'))['ok'])
 
     def test_preset_preview_matches_playback(self):
         parameters = []

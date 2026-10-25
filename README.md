@@ -1,7 +1,7 @@
 # XISpeaks
 
 An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
-Version 0.6.1 updates Galka and Tarutaru presets. Version 0.6.0 added a global pitch-engine selector: Rubber Band R3 (higher quality,
+Version 0.7.0 adds deterministic automatic voice blends and manual blend controls, alongside a global pitch-engine selector: Rubber Band R3 (higher quality,
 default) or Librosa (faster). Restart the companion and `/addon reload XISpeaks`,
 then use `/xis voices`. Dialogue capture still supports Halver's mode 142 and
 Faurie's mode 150; tracing remains available.
@@ -135,6 +135,30 @@ assignment/tuning. NPCs with presets also appear under Manual overrides.
 Assignments and existing controls are preserved during migration; the companion
 backs up an older database to `npcs.sqlite3.v040.bak` before adding preset fields.
 Mithra repeated-r text normalization is deferred.
+
+## Voice blending
+
+About 25% of automatically assigned NPCs now receive a two-voice Kokoro blend.
+A separate stable name hash chooses eligibility, partner, and a 60/40, 70/30, or
+80/20 mix. The saved primary voice remains the dominant voice. Automatic partners
+come from the enabled pool with the same gender and accent; Child restrictions
+also apply. If no compatible second voice exists, the NPC keeps a single voice.
+For a fixed name, primary voice, and pool the recipe is repeatable. Changing the
+pool or automatic preference can change the blend partner.
+
+In `/xis voices`, select an NPC and use **Blend two voices**, **Voice**,
+**Second voice**, and **First voice share (%)**. Preview, then **Save override**.
+Manual blends allow any two distinct English voices at 10-90% each, including
+cross-gender/accent combinations to audition. Uncheck blending and save to force
+a single voice. **Reset to automatic** restores the deterministic assignment.
+Manual voices always take priority; pitch, speed, race presets, and volume still
+apply normally. Edits affect the next line.
+
+No `npc_associations.json` rebuild or database rewrite is required. Automatic
+blends are derived at runtime, including for the imported catalog entries. The
+catalog's suggested voice and stored auto_voice remain the primary voice. This
+uses Kokoro's cached voice-vector blending, not overlapping audio recordings.
+A real blended voice with Rubber Band pitch processing passed the muted WAV test.
 
 ## Voices
 
@@ -332,7 +356,7 @@ Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue orde
 duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
 a controlled speech backend. They do not require Kokoro or launch the game.
 Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those tests are skipped. The current suite passes 59 tests, including
+tests; otherwise those tests are skipped. The current suite passes 63 tests, including
 the observed Halver/Faurie modes, exclusion of unnamed mode 142 notices and mode
 152 duplicates, raw capture, name filtering, timeout, buffer limits and write errors.
 Registry/editor tests additionally cover stable hashing across restarts/pool changes,

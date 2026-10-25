@@ -2,6 +2,7 @@
 import hashlib
 from contextlib import closing
 import math
+import re
 from pathlib import Path
 import sqlite3
 import threading
@@ -69,6 +70,31 @@ def choose_voice(key, preference, pool):
         raise ValueError('The enabled voice pool has no voices for that preference')
     digest = hashlib.sha256(('XISpeaks-v1:' + key).encode('utf-8')).digest()
     return choices[int.from_bytes(digest[:8], 'big') % len(choices)]
+
+
+def validate_voice(value):
+    if not isinstance(value, str) or len(value) > 100:
+        raise ValueError('Choose an English voice or a two-voice blend')
+    if value in VOICES:
+        return value
+    match = re.fullmatch(r'(0\.\d{2})\*([ab][fm]_[a-z]+) \+ (0\.\d{2})\*([ab][fm]_[a-z]+)', value)
+    if not match:
+        raise ValueError('Invalid two-voice blend')
+    w1, a, w2, b = match.groups()
+    if a not in VOICES or b not in VOICES or a == b or not .1 <= float(w1) <= .9 or abs(float(w1)+float(w2)-1) > .00001:
+        raise ValueError('Blend needs two different voices and weights totaling 100% (10-90% each)')
+    return value
+
+
+def choose_blend(key, primary, pool):
+    # Keep the saved primary voice; automatically blend only matching gender/accent.
+    digest = hashlib.sha256(('XISpeaks-blend-v1:' + key).encode('utf-8')).digest()
+    choices = sorted(set(v for v in pool if v != primary and v[:2] == primary[:2]))
+    if primary not in VOICES or not choices or int.from_bytes(digest[:2], 'big') % 100 >= 25:
+        return primary
+    secondary = choices[int.from_bytes(digest[2:4], 'big') % len(choices)]
+    weight = (60, 70, 80)[digest[4] % 3]
+    return f'{weight/100:.2f}*{primary} + {(100-weight)/100:.2f}*{secondary}'
 
 
 class Registry:
@@ -186,6 +212,7 @@ class Registry:
         presets = {key: bool(result.pop('preset_' + key)) for key in PRESETS}
         result['presets'] = presets
         result['preset_speed'], result['preset_pitch'] = preset_effects(presets)
+        pool = self.pool
         if not result['manual_voice'] and any(presets.values()):
             preference = 'feminine' if presets['mithra'] else result['preference']
             pool = self.pool
@@ -196,6 +223,8 @@ class Registry:
                     pool = young
             if presets['mithra'] or presets['child']:
                 result['voice'] = choose_voice(result['key'], preference, pool)
+        if not result['manual_voice']:
+            result['voice'] = choose_blend(result['key'], result['voice'], pool)
         return apply_presets(result, presets)
 
     def edit(self, key, action, value=None):
@@ -206,12 +235,12 @@ class Registry:
             if row is None:
                 raise ValueError('NPC no longer exists; refresh the list')
             if action == 'voice':
-                if value not in VOICES:
-                    raise ValueError('Choose a supported English voice')
+                validate_voice(value)
                 self.db.execute('UPDATE npcs SET manual_voice=? WHERE key=?', (value, key))
             elif action == 'profile':
-                if not isinstance(value, dict) or value.get('voice') not in VOICES:
-                    raise ValueError('Choose a supported English voice')
+                if not isinstance(value, dict):
+                    raise ValueError('Invalid voice profile')
+                validate_voice(value.get('voice'))
                 speed = number(value.get('speed'), 0.7, 1.3, 'NPC speed')
                 pitch = number(value.get('pitch'), -4, 4, 'Pitch')
                 self.db.execute('UPDATE npcs SET manual_voice=?,manual_speed=?,manual_pitch=? WHERE key=?',

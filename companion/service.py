@@ -11,7 +11,7 @@ import threading
 import time
 
 from dialogue import MAX_DATAGRAM, Dialogue, clean_dialogue, parse_frame
-from registry import Registry, VOICES, number, apply_presets
+from registry import Registry, VOICES, number, apply_presets, validate_voice
 
 LOG = logging.getLogger('XISpeaks')
 
@@ -246,8 +246,7 @@ class Server:
                 result = {'globals': self.registry.set_globals(request.get('speed'), request.get('volume'), request.get('pitch_engine'))}
             elif action == 'preview':
                 voice = request.get('voice')
-                if voice not in VOICES:
-                    raise ValueError('Choose a supported English voice')
+                validate_voice(voice)
                 profile = dict(voice=voice,
                                speed=number(request.get('speed', 1.0), 0.7, 1.3, 'NPC speed'),
                                pitch=number(request.get('pitch', 0.0), -4, 4, 'Pitch'))

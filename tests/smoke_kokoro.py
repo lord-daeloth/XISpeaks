@@ -1,6 +1,7 @@
 """Optional real-model test: writes a short WAV without playing through speakers."""
 from array import array
 import argparse
+import hashlib
 from pathlib import Path
 import sys
 import wave
@@ -9,6 +10,7 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'companion'))
 from service import KokoroBackend, DEFAULTS
 from dialogue import Dialogue
+from registry import validate_voice
 
 
 def main():
@@ -23,10 +25,10 @@ def main():
         play_async = backend.stream.play_async
         for voice in args.voices:
             backend.configure(args.speed, args.pitch, args.volume)
-            if not voice.replace('_', '').isalnum():
-                raise ValueError('Expected a simple voice ID')
+            validate_voice(voice)
+            filename = voice if voice.replace('_', '').isalnum() else 'blend-' + hashlib.sha256(voice.encode()).hexdigest()[:12]
             suffix = f'-s{args.speed}-p{args.pitch}-v{args.volume}' if (args.speed,args.pitch,args.volume) != (1,0,1) else ''
-            output = Path(__file__).resolve().parents[1] / f'smoke-{voice}{suffix}.wav'
+            output = Path(__file__).resolve().parents[1] / f'smoke-{filename}{suffix}.wav'
             with patch.object(backend.stream, 'play_async', side_effect=lambda: play_async(muted=True, output_wavfile=str(output))):
                 backend.speak(Dialogue('', "Welcome to Vana'diel. Your voice companion is ready."), voice, lambda: False)
             with wave.open(str(output), 'rb') as audio:

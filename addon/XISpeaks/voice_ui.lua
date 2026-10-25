@@ -185,14 +185,39 @@ function M.new(send, clock, session)
                     end
                     imgui.EndCombo()
                 end
+                local current = self.draft or npc.voice
+                local w, a, wb, b = current:match('^(0%.%d+)%*([%w_]+) %+ (0%.%d+)%*([%w_]+)$')
+                local blending = a ~= nil
+                a = a or current
+                b = b or (a == 'af_heart' and 'af_bella' or 'af_heart')
+                local ratio = math.floor((tonumber(w) or 0.7)*100+0.5)
+                local enabled = {blending}
+                if imgui.Checkbox('Blend two voices', enabled) then blending=enabled[1] end
                 imgui.SetNextItemWidth(230)
-                if imgui.BeginCombo('Voice', self.draft or npc.voice) then
+                if imgui.BeginCombo('Voice', a) then
                     for _, voice in ipairs(self.voices) do
                         local style = voice:sub(2,2) == 'm' and 'masculine' or 'feminine'
                         local accent = voice:sub(1,1) == 'a' and 'US' or 'UK'
-                        if imgui.Selectable(voice .. ' (' .. accent .. ', ' .. style .. ')', voice == self.draft) then self.draft=voice end
+                        if imgui.Selectable(voice .. ' (' .. accent .. ', ' .. style .. ')', voice == a) then a=voice end
                     end
                     imgui.EndCombo()
+                end
+                if blending then
+                    imgui.SetNextItemWidth(230)
+                    if imgui.BeginCombo('Second voice', b) then
+                        for _, voice in ipairs(self.voices) do
+                            if voice ~= a and imgui.Selectable(voice .. '##blend-second', voice == b) then b=voice end
+                        end
+                        imgui.EndCombo()
+                    end
+                    local amount = {ratio}
+                    imgui.SetNextItemWidth(230)
+                    if imgui.SliderInt('First voice share (%)', amount, 10, 90) then ratio=amount[1] end
+                    if a == b then b = a == 'af_heart' and 'af_bella' or 'af_heart' end
+                    self.draft = ('%.2f*%s + %.2f*%s'):format(ratio/100,a,(100-ratio)/100,b)
+                    imgui.TextDisabled(('Mix: %d%% first / %d%% second. Preview before saving.'):format(ratio,100-ratio))
+                else
+                    self.draft = a
                 end
                 local speed, pitch = {self.draft_speed}, {self.draft_pitch/10}
                 imgui.SetNextItemWidth(230)
