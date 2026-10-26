@@ -122,6 +122,11 @@ class VoiceUITests(unittest.TestCase):
         self.lua.execute("clicks['Preview voice']=true; ui:draw()")
         self.assertEqual(self.last_request()[1], dict(action='preview', voice='am_michael', speed=1, pitch=0, presets=dict(goblin=True)))
 
+    def test_elvaan_toggle_sends_saved_preset(self):
+        self.load_list()
+        self.lua.execute("ui.selected=ui.rows[1]; clicks['Elvaan']=true; ui:draw()")
+        self.assertEqual(self.last_request()[1],dict(action='edit',key='halver',edit='preset',value=dict(name='elvaan',enabled=True)))
+
     def test_blend_controls_preview_and_disable(self):
         self.load_list()
         self.lua.execute("ui.selected=ui.rows[1]; ui.draft='0.70*am_michael + 0.30*am_fenrir'; clicks['Preview voice']=true; ui:draw()")

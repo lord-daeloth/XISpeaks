@@ -170,7 +170,7 @@ function M.new(send, clock, session)
                 imgui.Text(npc.name .. ' | Assigned: ' .. npc.voice .. ' (' .. npc.source .. ')')
                 local seen = (npc.last_seen or 0) > 0 and os.date('%Y-%m-%d %H:%M', math.floor(npc.last_seen)) or 'Not encountered yet'
                 imgui.TextDisabled('Last heard: ' .. seen)
-                for i, preset in ipairs({'goblin','child','galka','mithra','tarutaru'}) do
+                for i, preset in ipairs({'goblin','child','galka','mithra','tarutaru','elvaan'}) do
                     if i > 1 then imgui.SameLine() end
                     local enabled = {npc.presets and npc.presets[preset] or false}
                     local label = preset:sub(1,1):upper() .. preset:sub(2)

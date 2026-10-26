@@ -15,7 +15,7 @@ af_nova af_river af_sarah af_sky am_adam am_echo am_eric am_fenrir am_liam
 am_michael am_onyx am_puck am_santa bf_alice bf_emma bf_isabella bf_lily
 bm_daniel bm_fable bm_george bm_lewis'''.split())
 PRESETS = {'goblin': (1.15, 3.5), 'child': (1.03, 0.2), 'galka': (0.9, -4.0),
-           'mithra': (1.0, 0.0), 'tarutaru': (1.1, 1.0)}
+           'mithra': (1.0, 0.0), 'elvaan': (1.0, 0.0), 'tarutaru': (1.1, 1.0)}
 YOUNG_VOICES = ('af_sky', 'af_bella', 'bf_lily', 'am_puck')
 
 
@@ -86,11 +86,11 @@ def validate_voice(value):
     return value
 
 
-def choose_blend(key, primary, pool):
-    # Keep the saved primary voice; automatically blend only matching gender/accent.
+def choose_blend(key, primary, pool, elvaan=False):
+    # Keep the primary dominant. Elvaan allow cross-accent, same-gender partners.
     digest = hashlib.sha256(('XISpeaks-blend-v1:' + key).encode('utf-8')).digest()
-    choices = sorted(set(v for v in pool if v != primary and v[:2] == primary[:2]))
-    if primary not in VOICES or not choices or int.from_bytes(digest[:2], 'big') % 100 >= 25:
+    choices = sorted(set(v for v in pool if v != primary and (v[1] == primary[1] if elvaan else v[:2] == primary[:2])))
+    if primary not in VOICES or not choices or int.from_bytes(digest[:2], 'big') % 100 >= (75 if elvaan else 25):
         return primary
     secondary = choices[int.from_bytes(digest[2:4], 'big') % len(choices)]
     weight = (60, 70, 80)[digest[4] % 3]
@@ -221,10 +221,18 @@ class Registry:
                          (preference == 'unknown' or v[1] == ('f' if preference == 'feminine' else 'm'))]
                 if young:
                     pool = young
-            if presets['mithra'] or presets['child']:
+            if presets['elvaan']:
+                british = [v for v in pool if v.startswith('b') and
+                           (preference == 'unknown' or v[1] == ('f' if preference == 'feminine' else 'm'))]
+                # British identity takes precedence if the Child pool has no suitable British voice.
+                if not british:
+                    british = [v for v in self.pool if v.startswith('b') and
+                               (preference == 'unknown' or v[1] == ('f' if preference == 'feminine' else 'm'))]
+                result['voice'] = choose_voice(result['key'], preference, british)
+            elif presets['mithra'] or presets['child']:
                 result['voice'] = choose_voice(result['key'], preference, pool)
         if not result['manual_voice']:
-            result['voice'] = choose_blend(result['key'], result['voice'], pool)
+            result['voice'] = choose_blend(result['key'], result['voice'], pool, presets['elvaan'])
         return apply_presets(result, presets)
 
     def edit(self, key, action, value=None):

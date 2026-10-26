@@ -1,7 +1,7 @@
 # XISpeaks
 
 An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
-Version 0.7.0 adds deterministic automatic voice blends and manual blend controls, alongside a global pitch-engine selector: Rubber Band R3 (higher quality,
+Version 0.8.0 adds British-primary Elvaan assignments and more frequent blending, alongside a global pitch-engine selector: Rubber Band R3 (higher quality,
 default) or Librosa (faster). Restart the companion and `/addon reload XISpeaks`,
 then use `/xis voices`. Dialogue capture still supports Halver's mode 142 and
 Faurie's mode 150; tracing remains available.
@@ -117,6 +117,7 @@ NPC types are assigned by you, not inferred from names or game memory.
 | Galka | Existing voice | 90% | -4 semitones |
 | Mithra | Feminine pool | 100% | None |
 | Tarutaru | Existing voice (full configured pool) | 110% | +1 semitone |
+| Elvaan | British primary; 75% automatic blend chance | 100% | None |
 
 Child candidates are `af_sky`, `af_bella`, `bf_lily`, and `am_puck`,
 restricted to your configured pool and voice preference. These are starting points
@@ -138,7 +139,21 @@ Mithra repeated-r text normalization is deferred.
 
 ## Voice blending
 
-About 25% of automatically assigned NPCs now receive a two-voice Kokoro blend.
+The **Elvaan** toggle selects a British (`bf_`/`bm_`) automatic primary voice
+matching the gender preference, and raises the blend chance to 75%. Its partner
+may be British or American, but matches the primary gender. Primary weights remain
+60%, 70%, or 80%. Manual voice overrides still win. With Child also enabled,
+British primary selection takes priority if no suitable British Child candidate
+exists; the partner still follows the available Child pool. A custom pool must
+contain a compatible British voice or the selection reports an error.
+
+The 922 confirmed Elvaan catalog entries have this toggle enabled; uncertain
+race records remain unchanged and can be marked manually. Catalog regeneration
+and imports now include the flag. Existing manual voices, tuning and encounter
+history were preserved during this update.
+
+
+Outside the Elvaan preset, about 25% of automatically assigned NPCs now receive a two-voice Kokoro blend.
 A separate stable name hash chooses eligibility, partner, and a 60/40, 70/30, or
 80/20 mix. The saved primary voice remains the dominant voice. Automatic partners
 come from the enabled pool with the same gender and accent; Child restrictions
@@ -356,7 +371,7 @@ Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue orde
 duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
 a controlled speech backend. They do not require Kokoro or launch the game.
 Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those tests are skipped. The current suite passes 63 tests, including
+tests; otherwise those tests are skipped. The current suite passes 66 tests, including
 the observed Halver/Faurie modes, exclusion of unnamed mode 142 notices and mode
 152 duplicates, raw capture, name filtering, timeout, buffer limits and write errors.
 Registry/editor tests additionally cover stable hashing across restarts/pool changes,

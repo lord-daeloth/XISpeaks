@@ -62,3 +62,11 @@ To apply only this supplement, without resetting unrelated NPC choices:
 ```
 
 This makes a fresh database backup and replaces the listed NPCs' voice/tuning defaults and race presets, retaining Child, mute, and encounter history. No addon changes or restart are needed; refresh the voice editor.
+
+## Elvaan assignments
+
+Confirmed Elvaan profiles now include the Elvaan preset and a British suggested
+primary voice. Runtime automatic assignment gives them a 75% chance of a blend
+with a same-gender partner of either accent, retaining 60-80% British primary.
+The targeted rollout enabled this flag for 922 existing confirmed Elvaan entries
+without replacing manual overrides or other saved fields.

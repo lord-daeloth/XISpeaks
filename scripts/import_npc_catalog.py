@@ -41,9 +41,9 @@ def import_catalog(registry, catalog, overwrite=False):
                 VALUES (?,?,?,?,?) ON CONFLICT(key) DO NOTHING''', (key,name,voice,speed,pitch))
             registry.db.execute('''UPDATE npcs SET preference=?,auto_voice=?,auto_speed=?,auto_pitch=?,
                 manual_voice=NULL,manual_speed=NULL,manual_pitch=NULL,
-                preset_goblin=?,preset_galka=?,preset_mithra=?,preset_tarutaru=? WHERE key=?''',
+                preset_goblin=?,preset_galka=?,preset_mithra=?,preset_tarutaru=?,preset_elvaan=? WHERE key=?''',
                 (profile['preference'],voice,speed,pitch,
-                 *[int(p in profile['presets']) for p in ('goblin','galka','mithra','tarutaru')],key))
+                 *[int(p in profile['presets']) for p in ('goblin','galka','mithra','tarutaru','elvaan')],key))
             # Child cannot be inferred from ordinary race codes. Preserve explicit Child/mute/history.
             counts['updated' if exists else 'inserted'] += 1
     return counts

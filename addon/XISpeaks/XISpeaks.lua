@@ -1,6 +1,6 @@
 addon.name = 'XISpeaks'
 addon.author = 'Daeloth'
-addon.version = '0.7.0'
+addon.version = '0.8.0'
 addon.desc = 'NPC dialogue speech through a local Kokoro companion.'
 
 require('common')

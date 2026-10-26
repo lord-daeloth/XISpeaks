@@ -26,6 +26,36 @@ class RegistryFixture(unittest.TestCase):
 
 
 class RegistryTests(RegistryFixture):
+    def test_elvaan_blends_are_more_frequent_and_keep_primary_dominant(self):
+        values=[choose_blend(f'elvaan-{i}','bm_george',VOICES,True) for i in range(10000)]
+        self.assertTrue(7300 < sum('*' in v for v in values) < 7700)
+        self.assertTrue(any(v.split('*')[-1].startswith('am_') for v in values if '*' in v))
+        for value in values:
+            validate_voice(value)
+            if '*' in value:
+                self.assertGreaterEqual(float(value.split('*')[0]),.6)
+                self.assertTrue(value.split('*')[-1][1]=='m')
+
+    def test_elvaan_toggle_british_primary_manual_override_and_restore(self):
+        self.registry.encounter('Halver')
+        self.registry.edit('halver','preference','masculine')
+        original=self.registry.voice_for('Halver')
+        npc=self.registry.edit('halver','preset',dict(name='elvaan',enabled=True))
+        primary=npc['voice'].split('*')[1].split()[0] if '*' in npc['voice'] else npc['voice']
+        self.assertTrue(primary.startswith('bm_'))
+        self.registry.edit('halver','voice','am_michael')
+        self.assertEqual(self.registry.voice_for('Halver'),'am_michael')
+        self.registry.edit('halver','reset')
+        self.registry.edit('halver','preset',dict(name='elvaan',enabled=False))
+        self.assertEqual(self.registry.voice_for('Halver'),original)
+        self.registry.edit('halver','preference','feminine')
+        npc=self.registry.edit('halver','preset',dict(name='elvaan',enabled=True))
+        primary=npc['voice'].split('*')[1].split()[0] if '*' in npc['voice'] else npc['voice']
+        self.assertTrue(primary.startswith('bf_'))
+        self.registry.close()
+        self.registry=Registry(self.path,self.config)
+        self.assertEqual(self.registry.voice_for('Halver'),npc['voice'])
+
     def test_automatic_blend_distribution_and_compatibility(self):
         values=[choose_blend(f'blend-{i}', 'am_michael', VOICES) for i in range(10000)]
         self.assertTrue(2300 < sum('*' in v for v in values) < 2700)

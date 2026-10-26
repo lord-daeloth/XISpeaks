@@ -53,7 +53,7 @@ def classify(look, goblin_models):
     if look.get('type') == 'equipped' and look.get('race') in RACES:
         race, preference = RACES[look['race']]
         return dict(race=race, preference=preference,
-                    presets=[race] if race in ('galka','mithra','tarutaru') else [])
+                    presets=[race] if race in ('galka','mithra','tarutaru','elvaan') else [])
     if look.get('type') == 'standard' and look.get('model') in goblin_models:
         return dict(race='goblin', preference='unknown', presets=['goblin'])
     return None
@@ -141,7 +141,7 @@ def generate(source, output):
         status, profile = resolve(entries)
         counts[status] += 1
         associations[key] = dict(name=entries[0]['name'], status=status, profile=profile,
-                                 suggested_voice=choose_voice(key, profile['preference'] if profile else 'unknown', VOICES),
+                                 suggested_voice=choose_voice(key, profile['preference'] if profile else 'unknown', [v for v in VOICES if v.startswith('b')] if profile and profile['race'] == 'elvaan' else VOICES),
                                  entities=entries)
     document = dict(schema=1, source='https://github.com/LandSandBoat/server', revision=revision,
         rules='Only confirmed entries are eligible for import; partial/unknown/conflicting names require review.',
