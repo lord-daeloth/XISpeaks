@@ -5,7 +5,7 @@ local M = {}
 function M.new(send, clock, session)
     local ui = {visible=false, rows={}, voices={}, total=0, page=0, search='', filter='all',
         selected=nil, draft=nil, pending=nil, next_refresh=0, serial=0,
-        review=nil, review_enabled=false, review_count=0, next_review=0,
+        review=nil, review_enabled=false, review_count=0, next_review=0, review_unsupported=false,
         draft_speed=100, draft_pitch=0, global_speed=100, global_volume=100, global_dirty=false,
         globals={speed=1,volume=1}, pitch_engine='rubberband',
         message='Start the companion, then Refresh.', status='Not connected'}
@@ -43,10 +43,18 @@ function M.new(send, clock, session)
             self.next_refresh = 0
             return true -- Search changed in flight: don't show an obsolete page.
         end
-        if not result.ok then self.message = 'Error: ' .. tostring(result.error); return true end
+        if not result.ok then
+            if action:sub(1,6) == 'review' and result.error == 'Unknown UI action' then
+                self.review_unsupported=true; self.review=nil; self.review_enabled=false
+                self.next_review=clock()+30
+                return true
+            end
+            self.message = 'Error: ' .. tostring(result.error); return true
+        end
         self.status = result.status or 'Connected'
         self.message = (result.error and result.error ~= '') and ('Speech error: ' .. result.error) or ''
         if type(result.review_enabled) == 'boolean' then
+            self.review_unsupported=false
             self.review_enabled = result.review_enabled
             self.review = type(result.review) == 'table' and result.review.key and result.review or nil
             self.review_count = result.review_count or 0
@@ -107,7 +115,7 @@ function M.new(send, clock, session)
         end
         if self.visible and not self.pending and now >= self.next_refresh then self:refresh() end
         if not self.pending and now >= self.next_review then
-            self.next_review=now+1
+            self.next_review=now+(self.review_unsupported and 30 or 1)
             self:request({action='review_poll'})
         end
     end
@@ -140,9 +148,15 @@ function M.new(send, clock, session)
         local open = {self.visible}
         if imgui.Begin('XISpeaks - NPC voices', open, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
             imgui.Text('Companion: ' .. self.status)
-            if self.pending then imgui.SameLine(); imgui.TextDisabled('Updating...') end
+            if self.pending and self.pending.action ~= 'list' and self.pending.action ~= 'review_poll'
+                and clock()-self.pending.sent >= 0.15 then
+                imgui.SameLine(); imgui.TextDisabled('Updating...')
+            end
+            if self.review_unsupported then
+                imgui.TextWrapped('Voice review needs companion 0.9.0 or newer. Update and restart the companion; reconnection is automatic.')
+            end
             local reviewing = {self.review_enabled}
-            if imgui.Checkbox('Review unapproved voices', reviewing) and not self.pending then
+            if imgui.Checkbox('Review unapproved voices', reviewing) and not self.pending and not self.review_unsupported then
                 self:request({action='review_toggle', enabled=reviewing[1]})
             end
             imgui.TextDisabled('Reviews appear after speech, when this editor is closed. Later skips this conversation.')

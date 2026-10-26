@@ -61,6 +61,16 @@ class VoiceUITests(unittest.TestCase):
         self.assertEqual(self.lua.globals().ui.selected.key, 'halver')
         self.assertEqual(self.lua.globals().ui.search, 'Halver')
 
+    def test_old_companion_backoff_and_automatic_recovery(self):
+        self.lua.execute('ui:tick()')
+        header, _ = self.last_request()
+        self.lua.globals().reply = header + '\n' + json.dumps(dict(ok=False,error='Unknown UI action'))
+        self.lua.execute('ui:receive(reply); assert(ui.review_unsupported); now=2; ui:tick(); assert(ui.pending==nil)')
+        self.assertNotIn('Unknown UI action', self.lua.globals().ui.message)
+        self.lua.execute('now=31; ui:tick()')
+        self.respond(dict(review_enabled=False, review=None, review_count=0))
+        self.assertFalse(self.lua.globals().ui.review_unsupported)
+
     def test_review_toggle_and_approve_payload(self):
         self.load_list()
         self.lua.execute("clicks['Review unapproved voices']=true; ui:draw()")
