@@ -1,20 +1,21 @@
 """Export NPC sound corrections without copying player history or global settings."""
 from contextlib import closing
 import json
+import re
 from pathlib import Path
 import sqlite3
 
 from registry import PRESETS, PREFERENCES, name_key, number, validate_voice
 
-FIELDS = ('preference', 'manual_voice', 'manual_speed', 'manual_pitch') + tuple('preset_' + p for p in PRESETS)
+FIELDS = ('preference', 'manual_voice', 'manual_speed', 'manual_pitch', 'approval') + tuple('preset_' + p for p in PRESETS)
 
 
 def profile(row):
-    return {field: row[field] for field in FIELDS}
+    return {field: row[field] if field in row.keys() else None for field in FIELDS}
 
 
 def empty_profile():
-    return dict(preference='unknown', manual_voice=None, manual_speed=None, manual_pitch=None,
+    return dict(preference='unknown', manual_voice=None, manual_speed=None, manual_pitch=None, approval=None,
                 **{'preset_' + p: 0 for p in PRESETS})
 
 
@@ -35,6 +36,7 @@ def apply_overrides(registry, document):
     if document.get('schema') != 1 or not isinstance(document.get('npcs'), list):
         raise ValueError('Invalid release NPC overrides')
     seen = set()
+    document = dict(document, npcs=[dict(item, approval=item.get('approval')) for item in document['npcs']])
     for item in document['npcs']:
         if set(item) != {'name', *FIELDS} or not isinstance(item['name'], str) or not item['name'].strip():
             raise ValueError('Invalid release NPC profile')
@@ -42,6 +44,8 @@ def apply_overrides(registry, document):
         if key in seen or item['preference'] not in PREFERENCES:
             raise ValueError('Duplicate NPC or invalid preference')
         seen.add(key)
+        if item['approval'] is not None and (not isinstance(item['approval'], str) or not re.fullmatch('[0-9a-f]{32}', item['approval'])):
+            raise ValueError('Invalid approval fingerprint')
         if item['manual_voice'] is not None:
             validate_voice(item['manual_voice'])
         for field, low, high in [('manual_speed', 0.7, 1.3), ('manual_pitch', -4, 4)]:

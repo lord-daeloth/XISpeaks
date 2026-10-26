@@ -29,6 +29,9 @@ class AddonTests(unittest.TestCase):
                 return result
             end
             package.preload.common = function() return {} end
+            managed_ui={visible=false, review_enabled=false, review=nil,
+                tick=function() end, draw=function() end, open=function(self) self.visible=not self.visible end}
+            package.preload.voice_ui=function() return {new=function() return managed_ui end} end
             package.preload.settings = function() return {
                 load = function(t) return t end, register = function() end,
                 save = function() saved = saved + 1 end
@@ -46,6 +49,20 @@ class AddonTests(unittest.TestCase):
         source = Path(__file__).resolve().parents[1] / 'addon' / 'XISpeaks' / 'XISpeaks.lua'
         self.lua.execute(source.read_text())
         self.lua.execute('handlers.load()')
+
+    def test_cutscene_gui_visibility_restored_on_close(self):
+        self.lua.execute('''
+            gui_visible=false
+            AshitaCore={GetGuiManager=function() return {
+                GetVisible=function() return gui_visible end,
+                SetVisible=function(self,v) gui_visible=v end} end}
+            GetPlayerEntity=function() return {StatusServer=4} end
+            managed_ui.review_enabled=true; managed_ui.review={key='halver'}
+            handlers.d3d_present(); assert(gui_visible)
+            managed_ui.review=nil; handlers.d3d_present(); assert(not gui_visible)
+            managed_ui.visible=true; handlers.d3d_present(); assert(gui_visible)
+            handlers.unload(); assert(not gui_visible)
+        ''')
 
     def test_only_original_npc_dialogue_and_high_mode_flags(self):
         self.lua.execute('''

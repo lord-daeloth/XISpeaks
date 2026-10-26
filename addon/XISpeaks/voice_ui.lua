@@ -5,6 +5,7 @@ local M = {}
 function M.new(send, clock, session)
     local ui = {visible=false, rows={}, voices={}, total=0, page=0, search='', filter='all',
         selected=nil, draft=nil, pending=nil, next_refresh=0, serial=0,
+        review=nil, review_enabled=false, review_count=0, next_review=0,
         draft_speed=100, draft_pitch=0, global_speed=100, global_volume=100, global_dirty=false,
         globals={speed=1,volume=1}, pitch_engine='rubberband',
         message='Start the companion, then Refresh.', status='Not connected'}
@@ -45,6 +46,18 @@ function M.new(send, clock, session)
         if not result.ok then self.message = 'Error: ' .. tostring(result.error); return true end
         self.status = result.status or 'Connected'
         self.message = (result.error and result.error ~= '') and ('Speech error: ' .. result.error) or ''
+        if type(result.review_enabled) == 'boolean' then
+            self.review_enabled = result.review_enabled
+            self.review = type(result.review) == 'table' and result.review.key and result.review or nil
+            self.review_count = result.review_count or 0
+        end
+        if action == 'review' and query.decision == 'edit' and type(result.npc) == 'table' then
+            self.visible=true; self.selected=result.npc; self.draft=result.npc.voice
+            self.voices=result.voices or self.voices
+            self.draft_speed=math.floor((result.npc.base_speed or 1)*100+0.5)
+            self.draft_pitch=math.floor((result.npc.base_pitch or 0)*10+0.5)
+            self.search=result.npc.name; self.filter='all'; self.page=0; self.next_refresh=0
+        end
         if type(result.globals) == 'table' then
             self.globals = result.globals
             if not self.global_dirty or action == 'globals' then
@@ -62,7 +75,7 @@ function M.new(send, clock, session)
                     if row.key == self.selected.key then self.selected = row; break end
                 end
             end
-        elseif action == 'edit' and type(result.npc) == 'table' then
+        elseif (action == 'edit' or (action == 'review' and query.decision == 'approve')) and type(result.npc) == 'table' then
             self.selected = result.npc
             self.draft = result.npc.voice
             self.draft_speed = math.floor((result.npc.base_speed or result.npc.speed or 1)*100+0.5)
@@ -89,9 +102,14 @@ function M.new(send, clock, session)
                 self.status = 'No companion response'
                 self.message = 'Start/restart the companion. Refresh to confirm any unacknowledged edit.'
                 self.next_refresh = now + 5
+                self.next_review = now + 5
             end
         end
         if self.visible and not self.pending and now >= self.next_refresh then self:refresh() end
+        if not self.pending and now >= self.next_review then
+            self.next_review=now+1
+            self:request({action='review_poll'})
+        end
     end
 
     function ui:edit(action, value)
@@ -101,12 +119,33 @@ function M.new(send, clock, session)
     end
 
     function ui:draw()
+        local review = self.review
+        if review and self.review_enabled and not self.visible then
+            imgui.SetNextWindowSize({410, 150}, ImGuiCond_FirstUseEver)
+            if imgui.Begin('XISpeaks - Review voice', nil, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
+                imgui.Text(review.name .. ' | ' .. tostring(self.review_count) .. ' pending')
+                imgui.TextWrapped(review.voice)
+                for i, item in ipairs({{'Approve','approve'}, {'Edit voice','edit'}, {'Later','later'}}) do
+                    if i > 1 then imgui.SameLine() end
+                    if imgui.Button(item[1]) and not self.pending then
+                        self:request({action='review', key=review.key, fingerprint=review.fingerprint, decision=item[2]})
+                    end
+                end
+                if self.message ~= '' then imgui.TextWrapped(self.message) end
+            end
+            imgui.End()
+        end
         if not self.visible then return end
         imgui.SetNextWindowSize({780, 790}, ImGuiCond_FirstUseEver)
         local open = {self.visible}
-        if imgui.Begin('XISpeaks - NPC voices', open) then
+        if imgui.Begin('XISpeaks - NPC voices', open, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
             imgui.Text('Companion: ' .. self.status)
             if self.pending then imgui.SameLine(); imgui.TextDisabled('Updating...') end
+            local reviewing = {self.review_enabled}
+            if imgui.Checkbox('Review unapproved voices', reviewing) and not self.pending then
+                self:request({action='review_toggle', enabled=reviewing[1]})
+            end
+            imgui.TextDisabled('Reviews appear after speech, when this editor is closed. Later skips this conversation.')
             local engines = {rubberband='Rubber Band R3 - Higher quality', librosa='Librosa - Faster'}
             imgui.SetNextItemWidth(300)
             if imgui.BeginCombo('Pitch engine', engines[self.pitch_engine]) then
@@ -138,9 +177,9 @@ function M.new(send, clock, session)
             imgui.SameLine()
             if imgui.Button('Refresh') then self.next_refresh=0 end
             imgui.SetNextItemWidth(220)
-            local filters = {all='All NPCs', recent='Recent (24 hours)', manual='Manual overrides'}
+            local filters = {all='All NPCs', recent='Recent (24 hours)', manual='Manual overrides', unreviewed='Unreviewed voices'}
             if imgui.BeginCombo('Show', filters[self.filter]) then
-                for _, key in ipairs({'all','recent','manual'}) do
+                for _, key in ipairs({'all','recent','manual','unreviewed'}) do
                     if imgui.Selectable(filters[key], key == self.filter) then
                         self.filter=key; self.page=0; self.next_refresh=0
                     end
@@ -168,6 +207,10 @@ function M.new(send, clock, session)
             local npc = self.selected
             if npc then
                 imgui.Text(npc.name .. ' | Assigned: ' .. npc.voice .. ' (' .. npc.source .. ')')
+                imgui.TextDisabled('Review: ' .. (npc.review_status or 'unreviewed'))
+                if npc.review_status == 'unreviewed' and imgui.Button('Approve current voice') and not self.pending then
+                    self:request({action='review', key=npc.key, fingerprint=npc.fingerprint, decision='approve'})
+                end
                 local seen = (npc.last_seen or 0) > 0 and os.date('%Y-%m-%d %H:%M', math.floor(npc.last_seen)) or 'Not encountered yet'
                 imgui.TextDisabled('Last heard: ' .. seen)
                 for i, preset in ipairs({'goblin','child','galka','mithra','tarutaru','elvaan'}) do

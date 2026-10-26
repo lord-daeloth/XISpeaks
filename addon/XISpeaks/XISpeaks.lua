@@ -1,6 +1,6 @@
 addon.name = 'XISpeaks'
 addon.author = 'Daeloth'
-addon.version = '0.8.1'
+addon.version = '0.9.0'
 addon.desc = 'NPC dialogue speech through a local Kokoro companion.'
 
 require('common')
@@ -12,6 +12,24 @@ local session = tostring(os.time()) .. '-' .. tostring(math.random(100000, 99999
 local busy = false
 local trace, trace_sequence = nil, 0
 local voice_ui
+local gui_revealed = false
+local gui_hidden_in_cutscene = false
+
+local function review_visibility(wanted)
+    if not AshitaCore then return end
+    local gui = AshitaCore:GetGuiManager()
+    if wanted then
+        if not gui:GetVisible() then
+            local player = GetPlayerEntity and GetPlayerEntity()
+            gui_hidden_in_cutscene = player ~= nil and player.StatusServer == 4
+            gui_revealed=true; gui:SetVisible(true)
+        end
+    elseif gui_revealed then
+        local player = GetPlayerEntity and GetPlayerEntity()
+        if not gui_hidden_in_cutscene or not player or player.StatusServer == 4 then gui:SetVisible(false) end
+        gui_revealed=false
+    end
+end
 
 local function editor()
     if not voice_ui then
@@ -131,6 +149,7 @@ ashita.events.register('load', 'xispeaks_load', function()
 end)
 
 ashita.events.register('unload', 'xispeaks_unload', function()
+    review_visibility(false)
     stop_trace('saved on unload')
     send('stop')
     if udp then udp:close(); udp = nil end
@@ -170,7 +189,10 @@ ashita.events.register('d3d_present', 'xispeaks_poll', function()
             stop_trace('stopped after write error')
         end
     end
-    if voice_ui then voice_ui:tick(); voice_ui:draw() end
+    local ui = editor()
+    ui:tick()
+    review_visibility(ui.visible or (ui.review_enabled and ui.review ~= nil))
+    ui:draw()
     if not udp then return end
     -- Bounded work; never wait for the companion on the game thread.
     for _ = 1, 4 do

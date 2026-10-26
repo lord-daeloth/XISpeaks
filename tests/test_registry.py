@@ -319,6 +319,21 @@ class EditorIntegrationTests(RegistryFixture):
             self.assertEqual(self.request(request, 'repeat'), first)
         self.assertEqual(self.registry.voice_for('Halver'), 'am_michael')
 
+    def test_review_protocol_toggle_approval_and_stale_token(self):
+        self.registry.encounter('Halver')
+        self.assertTrue(self.request(dict(action='review_toggle', enabled=True))['review_enabled'])
+        candidate = self.registry.review_candidate('Halver')
+        self.registry.heard_for_review('Halver', candidate['fingerprint'])
+        state = self.request(dict(action='review_poll'))
+        self.assertEqual(state['review']['key'], 'halver')
+        request = dict(action='review', key='halver', fingerprint=candidate['fingerprint'], decision='approve')
+        reply = self.request(request, 'approve-once')
+        self.assertEqual(reply['npc']['review_status'], 'approved')
+        self.assertEqual(self.request(request, 'approve-once'), reply)
+        self.registry.edit('halver', 'preset', dict(name='goblin', enabled=True))
+        self.assertFalse(self.request(request)['ok'])
+        self.assertEqual(self.request(dict(action='list', filter='unreviewed'))['total'], 1)
+
     def test_preview_is_not_registered_and_retries_do_not_repeat(self):
         result = self.request(dict(action='preview', voice='bf_emma'), 'preview')
         self.assertTrue(result['ok'])

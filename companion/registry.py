@@ -1,5 +1,6 @@
 """Persistent NPC voice assignments. SQLite transactions make UI edits atomic."""
 import hashlib
+import json
 from contextlib import closing
 import math
 import re
@@ -104,6 +105,9 @@ class Registry:
             raise ValueError('voice_pool must be a nonempty list of supported English voice IDs')
         self.default = config['voice']
         self.lock = threading.RLock()
+        self.review_queue = {}
+        self.review_heard = {}
+        self.review_deferred = set()
         self.db = sqlite3.connect(str(path), check_same_thread=False)
         self.db.row_factory = sqlite3.Row
         old_columns = {row[1] for row in self.db.execute('PRAGMA table_info(npcs)')}
@@ -125,6 +129,8 @@ class Registry:
                 encounters INTEGER NOT NULL DEFAULT 0)''')
             self.db.execute('CREATE TABLE IF NOT EXISTS metadata (key TEXT PRIMARY KEY, value TEXT)')
             columns = {row[1] for row in self.db.execute('PRAGMA table_info(npcs)')}
+            if 'approval' not in columns:
+                self.db.execute('ALTER TABLE npcs ADD COLUMN approval TEXT')
             for column in ('auto_speed', 'auto_pitch', 'manual_speed', 'manual_pitch'):
                 if column not in columns:
                     self.db.execute(f'ALTER TABLE npcs ADD COLUMN {column} REAL')
@@ -233,7 +239,81 @@ class Registry:
                 result['voice'] = choose_voice(result['key'], preference, pool)
         if not result['manual_voice']:
             result['voice'] = choose_blend(result['key'], result['voice'], pool, presets['elvaan'])
-        return apply_presets(result, presets)
+        result = apply_presets(result, presets)
+        sound = [result['voice'], round(result['speed'], 6), round(result['pitch'], 6)]
+        result['fingerprint'] = hashlib.sha256(json.dumps(sound).encode()).hexdigest()[:32]
+        result['review_status'] = ('manual' if result['source'] == 'manual' or result['tuning_source'] == 'manual'
+                                   else 'approved' if result.get('approval') == result['fingerprint'] else 'unreviewed')
+        return result
+
+    def review_enabled(self):
+        with self.lock:
+            row = self.db.execute("SELECT value FROM metadata WHERE key='review_enabled'").fetchone()
+            return bool(row and row[0] == '1')
+
+    def set_review_enabled(self, enabled):
+        if type(enabled) is not bool:
+            raise ValueError('Review toggle must be true or false')
+        with self.lock, self.db:
+            self.db.execute("INSERT OR REPLACE INTO metadata VALUES ('review_enabled',?)", ('1' if enabled else '0',))
+            if not enabled:
+                self.clear_reviews()
+
+    def clear_reviews(self):
+        with self.lock:
+            self.review_queue.clear()
+            self.review_heard.clear()
+            self.review_deferred.clear()
+
+    def review_candidate(self, name):
+        with self.lock:
+            if not name or not self.review_enabled():
+                return None
+            row = self.db.execute('SELECT * FROM npcs WHERE key=?', (name_key(name),)).fetchone()
+            npc = self.public(row) if row else None
+            return npc if npc and not npc['muted'] and npc['review_status'] == 'unreviewed' else None
+
+    def heard_for_review(self, name, fingerprint):
+        with self.lock:
+            npc = self.review_candidate(name)
+            if not npc or npc['fingerprint'] != fingerprint:
+                return
+            key, now = npc['key'], time.monotonic()
+            if now - self.review_heard.get(key, -1e9) >= 60:
+                self.review_deferred.discard(key)
+            if len(self.review_heard) >= 512:
+                oldest = min(self.review_heard, key=self.review_heard.get)
+                self.review_heard.pop(oldest)
+                self.review_deferred.discard(oldest)
+            self.review_heard[key] = now
+            if key not in self.review_deferred and len(self.review_queue) < 64:
+                self.review_queue[key] = fingerprint
+
+    def review_state(self):
+        with self.lock:
+            for key, fingerprint in list(self.review_queue.items()):
+                npc = self.review_candidate(key)
+                if not npc or npc['fingerprint'] != fingerprint:
+                    self.review_queue.pop(key, None)
+            key = next(iter(self.review_queue), None)
+            return dict(review_enabled=self.review_enabled(), review=self.review_candidate(key) if key else None,
+                        review_count=len(self.review_queue))
+
+    def review_action(self, key, fingerprint, decision):
+        with self.lock, self.db:
+            row = self.db.execute('SELECT * FROM npcs WHERE key=?', (key,)).fetchone()
+            npc = self.public(row) if row else None
+            if not npc or fingerprint != npc['fingerprint']:
+                raise ValueError('Voice changed; listen again before approving')
+            if decision == 'approve':
+                self.db.execute('UPDATE npcs SET approval=? WHERE key=?', (fingerprint, key))
+            elif decision in ('later', 'edit'):
+                self.review_deferred.add(key)
+                self.review_heard[key] = time.monotonic()
+            else:
+                raise ValueError('Invalid review decision')
+            self.review_queue.pop(key, None)
+            return self.public(self.db.execute('SELECT * FROM npcs WHERE key=?', (key,)).fetchone())
 
     def edit(self, key, action, value=None):
         if not isinstance(key, str) or len(key) > 128:
@@ -280,7 +360,7 @@ class Registry:
             return self.public(self.db.execute('SELECT * FROM npcs WHERE key=?', (key,)).fetchone())
 
     def page(self, search='', filter_name='all', page=0):
-        if not isinstance(search, str) or len(search) > 128 or filter_name not in ('all', 'recent', 'manual'):
+        if not isinstance(search, str) or len(search) > 128 or filter_name not in ('all', 'recent', 'manual', 'unreviewed'):
             raise ValueError('Invalid list filter')
         if type(page) is not int or not 0 <= page <= 100000:
             raise ValueError('Invalid page')
@@ -294,6 +374,11 @@ class Registry:
             args.append(time.time() - 86400)
         where = ' AND '.join(conditions)
         with self.lock:
+            if filter_name == 'unreviewed':
+                rows = [self.public(row) for row in self.db.execute('SELECT * FROM npcs WHERE ' + where +
+                        ' ORDER BY last_seen DESC,key', args) if self.public(row)['review_status'] == 'unreviewed']
+                page = min(page, max(0, (len(rows) - 1) // 12))
+                return dict(rows=rows[page*12:page*12+12], total=len(rows), page=page)
             total = self.db.execute('SELECT count(*) FROM npcs WHERE ' + where, args).fetchone()[0]
             page = min(page, max(0, (total - 1) // 12))
             rows = self.db.execute('SELECT * FROM npcs WHERE ' + where +

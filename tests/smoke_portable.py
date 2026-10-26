@@ -40,6 +40,16 @@ def check(executable):
                                 break
                             except (socket.timeout, ConnectionResetError):
                                 time.sleep(0.05)
+                        if attempt == 0:
+                            client.settimeout(3)
+                            token = reply['rows'][0]['fingerprint']
+                            for identity, request in [('toggle-review', dict(action='review_toggle', enabled=True)),
+                                    ('approve-review', dict(action='review', key='halver', fingerprint=token, decision='approve'))]:
+                                client.sendto(('XISUI\t' + identity + '\n' + json.dumps(request)).encode(), ('127.0.0.1', port))
+                                result = json.loads(client.recv(12000).split(b'\n', 1)[1])
+                                assert result['ok'], result
+                            assert result['npc']['approval'] == token
+                            client.settimeout(0.3)
                         with closing(sqlite3.connect(database)) as db, db:
                             count = db.execute('SELECT COUNT(*) FROM npcs').fetchone()[0]
                             with closing(sqlite3.connect(executable.parent / '_internal/seed.sqlite3')) as seed:
@@ -55,7 +65,7 @@ def check(executable):
                         process.terminate()
                         process.wait(timeout=10)
         subprocess.run([str(executable), '--self-test'], cwd=root, env=env, check=True, timeout=240)
-        print('PASS portable EXE: clean seed, UDP UI, preserved customization, isolated PATH and offline speech')
+        print('PASS portable EXE: clean seed, UDP reviews, preserved customization, isolated PATH and offline speech')
 
 
 if __name__ == '__main__':

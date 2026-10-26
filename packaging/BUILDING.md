@@ -25,12 +25,14 @@ The builder fetches pinned Kokoro assets and tokenizer data, creates a fresh
 seed database, freezes the app with PyInstaller, and produces a ZIP and SHA-256
 checksum in dist. Each build reads NPC corrections from the project's npcs.sqlite3
 and exports them to data/release_npc_overrides.json. This includes manual voices,
-blends, pitch/speed overrides, gender preferences, and race/Child toggles. It excludes
+blends, pitch/speed overrides, gender preferences, race/Child toggles and approval
+fingerprints. Approval fingerprints remain valid only for the same NPC sound. It excludes
 encounter history, mute choices, and global audio settings. If the local database
 is absent, the saved JSON is used, so source releases retain the corrections.
 Use --registry PATH to read a different live database, or --catalog-only to omit
 corrections. --package-only refreshes the seed without rebuilding the EXE.
 Existing users' databases remain untouched; these defaults apply to new installs.
+The optional review-mode toggle is personal and is never exported.
 Source, upstream
 source archives, model attribution and third-party notices accompany the release.
 

@@ -49,6 +49,26 @@ class VoiceUITests(unittest.TestCase):
         header, body = wire.split('\n', 1)
         return header, json.loads(body)
 
+    def test_background_review_prompt_and_edit_opens_correct_npc(self):
+        self.lua.execute('ui:tick()')
+        self.assertEqual(self.last_request()[1]['action'], 'review_poll')
+        npc = dict(self.npc, fingerprint='abc', review_status='unreviewed')
+        self.respond(dict(review_enabled=True, review=npc, review_count=1))
+        self.lua.execute("clicks['Edit voice']=true; ui:draw(); assert(depth==0)")
+        self.assertEqual(self.last_request()[1], dict(action='review', key='halver', fingerprint='abc', decision='edit'))
+        self.respond(dict(review_enabled=True, review=None, review_count=0, npc=npc, voices=['am_michael']))
+        self.assertTrue(self.lua.globals().ui.visible)
+        self.assertEqual(self.lua.globals().ui.selected.key, 'halver')
+        self.assertEqual(self.lua.globals().ui.search, 'Halver')
+
+    def test_review_toggle_and_approve_payload(self):
+        self.load_list()
+        self.lua.execute("clicks['Review unapproved voices']=true; ui:draw()")
+        self.assertEqual(self.last_request()[1], dict(action='review_toggle', enabled=True))
+        self.respond(dict(review_enabled=True, review=dict(self.npc, fingerprint='abc'), review_count=1))
+        self.lua.execute("ui.visible=false; clicks['Approve']=true; ui:draw(); assert(depth==0)")
+        self.assertEqual(self.last_request()[1]['decision'], 'approve')
+
     def respond(self, data):
         header, _ = self.last_request()
         self.lua.globals().reply = header + '\n' + json.dumps(dict(ok=True, status='ready', error='', **data))

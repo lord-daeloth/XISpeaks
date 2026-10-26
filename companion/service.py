@@ -173,7 +173,9 @@ class SpeechQueue:
                     with self.condition:
                         return self.closed or generation != self.generation
                 if self.registry:
-                    profile = self.registry.playback(dialogue.speaker, voice_override)
+                    with self.registry.lock:
+                        profile = self.registry.playback(dialogue.speaker, voice_override)
+                        review = self.registry.review_candidate(dialogue.speaker) if voice_override is None else None
                 else:
                     profile = dict(voice=voice_override or self.config['voices'].get(dialogue.speaker, self.config['voice']),
                                    speed=self.config['speed'], pitch=0, volume=self.config.get('volume', 1.0))
@@ -184,6 +186,8 @@ class SpeechQueue:
                             backend.configure(**profile)
                         backend.speak(dialogue, voice, cancelled)
                         self.last_error = ''
+                        if self.registry and review and not cancelled() and not isinstance(backend, DryBackend):
+                            self.registry.heard_for_review(dialogue.speaker, review['fingerprint'])
                 except Exception as exc:
                     # One failed voice download must not disable every NPC.
                     self.last_error = str(exc)[:300]
@@ -243,6 +247,14 @@ class Server:
                 result['globals'] = self.registry.globals()
             elif action == 'edit':
                 result = {'npc': self.registry.edit(request.get('key'), request.get('edit'), request.get('value'))}
+            elif action == 'review_poll':
+                result = self.registry.review_state()
+            elif action == 'review_toggle':
+                self.registry.set_review_enabled(request.get('enabled'))
+                result = self.registry.review_state()
+            elif action == 'review':
+                npc = self.registry.review_action(request.get('key'), request.get('fingerprint'), request.get('decision'))
+                result = dict(self.registry.review_state(), npc=npc, voices=VOICES)
             elif action == 'globals':
                 result = {'globals': self.registry.set_globals(request.get('speed'), request.get('volume'), request.get('pitch_engine'))}
             elif action == 'preview':
@@ -258,6 +270,8 @@ class Server:
                 result = {'message': 'Preview queued'}
             else:
                 raise ValueError('Unknown UI action')
+            if action == 'list':
+                result.update(self.registry.review_state())
             result.update(ok=True, status=self.speech.status(), error=self.speech.last_error)
         except (ValueError, TypeError, UnicodeError, sqlite3.Error) as exc:
             result = dict(ok=False, error=str(exc)[:300])
@@ -290,6 +304,8 @@ class Server:
         self.seen[key] = now
         if frame.command == 'stop':
             self.speech.stop()
+            if self.registry:
+                self.registry.clear_reviews()
         else:
             dialogue = clean_dialogue(frame.raw)
             # Mode 142 also carries system notices. Only named dialogue is
