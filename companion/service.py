@@ -12,6 +12,7 @@ import time
 
 from dialogue import MAX_DATAGRAM, Dialogue, clean_dialogue, parse_frame
 from registry import Registry, VOICES, number, apply_presets, validate_voice
+from portable import app_root, resource_root, initialize_database
 
 LOG = logging.getLogger('XISpeaks')
 
@@ -323,7 +324,7 @@ class Server:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', type=int, default=49152)
-    parser.add_argument('--config', type=Path, default=Path(__file__).resolve().parents[1] / 'config.json')
+    parser.add_argument('--config', type=Path, default=app_root() / 'config.json')
     parser.add_argument('--dry-run', action='store_true', help='Print captured dialogue without loading a model')
     parser.add_argument('--registry', type=Path, help='NPC database path; default beside config.json')
     args = parser.parse_args()
@@ -334,7 +335,11 @@ def main():
         config = load_config(args.config)
     except (ValueError, OSError) as exc:
         parser.error(str(exc))
-    registry = Registry(args.registry or args.config.with_name('npcs.sqlite3'), config)
+    database = args.registry or args.config.with_name('npcs.sqlite3')
+    seed = resource_root() / 'seed.sqlite3'
+    if seed.is_file():
+        initialize_database(database, seed)
+    registry = Registry(database, config)
     speech = SpeechQueue(config, DryBackend if args.dry_run else KokoroBackend, registry)
     server = None
     try:

@@ -1,5 +1,7 @@
 # XISpeaks
 
+For the self-contained Windows EXE release, see [portable installation and build instructions](packaging/BUILDING.md).
+
 An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
 Version 0.8.1 raises the Child preset to +1 semitone. Version 0.8.0 added British-primary Elvaan assignments and more frequent blending, alongside a global pitch-engine selector: Rubber Band R3 (higher quality,
 default) or Librosa (faster). Restart the companion and `/addon reload XISpeaks`,

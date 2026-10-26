@@ -7,3 +7,6 @@ config.json
 trace-*.tsv
 npcs.sqlite3*
 tools/
+build/
+dist/
+build-release.log

@@ -6,9 +6,10 @@ import subprocess
 import tempfile
 import wave
 import numpy as np
+from portable import resource_root
 
 
-RUBBERBAND = Path(__file__).resolve().parents[1] / 'tools/rubberband-4.0.0-gpl-executable-windows/rubberband.exe'
+RUBBERBAND = resource_root() / 'tools/rubberband-4.0.0-gpl-executable-windows/rubberband.exe'
 
 
 def rubberband_pitch(data, pitch):
