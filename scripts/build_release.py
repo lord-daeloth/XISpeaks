@@ -15,6 +15,7 @@ from registry import Registry, VOICES
 from service import DEFAULTS
 from import_npc_catalog import import_catalog
 from release_sources import collect_sources
+from release_overrides import export_overrides, apply_overrides
 
 REVISION = 'f3ff3571791e39611d31c381e3a41a3af07b4987'
 
@@ -31,6 +32,9 @@ def distributable(relative):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--registry', type=Path, help='Read corrections from this NPC database (default: project npcs.sqlite3)')
+    parser.add_argument('--catalog-only', action='store_true', help='Omit saved NPC corrections')
+    parser.add_argument('--output', type=Path, default=ROOT / 'dist/XISpeaks-windows-x64.zip', help='Destination ZIP')
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument('--freeze-only', action='store_true', help='Build the executable without assembling the release ZIP')
     mode.add_argument('--package-only', action='store_true', help='Assemble an already-frozen build; rebuild first if companion code changed')
@@ -61,6 +65,20 @@ def main():
     registry = Registry(seed, dict(DEFAULTS, voices={}))
     try:
         print(import_catalog(registry, json.loads((ROOT / 'data/npc_associations.json').read_text(encoding='utf-8'))), flush=True)
+        if not args.catalog_only:
+            source = args.registry or ROOT / 'npcs.sqlite3'
+            saved = ROOT / 'data/release_npc_overrides.json'
+            if source.is_file():
+                overrides = export_overrides(source, registry)
+                count = apply_overrides(registry, overrides)
+                saved.write_text(json.dumps(overrides, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+            elif args.registry:
+                raise FileNotFoundError(source)
+            elif saved.is_file():
+                count = apply_overrides(registry, json.loads(saved.read_text(encoding='utf-8')))
+            else:
+                count = 0
+            print(f'Included {count} saved NPC corrections (no history or global settings)', flush=True)
         with registry.db:
             registry.db.execute("DELETE FROM metadata WHERE key='legacy_imported'")
     finally:
@@ -70,6 +88,8 @@ def main():
                         '--workpath', str(ROOT / 'build/pyinstaller'), str(ROOT / 'packaging/companion.spec')], check=True, cwd=ROOT)
     if args.freeze_only:
         return
+    # Assets must be refreshed even when the executable itself is reused.
+    shutil.copyfile(seed, ROOT / 'dist/frozen/companion/_internal/seed.sqlite3')
     release = ROOT / 'dist/XISpeaks'
     release.mkdir(parents=True, exist_ok=True)
     shutil.copytree(ROOT / 'dist/frozen/companion', release / 'companion', dirs_exist_ok=True)
@@ -103,7 +123,8 @@ def main():
     collect_sources(ROOT / 'build/upstream-source')
     shutil.copytree(ROOT / 'build/upstream-source', release / 'source/upstream', dirs_exist_ok=True)
     # Explicit allowlist avoids accidentally distributing private settings or test WAVs.
-    archive = ROOT / 'dist/XISpeaks-windows-x64.zip'
+    archive = args.output.resolve()
+    archive.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as output:
         for path in sorted(release.rglob('*')):
             relative = path.relative_to(release)

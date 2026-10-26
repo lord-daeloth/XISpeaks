@@ -5,7 +5,7 @@ double-click `XISpeaks/START-XISpeaks.cmd`. Load with `/addon load XISpeaks`.
 The companion EXE, Python runtime, Kokoro model, 28 English voices, tokenizer,
 Librosa, and Rubber Band R3 are included. Keep the entire folder together.
 
-The release seeds 3,658 reviewed NPC defaults on first start. Choices are saved
+The release seeds reviewed NPC defaults plus saved author corrections on first start. Choices are saved
 in `companion/npcs.sqlite3`. Updates preserve that file and optional config.json.
 When migrating from the development setup, close the old companion and copy
 your existing npcs.sqlite3 and config.json beside the new EXE. Never run both
@@ -23,7 +23,15 @@ python scripts/build_release.py
 
 The builder fetches pinned Kokoro assets and tokenizer data, creates a fresh
 seed database, freezes the app with PyInstaller, and produces a ZIP and SHA-256
-checksum in dist. No personal registry or config is used. Source, upstream
+checksum in dist. Each build reads NPC corrections from the project's npcs.sqlite3
+and exports them to data/release_npc_overrides.json. This includes manual voices,
+blends, pitch/speed overrides, gender preferences, and race/Child toggles. It excludes
+encounter history, mute choices, and global audio settings. If the local database
+is absent, the saved JSON is used, so source releases retain the corrections.
+Use --registry PATH to read a different live database, or --catalog-only to omit
+corrections. --package-only refreshes the seed without rebuilding the EXE.
+Existing users' databases remain untouched; these defaults apply to new installs.
+Source, upstream
 source archives, model attribution and third-party notices accompany the release.
 
 Run `START-XISpeaks.cmd --self-test` to test offline synthesis, blending, and

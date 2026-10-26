@@ -42,10 +42,12 @@ def check(executable):
                                 time.sleep(0.05)
                         with closing(sqlite3.connect(database)) as db, db:
                             count = db.execute('SELECT COUNT(*) FROM npcs').fetchone()[0]
-                            assert count == 3658, count
+                            with closing(sqlite3.connect(executable.parent / '_internal/seed.sqlite3')) as seed:
+                                assert count == seed.execute('SELECT COUNT(*) FROM npcs').fetchone()[0], count
                             if attempt == 0:
                                 assert db.execute('SELECT SUM(encounters) FROM npcs').fetchone()[0] == 0
-                                assert db.execute('SELECT COUNT(*) FROM npcs WHERE manual_voice IS NOT NULL').fetchone()[0] == 0
+                                with closing(sqlite3.connect(executable.parent / '_internal/seed.sqlite3')) as seed:
+                                    assert db.execute('SELECT key,manual_voice,manual_speed,manual_pitch FROM npcs ORDER BY key').fetchall() == seed.execute('SELECT key,manual_voice,manual_speed,manual_pitch FROM npcs ORDER BY key').fetchall()
                                 db.execute("UPDATE npcs SET manual_voice='am_michael' WHERE key='halver'")
                             else:
                                 assert db.execute("SELECT manual_voice FROM npcs WHERE key='halver'").fetchone()[0] == 'am_michael'

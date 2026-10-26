@@ -17,7 +17,8 @@ For optional advanced settings, copy companion\config.example.json to config.jso
 in the same directory. The defaults work without it.
 Upgrades: close the companion, then extract over the existing addon. The archive
 does not contain personal config.json or npcs.sqlite3 files, so they are retained.
-The initial database contains reviewed NPC defaults, without personal history.
+The initial database contains reviewed NPC defaults and the author's saved voice,
+blend, pitch/speed, gender and race corrections, without personal history.
 Existing databases are not replaced or automatically re-imported on upgrade.
 
 Diagnostics: START-XISpeaks.cmd --self-test
