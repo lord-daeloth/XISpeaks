@@ -1,7 +1,7 @@
 # XISpeaks
 
 An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
-Version 0.8.0 adds British-primary Elvaan assignments and more frequent blending, alongside a global pitch-engine selector: Rubber Band R3 (higher quality,
+Version 0.8.1 raises the Child preset to +1 semitone. Version 0.8.0 added British-primary Elvaan assignments and more frequent blending, alongside a global pitch-engine selector: Rubber Band R3 (higher quality,
 default) or Librosa (faster). Restart the companion and `/addon reload XISpeaks`,
 then use `/xis voices`. Dialogue capture still supports Halver's mode 142 and
 Faurie's mode 150; tracing remains available.
@@ -113,7 +113,7 @@ NPC types are assigned by you, not inferred from names or game memory.
 | Toggle | Automatic voice choice | Speed multiplier | Pitch offset |
 | --- | --- | --- | --- |
 | Goblin | Existing voice | 115% | +3.5 semitones |
-| Child | Small youthful candidate pool | 103% | +0.2 semitones |
+| Child | Small youthful candidate pool | 103% | +1 semitone |
 | Galka | Existing voice | 90% | -4 semitones |
 | Mithra | Feminine pool | 100% | None |
 | Tarutaru | Existing voice (full configured pool) | 110% | +1 semitone |
@@ -126,7 +126,7 @@ enabled, selection falls back to the configured pool with the same preference.
 Mithra takes precedence over the automatic gender preference; a manual voice
 always wins. A preset requiring a missing gender pool reports an error.
 
-Toggles stack: Child + Tarutaru gives 113.3% speed and +1.2 semitones. Speed
+Toggles stack: Child + Tarutaru gives 113.3% speed and +2 semitones. Speed
 multipliers combine with NPC tuning and global speed; pitch offsets add to NPC
 tuning. Final speed is capped at 50–200% and pitch at -4 to +4 semitones. The
 sliders edit base NPC tuning; the effective readout and preview include presets.

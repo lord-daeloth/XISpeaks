@@ -125,7 +125,7 @@ class RegistryTests(RegistryFixture):
         npc = self.registry.edit('halver', 'preset', dict(name='tarutaru', enabled=True))
         self.assertIn(npc['voice'], ('af_sky', 'af_bella', 'bf_lily', 'am_puck'))
         self.assertAlmostEqual(npc['speed'], npc['base_speed'] * 1.03 * 1.1)
-        self.assertAlmostEqual(npc['pitch'], npc['base_pitch'] + 1.2)
+        self.assertAlmostEqual(npc['pitch'], npc['base_pitch'] + 2.0)
         self.registry.close()
         self.registry = Registry(self.path, self.config)
         self.assertTrue(self.registry.page(search='halver')['rows'][0]['presets']['child'])
