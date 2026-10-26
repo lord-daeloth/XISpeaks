@@ -1,0 +1,5829 @@
+{
+  "pages": 15,
+  "category_entries": 2613,
+  "unmatched": [
+    {
+      "title": "1st Legion Reiter",
+      "url": "https://ffxiclopedia.fandom.com/wiki/1st_Legion_Reiter",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "1st Legionnaire",
+      "url": "https://ffxiclopedia.fandom.com/wiki/1st_Legionnaire",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "2nd Legion Grenadier",
+      "url": "https://ffxiclopedia.fandom.com/wiki/2nd_Legion_Grenadier",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Alchemists' Guild (Bastok)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Alchemists%27_Guild_(Bastok)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+      "race": "galka",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Blacksmiths' Guild (Bastok)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Blacksmiths%27_Guild_(Bastok)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+      "race": "galka",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "User:Cinnabun",
+      "url": "https://ffxiclopedia.fandom.com/wiki/User:Cinnabun",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+      "race": "galka",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Darksteel Hurricane",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Darksteel_Hurricane",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Diva's Muscle",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Diva%27s_Muscle",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Galger",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Galger",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "General Zazarg",
+      "url": "https://ffxiclopedia.fandom.com/wiki/General_Zazarg",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Rakish Kayak",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Rakish_Kayak",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs?from=Heavy+Bear%2C+I.M.",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Republic Garrison",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Republic_Garrison",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs?from=Heavy+Bear%2C+I.M.",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Republican Infantry",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Republican_Infantry",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs?from=Heavy+Bear%2C+I.M.",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Tree Talker",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Tree_Talker",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs?from=Heavy+Bear%2C+I.M.",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Trust: AAGK",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_AAGK",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs?from=Heavy+Bear%2C+I.M.",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Trust: Zeid II",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_Zeid_II",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs?from=Heavy+Bear%2C+I.M.",
+      "race": "galka",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Weavers' Guild (Selbina)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Weavers%27_Guild_(Selbina)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs?from=Heavy+Bear%2C+I.M.",
+      "race": "galka",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Adjutant (Windurst)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Adjutant_(Windurst)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+      "race": "tarutaru",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Aquarian Caster",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Aquarian_Caster",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Ariesian Caster",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Ariesian_Caster",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Boneworkers' Guild (Windurst)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Boneworkers%27_Guild_(Windurst)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+      "race": "tarutaru",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Capricornian Caster",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Capricornian_Caster",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Chamulili",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Chamulili",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Combat Salvemixer",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Combat_Salvemixer",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "D. Shantotto",
+      "url": "https://ffxiclopedia.fandom.com/wiki/D._Shantotto",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": [
+        "shantotto"
+      ]
+    },
+    {
+      "title": "Elpido-Copido",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Elpido-Copido",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Federation Infantry",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Federation_Infantry",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Keo-Horuo",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Keo-Horuo",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Inmot-Pinmot",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": [
+        "keo-koruo"
+      ]
+    },
+    {
+      "title": "Kopua-Mobua",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Kopua-Mobua",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Inmot-Pinmot",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Lavnana",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Lavnana",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Inmot-Pinmot",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Leppi-Rippi",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Leppi-Rippi",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Inmot-Pinmot",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Libran Caster",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Libran_Caster",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Inmot-Pinmot",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Nambima-Hyonbima",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Nambima-Hyonbima",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Inmot-Pinmot",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": [
+        "nabima-hyonbima"
+      ]
+    },
+    {
+      "title": "Patriarch Protector",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Patriarch_Protector",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Ochocho%2C+W.W.",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Pesoso",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Pesoso",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Ochocho%2C+W.W.",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Piscean Caster",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Piscean_Caster",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Ochocho%2C+W.W.",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Quartermaster (Windurst)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Quartermaster_(Windurst)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Ochocho%2C+W.W.",
+      "race": "tarutaru",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Robino-Mobino (Windurst Woods)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Robino-Mobino_(Windurst_Woods)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Ochocho%2C+W.W.",
+      "race": "tarutaru",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Robino-Mobino (Yuhtunga Jungle)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Robino-Mobino_(Yuhtunga_Jungle)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Ochocho%2C+W.W.",
+      "race": "tarutaru",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Scorpion Caster",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Scorpion_Caster",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Ochocho%2C+W.W.",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Scylla Brigade Healer",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Scylla_Brigade_Healer",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Ochocho%2C+W.W.",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Taruger",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Taruger",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Shipilolo",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Trust: AATT",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_AATT",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Shipilolo",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Trust: D. Shantotto",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_D._Shantotto",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Shipilolo",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": [
+        "shantotto"
+      ]
+    },
+    {
+      "title": "Trust: Matsui-P",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_Matsui-P",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Shipilolo",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Trust: Shantotto II",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_Shantotto_II",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Shipilolo",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": [
+        "shantotto"
+      ]
+    },
+    {
+      "title": "Turumi-Byrumi",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Turumi-Byrumi",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Shipilolo",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Wanju-Daruja",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Wanju-Daruja",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Shipilolo",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": [
+        "wanja-daruja"
+      ]
+    },
+    {
+      "title": "Weavers' Guild (Selbina)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Weavers%27_Guild_(Selbina)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Shipilolo",
+      "race": "tarutaru",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Template talk:WIP-NPC",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Template_talk:WIP-NPC",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Shipilolo",
+      "race": "tarutaru",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Yestin-Ovestin",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Yestin-Ovestin",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Shipilolo",
+      "race": "tarutaru",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Adjutant (San d'Oria)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Adjutant_(San_d%27Oria)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs",
+      "race": "elvaan",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Alaixion",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Alaixion",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Aragoneu Knight",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Aragoneu_Knight",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Blacksmiths' Guild (San d'Oria)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Blacksmiths%27_Guild_(San_d%27Oria)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs",
+      "race": "elvaan",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Carpenters' Guild (San d'Oria)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Carpenters%27_Guild_(San_d%27Oria)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs",
+      "race": "elvaan",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Cassard",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Cassard",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Claraisse",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Claraisse",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Clavauert B Chanoix",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Clavauert_B_Chanoix",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Crimson Wolf Esquire",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Crimson_Wolf_Esquire",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Excaliace",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Excaliace",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Fardimant X Boncourge",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Fardimant_X_Boncourge",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Ferdechoind",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Ferdechoind",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": [
+        "ferdechiond"
+      ]
+    },
+    {
+      "title": "Fusilton",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Fusilton",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Ganmuul",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Ganmuul",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "General Rughadjeen",
+      "url": "https://ffxiclopedia.fandom.com/wiki/General_Rughadjeen",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Ghahnis",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Ghahnis",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Gold Badger Esquire",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Gold_Badger_Esquire",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Guilberien",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Guilberien",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Illauvalahaut",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Illauvalahaut",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": [
+        "illauvolahaut"
+      ]
+    },
+    {
+      "title": "Iron Ram Knight",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Iron_Ram_Knight",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Justi's Furniture",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Justi%27s_Furniture",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": [
+        "door:justi's furniture"
+      ]
+    },
+    {
+      "title": "Karazahm",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Karazahm",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "King Destin",
+      "url": "https://ffxiclopedia.fandom.com/wiki/King_Destin",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Leaute",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Leaute",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Lord Fainevlure Ordelle",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Lord_Fainevlure_Ordelle",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Lord Torresapet B Ordelle",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Lord_Torresapet_B_Ordelle",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Main Gate Area (Selbina)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Main_Gate_Area_(Selbina)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+      "race": "elvaan",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Monteverle",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Monteverle",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Meuxtajean",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "North Upper Walkway (Nashmau)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/North_Upper_Walkway_(Nashmau)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Meuxtajean",
+      "race": "elvaan",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Norvallen Knight",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Norvallen_Knight",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Meuxtajean",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Quartermaster (San d'Oria)",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Quartermaster_(San_d%27Oria)",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Meuxtajean",
+      "race": "elvaan",
+      "reason": "Non-speaker or unresolved disambiguation"
+    },
+    {
+      "title": "Rahdjab",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Rahdjab",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Meuxtajean",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Ramiene",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Ramiene",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": [
+        "raminey",
+        "raminel"
+      ]
+    },
+    {
+      "title": "Rhushouf",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Rhushouf",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Royal Banneret",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Royal_Banneret",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Royal Esquire",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Royal_Esquire",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Royal Garrison",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Royal_Garrison",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Royal Guard",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Royal_Guard",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Royal Knight",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Royal_Knight",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Royal Palliator",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Royal_Palliator",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Savage Hound Condottiere",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Savage_Hound_Condottiere",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Scarlet Boar Esquire",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Scarlet_Boar_Esquire",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Silver Fox Archer",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Silver_Fox_Archer",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Temple Knight",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Temple_Knight",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Trust: AAEV",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_AAEV",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Trust: Prishe II",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_Prishe_II",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Trust: Valaineral",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_Valaineral",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+      "race": "elvaan",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Cobra Mercenary",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Cobra_Mercenary",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Cougar Volunteer",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Cougar_Volunteer",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Crocodile Mercenary",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Crocodile_Mercenary",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Federation Garrison",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Federation_Garrison",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "General Mihli",
+      "url": "https://ffxiclopedia.fandom.com/wiki/General_Mihli",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Jerra Ndala",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Jerra_Ndala",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Khoh Moui",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Khoh_Moui",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": [
+        "choh moui"
+      ]
+    },
+    {
+      "title": "Lhimo Keanyohn",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Lhimo_Keanyohn",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Polih Rejonah",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Polih_Rejonah",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs?from=Masya+Rhaliduva",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Python Mercenary",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Python_Mercenary",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs?from=Masya+Rhaliduva",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Trust: AAMR",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_AAMR",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs?from=Masya+Rhaliduva",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Wildcat Vanguard",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Wildcat_Vanguard",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs?from=Trust%3A+Romaa+Mihgo",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    },
+    {
+      "title": "Wildcat Volunteer",
+      "url": "https://ffxiclopedia.fandom.com/wiki/Wildcat_Volunteer",
+      "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs?from=Trust%3A+Romaa+Mihgo",
+      "race": "mithra",
+      "reason": "No unique display-name match",
+      "suggestions": []
+    }
+  ],
+  "ambiguous": [
+    {
+      "key": "bompupu",
+      "name": "Bompupu",
+      "wiki_races": [
+        "tarutaru"
+      ],
+      "model_races": [
+        "hume"
+      ],
+      "evidence": [
+        {
+          "title": "Bompupu",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Bompupu",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+          "race": "tarutaru",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "delivery specialist",
+      "name": "Delivery Specialist",
+      "wiki_races": [
+        "elvaan",
+        "galka",
+        "mithra",
+        "tarutaru"
+      ],
+      "model_races": [
+        "elvaan",
+        "galka",
+        "hume",
+        "mithra",
+        "tarutaru"
+      ],
+      "evidence": [
+        {
+          "title": "Delivery Specialist",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Delivery_Specialist",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+          "race": "galka",
+          "match": "exact"
+        },
+        {
+          "title": "Delivery Specialist",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Delivery_Specialist",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs",
+          "race": "tarutaru",
+          "match": "exact"
+        },
+        {
+          "title": "Delivery Specialist",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Delivery_Specialist",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
+          "race": "elvaan",
+          "match": "exact"
+        },
+        {
+          "title": "Delivery Specialist",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Delivery_Specialist",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs",
+          "race": "mithra",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "gorattz",
+      "name": "Gorattz",
+      "wiki_races": [
+        "galka"
+      ],
+      "model_races": [
+        "hume"
+      ],
+      "evidence": [
+        {
+          "title": "Gorattz",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Gorattz",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs",
+          "race": "galka",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "invincible shield",
+      "name": "Invincible Shield",
+      "wiki_races": [
+        "galka"
+      ],
+      "model_races": [
+        "galka",
+        "hume"
+      ],
+      "evidence": [
+        {
+          "title": "Invincible Shield",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Invincible_Shield",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs?from=Heavy+Bear%2C+I.M.",
+          "race": "galka",
+          "match": "exact"
+        },
+        {
+          "title": "Invincible Shield (S)",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Invincible_Shield_(S)",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs?from=Heavy+Bear%2C+I.M.",
+          "race": "galka",
+          "match": "exact"
+        },
+        {
+          "title": "Trust: Invincible Shield (UC)",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_Invincible_Shield_(UC)",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs?from=Heavy+Bear%2C+I.M.",
+          "race": "galka",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "jakoh wahcondalo",
+      "name": "Jakoh Wahcondalo",
+      "wiki_races": [
+        "mithra"
+      ],
+      "model_races": [
+        "hume"
+      ],
+      "evidence": [
+        {
+          "title": "Jakoh Wahcondalo",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Jakoh_Wahcondalo",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs",
+          "race": "mithra",
+          "match": "exact"
+        },
+        {
+          "title": "Trust: Jakoh Wahcondalo (UC)",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Trust:_Jakoh_Wahcondalo_(UC)",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs?from=Masya+Rhaliduva",
+          "race": "mithra",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "linkshell concierge",
+      "name": "Linkshell Concierge",
+      "wiki_races": [
+        "mithra"
+      ],
+      "model_races": [
+        "hume",
+        "mithra"
+      ],
+      "evidence": [
+        {
+          "title": "Linkshell Concierge",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Linkshell_Concierge",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Mithra_NPCs",
+          "race": "mithra",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "lucretia",
+      "name": "Lucretia",
+      "wiki_races": [
+        "elvaan"
+      ],
+      "model_races": [
+        "elvaan",
+        "hume"
+      ],
+      "evidence": [
+        {
+          "title": "Lucretia",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Lucretia",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
+          "race": "elvaan",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "mutihb",
+      "name": "Mutihb",
+      "wiki_races": [
+        "elvaan"
+      ],
+      "model_races": [
+        "hume"
+      ],
+      "evidence": [
+        {
+          "title": "Mutihb",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Mutihb",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Meuxtajean",
+          "race": "elvaan",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "oruga",
+      "name": "Oruga",
+      "wiki_races": [
+        "elvaan"
+      ],
+      "model_races": [
+        "hume"
+      ],
+      "evidence": [
+        {
+          "title": "Oruga (A)",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Oruga_(A)",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Meuxtajean",
+          "race": "elvaan",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "pagnelle",
+      "name": "Pagnelle",
+      "wiki_races": [
+        "elvaan"
+      ],
+      "model_races": [
+        "elvaan",
+        "galka"
+      ],
+      "evidence": [
+        {
+          "title": "Pagnelle",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Pagnelle",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Meuxtajean",
+          "race": "elvaan",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "prince yahiko",
+      "name": "Prince Yahiko",
+      "wiki_races": [
+        "elvaan",
+        "tarutaru"
+      ],
+      "model_races": [
+        "elvaan",
+        "hume",
+        "tarutaru"
+      ],
+      "evidence": [
+        {
+          "title": "Prince Yahiko",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Prince_Yahiko",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Ochocho%2C+W.W.",
+          "race": "tarutaru",
+          "match": "exact"
+        },
+        {
+          "title": "Prince Yahiko",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Prince_Yahiko",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Meuxtajean",
+          "race": "elvaan",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "princess amdina",
+      "name": "Princess Amdina",
+      "wiki_races": [
+        "elvaan",
+        "tarutaru"
+      ],
+      "model_races": [
+        "elvaan",
+        "hume",
+        "tarutaru"
+      ],
+      "evidence": [
+        {
+          "title": "Princess Amdina",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Princess_Amdina",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Ochocho%2C+W.W.",
+          "race": "tarutaru",
+          "match": "exact"
+        },
+        {
+          "title": "Princess Amdina",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Princess_Amdina",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Meuxtajean",
+          "race": "elvaan",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "reinforcement",
+      "name": "Reinforcement",
+      "wiki_races": [
+        "elvaan"
+      ],
+      "model_races": [
+        "elvaan",
+        "galka",
+        "mithra"
+      ],
+      "evidence": [
+        {
+          "title": "Reinforcement",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Reinforcement",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+          "race": "elvaan",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "sarmistha, i.m.",
+      "name": "Sarmistha, I.M.",
+      "wiki_races": [
+        "galka"
+      ],
+      "model_races": [
+        "hume"
+      ],
+      "evidence": [
+        {
+          "title": "Sarmistha, I.M.",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Sarmistha,_I.M.",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Galka_NPCs?from=Heavy+Bear%2C+I.M.",
+          "race": "galka",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "station administrator",
+      "name": "Station Administrator",
+      "wiki_races": [
+        "elvaan"
+      ],
+      "model_races": [
+        "elvaan",
+        "galka",
+        "hume",
+        "mithra",
+        "tarutaru"
+      ],
+      "evidence": [
+        {
+          "title": "Station Administrator",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Station_Administrator",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+          "race": "elvaan",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "station worker",
+      "name": "Station Worker",
+      "wiki_races": [
+        "elvaan"
+      ],
+      "model_races": [
+        "elvaan",
+        "hume",
+        "tarutaru"
+      ],
+      "evidence": [
+        {
+          "title": "Station Worker",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Station_Worker",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Ramicharaux",
+          "race": "elvaan",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "key": "valentione single",
+      "name": "Valentione Single",
+      "wiki_races": [
+        "tarutaru"
+      ],
+      "model_races": [
+        "elvaan",
+        "galka",
+        "hume",
+        "mithra",
+        "tarutaru"
+      ],
+      "evidence": [
+        {
+          "title": "Valentione Single",
+          "url": "https://ffxiclopedia.fandom.com/wiki/Valentione_Single",
+          "category": "https://ffxiclopedia.fandom.com/wiki/Category:Tarutaru_NPCs?from=Shipilolo",
+          "race": "tarutaru",
+          "match": "exact"
+        }
+      ]
+    }
+  ],
+  "unchanged": [
+    "aaveleon",
+    "abby jalunshi",
+    "abda-lurabda",
+    "abobo",
+    "achantere, t.k.",
+    "achtelle",
+    "adalefont",
+    "adaunel",
+    "addled fetters",
+    "adelise",
+    "adolie",
+    "aeshushu",
+    "agado-pugado",
+    "aged stone, l.c.",
+    "ahaadah",
+    "ahko mhalijikhari",
+    "aihn sowlmirih",
+    "ailevia",
+    "aissaville",
+    "aivedoir",
+    "aja-panja",
+    "ajen-myoojen",
+    "ajimo-majimo, w.w.",
+    "akamafula",
+    "akee yonji",
+    "aladoverre",
+    "alangriche",
+    "alaune",
+    "alberic",
+    "alert gaze",
+    "alexius",
+    "alib-mufalib",
+    "alienor",
+    "alivatand",
+    "allaipre",
+    "alphonimile",
+    "alphonserme",
+    "alrauverat",
+    "alreage, r.k.",
+    "altiret",
+    "amaduralle",
+    "amagusa-chigurusa",
+    "amaja-kumaja",
+    "amalanbraux",
+    "amaury",
+    "ambrotien",
+    "amchuchu",
+    "amfafa",
+    "amhu sabaroleka",
+    "amimi",
+    "amutiyaal",
+    "an polaali",
+    "an shanaa",
+    "anastase",
+    "andagge",
+    "andalliot",
+    "andecia",
+    "andrause",
+    "andreine",
+    "angry bull",
+    "angry goat",
+    "anguenet",
+    "anieuvansand",
+    "anini",
+    "anja-enja",
+    "anomaly expert",
+    "anselme",
+    "antonian",
+    "anxaberoute",
+    "apairemant",
+    "apolliane",
+    "apstaule",
+    "arachagnon",
+    "aramaviont",
+    "aramu-paramu",
+    "aravoge, t.k.",
+    "areuhat",
+    "ari-barali",
+    "arlayse, r.k.",
+    "arlenne",
+    "arminibit",
+    "aromu-oromu",
+    "arpetion",
+    "arpevion, t.k.",
+    "arquil",
+    "arsha",
+    "ashene",
+    "ashmea b greinner",
+    "ashu bolkhomo",
+    "asolmieu",
+    "atagei-portagei",
+    "atarefaunet",
+    "atelloune",
+    "atokoko",
+    "atoranne",
+    "atori-tutori",
+    "atrevaux",
+    "attarena",
+    "aubejart",
+    "auchefort",
+    "audee",
+    "audibert",
+    "augevinne",
+    "augu-maugu",
+    "aulavia",
+    "aurege",
+    "aurfet",
+    "aurhi rhatelo",
+    "autouria",
+    "avandale",
+    "aveline",
+    "aymeric, t.k.",
+    "aystise",
+    "azainnie",
+    "azette",
+    "aznahf",
+    "babubu",
+    "bacherume",
+    "baehu-faehu",
+    "baha mannohl",
+    "bald aurochs",
+    "balih chavizaai",
+    "balkehr",
+    "ballie, r.k.",
+    "bammiro, i.m.",
+    "banege, r.k.",
+    "baren-moren",
+    "barenngo",
+    "baunise",
+    "baya hiramayuh",
+    "bebibi",
+    "behsa alehgo",
+    "belgidiveau",
+    "belizieg",
+    "belligerent sheep",
+    "bellowing scout",
+    "benaige",
+    "benjamien",
+    "berangere",
+    "berengein",
+    "beriphaule",
+    "bernahn",
+    "bernal",
+    "bernegeois",
+    "bertenont",
+    "beugungel",
+    "bhjaama",
+    "bhoratz",
+    "bhoy yhupplo",
+    "bhoyu halpatacco",
+    "bhukka sahbeo",
+    "bibokk-molbukk",
+    "big harvest",
+    "biggorf",
+    "bihoro-guhoro",
+    "bikho ronpotteh",
+    "bilp",
+    "bki tbujhja",
+    "black mud",
+    "blazing lizard, l.c.",
+    "bogharg",
+    "boirie",
+    "boisterous jackal",
+    "boizo-naizo",
+    "bonarpant",
+    "bonbavour, r.k.",
+    "bonchacha",
+    "boncort",
+    "bondada",
+    "bongo",
+    "bonmaurieut",
+    "bopa greso",
+    "borghest",
+    "boronene",
+    "bottomless gorge",
+    "boycoco",
+    "boytz",
+    "brave ox",
+    "brave wolf",
+    "bricorsant",
+    "bright moon",
+    "brugaire",
+    "bubchu-bibinchu, w.w.",
+    "buliame, r.k.",
+    "bulolo",
+    "bumimi",
+    "burnished bones",
+    "burrow investigator",
+    "burrow researcher",
+    "butsutsu, w.w.",
+    "bwi kaghonsa",
+    "cahaurme",
+    "calengeard",
+    "callort",
+    "calovour",
+    "camereine",
+    "cannau",
+    "capacucu",
+    "capiria",
+    "capucine",
+    "carautia",
+    "castilchat",
+    "catalia",
+    "caulaise, r.k.",
+    "cauzeriste",
+    "cavalgrinne",
+    "ceciliotte",
+    "cehn teyohngo",
+    "ceno",
+    "cerane i virgaut",
+    "ceraule",
+    "ceraulian",
+    "cerite",
+    "cha chalco",
+    "cha tigunalhgo",
+    "chaka skitimah",
+    "challoux",
+    "chalvava",
+    "chamama",
+    "chamulele",
+    "chanpau",
+    "chantain",
+    "chanteillie",
+    "chapa-cha",
+    "chapal-afal, w.w.",
+    "chaphoire",
+    "chapi galepilai",
+    "chaplion, r.k.",
+    "chaquoillons",
+    "charmealaut",
+    "charutata",
+    "chatarre",
+    "chaupire",
+    "chauxnatte",
+    "chayaya",
+    "chays-ratays",
+    "chefroucauld, t.k.",
+    "chegourt, r.k.",
+    "chelidoine",
+    "chemioue",
+    "cheneblanc",
+    "chepelle",
+    "chero-machero",
+    "cheupirudaux",
+    "chihpi kapirapehro",
+    "chilaumme, r.k.",
+    "chioh remhrll",
+    "chiphraix",
+    "chipmy-popmy",
+    "chocobo tamer",
+    "chodopopo",
+    "choh moui",
+    "chomo jinjahl",
+    "chopapa, w.w.",
+    "choubollet",
+    "chuaie",
+    "chualulu",
+    "chudigrimane",
+    "chululu",
+    "chumia",
+    "chumimi",
+    "chumli-mojumli",
+    "chupaile",
+    "chuqui-chanqui",
+    "churacoco",
+    "churano-shurano",
+    "churara",
+    "chutarmire",
+    "chya mindorah",
+    "chyuk-kochak",
+    "clainomille",
+    "clarion star",
+    "clemaurent",
+    "cletae",
+    "cloud walker",
+    "cobbi malgharam",
+    "cocchi ryojhbon",
+    "cochal-monchal",
+    "coderiant",
+    "cofisephe",
+    "collione",
+    "colmaie",
+    "colti",
+    "comittie",
+    "commojourt",
+    "condor eye",
+    "contie",
+    "cophi ricuub",
+    "corbrere",
+    "cordaurie",
+    "coribalgeant",
+    "corlotte",
+    "corpo-vorpo",
+    "corseihaut",
+    "cotelle",
+    "cotete, w.w.",
+    "couchatorage",
+    "coucheutand",
+    "coullave",
+    "coullene",
+    "coumaine",
+    "coumuna",
+    "coupulie",
+    "courisaille",
+    "couvoullie",
+    "coyah neblahe",
+    "craigine, r.k.",
+    "crazy wolf",
+    "credaurion, r.k.",
+    "crilde",
+    "crochepallade",
+    "crooked arrow",
+    "croteillard",
+    "croumangue",
+    "crying wind",
+    "crying wind, i.m.",
+    "cumetouflaix",
+    "cyphaireau",
+    "cyranda",
+    "dabaide-obaide",
+    "dabido-sorobido",
+    "dabigo",
+    "dabnorrin",
+    "daborn, i.m.",
+    "daggao",
+    "dagoza-beruza",
+    "dahaaba",
+    "daigraffeaux",
+    "daipanne",
+    "daju",
+    "dakha topsalwan",
+    "dallus-mallus",
+    "dalzakk",
+    "damama",
+    "damami-karumi",
+    "dancing thunder, l.c.",
+    "dancing wolf",
+    "dangueubert",
+    "danngogg",
+    "dantie-corantie",
+    "danzhor",
+    "dapol",
+    "dapraugeant",
+    "darha",
+    "darumomo, w.w.",
+    "daruru, w.w.",
+    "darvylle",
+    "dattata",
+    "dauperiat",
+    "daveille",
+    "davyad",
+    "dazi nosuk",
+    "deadly minnow",
+    "deadly spider",
+    "deaufrain",
+    "dedden, i.m.",
+    "deegis",
+    "deeto-yaato",
+    "degga",
+    "deguerendars",
+    "dehbi moshal",
+    "dehn harzhapan",
+    "deigoff",
+    "deraquien",
+    "deumagneot",
+    "deumiot",
+    "deustiord",
+    "devean",
+    "dhaso toehprin",
+    "dhea prandoleh",
+    "dhen kwherri, m.c.",
+    "dhen tevryukoh",
+    "dheo nbolo",
+    "dhi emwaltih, m.c.",
+    "dhima polevhia",
+    "diadonour",
+    "dieh yamilsiah",
+    "digaga",
+    "dilgeur",
+    "diordinne",
+    "diraulate",
+    "disserond, r.k.",
+    "divainy-gamainy",
+    "dkhaaya",
+    "dodmos",
+    "doel-demiel",
+    "doggomehr",
+    "dohdjuma",
+    "doijo-amajo, c.c.",
+    "doladepaiton, r.k.",
+    "donda-bonda",
+    "donmo-boronmo, w.w.",
+    "doron-fulun",
+    "doumina",
+    "drake fang",
+    "drozga",
+    "dry bone",
+    "duberasson",
+    "duchille",
+    "dultwa, i.m.",
+    "dunbaff",
+    "dwago",
+    "dworvigg",
+    "dzhau yaam",
+    "eaugouint",
+    "eaulevisat, r.k.",
+    "eauvague, t.k.",
+    "echanie",
+    "echo hawk",
+    "edal-tahdal",
+    "eideialc",
+    "eih lhogotan",
+    "eirmomo",
+    "ekamama",
+    "ekhu pesshyadha",
+    "eki kamalabi",
+    "ekki-mokki",
+    "ekokoko",
+    "elmemague",
+    "elnonde",
+    "emeige a.m.a.n.",
+    "emhi tchaoryo",
+    "emila",
+    "emila, r.k.",
+    "emjook-renook",
+    "emmah laali, m.c.",
+    "emoussine",
+    "enaremand",
+    "endracion",
+    "enjojo",
+    "ennigreaud, r.k.",
+    "enrefort",
+    "ensasa",
+    "ephauge",
+    "epinolle",
+    "eppel-treppel",
+    "equesobillot",
+    "erminold",
+    "erpipi",
+    "erpolant",
+    "esca",
+    "esmallegue",
+    "esoteric hound",
+    "esqualea",
+    "estaud, r.k.",
+    "estienneux",
+    "estineau, r.k.",
+    "etaj-pohtaj, w.w.",
+    "eternal flame",
+    "etsatsa",
+    "eugballion",
+    "eugie",
+    "eulaclaire",
+    "eulaphe",
+    "eumielle",
+    "eumoa-tajimoa",
+    "eunirange",
+    "evi",
+    "ewchichi",
+    "eya bhithroh",
+    "ezura-romazura",
+    "faboise",
+    "failene",
+    "falgima",
+    "faltavie",
+    "falzum",
+    "fantarviont",
+    "fari-wari",
+    "fariska lokhmi",
+    "farouel",
+    "farso-dafarso",
+    "fauceille",
+    "faulpie",
+    "faurie",
+    "faursel",
+    "faustin",
+    "febrenard c brunnaut",
+    "fekko-krakko",
+    "feldrautte i rouhent",
+    "felourie",
+    "femardaque",
+    "femitte",
+    "feral moon, l.c.",
+    "ferchinne",
+    "ferdechiond",
+    "ferdoulemiont",
+    "ferocious artisan",
+    "ferreous coffin",
+    "festering wound",
+    "fhaht beablrucch",
+    "fhara mashuhba",
+    "fhe maksojha",
+    "fheli lapatzuo",
+    "fhelm jobeizat",
+    "fiaudie",
+    "fighting ant, i.m.",
+    "finene",
+    "fish eyes",
+    "fittesegat",
+    "fiva",
+    "five moons",
+    "flame walker",
+    "flandiace",
+    "flapping gums",
+    "flasco-rasco",
+    "flasco-rasco, c.c.",
+    "flaviria",
+    "fleuricette",
+    "flige",
+    "floralie",
+    "flying axe, i.m.",
+    "fo mocorho",
+    "fochacha",
+    "fonove",
+    "fonteloube",
+    "foo beibo",
+    "forine",
+    "forri-porri",
+    "fouagine",
+    "foulneporde",
+    "framaraix, t.k.",
+    "francmage",
+    "frescheque",
+    "fuahah",
+    "fubruhn",
+    "fuepepe",
+    "fulchia",
+    "fului-molai",
+    "funono",
+    "funpo-shipo",
+    "furakku-norakku",
+    "furan-furin",
+    "furious boulder",
+    "fyi chalmwoh",
+    "gabbot",
+    "gabide",
+    "gachemage",
+    "gadimo",
+    "galaihaurat",
+    "galco-ralico",
+    "galdeo",
+    "galiwao",
+    "gallijaux",
+    "galloping chocobo",
+    "galmut",
+    "gamimi",
+    "ganemu-punnemu, w.w.",
+    "garadaut",
+    "garazu-horeizu",
+    "garembert",
+    "gariri",
+    "garnev",
+    "gathweeda",
+    "gatih mijurabi",
+    "gavergo",
+    "gavoroi",
+    "gawful",
+    "gelzerio",
+    "generoit",
+    "gennoue",
+    "gentle tiger",
+    "gerahja",
+    "gerlbotz",
+    "gerun-garun",
+    "geruru, w.w.",
+    "gerwitz",
+    "gevirun-gabirun",
+    "ghantata, w.w.",
+    "ghebi damomohe",
+    "ghemi sinterilo",
+    "ghemp",
+    "ghosa demuhzo",
+    "ghost talker, i.m.",
+    "ghye dachanthu",
+    "ghyo molkot",
+    "giaunne",
+    "gibol",
+    "gidappa",
+    "gigirk",
+    "gilipese",
+    "gindaff",
+    "gissenne",
+    "glarociquet, t.k.",
+    "glenne",
+    "glowing hearth",
+    "gniyah mischatt",
+    "goccilo",
+    "gofufu",
+    "goggehn",
+    "gold skull",
+    "golden condor",
+    "goltata",
+    "gondebaud",
+    "gorpa-masorpa",
+    "gottah maporushanoh",
+    "gottna",
+    "gournaie",
+    "goyuyu",
+    "gozben",
+    "granite fist, l.c.",
+    "gratzigg",
+    "gray colossus, l.c.",
+    "gray wolf",
+    "gregoirellaud",
+    "grilau",
+    "grohm",
+    "guddal",
+    "guddal, i.m.",
+    "gueriette",
+    "guilberdrier",
+    "guilboire",
+    "guilerme",
+    "guillaulmilian",
+    "guinavie",
+    "gulldago",
+    "gulmama",
+    "gurdern",
+    "gurren-murren",
+    "guruna-maguruna",
+    "gushing spring",
+    "guslam",
+    "guwanana",
+    "gwinar",
+    "habida-jubida",
+    "hadayah",
+    "hae jakhya",
+    "hagakoff",
+    "haih ahmpagako",
+    "haja zhwan",
+    "hajaom",
+    "hajawaa",
+    "hakaru-marikaru",
+    "hakkuru-rinkuru",
+    "halver",
+    "halver m borel",
+    "hampu-kampu",
+    "hamta-iramta",
+    "hanaa punaa",
+    "hanovaux",
+    "hantileon",
+    "harara, w.w.",
+    "hari pakhroib",
+    "harvetour",
+    "hauberliond",
+    "haubijoux",
+    "hauh colphioh",
+    "hawk nose",
+    "hdya mhirako, m.c.",
+    "heavy bear, i.m.",
+    "heavy fog, i.m.",
+    "hedioste, r.k.",
+    "heemo-weemo",
+    "hegnor",
+    "heih porhiaap",
+    "heimji-keimji",
+    "helbort",
+    "helina",
+    "helmyre",
+    "hemborok",
+    "hemewmew",
+    "hepo pinulpe",
+    "herral-droal",
+    "heruru",
+    "heruze-moruze",
+    "high bear",
+    "high wind",
+    "hikkuku",
+    "hildebert",
+    "hilkomu-makimu",
+    "hishahma",
+    "hiwon-biwon",
+    "hohbiba-mubiba",
+    "hohl nhaesin",
+    "honoi-gomoi",
+    "horuni-mawoni",
+    "houilloumie",
+    "hound nose",
+    "hozie naharaf",
+    "humilitie",
+    "hunting bear",
+    "icoua",
+    "ihli llamhya, m.c.",
+    "ikucheechee",
+    "ildy-goldy",
+    "ilgusin",
+    "ilieumort, r.k.",
+    "illeuse",
+    "ilsoire",
+    "ineuteniace",
+    "inmot-pinmot",
+    "ioupie, r.k.",
+    "ipupu",
+    "irate destrier",
+    "irmilant",
+    "iron eater",
+    "iron muscles",
+    "ironclad gorilla",
+    "iru-kuiru",
+    "isanie",
+    "isdebaaq",
+    "iyvah halohm",
+    "jabbos",
+    "jadamo",
+    "jaded hawk",
+    "jagaris",
+    "jagged onyx, l.c.",
+    "jaicedion",
+    "jaireto",
+    "jakaka",
+    "jalah mistani",
+    "jampiaire",
+    "janshura-rashura",
+    "jatata",
+    "jaucribaix",
+    "jaureche",
+    "jausephiane",
+    "jayramus",
+    "jazgeh",
+    "jeantelas, r.k.",
+    "jeanvirgaud",
+    "jedh gibohah",
+    "jemmoquel, r.k.",
+    "jeronne",
+    "jhen durheka",
+    "jhuo halmanzoh",
+    "jima",
+    "joilevin",
+    "jolwa-moowa",
+    "joulet",
+    "jourdenaux",
+    "jourille",
+    "ju kamja",
+    "julissois",
+    "jumaaf",
+    "juroro",
+    "justi",
+    "kaduru-haiduru",
+    "kahah hobichai",
+    "kahs dekahsell",
+    "kalimahf",
+    "kalsu-kalasu",
+    "kalupa-tawalupa",
+    "kamih mapokhalam",
+    "kamolo-domilo",
+    "kantila",
+    "kapeh myohrye",
+    "karija-marija",
+    "karine",
+    "karuru",
+    "kasaroro",
+    "kayeel-payeel",
+    "kelsha-melansha",
+    "kemha flasehp",
+    "kenapa-keppa",
+    "kenono",
+    "keo-koruo",
+    "kesha shopehllok",
+    "keshab-menjab",
+    "khaf jhifanm",
+    "khaffi salponoihz",
+    "khari pulcohtz",
+    "khau mahiyoeloh",
+    "khe chalahko",
+    "khea mhyyih",
+    "khel pahlhama",
+    "khifo ryuhkowa",
+    "khoi gamduhla",
+    "khonzon",
+    "khoto rokkorah",
+    "khots chalahko",
+    "khumo daramasteh",
+    "khuta colaara",
+    "kih katteh, m.c.",
+    "kikilolo",
+    "kilusha",
+    "kimumu",
+    "kinono",
+    "kipligg",
+    "kiwawa",
+    "kleh engyumoh",
+    "kobhi sarhigamya",
+    "kobite-mojite",
+    "kobunono",
+    "kocchi-arocchi",
+    "kochahy-muwachahy",
+    "kocho phunakcham",
+    "kogri-nargri",
+    "koh lenbalalako",
+    "kohpe takhabio",
+    "kohpo-akuupo",
+    "kolapo-oilapo",
+    "kolin-olin",
+    "komulili",
+    "kongramm",
+    "koowawa",
+    "kopopo",
+    "kopuro-popuro",
+    "korbi-marobi",
+    "koriso-manriso",
+    "kororo",
+    "kortso-paratso",
+    "koru-moru",
+    "kotan-purutan",
+    "koton-llaton",
+    "kototo",
+    "kuah dakonsa",
+    "kubhe ijyuhla",
+    "kucha malkobhi",
+    "kuchi eyjhann",
+    "kueh igunahmori",
+    "kuesoso",
+    "kuhn tsahnpri",
+    "kulh amariyo",
+    "kumama",
+    "kumumu",
+    "kunchichi",
+    "kuoh rhel",
+    "kupalu-harupalu",
+    "kupipi",
+    "kupupu",
+    "kuroido-moido",
+    "kuron-makaron",
+    "kurou-morou",
+    "kushdeel",
+    "kususu",
+    "kuuwari-aori, w.w.",
+    "kuya-moya",
+    "kuzah hpirohpon",
+    "kwadaaf",
+    "kyanta-pakyanta, w.w.",
+    "kyume-romeh",
+    "kyun magopiteh",
+    "lacia",
+    "laette",
+    "lageegee",
+    "lago-charago",
+    "laillera",
+    "laimeve, r.k.",
+    "laisavie x berlends",
+    "laiteconce",
+    "lala gohma",
+    "lame deer",
+    "lamurara, c.c.",
+    "landeric",
+    "lanqueron",
+    "lathuya",
+    "laucimercen",
+    "laughing lizard",
+    "laujaquetemps",
+    "laurimaux",
+    "laurisse",
+    "leaufetie, r.k.",
+    "leautiere",
+    "lebondur",
+    "leepe-hoppe",
+    "legata",
+    "leigon-moigon",
+    "leillaine",
+    "lengussant",
+    "leodarion",
+    "leonoyne",
+    "leporaitceau",
+    "letterare",
+    "lexun-marixun, w.w.",
+    "lhaiso neftereh",
+    "lharant",
+    "lhu mhakaracca",
+    "lidaise",
+    "lidaise, t.k.",
+    "liki steligho",
+    "liloune",
+    "limion, r.k.",
+    "linzaza",
+    "lionardois",
+    "liphatte",
+    "loaranne",
+    "lobho ukipturi",
+    "loillie",
+    "lombaria",
+    "lotine",
+    "loussaire",
+    "loutille",
+    "louvairausse",
+    "louverance",
+    "louxiard",
+    "luhk leotih, m.c.",
+    "lumomo",
+    "luquillaue",
+    "lurouillat",
+    "lusiane",
+    "lutete",
+    "luthiaque",
+    "lutia",
+    "luto mewrilah",
+    "lynndi-sarandi",
+    "maabu-sonbu",
+    "maan-pokuun",
+    "maata-ulaata",
+    "mabebe",
+    "machichi",
+    "machielle",
+    "machionage",
+    "machitata",
+    "machu-kuchu",
+    "macici",
+    "macuillie",
+    "madelleon, r.k.",
+    "magephaud",
+    "magriffon",
+    "magumo-yagimo, w.w.",
+    "mahien-uhien",
+    "mahoh mahborogho",
+    "mailleronce",
+    "main-harmain",
+    "mainchelite",
+    "majjih bakrhamab",
+    "maju-naju",
+    "makel-pakel",
+    "malecharisant",
+    "maleroune",
+    "malfine",
+    "malfud",
+    "malgrom",
+    "malmi-monmi",
+    "maloquedil",
+    "malulu",
+    "mamaulabion",
+    "mamerie",
+    "mano-amano",
+    "manyny",
+    "mapitoto",
+    "maqu molpih",
+    "marilleune",
+    "marjoirelle",
+    "marquie",
+    "maruna-kurina",
+    "maryoh comyujah",
+    "mashasha, w.w.",
+    "mashishi",
+    "masya rhaliduva",
+    "mataligeat",
+    "matata",
+    "mathlouq",
+    "matica, r.k.",
+    "matildie",
+    "maturiri",
+    "mauchouraid",
+    "mauh halaapah",
+    "maunadolace",
+    "mauriri",
+    "mayuyu",
+    "mazuro-oozuro",
+    "mearuru",
+    "medicine axe",
+    "medicine eagle",
+    "mediverchanne",
+    "mefa euron",
+    "meh nbolo",
+    "mehruru",
+    "meinemelle",
+    "mejina-monjina",
+    "mejuone",
+    "melleupaux",
+    "melloa",
+    "mengrenaux",
+    "mep nhapopoluko",
+    "merim-kurim",
+    "meriri",
+    "mesachedeau, r.k.",
+    "mesukiki",
+    "meumaude",
+    "meuneille",
+    "meuxtajean",
+    "mevaloud",
+    "mevreauche",
+    "mewk chorosap",
+    "meyaada",
+    "mhabi molkot",
+    "mhako rakritteh",
+    "mham lahrih",
+    "mhik liusihlo, m.c.",
+    "mhiu raaghott",
+    "mhoji roccoruh",
+    "mhoti pyiahrs",
+    "miah riyuh",
+    "miaux",
+    "michea",
+    "michilca",
+    "mieuseloir b enchelles",
+    "mih ketto",
+    "mihl pakorhma",
+    "mihli aliapoh",
+    "mihn rhettorah",
+    "miiri-wohri",
+    "mijeh sholpoilo",
+    "mikhe aryohcha",
+    "mikra-lekra, c.c.",
+    "miladi-nildi",
+    "milchupain",
+    "miledo-shiraddo",
+    "miliart, t.k.",
+    "militant gale",
+    "mille",
+    "millechuca",
+    "millerovieunet",
+    "milloure",
+    "milma-hapilma, w.w.",
+    "milva",
+    "mimble-pimble",
+    "minchu-rocchu",
+    "mindala-andola, c.c.",
+    "mine konte",
+    "minea-matea",
+    "miogique",
+    "mionie",
+    "miriri",
+    "mishhar",
+    "misseulieu",
+    "mitillie",
+    "mitti haplihza",
+    "moan-maon",
+    "moitoto",
+    "mojo-pojo",
+    "mojuro-nojuro",
+    "mokto-lankto, w.w.",
+    "mokyokyo",
+    "mololo",
+    "molting moth, i.m.",
+    "monisette",
+    "mono nchaa",
+    "morangeart",
+    "morefie",
+    "moreno-toeno",
+    "morlepiche",
+    "morunaude",
+    "mosil-nosil",
+    "mosusu",
+    "moulloie",
+    "moyoyo",
+    "mrohk sahjuuli",
+    "mufeh hajrrha",
+    "mugha dovajaiho",
+    "muhk johldy",
+    "muhoho",
+    "muji tsalahn",
+    "mukmimi",
+    "mukuku",
+    "mul betreh",
+    "mulaitrand",
+    "mulaujeant",
+    "mupia, r.k.",
+    "muruk-mojiruk",
+    "mushosho",
+    "mushuhi-metahi",
+    "musto-rusto",
+    "muzeze",
+    "myffore",
+    "myllue, r.k.",
+    "myuhn rohli, m.c.",
+    "nachou",
+    "nadee periyaha",
+    "naguipeillont, r.k.",
+    "naih arihmepp",
+    "naillina",
+    "nalba-dalaba",
+    "nalpupu",
+    "namonutice",
+    "nantoto",
+    "naravime",
+    "narcheral",
+    "narito-pettito",
+    "narsha",
+    "naruru",
+    "narvecaint",
+    "nasoh joli",
+    "naurmaire",
+    "navisse",
+    "nayutata",
+    "nbeh dimehbariga",
+    "nbu latteh",
+    "ndah tolohjin",
+    "ndego",
+    "nebibi",
+    "neigepance",
+    "nekha shachaba",
+    "nelcabrit",
+    "nelinnie",
+    "nembet",
+    "neosaliat",
+    "neraf-najiruf",
+    "ness rugetomal",
+    "ney hiparujah",
+    "nhel urhahn",
+    "nhili uvolep",
+    "nichais",
+    "nickael",
+    "nilerouche",
+    "nimia",
+    "nivorajean",
+    "niwawa",
+    "noih tahparawh",
+    "nokkhi jinjahl",
+    "nonterene",
+    "noquerelle",
+    "noragu-meragu",
+    "norejaie",
+    "nori kharoiro, m.c.",
+    "novalmauge",
+    "nozaza",
+    "npopo",
+    "nti badolsoma",
+    "nuh celodehki",
+    "nuillie",
+    "nului-nlui",
+    "numi adaligo",
+    "numumu, w.w.",
+    "nya labiccio",
+    "nyata-mobuta, w.w.",
+    "nyumomo",
+    "obelailai",
+    "oblor",
+    "ochacha",
+    "ochocho, w.w.",
+    "octavernost",
+    "octavien",
+    "odersille",
+    "odoba",
+    "oggbi",
+    "ogugu",
+    "ohbiru-dohbiru",
+    "ohruru",
+    "oingo-zoingo",
+    "oka qhantari",
+    "okaka",
+    "olaky-yayulaky",
+    "old bellows",
+    "omiro-zamiro",
+    "ondieulix",
+    "opabibi",
+    "opococo",
+    "orahi-karapahi",
+    "ore guzzler",
+    "orez-ebrez",
+    "orgis",
+    "orlaine",
+    "ornery dhole",
+    "orsa-porsa",
+    "oruchacha",
+    "orudoba-sondeba",
+    "orukeke, w.w.",
+    "ostalie",
+    "otete",
+    "otte burhiyu",
+    "oustachions",
+    "pacomart",
+    "pahpe rauulih",
+    "pahya lolohoiv",
+    "paise, r.k.",
+    "paito-maito",
+    "pakeke",
+    "pakh jatalfih",
+    "pakhi churhebi",
+    "pakke-pokke",
+    "pakku-shakku",
+    "pakora-makora",
+    "pala korin",
+    "palabelle",
+    "palardaifault v draffles",
+    "palarillont",
+    "palcomondau",
+    "pale eagle",
+    "paleille",
+    "palguevion",
+    "palli-bulli",
+    "palson",
+    "palyalya",
+    "panaa fom",
+    "panana",
+    "pankii-mankii",
+    "panna-donna",
+    "panoquieur, t.k.",
+    "panoru-kanoru",
+    "pantsa-karutsa",
+    "paore-kuore",
+    "parara",
+    "parcarin",
+    "parelbriaux",
+    "parike-poranke",
+    "parledaire, r.k.",
+    "parlemaille",
+    "parraggoh",
+    "parvipon",
+    "pascaut",
+    "pashi maccaleh",
+    "pateruru",
+    "patient snake",
+    "patient wheel",
+    "patolle",
+    "patt-pott",
+    "pattna-ottna",
+    "pattsu-yabittsu",
+    "paujean",
+    "pauluart",
+    "paunelie",
+    "paurelde",
+    "pebul-tabul",
+    "pechiru-mashiru",
+    "peepikiki",
+    "pehki machumaht",
+    "pekuku",
+    "peladi shalmohr",
+    "pelinvarde",
+    "pellimie",
+    "pelogrant",
+    "pelpopo",
+    "pelsey-holsey",
+    "penqaqa",
+    "pensive beast",
+    "pepigort",
+    "peppe-aleppe",
+    "perchond",
+    "perdiouvilet",
+    "perdric",
+    "perevie",
+    "perfaumand",
+    "periduque",
+    "perisa-neburusa",
+    "peritrage",
+    "peshi yohnts",
+    "pettette",
+    "pevovo",
+    "pew sahbaraef",
+    "phairet",
+    "phairupegiont",
+    "phamelise",
+    "phaviane",
+    "pherchabalet",
+    "pherimociel",
+    "phersula",
+    "phillieulais",
+    "phillone",
+    "phoochuchu",
+    "phouminnet",
+    "phub bayzarahn",
+    "phyatte",
+    "phystiont",
+    "piah dnakkora",
+    "pihk khalatikal",
+    "pihra rhebenslo",
+    "piketo-puketo",
+    "pikiki",
+    "pikini-mikini",
+    "pilcha, r.k.",
+    "pioht halchaih",
+    "pirvidiauce",
+    "pitantimand",
+    "pitenorelieu",
+    "pitoire, r.k.",
+    "plaiaude",
+    "ploh trishbahk",
+    "pofhu tendelicon",
+    "pogigi",
+    "pohka chichiyowahl",
+    "pojimo-rojimo",
+    "polikal-ramikal",
+    "polink-moink",
+    "polished fang, l.c.",
+    "polished pebble",
+    "pollante",
+    "pomilla",
+    "pompi-rompi",
+    "pondering peak, l.c.",
+    "ponono",
+    "pontaudarme",
+    "pore-ohre",
+    "porlco-glaico",
+    "portaure",
+    "porupen-kyurupen",
+    "poseaulloie",
+    "posso ruhbini",
+    "potete",
+    "poudoruchant",
+    "pourette",
+    "pradiulot",
+    "prah janimhar",
+    "pretervout",
+    "pretty heart",
+    "prido-homildo",
+    "prietta",
+    "proud beard",
+    "prucco-lurucco",
+    "prunilla, r.k.",
+    "pucotte",
+    "puhn dapojal",
+    "pukori-totokori",
+    "pulkuku",
+    "pulloie",
+    "pulonono",
+    "pulykiki",
+    "punacchi-mocchi",
+    "pure heart, i.m.",
+    "purequane",
+    "purere",
+    "puroiko-maiko, w.w.",
+    "purottoto",
+    "putori-tutori",
+    "puttsu-montsu, c.c.",
+    "puyutete",
+    "qahzwin",
+    "qhum knaidjn",
+    "quanteilleron, r.k.",
+    "quelle",
+    "quellebie, r.k.",
+    "quelpia",
+    "quelveuiat",
+    "quemaricond",
+    "queo-paeo",
+    "quesse",
+    "quiri-aliri",
+    "quirro-niiro",
+    "qulsun",
+    "quwi orihbhe",
+    "raamimi",
+    "rabid wolf, i.m.",
+    "rachocho",
+    "rachuchu",
+    "ragelise",
+    "ragemont",
+    "raging lion",
+    "raging tiger",
+    "ragyaya",
+    "rahi fohlatti",
+    "raibaht",
+    "rainemard",
+    "rakano-marukano",
+    "rakh mhappyoh",
+    "rakih lyhall",
+    "rakula-motakula",
+    "rakuru-rakoru",
+    "ralka-haralka, c.c.",
+    "ramasese",
+    "ramaufont",
+    "ramicharaux",
+    "raminey",
+    "randecque",
+    "ranemaud",
+    "raneutimiore",
+    "ranna-brunna",
+    "ranpi-monpi",
+    "ranpi-pappi",
+    "ransnana",
+    "raqtibahl",
+    "rarcasmeault",
+    "rasdinice",
+    "rasusu",
+    "ratonne",
+    "ratoulle",
+    "rattling rain, i.m.",
+    "raurart, r.k.",
+    "raustigne",
+    "raving opossum",
+    "ravorara",
+    "rayjin-ojin",
+    "rayochindot",
+    "reaugettie",
+    "red axe",
+    "red canyon",
+    "red ghost",
+    "red rose condottiere",
+    "regine",
+    "reh hapli",
+    "reiso-haroiso",
+    "reja ygridhi",
+    "relolo",
+    "rembard",
+    "remesasa",
+    "remiotte",
+    "renadile",
+    "renvriche, t.k.",
+    "retto-marutto",
+    "rhant tamhujya",
+    "rhap nelhah",
+    "rhap talashpehn",
+    "rhemi miottih",
+    "rhimonne",
+    "rhin prikohwan",
+    "rhu arlohtt, m.c.",
+    "rhy epocan",
+    "riault",
+    "richacha, w.w.",
+    "rielle",
+    "rigobertine",
+    "rilve-hitolve",
+    "ringu-tangu, c.c.",
+    "ripapa",
+    "risen hackles",
+    "rising solstice",
+    "ritopopo",
+    "ritoto",
+    "roaring badger",
+    "robel-akbel",
+    "robertioux",
+    "rochefogne",
+    "rock jaw",
+    "rodaillece",
+    "rodellieux",
+    "rodin-comidin",
+    "rohn ehlbalna",
+    "roiloux, r.k.",
+    "rojaireaut",
+    "rokor-makor",
+    "rolandienne",
+    "rondipur",
+    "rongelouts",
+    "rongelouts n distaud",
+    "rongo-nango",
+    "ronta-onta",
+    "rootie-mootie",
+    "ropunono",
+    "rormu-rarlmu",
+    "roshina-kuleshuna, w.w.",
+    "rotih moalghett",
+    "rottata",
+    "rouliette",
+    "roupatour",
+    "routandeault",
+    "rubahah",
+    "rughadjeen",
+    "rugiette",
+    "ruirara",
+    "rujen-gorgen",
+    "rululu, c.c.",
+    "rumin-flumin",
+    "rumoie",
+    "rungaga",
+    "runito-monito",
+    "runje desaali",
+    "rurukaka",
+    "rusese",
+    "rusted musket",
+    "ryunchi-pauchi, w.w.",
+    "sabiliont",
+    "saco alyahka",
+    "saffaullette",
+    "sagheera",
+    "sahgi konchumih",
+    "sahgygy, w.w.",
+    "sahnn dhansett",
+    "sainene",
+    "sajahb",
+    "salimardi, r.k.",
+    "saluhwa",
+    "sama gohjima",
+    "samigo-pormigo",
+    "saphiriance, t.k.",
+    "sapladrepoin",
+    "saradorial",
+    "sashosho",
+    "sassa-kotassa",
+    "satata",
+    "sattal-mansal",
+    "sattsuh ahkanpari",
+    "savae e paleade",
+    "scarred shark",
+    "seburoa-mabilua",
+    "secodiand",
+    "sedal-godjal",
+    "sehu lheremylk",
+    "selele",
+    "selenana",
+    "selulu",
+    "seno zarhin",
+    "senvaleget",
+    "shahbizu",
+    "shama pikholo",
+    "shamarhaan",
+    "shanana",
+    "shanene",
+    "shante-fante",
+    "sharin-garin",
+    "shark teeth",
+    "sharp tooth, i.m.",
+    "sharuru",
+    "sharzalion",
+    "shashan-mishan",
+    "shataru-potaru",
+    "shatoto",
+    "shaty-monty",
+    "shayeeha",
+    "shaz norem",
+    "sheelala",
+    "shehn mahriorl",
+    "shelu-mapelu",
+    "shey wayatih",
+    "shih tayuun",
+    "shihu-danhu",
+    "shikaree g",
+    "shikaree m",
+    "shikaree x",
+    "shikaree y",
+    "shikaree z",
+    "shikoko, w.w.",
+    "shinchai-tocchai",
+    "shiny teeth",
+    "shipilolo",
+    "shiroro",
+    "shivivi",
+    "shla kheefid",
+    "shohrun-tuhrun",
+    "shomo pochachilo",
+    "sidoine, t.k.",
+    "sifa alani",
+    "silent lynx",
+    "silent rooster",
+    "silver kettle",
+    "silver owl",
+    "silver tail",
+    "simmie",
+    "singing blade, i.m.",
+    "skopopo",
+    "sleeping lizard",
+    "slow axe, i.m.",
+    "smiling rat",
+    "snha migashniohra",
+    "sobane",
+    "sochiene",
+    "sodragamm",
+    "soimin-oimin, c.c.",
+    "sojan-tamjan",
+    "sola jaab",
+    "solgierte",
+    "solitary ant",
+    "somn-paemn",
+    "somnolent rooster",
+    "somo aatsula",
+    "soni-muni",
+    "soppopo",
+    "soraa ishakal",
+    "sororo",
+    "sorrowful sage",
+    "sorutoto",
+    "soun abralah",
+    "spirit singer",
+    "stampeding bison",
+    "standing bear",
+    "steel bones",
+    "stout weir",
+    "stray boar, l.c.",
+    "stray cloud",
+    "striking bull",
+    "striking snake",
+    "sudha rhilimanyme",
+    "suhie-kaihie",
+    "sulbahn",
+    "suldiran",
+    "sulo mouzho",
+    "sumah sohlowyt",
+    "sunakku-matakku",
+    "sunana",
+    "sunny-pabonny",
+    "supiroro",
+    "sutarara",
+    "syrillia",
+    "taajiji",
+    "taby canatahey",
+    "tahl mhioguch",
+    "tahn posbei",
+    "tall mountain",
+    "talruf",
+    "tamil-hamel",
+    "tango",
+    "tapoh lihzeh",
+    "taraihi-perunhi",
+    "taten-bilten",
+    "taulenne",
+    "taumiale, r.k.",
+    "tautorie",
+    "tauwawa",
+    "tavourine",
+    "tayaya",
+    "tayula",
+    "taza",
+    "tcinono",
+    "tebubu, w.w.",
+    "teco chatpaya",
+    "tehf kimasnahya",
+    "teigero-bangero",
+    "teilsa",
+    "teldo-moroldo, w.w.",
+    "teldro-kesdrodo",
+    "tememe, w.w.",
+    "tenacious fool, l.c.",
+    "terounalivet",
+    "teruga-boruga",
+    "terwok",
+    "tesch garanjy",
+    "tevigogo",
+    "tewo rutuminpa",
+    "thadiene",
+    "three steps, i.m.",
+    "thubu parohren",
+    "thunder hawk",
+    "tico karimakiba",
+    "tielleque",
+    "tiger tooth",
+    "tih pikeh",
+    "tihl midurhi",
+    "tilala",
+    "timid scorpion, l.c.",
+    "tio moshroca",
+    "tiruru",
+    "toeh leddenbah",
+    "toh zonikki",
+    "tohka telposkha",
+    "tohs jhannih",
+    "toji mumosulah",
+    "tokaka",
+    "tomoa-nomoa, c.c.",
+    "tonana",
+    "topok-hippok",
+    "toppi-meppi",
+    "toppled tree",
+    "topuru-kuperu",
+    "torapiont",
+    "torikoko",
+    "torino-samarino",
+    "tosh hohnay",
+    "tottoto, w.w.",
+    "toulsard, r.k.",
+    "touttaures",
+    "traiffeaux",
+    "travialce",
+    "travonce",
+    "trisvain",
+    "tsahbi ifalombo",
+    "tsiket-lukit",
+    "tsonga-hoponga, w.w.",
+    "tsuaora-tsuora",
+    "tsui golalapahn",
+    "tsuran-botaran",
+    "tsuryarya",
+    "tswe panipahr",
+    "tuffle-buffle",
+    "tujaja",
+    "tun habyryu",
+    "turbulent storm",
+    "tya padolih",
+    "udip ferawoh",
+    "ufanne",
+    "ufu koromoa",
+    "ugtoor",
+    "uhko rolinzoh",
+    "ujlei zelekko",
+    "ulaciont, r.k.",
+    "ulbuun",
+    "ulesa",
+    "uli pehkowa",
+    "umumu",
+    "uphra-kophra, w.w.",
+    "upih khachla",
+    "uran-mafran",
+    "urbiolaine",
+    "urubero-mohbero",
+    "utsuitsui",
+    "uuroro",
+    "vah keshura",
+    "vahn paineesha",
+    "vaihilique",
+    "vailanice",
+    "valaineral r davilles",
+    "valli",
+    "vamorcote",
+    "vanono",
+    "vaquelage",
+    "varchet",
+    "variko-njariko, w.w.",
+    "vattian",
+    "vauderame",
+    "vaulois",
+    "vaultimand",
+    "vavegallet",
+    "velda-galda",
+    "veldeth",
+    "velema",
+    "vemalpeau",
+    "vestillet",
+    "veujaie",
+    "vhana ehgaklywha",
+    "vhino delkahngo",
+    "vichauxdat",
+    "vichuel",
+    "vicious eye",
+    "vicorpasse",
+    "victoire",
+    "vijartal",
+    "vikhu nakuaino",
+    "vilatroire",
+    "villion",
+    "vingijard",
+    "violitte",
+    "volgoi",
+    "voranbo-natanbo, w.w.",
+    "voucheramme",
+    "vuih stecoppah",
+    "vukki-chebukki",
+    "vuliaie",
+    "vyki parabuji",
+    "wabble-mopple",
+    "wafeeyah",
+    "wahraga",
+    "wandering cloud",
+    "wanja-daruja",
+    "wanzo-unzozo",
+    "wata khamazom",
+    "watisa",
+    "waudeen",
+    "wayward echo, l.c.",
+    "wazyih",
+    "werei",
+    "westerly breeze",
+    "wetata",
+    "whispering tortoise",
+    "white beetle",
+    "wije tiren",
+    "wise turtle, i.m.",
+    "wise wolf",
+    "wistful bison",
+    "wolden-bolden",
+    "wyvern tail",
+    "yabby tanmikey",
+    "yabehbeh",
+    "yachemidot",
+    "yafafa",
+    "yakuku",
+    "yaman-hachuman",
+    "yanakiki",
+    "yando-memondo",
+    "yapam-alpam",
+    "yassi-possi",
+    "yaucevouchat",
+    "yefafa",
+    "yeggha dolashi",
+    "yek falimeygo",
+    "yhu lyehga, m.c.",
+    "yimi jomkeh, m.c.",
+    "yin pocanakhu",
+    "yohj dukonlhy",
+    "yomotsutsu",
+    "yon boskoti",
+    "yonolala",
+    "yoran-oran",
+    "yoriri",
+    "yow rabntah",
+    "yrvaulair s cousseraux",
+    "ysayle",
+    "yudi yolhbi",
+    "yuhito-kubhito",
+    "yuilam-kailam",
+    "yujuju",
+    "yurugu-homurugu",
+    "yuvalbaux, r.k.",
+    "yvantoine",
+    "zabahf",
+    "zadant",
+    "zagied",
+    "zahakahm",
+    "zahsa syalmhaia",
+    "zaldon",
+    "zauko",
+    "zawahf",
+    "zayhi-bauhi",
+    "zazarg",
+    "zebada",
+    "zedduva",
+    "zekobi-morokobi",
+    "zelala",
+    "zemedars",
+    "zhikkom",
+    "zhon kihshimo",
+    "zhuk vojahom",
+    "zoby quhyo",
+    "zokima-rokima",
+    "zoldba",
+    "zolku-azolku",
+    "zon-fobun",
+    "zopago",
+    "zorchorevi, r.k.",
+    "zoreen",
+    "zoriboh",
+    "zovriace",
+    "zshahda",
+    "zubaba",
+    "zubu-abibu",
+    "zunmimi",
+    "zurko-bazurko",
+    "zwaluh",
+    "zwinam"
+  ],
+  "updates": [
+    {
+      "key": "abeaule",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "abioleget",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "adrienaure",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ahkk jharcham",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ailbeche",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ailee",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ajido-marujido",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "akkeke",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "albinie",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "alfesar",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "aligi-kufongi",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "alphollon c meriard",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "altennia",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "amajal",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "amarefice",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "amaura",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ambleon",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ampiro-mapiro",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "andelain",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "andelmine",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "angieurol",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ansegusele",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "anteurephiaux",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "antreneau",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "aora-uora",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "apururu",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "archanne",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "arenuel",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ark angel ev",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ark angel gk",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "ark angel mr",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ark angel tt",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "arnau",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "aroro",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "artinien",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "arukoko",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "arvilauge",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "audia",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "authere",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "auvare",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "babenn",
+      "race": "galka",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "baladanzo",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "balasiel",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "balgamirob",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "battal",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "baudin",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "bellue",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "beyzen",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "bheva grantih",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "bhi telifahgo",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "bhio fehriata",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "bin stejihna",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "bistillot",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "blendare",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "bostillette",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "bozack",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "bozz",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "brifalien",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "buchi kohmrijah",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "buntz",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "burute-sorute",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "caffie",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "caiphimonride",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "cattah pamjah",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "cayu pensharhumi",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "cha lebagta",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "chaloutte",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "chalvatot",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "chamaja-tamaja",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "champalpieu",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "charging chocobo",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "charlaimagnat",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "chasalvige",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "chawo shipeynyo",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "cheh raihah",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "cherlodeau",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "cherukiki",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "chimh dlesbah",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "chomomo",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "chomoro-kyotoro",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "choyi totlihpa",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "claidie",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "clais",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "clautaire",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "colleraie",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "congee-toyangee",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "copuwawa",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "corua",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "craggy bluff",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "curilla",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "cyranuce",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "dabbio",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "dabih jajalioh",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "dahjal",
+      "race": "galka",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "dalba",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "dark clouds",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "dayaka-botanyuka",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "debadle-levadle",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "degong",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "dehlner",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "deidogg",
+      "race": "galka",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "denvihr",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "despachiaire",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "detzo",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "dhiz tomehrih",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "diegai",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "dienger",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "dilauriome",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "diroku-oroku",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "dnegan",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "dodoi",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "dohhel",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "drangord",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "durogg",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "dusky forest",
+      "race": "galka",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "elesca",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "eperdur",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "equette",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "erabu-fumulubu",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "eron-tomaron",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "estevanie",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "estiliphire",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "etsa rhuyuli",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "etteh sulaej",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "evindigar",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "excenmille",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "exoroche",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "falreze",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "faurbellant",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "federation dispenser",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "fephita",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "foi-mui",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "foletta",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "folzen",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "fondactiont",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "fontoumant",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "fouvia",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "gabwaleid",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "galdo",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "gama-shama",
+      "race": "tarutaru",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "gantineux",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "geebeh",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "gehlvik",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "gehuha",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "gerbaum",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "geuhbe",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "geuselibel",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "gevarg",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "ghatsad",
+      "race": "galka",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "gildge",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "gimb",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "gioh ajihri",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "givorj",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "gizel",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "gomada-vulmada",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "gonija",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "gontrain",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "goraow",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "gorvik",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "greubaque",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "gudav",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "guhyun",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "guilloud",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "gulemont",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "gumbah",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "gwill",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "haah chakaila",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "hades",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "hae jakkya",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "halaviabeau",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "hariga-origa",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "havillione",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "hayah dahbalesahma",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "heptachiond",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "heumila",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "hinaree",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "hobibi",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "hororo",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "hungry wolf",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "ikhi askamot",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "illu bohjaa",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ilumida",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "iruki-waraki",
+      "race": "tarutaru",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "isacio",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "itzha delavhitta",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ivoh haalameb",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "iya rihyo",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "jacodaut",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "jaha amariyo",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "janta-jonta",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "jatan-paratan",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "jayleilei",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "jedelaih",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "jikka-abukka",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "jimaida",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "jovial rat",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "jozhud",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "jufaue",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "juna moshal",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "juvillie",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kaaya majiad",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "karaha-baruha",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kerutoto",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "khomi tibariah",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ki volep",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kipo-opo",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kipopo",
+      "race": "tarutaru",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "kirarara",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kiria-romaria",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kocco ehllek",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kohlo-lakolo",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "koko lihzeh",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "komomo",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kopol-rapol",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kotan-moritan",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "koyol-futenol",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kukki-chebukki",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kuu lohro",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kuu mohzolhi",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kuyin hathdenna",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "kyaa taali",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "lakom-lukom",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "lamepaue",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "latteaune",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "laughing bison",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "lehko habhoka",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "leuveret",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "lhe lhangavo",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "lih pituu",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "lilisette",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "lin megomifu",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "lone horn",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "louisareaux",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ludiault",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "luuh koplehn",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "luzaf",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "macchi gazlitah",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "machegue",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "machella",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mairee",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "majiji",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "makki-chebukki",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "maleme",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "malobra",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mashua",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mashuu-ajuu",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mathele",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "maudilyonne",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "maugie",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "maurinne",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "meh kotomaihro",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "meldivon",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "melledanne",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "melvien",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "meransarget",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "merleg",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "mhao kehtsoruho",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mhasbaf",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mhe quryobhi",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mhebi juhbily",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mheca khetashipah",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "miageau",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "miene",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mighty fist",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "migi centa",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mimomo",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mistaravant",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "moari-kaaori",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mocchi katsartbih",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mokop-sankop",
+      "race": "tarutaru",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "monberaux",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "moozo-koozo",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "moreche",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "morjean",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "mourices",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "mov lingyoh",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "muchavatte",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "myumimi",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "naho gwanboh",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "naiko-paneiko",
+      "race": "tarutaru",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "naja salaheem",
+      "race": "mithra",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "nakho jawantal",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "nalta",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "nanaa mihgo",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "nangst",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "narsaude",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "nenne",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "nevela",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "nhev befrathi",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "nhobi zalkia",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "nikkoko",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "nogelle",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "noillurie",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "nunaarl bthtrogg",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "oggodett",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "ohsi shomahl",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "oiheaurese",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ojha rhawash",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "olbergieut",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "olero-velero",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "olgald",
+      "race": "galka",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "ominous cloud",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "orechiniel",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "oscarnot",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "oshasha",
+      "race": "tarutaru",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "ozzmo-mazmo",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "pagdako",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "pagisalis",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "pakesse-myukesse",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "paku-nakku",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "panja-nanja",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "panta-putta",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "paouala",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "papo-hopo",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "parukoko",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "paruru",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "patsaa maehoc",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "pattel-bacchel",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "pavvke",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "paya-sabya",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "pecca-pocca",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "perih vashai",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "phuz mannohl",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "pichichi",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "pieuje",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "pinok-morok",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "piscariaux",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "povall",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "prillaure",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "prishe",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "promurouve",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "pula rhatti",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "puo rhen",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "purakoko",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "pyo nzon",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "pyru-copyru",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "qhio plittibhi",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "qultada",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "quntsu-nointsu",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "rabiri-tabiri",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "radeivepart",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "raebrimm",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "rahal",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "raillefal",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "raimbroy",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "rakoh buuma",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "raminel",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ramua",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "raogrimm",
+      "race": "galka",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "ratoto",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "rauteinot",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "renten-tonten",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "republic supplier",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "resauchamet",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "rhalo davigoh",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "rhea myuliah",
+      "race": "mithra",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "rholont",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "riautte",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "risunela",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "rodeupansat",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "roh latteh",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "romaa mihgo",
+      "race": "mithra",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "ronana",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ronpaurege",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "rosel",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "rouva",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "royal provisioner",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ruillont",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "rukuku",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "rukususu",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "rutango-botango",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "sariale",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "sebohl reccohta",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "semih lafihna",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "serukoko",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "sevah kummekihn",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "seyaya",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "shamonde",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "shanruru",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "shantotto",
+      "race": "tarutaru",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "sheia pohrichamaha",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "shupah mujuuk",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "sibila-mobla",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "sitting ram",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "smile helper",
+      "race": "tarutaru",
+      "previous_status": "conflict",
+      "preference": "unknown"
+    },
+    {
+      "key": "smoke breath",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "sneaking tiger",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "sohdede",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "solby-maholby",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "star sibyl",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "stepholange",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "styi palneh",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "sujyahn",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "syu befrathi",
+      "race": "mithra",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "taillegeas",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "tamba-namba",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "taniko-maniko",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "taulluque",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "taumila",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "tek lengyon",
+      "race": "mithra",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "temoe-amoe",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "terude-harude",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "thali mhobrum",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "theophylacte",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "theraisie",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "thierride",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "tillecoe",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "tinjue",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "toi-poi",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "tonule",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "tosuka-porika",
+      "race": "tarutaru",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "tovrutaux",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "trion",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "tsih kolgimih",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "tuh almobankha",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "uka totlihn",
+      "race": "mithra",
+      "previous_status": "partial",
+      "preference": "feminine"
+    },
+    {
+      "key": "ullegore",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ulmia",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "ulycille",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "upital-lupital",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "uricca-koricca",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "vainrachault",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "valah molkot",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "valderotaux",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "valeri",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "virnage",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "vobo",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "volunteer",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "vorzill",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "vounebariont",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "vuntar",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "wani casdohry",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "wau kaatapoh",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "whyjham",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "willah maratahya",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "wise owl",
+      "race": "galka",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "yafa yaa",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "yavoraile",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "yohra-ora",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "yuli yaam",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "yulon-polon",
+      "race": "tarutaru",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "yung yaam",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "zabirego-hajigo",
+      "race": "tarutaru",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "zantaviat",
+      "race": "elvaan",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "zeid",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "zidalf",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "zona shodhun",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "zonpa-zippa",
+      "race": "tarutaru",
+      "previous_status": "partial",
+      "preference": "masculine"
+    },
+    {
+      "key": "zuah lepahnyu",
+      "race": "mithra",
+      "previous_status": "unknown",
+      "preference": "unknown"
+    },
+    {
+      "key": "zungutt",
+      "race": "galka",
+      "previous_status": "unknown",
+      "preference": "masculine"
+    },
+    {
+      "key": "zweeha",
+      "race": "elvaan",
+      "previous_status": "partial",
+      "preference": "feminine"
+    }
+  ],
+  "counts": {
+    "updates": 451,
+    "unchanged": 1797,
+    "ambiguous": 17,
+    "unmatched_pages": 111,
+    "by_race": {
+      "elvaan": 177,
+      "mithra": 95,
+      "tarutaru": 101,
+      "galka": 78
+    }
+  }
+}

@@ -8,7 +8,7 @@ Generated from the upstream LandSandBoat NPC definitions; this is a starting cat
 
 - 37,870 entity records inspected (YAML plus remaining legacy SQL).
 - 6,829 normalized display-name groups retained, including unclassified objects.
-- 3,201 confirmed names eligible for import; 112 partial, 72 conflicting, and 3,444 unknown groups retained for review.
+- 3,652 confirmed names eligible for import; 68 partial, 71 conflicting, and 3,038 unknown groups retained for review.
 - No gender/age guessed from names. No inference of adulthood from race. Child flags are not generated.
 
 ## Sources and rules
@@ -70,3 +70,24 @@ primary voice. Runtime automatic assignment gives them a 75% chance of a blend
 with a same-gender partner of either accent, retaining 60-80% British primary.
 The targeted rollout enabled this flag for 922 existing confirmed Elvaan entries
 without replacing manual overrides or other saved fields.
+
+## Four-race wiki reconciliation (October 25, 2026)
+
+All 15 supplied category pages were read in-browser: 387 Galka, 748 Tarutaru,
+1,024 Elvaan and 454 Mithra page entries. The 2,613 raw entries include Trust and
+(A)/(S)/(UC) variants. Exact and unique punctuation-normalized matches resolved
+451 additional catalog names: 78 Galka, 101 Tarutaru, 177 Elvaan and 95 Mithra.
+1,797 unique names already matched confirmed records. No fuzzy suggestions were
+applied; 17 conflicting names and 111 unmatched page entries remain for review.
+
+The registry import added 428 entries and updated 23, preserving manual voice,
+manual/base tuning, known preferences, Child flags, mute and encounter history.
+A timestamped SQLite backup precedes the import. Race defaults can change the
+effective sound, but the saved tuning is retained. No addon reload is required.
+
+See [the readable review](wiki_race_review.md), `wiki_race_review.json`,
+`wiki_race_overrides.json`, and `wiki_race_pages.json` for decisions and sources.
+The generator now reapplies this supplement on regeneration. To import just race
+information without resetting custom settings, use `--race-only` with the supplement.
+The original coverage numbers above describe earlier passes where noted; current
+combined coverage is 3,652 confirmed names out of 6,829 named groups.

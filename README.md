@@ -99,8 +99,10 @@ by the in-game stop command; queued lines are still discarded.
 ## LandSandBoat starter catalog
 
 A generated catalog now covers 6,829 named groups from a pinned upstream source.
-Only 3,201 names with verified model classifications or reviewed wiki evidence are eligible
+Only 3,652 names with verified model classifications or reviewed wiki evidence are eligible
 for import. Unknown and conflicting names stay available for further research.
+The four-race wiki reconciliation resolved 451 more names; see the
+[matching review](data/wiki_race_review.md) for unresolved entries.
 See [catalog documentation](data/README.md) for provenance, coverage, backup and
 import commands. Imports are explicit; they do not overwrite your edits on startup.
 Use **All NPCs** to browse seeded entries, or **Recent** for actual conversations.
@@ -371,7 +373,7 @@ Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue orde
 duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
 a controlled speech backend. They do not require Kokoro or launch the game.
 Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those tests are skipped. The current suite passes 66 tests, including
+tests; otherwise those tests are skipped. The current suite passes 68 tests, including
 the observed Halver/Faurie modes, exclusion of unnamed mode 142 notices and mode
 152 duplicates, raw capture, name filtering, timeout, buffer limits and write errors.
 Registry/editor tests additionally cover stable hashing across restarts/pool changes,

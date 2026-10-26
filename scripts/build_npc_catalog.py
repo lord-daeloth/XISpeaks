@@ -82,12 +82,12 @@ def apply_reviewed_overrides(document, overrides):
             entry['model_classification'] = dict(status=previous['status'], profile=previous['profile'])
         entry.update(override)
         entry.setdefault('entities', [])
-        entry['suggested_voice'] = choose_voice(key, override['profile']['preference'], VOICES)
+        entry['suggested_voice'] = choose_voice(key, override['profile']['preference'], [v for v in VOICES if v.startswith('b')] if override['profile']['race']=='elvaan' else VOICES)
         document['associations'][key] = entry
-    document['reviewed_sources'] = [overrides['source']]
+    document['reviewed_sources'] = sorted(set(document.get('reviewed_sources', []) + overrides.get('sources', [overrides['source']])))
     document['statistics']['named_groups'] = len(document['associations'])
     document['statistics']['classifications'] = dict(Counter(v['status'] for v in document['associations'].values()))
-    document['statistics']['reviewed_overrides'] = len(overrides['associations'])
+    document['statistics']['reviewed_overrides'] = sum('evidence' in v for v in document['associations'].values())
     return document
 
 
@@ -148,9 +148,10 @@ def generate(source, output):
         statistics=dict(entities=len(entities), named_groups=len(groups), classifications=dict(counts), excluded=dict(excluded)),
         goblin_model_evidence={str(m):sorted(set(model_sources[m])) for m in sorted(goblin_models)},
         associations=associations)
-    override_path = ROOT/'data/goblin_npc_overrides.json'
-    if override_path.exists():
-        apply_reviewed_overrides(document, json.loads(override_path.read_text(encoding='utf-8')))
+    for filename in ('goblin_npc_overrides.json','wiki_race_overrides.json'):
+        override_path = ROOT/'data'/filename
+        if override_path.exists():
+            apply_reviewed_overrides(document, json.loads(override_path.read_text(encoding='utf-8')))
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(document, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     print(json.dumps(document['statistics'], indent=2))

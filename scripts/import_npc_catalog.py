@@ -14,7 +14,7 @@ from registry import Registry, PRESETS, PREFERENCES, choose_voice, choose_tuning
 from service import load_config
 
 
-def import_catalog(registry, catalog, overwrite=False):
+def import_catalog(registry, catalog, overwrite=False, race_only=False):
     if catalog.get('schema') != 1 or not isinstance(catalog.get('associations'), dict):
         raise ValueError('Unsupported NPC catalog')
     rows = []
@@ -34,11 +34,20 @@ def import_catalog(registry, catalog, overwrite=False):
     with registry.lock, registry.db:
         for key,name,profile,voice,speed,pitch in rows:
             exists = registry.db.execute('SELECT 1 FROM npcs WHERE key=?',(key,)).fetchone()
-            if exists and not overwrite:
+            if exists and not overwrite and not race_only:
                 counts['preserved'] += 1
                 continue
             registry.db.execute('''INSERT INTO npcs (key,name,auto_voice,auto_speed,auto_pitch)
                 VALUES (?,?,?,?,?) ON CONFLICT(key) DO NOTHING''', (key,name,voice,speed,pitch))
+            if race_only:
+                current = registry.db.execute('SELECT preference FROM npcs WHERE key=?', (key,)).fetchone()
+                preference = current['preference'] if current['preference'] != 'unknown' else profile['preference']
+                primary = choose_voice(key, preference, registry.pool)
+                registry.db.execute('''UPDATE npcs SET preference=?,auto_voice=?,
+                    preset_goblin=?,preset_galka=?,preset_mithra=?,preset_tarutaru=?,preset_elvaan=? WHERE key=?''',
+                    (preference,primary,*[int(p in profile['presets']) for p in ('goblin','galka','mithra','tarutaru','elvaan')],key))
+                counts['updated' if exists else 'inserted'] += 1
+                continue
             registry.db.execute('''UPDATE npcs SET preference=?,auto_voice=?,auto_speed=?,auto_pitch=?,
                 manual_voice=NULL,manual_speed=NULL,manual_pitch=NULL,
                 preset_goblin=?,preset_galka=?,preset_mithra=?,preset_tarutaru=?,preset_elvaan=? WHERE key=?''',
@@ -55,6 +64,7 @@ def main():
     parser.add_argument('--registry',type=Path,default=ROOT/'npcs.sqlite3')
     parser.add_argument('--config',type=Path,default=ROOT/'config.json')
     parser.add_argument('--overwrite',action='store_true',help='Replace existing confirmed voices/tuning/race flags; retain Child, mute, and history')
+    parser.add_argument('--race-only',action='store_true',help='Update race flags and automatic selection; preserve manual voices, tuning, Child, and known preferences')
     args=parser.parse_args()
     raw=args.catalog.read_bytes()
     catalog=json.loads(raw)
@@ -63,7 +73,7 @@ def main():
         backup=Path(str(args.registry)+'.before-catalog-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')+'.bak')
         with closing(sqlite3.connect(backup)) as target:
             registry.db.backup(target)
-        result=import_catalog(registry,catalog,args.overwrite)
+        result=import_catalog(registry,catalog,args.overwrite,args.race_only)
         result.update(backup=str(backup),revision=catalog['revision'],catalog_sha256=hashlib.sha256(raw).hexdigest())
         print(json.dumps(result,indent=2))
     finally:
