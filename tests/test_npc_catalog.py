@@ -61,6 +61,32 @@ class CatalogTests(unittest.TestCase):
             self.assertEqual(row['encounters'],1)
         finally:registry.close()
 
+    def test_user_corrections_win_and_generic_names_stay_unresolved(self):
+        import json
+        overrides=json.loads((ROOT/'data/user_npc_overrides.json').read_text())
+        document=dict(statistics={},associations={
+            'bompupu':dict(name='Bompupu',status='confirmed',profile=dict(race='hume',preference='masculine',presets=[])),
+            'delivery specialist':dict(name='Delivery Specialist',status='confirmed',profile=dict(race='hume',preference='masculine',presets=[]))})
+        apply_reviewed_overrides(document,overrides)
+        self.assertEqual(document['associations']['bompupu']['profile']['preference'],'feminine')
+        self.assertEqual(document['associations']['oruga']['profile']['presets'],[])
+        self.assertEqual(document['associations']['prince yahiko']['profile']['preference'],'masculine')
+        self.assertEqual(document['associations']['delivery specialist']['status'],'conflict')
+        self.assertIsNone(document['associations']['delivery specialist']['profile'])
+
+    def test_explicit_gender_correction_preserves_tuning(self):
+        registry=Registry(':memory:',dict(DEFAULTS,voices={}))
+        try:
+            registry.encounter('Bompupu')
+            registry.edit('bompupu','preference','masculine')
+            catalog=dict(schema=1,associations={'bompupu':dict(name='Bompupu',status='confirmed',profile=dict(race='tarutaru',preference='feminine',presets=['tarutaru']))})
+            import_catalog(registry,catalog,race_only=True,correct_preferences=True)
+            row=registry.page()['rows'][0]
+            self.assertEqual(row['preference'],'feminine')
+            self.assertTrue(row['presets']['tarutaru'])
+            self.assertEqual(row['encounters'],1)
+        finally:registry.close()
+
     def test_race_bytes_and_unknown_models(self):
         look=decode_hex('0x0100060600101320133013401350006000700000')
         self.assertEqual(classify(look,set())['preference'],'feminine')

@@ -14,7 +14,7 @@ from registry import Registry, PRESETS, PREFERENCES, choose_voice, choose_tuning
 from service import load_config
 
 
-def import_catalog(registry, catalog, overwrite=False, race_only=False):
+def import_catalog(registry, catalog, overwrite=False, race_only=False, correct_preferences=False):
     if catalog.get('schema') != 1 or not isinstance(catalog.get('associations'), dict):
         raise ValueError('Unsupported NPC catalog')
     rows = []
@@ -41,7 +41,7 @@ def import_catalog(registry, catalog, overwrite=False, race_only=False):
                 VALUES (?,?,?,?,?) ON CONFLICT(key) DO NOTHING''', (key,name,voice,speed,pitch))
             if race_only:
                 current = registry.db.execute('SELECT preference FROM npcs WHERE key=?', (key,)).fetchone()
-                preference = current['preference'] if current['preference'] != 'unknown' else profile['preference']
+                preference = current['preference'] if current['preference'] != 'unknown' and not correct_preferences else profile['preference']
                 primary = choose_voice(key, preference, registry.pool)
                 registry.db.execute('''UPDATE npcs SET preference=?,auto_voice=?,
                     preset_goblin=?,preset_galka=?,preset_mithra=?,preset_tarutaru=?,preset_elvaan=? WHERE key=?''',
@@ -65,7 +65,10 @@ def main():
     parser.add_argument('--config',type=Path,default=ROOT/'config.json')
     parser.add_argument('--overwrite',action='store_true',help='Replace existing confirmed voices/tuning/race flags; retain Child, mute, and history')
     parser.add_argument('--race-only',action='store_true',help='Update race flags and automatic selection; preserve manual voices, tuning, Child, and known preferences')
+    parser.add_argument('--correct-preferences',action='store_true',help='With --race-only, apply reviewed gender corrections even when an old preference exists')
     args=parser.parse_args()
+    if args.correct_preferences and not args.race_only:
+        parser.error('--correct-preferences requires --race-only')
     raw=args.catalog.read_bytes()
     catalog=json.loads(raw)
     registry=Registry(args.registry,load_config(args.config))
@@ -73,7 +76,7 @@ def main():
         backup=Path(str(args.registry)+'.before-catalog-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')+'.bak')
         with closing(sqlite3.connect(backup)) as target:
             registry.db.backup(target)
-        result=import_catalog(registry,catalog,args.overwrite,args.race_only)
+        result=import_catalog(registry,catalog,args.overwrite,args.race_only,args.correct_preferences)
         result.update(backup=str(backup),revision=catalog['revision'],catalog_sha256=hashlib.sha256(raw).hexdigest())
         print(json.dumps(result,indent=2))
     finally:

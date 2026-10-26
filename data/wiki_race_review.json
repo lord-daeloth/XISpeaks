@@ -915,7 +915,15 @@
           "race": "tarutaru",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "User-confirmed race and voice gender.",
+      "resolved_profile": {
+        "race": "tarutaru",
+        "preference": "feminine",
+        "presets": [
+          "tarutaru"
+        ]
+      }
     },
     {
       "key": "delivery specialist",
@@ -962,7 +970,8 @@
           "race": "mithra",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     },
     {
       "key": "gorattz",
@@ -981,7 +990,15 @@
           "race": "galka",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "User-confirmed race and voice gender.",
+      "resolved_profile": {
+        "race": "galka",
+        "preference": "masculine",
+        "presets": [
+          "galka"
+        ]
+      }
     },
     {
       "key": "invincible shield",
@@ -1015,7 +1032,15 @@
           "race": "galka",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "User-confirmed race and voice gender.",
+      "resolved_profile": {
+        "race": "galka",
+        "preference": "masculine",
+        "presets": [
+          "galka"
+        ]
+      }
     },
     {
       "key": "jakoh wahcondalo",
@@ -1041,7 +1066,15 @@
           "race": "mithra",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "User-confirmed race and voice gender.",
+      "resolved_profile": {
+        "race": "mithra",
+        "preference": "feminine",
+        "presets": [
+          "mithra"
+        ]
+      }
     },
     {
       "key": "linkshell concierge",
@@ -1061,7 +1094,8 @@
           "race": "mithra",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     },
     {
       "key": "lucretia",
@@ -1081,7 +1115,15 @@
           "race": "elvaan",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "User-confirmed race and voice gender.",
+      "resolved_profile": {
+        "race": "elvaan",
+        "preference": "feminine",
+        "presets": [
+          "elvaan"
+        ]
+      }
     },
     {
       "key": "mutihb",
@@ -1100,7 +1142,15 @@
           "race": "elvaan",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "User-confirmed race and voice gender.",
+      "resolved_profile": {
+        "race": "elvaan",
+        "preference": "masculine",
+        "presets": [
+          "elvaan"
+        ]
+      }
     },
     {
       "key": "oruga",
@@ -1119,7 +1169,13 @@
           "race": "elvaan",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "Hume female normally; Elvaan female in Abyssea. Shared feminine voice without a race preset until zone-aware matching exists.",
+      "resolved_profile": {
+        "race": "mixed",
+        "preference": "feminine",
+        "presets": []
+      }
     },
     {
       "key": "pagnelle",
@@ -1139,7 +1195,15 @@
           "race": "elvaan",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "User-confirmed race and voice gender.",
+      "resolved_profile": {
+        "race": "elvaan",
+        "preference": "feminine",
+        "presets": [
+          "elvaan"
+        ]
+      }
     },
     {
       "key": "prince yahiko",
@@ -1168,7 +1232,13 @@
           "race": "elvaan",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "Actors: Hume in Bastok, Elvaan in San d'Oria, Tarutaru in Windurst. Shared masculine voice without race presets.",
+      "resolved_profile": {
+        "race": "mixed",
+        "preference": "masculine",
+        "presets": []
+      }
     },
     {
       "key": "princess amdina",
@@ -1197,7 +1267,13 @@
           "race": "elvaan",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "Actors: Hume in Bastok, Elvaan in San d'Oria, Tarutaru in Windurst. Shared feminine voice without race presets.",
+      "resolved_profile": {
+        "race": "mixed",
+        "preference": "feminine",
+        "presets": []
+      }
     },
     {
       "key": "reinforcement",
@@ -1218,7 +1294,8 @@
           "race": "elvaan",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     },
     {
       "key": "sarmistha, i.m.",
@@ -1237,7 +1314,13 @@
           "race": "galka",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "User-confirmed race and voice gender.",
+      "resolved_profile": {
+        "race": "hume",
+        "preference": "feminine",
+        "presets": []
+      }
     },
     {
       "key": "station administrator",
@@ -1260,7 +1343,8 @@
           "race": "elvaan",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     },
     {
       "key": "station worker",
@@ -1281,7 +1365,8 @@
           "race": "elvaan",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     },
     {
       "key": "valentione single",
@@ -1304,7 +1389,8 @@
           "race": "tarutaru",
           "match": "exact"
         }
-      ]
+      ],
+      "user_resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     }
   ],
   "unchanged": [
@@ -5825,5 +5911,10 @@
       "tarutaru": 101,
       "galka": 78
     }
+  },
+  "user_review": {
+    "resolved_assignments": 11,
+    "generic_names_deferred": 6,
+    "source": "user_npc_overrides.json"
   }
 }

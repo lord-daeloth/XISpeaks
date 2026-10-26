@@ -8,7 +8,7 @@ Generated from the upstream LandSandBoat NPC definitions; this is a starting cat
 
 - 37,870 entity records inspected (YAML plus remaining legacy SQL).
 - 6,829 normalized display-name groups retained, including unclassified objects.
-- 3,652 confirmed names eligible for import; 68 partial, 71 conflicting, and 3,038 unknown groups retained for review.
+- 3,658 confirmed names eligible for import; 67 partial, 66 conflicting, and 3,038 unknown groups retained for review.
 - No gender/age guessed from names. No inference of adulthood from race. Child flags are not generated.
 
 ## Sources and rules
@@ -91,3 +91,11 @@ The generator now reapplies this supplement on regeneration. To import just race
 information without resetting custom settings, use `--race-only` with the supplement.
 The original coverage numbers above describe earlier passes where noted; current
 combined coverage is 3,652 confirmed names out of 6,829 named groups.
+
+## User-reviewed conflict resolution
+
+`user_npc_overrides.json` is applied after model and wiki sources. It records the
+11 user-confirmed voice policies and six generic identities that must remain
+unresolved. See the updated [review](wiki_race_review.md). Combined catalog coverage
+is now 3,658 confirmed voice policies. `mixed` race profiles intentionally express
+a shared gendered voice without race presets until zone-aware identity is available.

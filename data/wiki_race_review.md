@@ -15,7 +15,7 @@ Read all 15 supplied category pages (2,613 page entries). Trust, Abyssea, past-e
 
 The update preserves saved manual voice, pitch, speed, Child, mute and encounter history. Existing known gender preferences are retained. Race membership alone does not identify Elvaan or Tarutaru gender; unknown stays unknown. Mithra uses the existing feminine-default preset; manual overrides remain available. No age/Child flags were inferred.
 
-## Conflicting names left unchanged
+## Original conflicts (superseded by user review below)
 
 - **Bompupu** — wiki: tarutaru; model evidence: hume
 - **Delivery Specialist** — wiki: elvaan, galka, mithra, tarutaru; model evidence: elvaan, galka, hume, mithra, tarutaru
@@ -159,3 +159,28 @@ Source membership and pagination evidence: `wiki_race_pages.json`. Derived overr
 ```
 
 Wiki membership data attributed to FFXIclopedia contributors; source URLs are retained in the files. Wiki content is available under CC BY-SA unless otherwise noted.
+
+## User review applied
+
+Eleven named assignments are now resolved in `user_npc_overrides.json`, applied
+last during catalog generation. Bompupu is feminine Tarutaru; Gorattz and Invincible
+Shield are Galka; Jakoh Wahcondalo is Mithra; Lucretia and Pagnelle are feminine
+Elvaan; Mutihb is masculine Elvaan; Sarmistha, I.M. is feminine Hume.
+
+Oruga uses one feminine voice with no race preset for both the Hume and Abyssea
+Elvaan appearances. Prince Yahiko and Princess Amdina use shared masculine and
+feminine assignments respectively, with no race presets, because their actors'
+races vary by city. These are explicit voice policies, not claims that the NPCs
+have a single race. Current dialogue capture provides a speaker name, not zone
+or entity identity; zone-aware assignments would require an addon/protocol change.
+
+Six names remain intentionally unresolved: Delivery Specialist, Linkshell Concierge,
+Reinforcement, Station Administrator, Station Worker, and Valentione Single.
+They identify multiple NPCs, so their existing registry settings were left untouched.
+
+The import inserted six entries and updated five, with a fresh backup and all
+existing manual voices/tuning, Child flags, mute, history and global settings retained.
+
+```powershell
+.\.venv\Scripts\python.exe scripts/import_npc_catalog.py --catalog data/user_npc_overrides.json --race-only --correct-preferences
+```

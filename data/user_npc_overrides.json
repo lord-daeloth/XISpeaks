@@ -1,0 +1,201 @@
+{
+  "schema": 1,
+  "revision": "user-race-corrections-2026-10-25",
+  "source": "User-provided corrections in XISpeaks project chat, 2026-10-25",
+  "associations": {
+    "bompupu": {
+      "name": "Bompupu",
+      "status": "confirmed",
+      "profile": {
+        "race": "tarutaru",
+        "preference": "feminine",
+        "presets": [
+          "tarutaru"
+        ]
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
+    },
+    "gorattz": {
+      "name": "Gorattz",
+      "status": "confirmed",
+      "profile": {
+        "race": "galka",
+        "preference": "masculine",
+        "presets": [
+          "galka"
+        ]
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
+    },
+    "invincible shield": {
+      "name": "Invincible Shield",
+      "status": "confirmed",
+      "profile": {
+        "race": "galka",
+        "preference": "masculine",
+        "presets": [
+          "galka"
+        ]
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
+    },
+    "jakoh wahcondalo": {
+      "name": "Jakoh Wahcondalo",
+      "status": "confirmed",
+      "profile": {
+        "race": "mithra",
+        "preference": "feminine",
+        "presets": [
+          "mithra"
+        ]
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
+    },
+    "lucretia": {
+      "name": "Lucretia",
+      "status": "confirmed",
+      "profile": {
+        "race": "elvaan",
+        "preference": "feminine",
+        "presets": [
+          "elvaan"
+        ]
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
+    },
+    "mutihb": {
+      "name": "Mutihb",
+      "status": "confirmed",
+      "profile": {
+        "race": "elvaan",
+        "preference": "masculine",
+        "presets": [
+          "elvaan"
+        ]
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
+    },
+    "oruga": {
+      "name": "Oruga",
+      "status": "confirmed",
+      "profile": {
+        "race": "mixed",
+        "preference": "feminine",
+        "presets": []
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "Hume female normally; Elvaan female in Abyssea. Shared feminine voice without a race preset until zone-aware matching exists."
+    },
+    "pagnelle": {
+      "name": "Pagnelle",
+      "status": "confirmed",
+      "profile": {
+        "race": "elvaan",
+        "preference": "feminine",
+        "presets": [
+          "elvaan"
+        ]
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
+    },
+    "prince yahiko": {
+      "name": "Prince Yahiko",
+      "status": "confirmed",
+      "profile": {
+        "race": "mixed",
+        "preference": "masculine",
+        "presets": []
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "Actors: Hume in Bastok, Elvaan in San d'Oria, Tarutaru in Windurst. Shared masculine voice without race presets."
+    },
+    "princess amdina": {
+      "name": "Princess Amdina",
+      "status": "confirmed",
+      "profile": {
+        "race": "mixed",
+        "preference": "feminine",
+        "presets": []
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "Actors: Hume in Bastok, Elvaan in San d'Oria, Tarutaru in Windurst. Shared feminine voice without race presets."
+    },
+    "sarmistha, i.m.": {
+      "name": "Sarmistha, I.M.",
+      "status": "confirmed",
+      "profile": {
+        "race": "hume",
+        "preference": "feminine",
+        "presets": []
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
+    }
+  },
+  "unresolved": {
+    "delivery specialist": {
+      "name": "Delivery Specialist",
+      "reason": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
+    },
+    "linkshell concierge": {
+      "name": "Linkshell Concierge",
+      "reason": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
+    },
+    "reinforcement": {
+      "name": "Reinforcement",
+      "reason": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
+    },
+    "station administrator": {
+      "name": "Station Administrator",
+      "reason": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
+    },
+    "station worker": {
+      "name": "Station Worker",
+      "reason": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
+    },
+    "valentione single": {
+      "name": "Valentione Single",
+      "reason": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
+    }
+  }
+}

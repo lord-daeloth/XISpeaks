@@ -84,6 +84,9 @@ def apply_reviewed_overrides(document, overrides):
         entry.setdefault('entities', [])
         entry['suggested_voice'] = choose_voice(key, override['profile']['preference'], [v for v in VOICES if v.startswith('b')] if override['profile']['race']=='elvaan' else VOICES)
         document['associations'][key] = entry
+    for key, decision in overrides.get('unresolved', {}).items():
+        if key in document['associations']:
+            document['associations'][key].update(status='conflict', profile=None, resolution=decision['reason'])
     document['reviewed_sources'] = sorted(set(document.get('reviewed_sources', []) + overrides.get('sources', [overrides['source']])))
     document['statistics']['named_groups'] = len(document['associations'])
     document['statistics']['classifications'] = dict(Counter(v['status'] for v in document['associations'].values()))
@@ -148,7 +151,7 @@ def generate(source, output):
         statistics=dict(entities=len(entities), named_groups=len(groups), classifications=dict(counts), excluded=dict(excluded)),
         goblin_model_evidence={str(m):sorted(set(model_sources[m])) for m in sorted(goblin_models)},
         associations=associations)
-    for filename in ('goblin_npc_overrides.json','wiki_race_overrides.json'):
+    for filename in ('goblin_npc_overrides.json','wiki_race_overrides.json','user_npc_overrides.json'):
         override_path = ROOT/'data'/filename
         if override_path.exists():
             apply_reviewed_overrides(document, json.loads(override_path.read_text(encoding='utf-8')))

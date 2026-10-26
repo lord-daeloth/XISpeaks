@@ -8,14 +8,14 @@
     "named_groups": 6829,
     "classifications": {
       "unknown": 3038,
-      "partial": 68,
-      "conflict": 71,
-      "confirmed": 3652
+      "partial": 67,
+      "conflict": 66,
+      "confirmed": 3658
     },
     "excluded": {
       "unnamed_placeholder_or_debug": 12540
     },
-    "reviewed_overrides": 530
+    "reviewed_overrides": 541
   },
   "goblin_model_evidence": {
     "484": [
@@ -45647,11 +45647,13 @@
       "name": "Bompupu",
       "status": "confirmed",
       "profile": {
-        "preference": "masculine",
-        "presets": [],
-        "race": "hume"
+        "race": "tarutaru",
+        "preference": "feminine",
+        "presets": [
+          "tarutaru"
+        ]
       },
-      "suggested_voice": "am_liam",
+      "suggested_voice": "af_nova",
       "entities": [
         {
           "id": 17645906,
@@ -45677,7 +45679,20 @@
             "presets": []
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "confirmed",
+        "profile": {
+          "preference": "masculine",
+          "presets": [],
+          "race": "hume"
+        }
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
     },
     "bonanza master": {
       "name": "Bonanza Master",
@@ -79926,7 +79941,8 @@
             "presets": []
           }
         }
-      ]
+      ],
+      "resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     },
     "delkfutt": {
       "name": "Delkfutt",
@@ -150308,9 +150324,11 @@
       "name": "Gorattz",
       "status": "confirmed",
       "profile": {
+        "race": "galka",
         "preference": "masculine",
-        "presets": [],
-        "race": "hume"
+        "presets": [
+          "galka"
+        ]
       },
       "suggested_voice": "am_fenrir",
       "entities": [
@@ -150338,7 +150356,20 @@
             "presets": []
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "confirmed",
+        "profile": {
+          "preference": "masculine",
+          "presets": [],
+          "race": "hume"
+        }
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
     },
     "gordias": {
       "name": "Gordias",
@@ -176512,9 +176543,15 @@
     },
     "invincible shield": {
       "name": "Invincible Shield",
-      "status": "conflict",
-      "profile": null,
-      "suggested_voice": "am_eric",
+      "status": "confirmed",
+      "profile": {
+        "race": "galka",
+        "preference": "masculine",
+        "presets": [
+          "galka"
+        ]
+      },
+      "suggested_voice": "am_michael",
       "entities": [
         {
           "id": 17739961,
@@ -176780,7 +176817,16 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "conflict",
+        "profile": null
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
     },
     "ioupie, r.k.": {
       "name": "Ioupie, R.K.",
@@ -182317,13 +182363,15 @@
     },
     "jakoh wahcondalo": {
       "name": "Jakoh Wahcondalo",
-      "status": "partial",
+      "status": "confirmed",
       "profile": {
-        "preference": "masculine",
-        "presets": [],
-        "race": "hume"
+        "race": "mithra",
+        "preference": "feminine",
+        "presets": [
+          "mithra"
+        ]
       },
-      "suggested_voice": "bm_george",
+      "suggested_voice": "af_alloy",
       "entities": [
         {
           "id": 17739962,
@@ -182433,7 +182481,20 @@
             "presets": []
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "partial",
+        "profile": {
+          "preference": "masculine",
+          "presets": [],
+          "race": "hume"
+        }
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
     },
     "jalah mistani": {
       "name": "Jalah Mistani",
@@ -212119,7 +212180,8 @@
             ]
           }
         }
-      ]
+      ],
+      "resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     },
     "linus": {
       "name": "Linus",
@@ -217230,9 +217292,15 @@
     },
     "lucretia": {
       "name": "Lucretia",
-      "status": "conflict",
-      "profile": null,
-      "suggested_voice": "af_aoede",
+      "status": "confirmed",
+      "profile": {
+        "race": "elvaan",
+        "preference": "feminine",
+        "presets": [
+          "elvaan"
+        ]
+      },
+      "suggested_voice": "bf_emma",
       "entities": [
         {
           "id": 17846806,
@@ -217284,7 +217352,16 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "conflict",
+        "profile": null
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
     },
     "ludiault": {
       "name": "Ludiault",
@@ -277341,11 +277418,13 @@
       "name": "Mutihb",
       "status": "confirmed",
       "profile": {
+        "race": "elvaan",
         "preference": "masculine",
-        "presets": [],
-        "race": "hume"
+        "presets": [
+          "elvaan"
+        ]
       },
-      "suggested_voice": "am_puck",
+      "suggested_voice": "bm_george",
       "entities": [
         {
           "id": 16982398,
@@ -277443,7 +277522,20 @@
             "presets": []
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "confirmed",
+        "profile": {
+          "preference": "masculine",
+          "presets": [],
+          "race": "hume"
+        }
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
     },
     "muyadah": {
       "name": "Muyadah",
@@ -295564,9 +295656,9 @@
       "name": "Oruga",
       "status": "confirmed",
       "profile": {
+        "race": "mixed",
         "preference": "feminine",
-        "presets": [],
-        "race": "hume"
+        "presets": []
       },
       "suggested_voice": "af_nova",
       "entities": [
@@ -295618,7 +295710,20 @@
             "presets": []
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "confirmed",
+        "profile": {
+          "preference": "feminine",
+          "presets": [],
+          "race": "hume"
+        }
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "Hume female normally; Elvaan female in Abyssea. Shared feminine voice without a race preset until zone-aware matching exists."
     },
     "orukeke, w.w.": {
       "name": "Orukeke, W.W.",
@@ -301011,9 +301116,15 @@
     },
     "pagnelle": {
       "name": "Pagnelle",
-      "status": "conflict",
-      "profile": null,
-      "suggested_voice": "am_onyx",
+      "status": "confirmed",
+      "profile": {
+        "race": "elvaan",
+        "preference": "feminine",
+        "presets": [
+          "elvaan"
+        ]
+      },
+      "suggested_voice": "bf_emma",
       "entities": [
         {
           "id": 17834281,
@@ -301067,7 +301178,16 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "conflict",
+        "profile": null
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
     },
     "pahpe rauulih": {
       "name": "Pahpe Rauulih",
@@ -318381,9 +318501,13 @@
     },
     "prince yahiko": {
       "name": "Prince Yahiko",
-      "status": "conflict",
-      "profile": null,
-      "suggested_voice": "am_adam",
+      "status": "confirmed",
+      "profile": {
+        "race": "mixed",
+        "preference": "masculine",
+        "presets": []
+      },
+      "suggested_voice": "am_fenrir",
       "entities": [
         {
           "id": 17740073,
@@ -318461,13 +318585,26 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "conflict",
+        "profile": null
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "Actors: Hume in Bastok, Elvaan in San d'Oria, Tarutaru in Windurst. Shared masculine voice without race presets."
     },
     "princess amdina": {
       "name": "Princess Amdina",
-      "status": "conflict",
-      "profile": null,
-      "suggested_voice": "af_alloy",
+      "status": "confirmed",
+      "profile": {
+        "race": "mixed",
+        "preference": "feminine",
+        "presets": []
+      },
+      "suggested_voice": "af_sky",
       "entities": [
         {
           "id": 17740074,
@@ -318545,7 +318682,16 @@
             ]
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "conflict",
+        "profile": null
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "Actors: Hume in Bastok, Elvaan in San d'Oria, Tarutaru in Windurst. Shared feminine voice without race presets."
     },
     "prishe": {
       "name": "Prishe",
@@ -335964,7 +336110,8 @@
           "source": "data/zones/xarcabard_s/npcs.yaml",
           "classification": null
         }
-      ]
+      ],
+      "resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     },
     "reinhard": {
       "name": "Reinhard",
@@ -353667,9 +353814,9 @@
       "name": "Sarmistha, I.M.",
       "status": "confirmed",
       "profile": {
+        "race": "hume",
         "preference": "feminine",
-        "presets": [],
-        "race": "hume"
+        "presets": []
       },
       "suggested_voice": "af_jessica",
       "entities": [
@@ -353697,7 +353844,20 @@
             "presets": []
           }
         }
-      ]
+      ],
+      "model_classification": {
+        "status": "confirmed",
+        "profile": {
+          "preference": "feminine",
+          "presets": [],
+          "race": "hume"
+        }
+      },
+      "evidence": {
+        "method": "Explicit user correction",
+        "reviewed": "2026-10-25"
+      },
+      "resolution": "User-confirmed race and voice gender."
     },
     "sasa, i.m.": {
       "name": "Sasa, I.M.",
@@ -375888,7 +376048,8 @@
             ]
           }
         }
-      ]
+      ],
+      "resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     },
     "station worker": {
       "name": "Station Worker",
@@ -376022,7 +376183,8 @@
             ]
           }
         }
-      ]
+      ],
+      "resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     },
     "staumarth": {
       "name": "Staumarth",
@@ -432929,7 +433091,8 @@
             ]
           }
         }
-      ]
+      ],
+      "resolution": "Generic name shared by multiple NPCs; requires zone/entity identity, not a name-only race assignment."
     },
     "valeri": {
       "name": "Valeri",
@@ -466640,6 +466803,7 @@
     }
   },
   "reviewed_sources": [
+    "User-provided corrections in XISpeaks project chat, 2026-10-25",
     "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs",
     "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Cheupirudaux+%28A%29",
     "https://ffxiclopedia.fandom.com/wiki/Category:Elvaan_NPCs?from=Glarociquet%2C+T.K.",
