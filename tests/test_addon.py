@@ -42,7 +42,7 @@ class AddonTests(unittest.TestCase):
                     close = function() end, settimeout = function() end,
                     setpeername = function() return true end,
                     send = function(self, text) table.insert(sent, text); return #text end,
-                    receive = function() return table.remove(incoming,1) end
+                    receive = function(self,size) assert(size==65535); return table.remove(incoming,1) end
                 } end
             } end
         ''')

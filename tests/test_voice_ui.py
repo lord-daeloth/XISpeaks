@@ -59,7 +59,12 @@ class VoiceUITests(unittest.TestCase):
         self.respond(dict(review_enabled=True, review=None, review_count=0, npc=npc, voices=['am_michael']))
         self.assertTrue(self.lua.globals().ui.visible)
         self.assertEqual(self.lua.globals().ui.selected.key, 'halver')
-        self.assertEqual(self.lua.globals().ui.search, 'Halver')
+        self.assertEqual(self.lua.globals().ui.search, '')
+
+    def test_recent_button_clears_search_and_review_filter(self):
+        self.load_list()
+        self.lua.execute("ui.search='Halver'; ui.filter='unreviewed'; ui.page=3; clicks['Recent NPCs']=true; ui:draw(); ui:tick()")
+        self.assertEqual(self.last_request()[1], dict(action='list', search='', filter='recent', page=0))
 
     def test_old_companion_backoff_and_automatic_recovery(self):
         self.lua.execute('ui:tick()')

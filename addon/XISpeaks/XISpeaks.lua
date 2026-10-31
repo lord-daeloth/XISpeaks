@@ -196,7 +196,8 @@ ashita.events.register('d3d_present', 'xispeaks_poll', function()
     if not udp then return end
     -- Bounded work; never wait for the companion on the game thread.
     for _ = 1, 4 do
-        local response = udp:receive()
+        -- List replies can exceed LuaSocket's default 8192-byte receive buffer.
+        local response = udp:receive(65535)
         if not response then break end
         if voice_ui and response:sub(1,6) == 'XISUI\t' then
             voice_ui:receive(response)

@@ -64,7 +64,7 @@ function M.new(send, clock, session)
             self.voices=result.voices or self.voices
             self.draft_speed=math.floor((result.npc.base_speed or 1)*100+0.5)
             self.draft_pitch=math.floor((result.npc.base_pitch or 0)*10+0.5)
-            self.search=result.npc.name; self.filter='all'; self.page=0; self.next_refresh=0
+            self.search=''; self.filter='all'; self.page=0; self.next_refresh=0
         end
         if type(result.globals) == 'table' then
             self.globals = result.globals
@@ -190,6 +190,10 @@ function M.new(send, clock, session)
             if changed then self.search=search[1]; self.page=0; self.next_refresh=clock()+0.4 end
             imgui.SameLine()
             if imgui.Button('Refresh') then self.next_refresh=0 end
+            imgui.SameLine()
+            if imgui.Button('Recent NPCs') then
+                self.search=''; self.filter='recent'; self.page=0; self.next_refresh=0
+            end
             imgui.SetNextItemWidth(220)
             local filters = {all='All NPCs', recent='Recent (24 hours)', manual='Manual overrides', unreviewed='Unreviewed voices'}
             if imgui.BeginCombo('Show', filters[self.filter]) then
