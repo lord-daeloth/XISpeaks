@@ -29,7 +29,7 @@ def main():
             filename = voice if voice.replace('_', '').isalnum() else 'blend-' + hashlib.sha256(voice.encode()).hexdigest()[:12]
             suffix = f'-s{args.speed}-p{args.pitch}-v{args.volume}' if (args.speed,args.pitch,args.volume) != (1,0,1) else ''
             output = Path(__file__).resolve().parents[1] / f'smoke-{filename}{suffix}.wav'
-            with patch.object(backend.stream, 'play_async', side_effect=lambda: play_async(muted=True, output_wavfile=str(output))):
+            with patch.object(backend.stream, 'play_async', side_effect=lambda **kwargs: play_async(muted=True, output_wavfile=str(output), **kwargs)):
                 backend.speak(Dialogue('', "Welcome to Vana'diel. Your voice companion is ready."), voice, lambda: False)
             with wave.open(str(output), 'rb') as audio:
                 samples = array('h', audio.readframes(audio.getnframes()))

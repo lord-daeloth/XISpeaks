@@ -40,7 +40,7 @@ def self_test():
         for engine, voice in [('rubberband', '0.70*bm_george + 0.30*am_michael'), ('librosa', 'af_heart')]:
             output = app_root() / f'self-test-{engine}.wav'
             backend.configure(1.1, 1, 1.5, engine)
-            backend.stream.play_async = lambda: play(muted=True, output_wavfile=str(output))
+            backend.stream.play_async = lambda **kwargs: play(muted=True, output_wavfile=str(output), **kwargs)
             backend.speak(Dialogue('', "Welcome to Vana'diel. Your voice companion is ready."), voice, lambda: False)
             if any(pipeline.g2p.fallback is None for pipeline in backend.engine.pipelines.values()):
                 raise RuntimeError('The bundled eSpeak pronunciation fallback did not load')

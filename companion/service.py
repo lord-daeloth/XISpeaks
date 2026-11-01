@@ -40,7 +40,14 @@ class KokoroBackend:
         self.engine.set_voice(voice)
         if cancelled():
             return
-        self.stream.feed(dialogue.text).play_async()
+        # Dialogue is already available: preserve sentence context for prosody
+        # instead of yielding early fragments at commas to minimize latency.
+        self.stream.feed(dialogue.text).play_async(
+            fast_sentence_fragment=False,
+            fast_sentence_fragment_allsentences=False,
+            fast_sentence_fragment_allsentences_multiple=False,
+            force_first_fragment_after_words=100000,
+        )
         while self.stream.is_playing():
             if cancelled():
                 self.stream.stop()
