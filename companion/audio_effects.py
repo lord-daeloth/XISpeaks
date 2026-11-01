@@ -64,12 +64,19 @@ class EffectsQueue(Queue):
         self.pitch_engine = 'rubberband'
         self.cancelled = lambda: False
         self.error = None
+        self.stutter_points = []
 
     def put(self, item, block=True, timeout=None):
         if self.cancelled():
             return
         try:
+            points, self.stutter_points = self.stutter_points, []
+            original_length = len(item)
             item = process_pcm(item, self.pitch, self.volume, self.pitch_engine)
+            if points and original_length:
+                from stutters import insert_breaks
+                points = [round(p*len(item)/original_length) for p in points]
+                item = insert_breaks(item, points)
         except Exception as exc:
             self.error = exc
             raise

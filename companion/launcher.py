@@ -43,8 +43,8 @@ def self_test():
             sentences = []
             backend.stream.play_async = lambda **kwargs: play(muted=True, output_wavfile=str(output),
                 before_sentence_synthesized=sentences.append, **kwargs)
-            backend.speak(Dialogue('', "Lion? Lion!? Welcome to Vana'diel, my friend--and fellow traveler."), voice, lambda: False)
-            if [s.strip() for s in sentences] != ['Lion?', 'Lion!?', "Welcome to Vana'diel, my friend", 'and fellow traveler.']:
+            backend.speak(Dialogue('', "Lion? Lion!? Welcome to Vana'diel, my friend--and fellow traveler. Wh-what? I said th-that, n-n-no!"), voice, lambda: False)
+            if [s.strip() for s in sentences] != ['Lion?', 'Lion!?', "Welcome to Vana'diel, my friend", 'and fellow traveler.', 'Wh-what?', 'I said th-that, n-n-no!']:
                 raise RuntimeError(f'Sentence boundaries changed: {sentences}')
             if any(pipeline.g2p.fallback is None for pipeline in backend.engine.pipelines.values()):
                 raise RuntimeError('The bundled eSpeak pronunciation fallback did not load')
@@ -52,6 +52,11 @@ def self_test():
                 samples = array('h', audio.readframes(audio.getnframes()))
                 if audio.getsampwidth() != 2 or audio.getnframes() <= audio.getframerate() or max(map(abs, samples), default=0) < 100:
                     raise RuntimeError(f'Invalid audio: {output}')
+                import itertools
+                gaps = [sum(1 for _ in group)/audio.getframerate()
+                        for silent, group in itertools.groupby(samples, key=lambda x: x == 0) if silent]
+                if sum(.059 <= gap <= .065 for gap in gaps) < 4:
+                    raise RuntimeError(f'Missing 60 ms stutter breaks: {output}')
             print(f'PASS offline {engine}: {output}', flush=True)
     finally:
         backend.close()

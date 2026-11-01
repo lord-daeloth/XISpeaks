@@ -32,6 +32,8 @@ class KokoroBackend:
         # Processing before queue insertion also affects previews and WAV output.
         self.effects = EffectsQueue()
         self.engine.queue = self.effects
+        from stutters import install
+        install(self.engine, self.effects)
         self.stream = TextToAudioStream(self.engine, output_device_index=config.get('output_device_index'))
         self.stream.add_pause('xis_dash', 0.18)
 
