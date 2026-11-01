@@ -43,8 +43,8 @@ def self_test():
             sentences = []
             backend.stream.play_async = lambda **kwargs: play(muted=True, output_wavfile=str(output),
                 before_sentence_synthesized=sentences.append, **kwargs)
-            backend.speak(Dialogue('', "Lion? Lion!? Welcome to Vana'diel, my friend."), voice, lambda: False)
-            if sentences != ['Lion?', 'Lion!?', "Welcome to Vana'diel, my friend."]:
+            backend.speak(Dialogue('', "Lion? Lion!? Welcome to Vana'diel, my friend--and fellow traveler."), voice, lambda: False)
+            if [s.strip() for s in sentences] != ['Lion?', 'Lion!?', "Welcome to Vana'diel, my friend", 'and fellow traveler.']:
                 raise RuntimeError(f'Sentence boundaries changed: {sentences}')
             if any(pipeline.g2p.fallback is None for pipeline in backend.engine.pipelines.values()):
                 raise RuntimeError('The bundled eSpeak pronunciation fallback did not load')

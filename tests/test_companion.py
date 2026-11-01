@@ -9,7 +9,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'companion'))
 from dialogue import Dialogue, clean_dialogue, parse_frame
-from service import DEFAULTS, Server, SpeechQueue, load_config
+from service import DEFAULTS, Server, SpeechQueue, load_config, speech_text
 
 
 def eventually(predicate, timeout=2):
@@ -22,6 +22,12 @@ def eventually(predicate, timeout=2):
 
 
 class DialogueTests(unittest.TestCase):
+    def test_double_dash_pauses_preserve_other_punctuation(self):
+        text = "The master faced many threats--not just that one--and became a hero."
+        self.assertEqual(speech_text(text), "The master faced many threats [xis_dash] not just that one [xis_dash] and became a hero.")
+        self.assertEqual(speech_text('Wait -- please---listen!'), 'Wait [xis_dash] please [xis_dash] listen!')
+        self.assertEqual(speech_text('A well-known hero, yes? Lion!?'), 'A well-known hero, yes? Lion!?')
+
     def test_colors_prompts_and_speaker(self):
         self.assertEqual(clean_dialogue(b'\x1e\x01Maat : Take\x07this \x1e\x02item\x1e\x01.\x7f1'),
                          Dialogue('Maat', 'Take this item.'))

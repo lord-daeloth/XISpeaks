@@ -17,6 +17,11 @@ from portable import app_root, resource_root, initialize_database
 LOG = logging.getLogger('XISpeaks')
 
 
+def speech_text(text):
+    """Turn double-dash asides into explicit, short pauses for playback only."""
+    return re.sub(r'\s*--+\s*', ' [xis_dash] ', text)
+
+
 class KokoroBackend:
     def __init__(self, config):
         from RealtimeTTS import KokoroEngine, TextToAudioStream
@@ -28,6 +33,7 @@ class KokoroBackend:
         self.effects = EffectsQueue()
         self.engine.queue = self.effects
         self.stream = TextToAudioStream(self.engine, output_device_index=config.get('output_device_index'))
+        self.stream.add_pause('xis_dash', 0.18)
 
     def configure(self, speed, pitch, volume, pitch_engine='rubberband'):
         self.engine.set_speed(speed)
@@ -42,7 +48,7 @@ class KokoroBackend:
             return
         # Dialogue is already available: preserve sentence context for prosody
         # instead of yielding early fragments at commas to minimize latency.
-        self.stream.feed(dialogue.text).play_async(
+        self.stream.feed(speech_text(dialogue.text)).play_async(
             fast_sentence_fragment=False,
             fast_sentence_fragment_allsentences=False,
             fast_sentence_fragment_allsentences_multiple=False,
