@@ -47,6 +47,10 @@ class KokoroBackend:
             fast_sentence_fragment_allsentences=False,
             fast_sentence_fragment_allsentences_multiple=False,
             force_first_fragment_after_words=100000,
+            # Keep even one-word questions/exclamations separate. Otherwise the
+            # default 10-character minimum merges "Lion? Lion!?" into one call.
+            minimum_sentence_length=1,
+            sentence_silence_duration=0.3,
         )
         while self.stream.is_playing():
             if cancelled():
