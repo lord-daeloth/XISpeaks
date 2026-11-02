@@ -12,6 +12,18 @@ It uses the existing `.venv` created by `setup.ps1`; no extra UI package is need
 Open a contribution JSON/saved issue body, or enter a GitHub issue number/URL.
 For attachment-only issues, download the JSON and use **Open contribution file**.
 Select a row to compare the official and proposed voice, tuning, and presets.
+Use **Play automatic**, **Play current override**, and **Play submitted** to compare
+the highlighted NPC with the same editable sample text. Automatic uses the base
+NPC catalogue (including race/gender defaults), before curated corrections.
+Current override uses `data/release_npc_overrides.json`, not your live game DB;
+it is disabled when no correction exists. Submitted plays the export's effective
+voice/blend, speed, and pitch, even when its assignment rules are older.
+Previews use the companion's sentence/stutter processing and Rubber Band R3,
+with global speed and volume at 100%. **Stop** cancels playback; initial model
+loading may need to finish first. The model stays loaded for later previews.
+The source speech dependencies and Rubber Band from setup are required; staged
+offline assets in `build/assets` are reused if present. Previewing never saves
+assignments, approvals, or encounter history.
 Double-click rows (or use **Toggle highlighted**) to mark them for merging.
 **Select new entries** selects only new corrections/approvals, never conflicts.
 Matching and older/custom-rule rows cannot be selected.

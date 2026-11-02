@@ -25,7 +25,7 @@ def load_official(path, catalog):
     return registry, document
 
 
-def review(document, official, curated):
+def review(document, official, curated, automatic=None):
     known = {name_key(r['name']) for r in curated['npcs']}
     result = []
     candidate = Registry(':memory:', dict(DEFAULTS, voices={}))
@@ -53,12 +53,21 @@ def review(document, official, curated):
             elif before and (key in known or entry['kind']=='approval'):
                 status = 'conflict'
             result.append(dict(key=key, name=entry['name'], status=status,
+                automatic=automatic_sound(automatic, entry['name']) if automatic else None,
+                has_override=key in known,
                 official_profile=None if old is None else {f:old[f] for f in FIELDS},
                 official=None if before is None else {f:before[f] for f in ('voice','speed','pitch')},
                 proposed=entry['effective'], entry=entry))
     finally:
         candidate.close()
     return result
+
+
+def automatic_sound(registry, name):
+    registry.encounter(name)
+    row=registry.db.execute('SELECT * FROM npcs WHERE key=?',(name_key(name),)).fetchone()
+    sound=registry.public(row)
+    return {f:sound[f] for f in ('voice','speed','pitch')}
 
 
 def merge(document, report, curated, selected, allow_conflicts=False):

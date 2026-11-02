@@ -43,12 +43,28 @@ class MaintainerUITests(unittest.TestCase):
                 self.assertFalse(ui.selected)
                 ui.tree.selection_set('0');ui.show_details()
                 self.assertIn('am_michael',ui.details[1].get('1.0','end'))
+                self.assertIsNotNone(ui.rows['0']['automatic'])
+                self.assertFalse(ui.rows['0']['has_override'])
+                with patch.object(ui.preview,'play') as play:
+                    ui.play_preview('automatic')
+                    self.assertEqual(play.call_args.args[2],ui.rows['0']['automatic'])
+                    ui.messages.put(('preview_done','Done'))
+                    while ui.preview_busy:root.update();time.sleep(.01)
+                    ui.play_preview('proposed')
+                    self.assertEqual(play.call_args.args[2]['voice'],'am_michael')
+                    ui.messages.put(('preview_done','Done'))
+                    while ui.preview_busy:root.update();time.sleep(.01)
                 ui.select_new();self.assertEqual(ui.selected,{'test npc'})
                 with patch('maintainer_ui.messagebox.askyesno',return_value=True),patch('maintainer_ui.messagebox.showinfo'),patch('maintainer_ui.messagebox.showerror') as error:
                     ui.merge_selected();wait();error.assert_not_called()
                 self.assertEqual(json.loads(official.read_text())['npcs'][0]['manual_voice'],'am_michael')
                 self.assertEqual(len(list((folder/'backups').glob('*.json'))),1)
                 self.assertEqual(ui.rows['0']['status'],'matching')
+                self.assertTrue(ui.rows['0']['has_override'])
+                ui.tree.selection_set('0')
+                with patch.object(ui.preview,'play') as play:
+                    ui.play_preview('override')
+                    self.assertEqual(play.call_args.args[2]['voice'],'am_michael')
                 ui.select_new();self.assertFalse(ui.selected)
             finally:ui.close()
 

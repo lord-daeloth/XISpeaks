@@ -10,6 +10,8 @@ from tkinter import filedialog, messagebox, ttk
 from tkinter.scrolledtext import ScrolledText
 
 from review_contributions import ROOT, load_official, read_submission, review, merge, save_review
+from review_contributions import Registry, DEFAULTS, import_catalog
+from voice_preview import VoicePreview
 
 LABELS={'new':'New correction','new_approval':'New approval','matching':'Already matches',
         'conflict':'Conflict','outdated_or_custom_rules':'Older / custom rules'}
@@ -37,6 +39,8 @@ class MaintainerUI:
         self.backup_dir=backup_dir
         self.document=None; self.rows={}; self.selected=set(); self.busy=False
         self.messages=queue.Queue(); self.source=''; self.original=b''; self.curated=None
+        self.preview_busy=False
+        self.preview=VoicePreview(lambda action,payload:self.messages.put((action,payload)))
         root.title('XISpeaks — Maintainer')
         root.geometry('1120x760'); root.minsize(850,600)
         root.columnconfigure(0,weight=1); root.rowconfigure(0,weight=1)
@@ -73,15 +77,27 @@ class MaintainerUI:
             group=ttk.LabelFrame(details,text=title,padding=6);group.columnconfigure(0,weight=1);group.rowconfigure(0,weight=1)
             text=ScrolledText(group,height=9,wrap='word',font=('Segoe UI',10),state='disabled');text.grid(sticky='nsew')
             details.add(group,weight=1);self.details.append(text)
-        bottom=ttk.Frame(frame);bottom.grid(row=7,sticky='ew',pady=(12,0));bottom.columnconfigure(0,weight=1)
+        previews=ttk.LabelFrame(frame,text='Listen to highlighted NPC — Rubber Band R3, 100% global speed and volume',padding=6)
+        previews.grid(row=7,sticky='ew',pady=(8,0));previews.columnconfigure(0,weight=1)
+        self.sample=tk.StringVar(value="There is much we have yet to discover. May your travels be safe, my friend!")
+        ttk.Entry(previews,textvariable=self.sample).grid(row=0,column=0,sticky='ew',columnspan=4)
+        self.preview_buttons={}
+        for column,(kind,title) in enumerate((('automatic','Play automatic'),('override','Play current override'),('proposed','Play submitted'))):
+            button=ttk.Button(previews,text=title,command=lambda k=kind:self.play_preview(k))
+            button.grid(row=1,column=column,pady=6,sticky='w');self.preview_buttons[kind]=button
+        self.stop_button=ttk.Button(previews,text='Stop',command=self.preview.stop);self.stop_button.grid(row=1,column=3)
+        self.preview_status=tk.StringVar(value='Current override comes from the curated release JSON, not the live game database.')
+        ttk.Label(previews,textvariable=self.preview_status,wraplength=1000).grid(row=2,column=0,columnspan=4,sticky='w')
+        bottom=ttk.Frame(frame);bottom.grid(row=8,sticky='ew',pady=(12,0));bottom.columnconfigure(0,weight=1)
         self.status=tk.StringVar(value='Ready. Nothing is selected automatically.')
         ttk.Label(bottom,textvariable=self.status,wraplength=800).grid(sticky='w')
         self.merge_button=ttk.Button(bottom,text='Merge selected…',command=self.merge_selected);self.merge_button.grid(row=0,column=1,padx=(12,0))
-        ttk.Label(frame,text='Writes: '+str(self.official),wraplength=1000).grid(row=8,sticky='w',pady=(8,0))
+        ttk.Label(frame,text='Writes: '+str(self.official),wraplength=1000).grid(row=9,sticky='w',pady=(8,0))
         self.update_controls();self.poll_id=root.after(100,self.poll)
         root.protocol('WM_DELETE_WINDOW',self.close)
 
     def close(self):
+        self.preview.close()
         self.root.after_cancel(self.poll_id);self.root.destroy()
 
     def update_controls(self):
@@ -90,6 +106,27 @@ class MaintainerUI:
         for widget in (self.toggle_button,self.new_button,self.clear_button,self.conflict_check):
             widget.configure(state='normal' if self.document and not self.busy else 'disabled')
         self.merge_button.configure(state='normal' if self.selected and not self.busy else 'disabled')
+        highlighted=self.tree.selection()
+        row=self.rows.get(highlighted[0]) if highlighted else None
+        for kind,button in self.preview_buttons.items():
+            available=row and (row.get('has_override') if kind=='override' else row.get(kind))
+            button.configure(state='normal' if available and not self.busy and not self.preview_busy else 'disabled')
+        self.stop_button.configure(state='normal' if self.preview_busy else 'disabled')
+
+    def play_preview(self, kind):
+        if self.busy or self.preview_busy:return
+        selected=self.tree.selection()
+        row=self.rows.get(selected[0]) if selected else None
+        if not row or (kind=='override' and not row.get('has_override')):return
+        sound=row.get('official' if kind=='override' else kind)
+        text=self.sample.get().strip()
+        if not sound or not text:
+            self.preview_status.set('Enter sample text first.');return
+        if len(text)>2000:
+            self.preview_status.set('Keep the sample under 2,000 characters.');return
+        self.preview_busy=True;self.update_controls()
+        self.preview_status.set(f"Loading / playing {kind}: {row['name']} — {sound['voice']}, {sound['speed']*100:g}%, {sound['pitch']:+g} semitones. First preview loads the model.")
+        self.preview.play(row['name'],text,sound)
 
     def open_file(self):
         path=filedialog.askopenfilename(title='Open voice contribution',filetypes=[('Contribution / issue body','*.json *.md *.txt'),('All files','*.*')])
@@ -106,12 +143,17 @@ class MaintainerUI:
         if self.busy:return
         self.busy=True;self.update_controls();self.status.set('Loading and comparing profiles…')
         def work():
-            registry=None
+            registry=None;automatic=None
             try:
                 incoming=document if document is not None else read_submission(file,issue)
                 original=self.official.read_bytes()
                 registry,curated=load_official(self.official,self.catalog)
-                report=review(incoming,registry,curated)
+                automatic=Registry(':memory:',dict(DEFAULTS,voices={}))
+                import_catalog(automatic,json.loads(self.catalog.read_text(encoding='utf-8')))
+                report=review(incoming,registry,curated,automatic)
+                # Approvals alone are not overrides; race/preference corrections are.
+                for row in report:
+                    row['has_override']=row['has_override'] and (row['official']!=row['automatic'] or any(row['official_profile'][f] is not None for f in ('manual_voice','manual_speed','manual_pitch')))
                 if self.official.read_bytes()!=original:raise ValueError('Official catalogue changed during loading. Try again.')
                 source=self.source if document is not None else (f'GitHub issue #{issue}' if issue else str(file))
                 self.messages.put(('loaded',(incoming,original,curated,report,source)))
@@ -119,12 +161,17 @@ class MaintainerUI:
                 self.messages.put(('error',str(error)))
             finally:
                 if registry:registry.close()
+                if automatic:automatic.close()
         threading.Thread(target=work,daemon=True).start()
 
     def poll(self):
         try:
             while True:
-                action,payload=self.messages.get_nowait();self.busy=False
+                action,payload=self.messages.get_nowait()
+                if action.startswith('preview_'):
+                    self.preview_busy=False;self.preview_status.set(payload if action=='preview_done' else 'Preview failed: '+payload)
+                    self.update_controls();continue
+                self.busy=False
                 if action=='error':
                     self.status.set('Unable to load submission. Previous review retained.')
                     messagebox.showerror('Load failed',payload,parent=self.root)
@@ -145,10 +192,11 @@ class MaintainerUI:
         highlighted=self.tree.selection()
         row=self.rows.get(highlighted[0]) if highlighted else None
         contents=['Select an NPC to compare its profiles.']*2 if not row else [
-            describe(row['official'],row['official_profile']),
+            describe(row['official'],row['official_profile'])+'\n\nAutomatic baseline:\n'+describe(row.get('automatic'),None),
             LABELS[row['status']]+'\n\n'+describe(row['proposed'],row['entry']['profile'])]
         for widget,value in zip(self.details,contents):
             widget.configure(state='normal');widget.delete('1.0','end');widget.insert('1.0',value);widget.configure(state='disabled')
+        self.update_controls()
 
     def selection_status(self):
         counts=Counter(row['status'] for row in self.rows.values())
