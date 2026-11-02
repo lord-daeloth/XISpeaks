@@ -64,12 +64,16 @@ During cutscenes, XISpeaks temporarily reveals Ashita's ImGui layer when its edi
 | --- | --- | --- | --- |
 | Goblin | Existing preference | 115% | +3.5 semitones |
 | Child | Small youthful voice pool | 103% | +1 semitone |
-| Galka | Existing preference | 90% | -4 semitones |
+| Galka | Existing preference | 90% | -3.5 semitones |
 | Mithra | Feminine voices | 100% | None |
 | Tarutaru | Full configured pool | 110% | +1 semitone |
 | Elvaan | British primary, more frequent blending | 100% | None |
 
 Presets stack. Effective speed combines global speed, NPC tuning, and presets (clamped to 50–200%); pitch is clamped to -4 through +4 semitones. Automatic Elvaan blends retain at least 60% of the British primary voice. Voice gender is based on catalog data or preferences, not guesses from fantasy names.
+
+Galka automatic pitch variation stays within -4 to -3 semitones before other
+stacked presets. Most remain at -3.5; the existing rare variation frequency is
+unchanged. Manual pitch tuning can go outside that automatic range.
 
 ## Commands
 
