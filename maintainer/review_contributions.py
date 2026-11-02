@@ -83,6 +83,45 @@ def merge(document, report, curated, selected, allow_conflicts=False):
     return dict(schema=1,npcs=[rows[k] for k in sorted(rows)])
 
 
+def read_submission(file=None, issue=None):
+    if issue is not None:
+        if type(issue) is not int or issue < 1:
+            raise ValueError('Invalid issue number')
+        request = urllib.request.Request(f'https://api.github.com/repos/lord-daeloth/XISpeaks/issues/{issue}',
+            headers={'User-Agent':'XISpeaks-maintainer','Accept':'application/vnd.github+json'})
+        with urllib.request.urlopen(request,timeout=30) as response:
+            data=response.read(MAX_BYTES+1)
+        if len(data)>MAX_BYTES:
+            raise ValueError('Issue too large')
+        text=json.loads(data).get('body') or ''
+    else:
+        file=Path(file)
+        if file.stat().st_size>MAX_BYTES:
+            raise ValueError('File too large')
+        text=file.read_text(encoding='utf-8')
+    return parse(text)
+
+
+def save_review(path, original, curated, updated, backup_dir=None):
+    """Shared CLI/UI writer: reject stale reviews and back up before replacing."""
+    path=Path(path)
+    if path.read_bytes()!=original:
+        raise ValueError('Official data changed during review; reload the submission first')
+    if updated == curated:
+        return None
+    backup_dir=Path(backup_dir) if backup_dir else ROOT/'build/merge-backups'
+    backup=backup_dir/(datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8]+'.json')
+    backup.parent.mkdir(parents=True,exist_ok=True)
+    backup.write_bytes(original)
+    temp=path.with_name(path.name+'.'+uuid.uuid4().hex+'.tmp')
+    try:
+        temp.write_text(json.dumps(updated,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+        temp.replace(path)
+    finally:
+        temp.unlink(missing_ok=True)
+    return backup
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     source = parser.add_mutually_exclusive_group(required=True)
@@ -94,21 +133,7 @@ def main():
     parser.add_argument('--allow-conflicts',action='store_true')
     parser.add_argument('--write',action='store_true',help='Save explicitly selected changes; default is review only')
     args = parser.parse_args()
-    if args.issue:
-        if args.issue < 1:
-            raise ValueError('Invalid issue number')
-        request = urllib.request.Request(f'https://api.github.com/repos/lord-daeloth/XISpeaks/issues/{args.issue}',
-            headers={'User-Agent':'XISpeaks-maintainer','Accept':'application/vnd.github+json'})
-        with urllib.request.urlopen(request,timeout=30) as response:
-            data=response.read(MAX_BYTES+1)
-        if len(data)>MAX_BYTES:
-            raise ValueError('Issue too large')
-        text=json.loads(data)['body']
-    else:
-        if args.file.stat().st_size>MAX_BYTES:
-            raise ValueError('File too large')
-        text=args.file.read_text(encoding='utf-8')
-    document=parse(text)
+    document=read_submission(args.file,args.issue)
     original=args.official.read_bytes()
     official, curated=load_official(args.official,args.catalog)
     try:
@@ -121,17 +146,10 @@ def main():
     if args.write:
         if not args.accept:
             raise ValueError('--write requires one or more --accept names')
-        if updated == curated:
+        backup=save_review(args.official,original,curated,updated)
+        if backup is None:
             print('Already represented; no changes written.')
             return
-        if args.official.read_bytes()!=original:
-            raise ValueError('Official data changed during review; rerun')
-        backup=ROOT/'build/merge-backups'/ (datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8]+'.json')
-        backup.parent.mkdir(parents=True,exist_ok=True)
-        backup.write_bytes(original)
-        temp=args.official.with_name(args.official.name+'.'+uuid.uuid4().hex+'.tmp')
-        temp.write_text(json.dumps(updated,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
-        temp.replace(args.official)
         print('Saved selected NPCs. Backup:',backup)
     else:
         print('Review only. Use --accept NAME (repeat as needed) and --write to save.')

@@ -31,6 +31,8 @@ Submissions are reviewed before inclusion; they do not automatically overwrite
 the official catalogue. Maintainers can use the
 [review/merge tool](https://github.com/lord-daeloth/XISpeaks/tree/main/maintainer),
 which is intentionally excluded from release ZIPs.
+In a source checkout, double-click `maintainer/START-Maintainer.cmd` to open
+the maintainer's desktop review UI.
 
 ## Install the portable release
 
