@@ -4,12 +4,23 @@ Windows x64 only. Linux is not currently supported; a Linux companion may be
 explored later. Download updates from https://github.com/lord-daeloth/XISpeaks/releases
 XISpeaks code: GPL-3.0-or-later (see LICENSE). Third-party licenses remain separate.
 
+The companion MUST be running for speech to work. Loading the addon alone is
+not enough: run START-XISpeaks.cmd and keep the companion open while playing.
+
 1. Extract the entire XISpeaks folder into your Ashita addons directory.
    Vanacore example: Vanacore\addons\ashita\XISpeaks
 2. Double-click START-XISpeaks.cmd. Keep its console open while playing.
    The first start takes longer while the audio effects initialize.
 3. In game: /addon load XISpeaks
    Voice editor: /xis voices
+
+Optional CatsEyeXI Launcher auto-start:
+1. Open CatsEyeXI Launcher > Settings.
+2. Scroll down to Companion Apps.
+3. Add START-XISpeaks.cmd from your installed XISpeaks folder.
+4. Check Auto-Start for that entry.
+The companion will launch when you open the launcher. You must still load the
+addon in game. Do not start a second companion manually if it is already running.
 
 Voice review (optional, off by default): in /xis voices, enable "Review unapproved
 voices". After a named NPC finishes speaking, a small window offers Approve,

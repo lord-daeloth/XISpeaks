@@ -8,6 +8,8 @@ Local NPC text-to-speech for **Final Fantasy XI**, using an **Ashita v4 addon** 
 
 ## Install the portable release
 
+**The companion must be running for speech to work.** Loading the addon alone is not enough: launch `START-XISpeaks.cmd` and keep the companion running while you play, or configure launcher auto-start below.
+
 1. Download the **XISpeaks-windows-x64-v0.9.0.zip** release asset. GitHub's automatic **Source code** archives do not contain the executable, models, or bundled dependencies.
 2. Extract the entire `XISpeaks` folder into your Ashita addons directory. For Vanacore, use `Vanacore/addons/ashita/XISpeaks`.
 3. Double-click `XISpeaks/START-XISpeaks.cmd`. Keep its console open and wait for the speech engine to become ready.
@@ -23,6 +25,15 @@ The ZIP includes Python, Kokoro, all 28 English voices, Librosa, Rubber Band R3,
 Run only one companion at a time. Close it with Ctrl+C when finished. Nothing starts automatically with Windows. The executable is unsigned.
 
 XISpeaks has been used with Ashita through the CatsEyeXI Vanacore launcher. It is an Ashita addon, not a native Vanacore or Windower addon. Other setups have not been comprehensively tested.
+
+### Automatically start with the CatsEyeXI Launcher
+
+1. Open **CatsEyeXI Launcher > Settings**.
+2. Scroll down to **Companion Apps**.
+3. Add the `START-XISpeaks.cmd` file from your installed `XISpeaks` folder.
+4. Check **Auto-Start** for that entry.
+
+The companion will then launch when you open the CatsEyeXI Launcher. You still need to load the XISpeaks addon in game. If the launcher has already started the companion, do not launch a second copy manually.
 
 ## Features
 
