@@ -11,3 +11,4 @@ build/
 dist/
 build-release.log
 /contributions/
+/voice_studio/output/

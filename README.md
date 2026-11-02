@@ -34,6 +34,12 @@ which is intentionally excluded from release ZIPs.
 In a source checkout, double-click `maintainer/START-Maintainer.cmd` to open
 the maintainer's desktop review UI.
 
+For experimenting with volunteer-recorded custom voices, the separate
+[Voice Studio](voice_studio/README.md) creates Inno-Kokoro voice packs and audition
+audio. Launch `voice_studio/START-Voice-Studio.cmd` after its one-time setup.
+This source-only Windows tool is separate from the maintainer UI and excluded
+from player ZIPs; generated packs are candidates, not automatically installed voices.
+
 ## Install the portable release
 
 **The companion must be running for speech to work.** Loading the addon alone is not enough: launch `START-XISpeaks.cmd` and keep the companion running while you play, or configure launcher auto-start below.

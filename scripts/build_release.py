@@ -23,7 +23,7 @@ REVISION = 'f3ff3571791e39611d31c381e3a41a3af07b4987'
 def distributable(relative):
     """Only build artifacts; never include runtime settings, backups or caches."""
     parts = relative.parts
-    if parts[:2] == ('source', 'maintainer'):
+    if parts[:2] in (('source', 'maintainer'), ('source', 'voice_studio')):
         return False
     if parts[0] == 'companion':
         return len(parts) > 1 and (parts[1] == '_internal' or relative.as_posix() in (
