@@ -27,7 +27,7 @@ def distributable(relative):
         return len(parts) > 1 and (parts[1] == '_internal' or relative.as_posix() in (
             'companion/XISpeaks-Companion.exe', 'companion/config.example.json'))
     return parts[0] in ('source', 'licenses') or relative.as_posix() in (
-        'XISpeaks.lua', 'voice_ui.lua', 'README.txt', 'START-XISpeaks.cmd')
+        'XISpeaks.lua', 'voice_ui.lua', 'README.txt', 'START-XISpeaks.cmd', 'LICENSE')
 
 
 def main():
@@ -97,6 +97,7 @@ def main():
         shutil.copyfile(ROOT / 'addon/XISpeaks' / name, release / name)
     shutil.copyfile(ROOT / 'packaging/START-XISpeaks.cmd', release / 'START-XISpeaks.cmd')
     shutil.copyfile(ROOT / 'packaging/README.txt', release / 'README.txt')
+    shutil.copyfile(ROOT / 'LICENSE', release / 'LICENSE')
     # Example only: no config or user database is shipped at the writable paths.
     (release / 'companion/config.example.json').write_text(json.dumps(dict(DEFAULTS, voices={}), indent=2))
     licenses = release / 'licenses'
@@ -118,7 +119,7 @@ def main():
     for directory in ('companion', 'addon', 'scripts', 'packaging', 'tests'):
         shutil.copytree(ROOT / directory, release / 'source' / directory, dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
-    for name in ('requirements.txt', 'setup.ps1', 'setup-rubberband.ps1', 'README.md', 'config.example.json', 'run.cmd', 'install-addon.ps1'):
+    for name in ('LICENSE', 'requirements.txt', 'setup.ps1', 'setup-rubberband.ps1', 'README.md', 'config.example.json', 'run.cmd', 'install-addon.ps1'):
         shutil.copyfile(ROOT / name, release / 'source' / name)
     collect_sources(ROOT / 'build/upstream-source')
     shutil.copytree(ROOT / 'build/upstream-source', release / 'source/upstream', dirs_exist_ok=True)

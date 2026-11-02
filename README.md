@@ -1,409 +1,128 @@
 # XISpeaks
 
-For the self-contained Windows EXE release, see [portable installation and build instructions](packaging/BUILDING.md).
+Local NPC text-to-speech for **Final Fantasy XI**, using an **Ashita v4 addon** and a **Kokoro voice companion**.
 
-An Ashita v4 addon that sends NPC dialogue to a local RealtimeTTS/Kokoro companion.
-Version 0.8.1 raises the Child preset to +1 semitone. Version 0.8.0 added British-primary Elvaan assignments and more frequent blending, alongside a global pitch-engine selector: Rubber Band R3 (higher quality,
-default) or Librosa (faster). Restart the companion and `/addon reload XISpeaks`,
-then use `/xis voices`. Dialogue capture still supports Halver's mode 142 and
-Faurie's mode 150; tracing remains available.
+**Windows x64 only.** The current release, setup scripts, and bundled companion target Windows. There is no supported Linux build. A Linux companion may be explored later; game/addon compatibility and audio dependencies would need separate validation.
 
-Initial validation: 13 Python/LuaJIT tests passed, and Kokoro generated a 2.71-second
-non-silent WAV through RealtimeTTS. The project `.venv` is installed in this checkout;
-you can go straight to `install-addon.ps1` and `run.cmd`.
-`setup.ps1` remains available for fresh installs.
+[Download the latest Windows release](https://github.com/lord-daeloth/XISpeaks/releases/latest) · [Release history](https://github.com/lord-daeloth/XISpeaks/releases) · [Build instructions](packaging/BUILDING.md)
 
-## Design
+## Install the portable release
 
-`FFXI text_in -> Ashita addon -> localhost UDP -> Python queue -> Kokoro -> speakers`
+1. Download the **XISpeaks-windows-x64-v0.9.0.zip** release asset. GitHub's automatic **Source code** archives do not contain the executable, models, or bundled dependencies.
+2. Extract the entire `XISpeaks` folder into your Ashita addons directory. For Vanacore, use `Vanacore/addons/ashita/XISpeaks`.
+3. Double-click `XISpeaks/START-XISpeaks.cmd`. Keep its console open and wait for the speech engine to become ready.
+4. In game, run:
 
-The game only filters channels and sends bytes. Python handles text cleanup, voice
-selection, model inference and audio playback. No API key or cloud speech service
-is needed. First model/voice initialization can download assets; cached inference
-is local. Dialogue is not sent to a remote speech provider.
+   ```text
+   /addon load XISpeaks
+   /xis voices
+   ```
 
-This follows Esper's RealtimeTTS/Kokoro architecture and default `af_heart` voice.
-Balloon's channel and encoding handling informed the parser: channel 150 is NPC
-dialogue; 151 includes system narration. Named mode 142 dialogue was added based
-on an actual capture. Unlike Balloon, XISpeaks does not inspect
-game memory, hide text, advance dialogue, or change the camera. It reads original
-`e.message`, so Balloon's changes to `e.message_modified` should coexist.
+The ZIP includes Python, Kokoro, all 28 English voices, Librosa, Rubber Band R3, and the required model/tokenizer assets. **No separate Python installation, API key, model download, or internet connection is needed to use the portable release.** Keep the `companion` folder and its `_internal` directory together.
 
-Running neural inference inside a Lua addon would require a compatible native
-inference runtime, model assets and background execution. That is not implemented
-here. A companion avoids putting model latency and Python dependencies in the game
-process. This is a practical architecture choice, not proof that in-process TTS is
-impossible.
+Run only one companion at a time. Close it with Ctrl+C when finished. Nothing starts automatically with Windows. The executable is unsigned.
 
-## Setup (Windows)
+XISpeaks has been used with Ashita through the CatsEyeXI Vanacore launcher. It is an Ashita addon, not a native Vanacore or Windower addon. Other setups have not been comprehensively tested.
 
-Use 64-bit Python 3.10–3.12; 3.12 is the default for the setup script.
-From this folder in PowerShell:
+## Features
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\setup.ps1
-# Or: .\setup.ps1 -Python 'C:\path\to\python.exe'
-powershell -ExecutionPolicy Bypass -File .\install-addon.ps1
-.\run.cmd
-```
+- Captures NPC dialogue, including named mode-142 dialogue and regular mode-150 NPC dialogue, while filtering player chat.
+- Deterministic automatic voice assignments, optional two-voice blends, and per-NPC manual overrides.
+- An in-game editor with search, recent conversations, presets, previews, pitch, speed, and mute controls.
+- Global speed and volume controls; Rubber Band R3 for higher-quality pitch shifting or Librosa for faster processing.
+- Optional voice approval prompts that can appear during cutscenes.
+- A starter NPC catalog plus curated voice corrections and approvals.
+- Complete-sentence synthesis, 300 ms sentence pauses, 180 ms double-dash pauses, and pronunciation-based stutters with 60 ms breaks for supported cases.
+- Standalone `Hm` normalized to `Hmmmm`; laughter remains Kokoro's original rendering.
 
-The addon installer copies only the Lua addon to:
-`D:\Games\CatsEyeXi\catseyexi-client\Vanacore\addons\ashita\XISpeaks`.
-For another Ashita installation, pass `-AddonRoot 'C:\path\to\addons'`.
-The Python companion stays in this project directory. Nothing launches at Windows
-startup, and no game addon is automatically loaded.
+Speech runs locally. The addon sends dialogue to the companion over localhost UDP (default port `49152`); no dialogue is sent to a cloud speech provider. Inference runs outside the game process.
 
-Then in game:
+## Edit and approve voices
 
-```text
-/addon load XISpeaks
-/xispeaks status
-/xispeaks test
-```
+Open `/xis voices`, talk to an NPC, and select **Recent NPCs** to find the latest encounters. Approved and manually assigned voices remain editable. Search and the All, Recent, Manual, and Unreviewed filters offer other ways to find entries.
 
-Wait for `Speech engine ready` in the companion console. First startup can take
-longer while models download. An error is reported in that console and through
-`status`; the service does not silently substitute a different voice engine.
-Close the console or press Ctrl+C to stop the companion.
+Choose a voice or blend, adjust pitch/speed, and use **Preview voice** before **Save override**. Race/Child preset toggles save immediately. Manual voice choices take precedence over automatic selection.
 
-For capture diagnostics without loading Kokoro:
+Enable **Review unapproved voices** to get an Approve / Edit voice / Later prompt after a new voice finishes speaking. Close the main editor to see pending prompts. Approvals track the NPC's voice, pitch, and speed; changing those can require review again. Saved manual voice/tuning overrides count as reviewed. Global audio settings do not invalidate approvals.
 
-```powershell
-.\run.cmd --dry-run
-# Also works without speech packages using any suitable Python:
-python .\companion\service.py --dry-run
-```
+During cutscenes, XISpeaks temporarily reveals Ashita's ImGui layer when its editor or review prompt is open. Other ImGui windows may also become visible. It does not advance dialogue or alter the camera.
+
+### NPC presets
+
+| Preset | Automatic voice preference | Speed multiplier | Pitch offset |
+| --- | --- | --- | --- |
+| Goblin | Existing preference | 115% | +3.5 semitones |
+| Child | Small youthful voice pool | 103% | +1 semitone |
+| Galka | Existing preference | 90% | -4 semitones |
+| Mithra | Feminine voices | 100% | None |
+| Tarutaru | Full configured pool | 110% | +1 semitone |
+| Elvaan | British primary, more frequent blending | 100% | None |
+
+Presets stack. Effective speed combines global speed, NPC tuning, and presets (clamped to 50–200%); pitch is clamped to -4 through +4 semitones. Automatic Elvaan blends retain at least 60% of the British primary voice. Voice gender is based on catalog data or preferences, not guesses from fantasy names.
 
 ## Commands
 
-`/xis` is an alias for `/xispeaks`.
+`/xis` and `/xispeaks` are equivalent prefixes.
 
-| Command | Effect |
+| Command | Action |
 | --- | --- |
-| `voices` / `ui` / no arguments | Toggle the NPC voice editor |
-| `help` | Print the command list |
-| `on` / `off` | Enable or disable capture; off also stops current/queued speech |
-| `stop` | Stop current speech and clear the queue; capture stays enabled |
-| `status` | Display capture settings and request companion health |
-| `test` | Send a test line even when capture is off |
-| `system on` / `system off` | Include/exclude all channel 151 messages; default off |
-| `port 49152` | Set local UDP port; match companion `--port` |
-| `trace on` / `trace off` | Start/save a bounded local diagnostic capture of all text events |
-| `trace Halver` | Capture only text containing Halver (case-insensitive) plus packet metadata |
+| `/xis voices` | Open/close the voice editor |
+| `/xis on` / `/xis off` | Enable/disable capture |
+| `/xis stop` | Stop speech and clear the queue |
+| `/xis status` | Check settings and companion connectivity |
+| `/xis test` | Speak a test line |
+| `/xis system on` / `/xis system off` | Include/exclude mode-151 narration (off by default) |
+| `/xis port 49152` | Change the addon port; match the companion's port |
+| `/xis trace on` / `/xis trace off` | Start/save a bounded diagnostic capture |
+| `/xis trace Halver` | Limit trace text to a name or phrase |
 
-Zone-in/out clears speech. Finishing an NPC interaction does not clear speech, so
-the final line can finish. Rapidly advancing dialogue queues it in order; at most
-12 waiting lines are retained, and waiting lines older than 30 seconds are skipped.
-Stop is requested immediately, but Kokoro may take time to finish an active
-inference operation before cancellation returns. Model startup is not interruptible
-by the in-game stop command; queued lines are still discarded.
+Zoning clears speech. Fast dialogue advancement queues lines; the queue drops old waiting lines rather than falling indefinitely behind. Cancellation may wait for active model inference to return.
 
-## LandSandBoat starter catalog
+## Saved data and upgrades
 
-A generated catalog now covers 6,829 named groups from a pinned upstream source.
-Only 3,658 names with verified model classifications or reviewed wiki evidence are eligible
-for import. Unknown and conflicting names stay available for further research.
-The four-race wiki reconciliation resolved 451 more names; see the
-[matching review](data/wiki_race_review.md) for unresolved entries.
-See [catalog documentation](data/README.md) for provenance, coverage, backup and
-import commands. Imports are explicit; they do not overwrite your edits on startup.
-Use **All NPCs** to browse seeded entries, or **Recent** for actual conversations.
+Your active settings live in **`XISpeaks/companion/npcs.sqlite3`**. Close the companion before making a simple file backup. Optional advanced settings can be set by copying `companion/config.example.json` to `companion/config.json`.
 
-## NPC presets
+New installs start from **`companion/_internal/seed.sqlite3`**, which includes the starter catalog and the author's current curated corrections and approvals. The readable correction list is [data/release_npc_overrides.json](data/release_npc_overrides.json), also included under `source/data` in the ZIP. Encounter history, personal mute choices, global volume/speed, and the review-mode toggle are not distributed.
 
-Select an NPC in `/xis voices` and click a preset checkbox. These save immediately;
-NPC types are assigned by you, not inferred from names or game memory.
+To upgrade, close the companion and extract the new release over the existing addon folder. Release archives do not contain an active `npcs.sqlite3` or personal `config.json`, so your saved choices remain intact. **New seed defaults do not overwrite an existing user's database.** Reload the addon with `/addon reload XISpeaks` when Lua files change, then launch the new companion.
 
-| Toggle | Automatic voice choice | Speed multiplier | Pitch offset |
-| --- | --- | --- | --- |
-| Goblin | Existing voice | 115% | +3.5 semitones |
-| Child | Small youthful candidate pool | 103% | +1 semitone |
-| Galka | Existing voice | 90% | -4 semitones |
-| Mithra | Feminine pool | 100% | None |
-| Tarutaru | Existing voice (full configured pool) | 110% | +1 semitone |
-| Elvaan | British primary; 75% automatic blend chance | 100% | None |
+NPC identity currently uses the normalized display name. Different NPCs sharing a name share an assignment; zone-specific identities are not implemented. The catalog contains incomplete and conflicting classifications, so manual corrections remain useful. See [catalog provenance and coverage](data/README.md).
 
-Child candidates are `af_sky`, `af_bella`, `bf_lily`, and `am_puck`,
-restricted to your configured pool and voice preference. These are starting points
-for auditioning, not dedicated child voice models. If no preferred candidate is
-enabled, selection falls back to the configured pool with the same preference.
-Mithra takes precedence over the automatic gender preference; a manual voice
-always wins. A preset requiring a missing gender pool reports an error.
+## Troubleshooting
 
-Toggles stack: Child + Tarutaru gives 113.3% speed and +2 semitones. Speed
-multipliers combine with NPC tuning and global speed; pitch offsets add to NPC
-tuning. Final speed is capped at 50�200% and pitch at -4 to +4 semitones. The
-sliders edit base NPC tuning; the effective readout and preview include presets.
-Reset buttons keep the checked presets. Uncheck them to restore the original
-assignment/tuning. NPCs with presets also appear under Manual overrides.
+- **No speech:** wait for the companion to finish startup, then run `/xis status` and `/xis test`. Check the companion console for errors.
+- **Only one instance allowed:** close any existing XISpeaks companion console before launching another copy.
+- **NPC missing from the editor:** click **Recent NPCs**, which clears the search/filter and returns to recent encounters.
+- **Quiet voices:** raise Voice volume in the editor and click **Apply global audio**. Boosted peaks are limited.
+- **Unnatural names or vocalizations:** Kokoro can struggle with fantasy names, laughter, and some stutters. Report a short example with the assigned voice and tuning.
+- **Missed dialogue:** use a short `/xis trace` capture. Traces may contain player chat, so inspect them before sharing.
 
-Assignments and existing controls are preserved during migration; the companion
-backs up an older database to `npcs.sqlite3.v040.bak` before adding preset fields.
-Mithra repeated-r text normalization is deferred.
+`START-XISpeaks.cmd --self-test` checks offline speech, blending, pitch engines, and stutter handling without audible playback. It writes test WAVs beside the EXE.
 
-## Voice blending
+## Develop from source (Windows)
 
-The **Elvaan** toggle selects a British (`bf_`/`bm_`) automatic primary voice
-matching the gender preference, and raises the blend chance to 75%. Its partner
-may be British or American, but matches the primary gender. Primary weights remain
-60%, 70%, or 80%. Manual voice overrides still win. With Child also enabled,
-British primary selection takes priority if no suitable British Child candidate
-exists; the partner still follows the available Child pool. A custom pool must
-contain a compatible British voice or the selection reports an error.
-
-The 922 confirmed Elvaan catalog entries have this toggle enabled; uncertain
-race records remain unchanged and can be marked manually. Catalog regeneration
-and imports now include the flag. Existing manual voices, tuning and encounter
-history were preserved during this update.
-
-
-Outside the Elvaan preset, about 25% of automatically assigned NPCs now receive a two-voice Kokoro blend.
-A separate stable name hash chooses eligibility, partner, and a 60/40, 70/30, or
-80/20 mix. The saved primary voice remains the dominant voice. Automatic partners
-come from the enabled pool with the same gender and accent; Child restrictions
-also apply. If no compatible second voice exists, the NPC keeps a single voice.
-For a fixed name, primary voice, and pool the recipe is repeatable. Changing the
-pool or automatic preference can change the blend partner.
-
-In `/xis voices`, select an NPC and use **Blend two voices**, **Voice**,
-**Second voice**, and **First voice share (%)**. Preview, then **Save override**.
-Manual blends allow any two distinct English voices at 10-90% each, including
-cross-gender/accent combinations to audition. Uncheck blending and save to force
-a single voice. **Reset to automatic** restores the deterministic assignment.
-Manual voices always take priority; pitch, speed, race presets, and volume still
-apply normally. Edits affect the next line.
-
-No `npc_associations.json` rebuild or database rewrite is required. Automatic
-blends are derived at runtime, including for the imported catalog entries. The
-catalog's suggested voice and stored auto_voice remain the primary voice. This
-uses Kokoro's cached voice-vector blending, not overlapping audio recordings.
-A real blended voice with Rubber Band pitch processing passed the muted WAV test.
-
-## Voices
-
-Open `/xis voices`. Talk to NPCs while capture is enabled and the companion is
-running; they appear with their latest encounter first. All NPCs, Recent (last
-24 hours), Manual overrides, search, and pagination keep the list manageable.
-Old conversations are not imported from chat logs; entries accumulate from now on.
-
-Select an NPC to:
-
-- Choose a voice and **Preview voice** without saving. Preview uses a fixed sample,
-  replaces current/queued speech, and does not create a new NPC entry.
-- Adjust **NPC speed** (70–130%) and **Pitch** (-4 to +4 semitones), then
-  **Save override** to persist voice, speed, and pitch together. Preview includes
-  the unsaved NPC adjustments and the currently applied global settings.
-  The UI confirms after the
-  companion commits it; failures/timeouts are shown. On timeout, Refresh to check
-  whether an edit was saved before the acknowledgement was lost.
-- **Reset to automatic** restores saved automatic voice, speed, and pitch.
-  **Reset pitch/speed only** preserves the chosen voice. Neither is a reroll.
-- Choose **Unknown / mixed pool**, **Masculine**, or **Feminine** automatic voice
-  preference. Changing preference recalculates the automatic voice using that
-  pool, but keeps any manual override until Reset. No gender is inferred from names.
-- **Mute this NPC** without losing the chosen voice.
-
-Edits apply to subsequent playback, including waiting lines. An already playing
-line finishes; `/xis stop` stops it immediately. The preview dropdown labels voices
-by US/UK accent and masculine/feminine category. First use can download voice assets.
-One failed voice playback is logged without disabling every subsequent NPC.
-
-### Global audio and automatic variation
-
-At the top of `/xis voices`, **Global speed** ranges from 50–200% and **Voice volume**
-from 0–300%. Click **Apply global audio** to save. These settings affect all speech,
-including narration, the test command, and previews. They apply on the next line,
-not midway through existing audio. Volume defaults to 100%; use a higher setting
-to boost quiet voices. Boosting uses a soft peak limiter to avoid PCM overflow and
-hard clipping. High gain compresses peaks rather than increasing them without limit.
-
-Effective speaking speed is `global speed × NPC speed`, clamped to 50–200%.
-For example, 120% global and 105% NPC gives 126%. Kokoro controls the rate during
-synthesis; pitch processing preserves duration. A pitch of zero bypasses pitch
-processing, and zero pitch plus 100% volume passes PCM through unchanged.
-
-A separate stable name hash assigns approximately 92% of NPCs neutral settings,
-3% pitch-only changes, 3% speed-only changes, and 2% both. Automatic pitch is
-±0.5 or ±1 semitone; automatic speed is ±3% or ±5%. These values are saved once,
-including for already-known NPCs during the upgrade. Existing voices, preferences,
-manual voice choices, and mute states are preserved. Set NPC speed to 100% and
-pitch to zero and Save override if you want a specific NPC neutral.
-
-Choose **Pitch engine** at the top of `/xis voices`, then **Apply global audio**.
-**Rubber Band R3 - Higher quality** is the default, with formant preservation off.
-**Librosa - Faster** retains the previous algorithm. The choice persists across
-restarts and applies to the next line, including previews; the current line finishes.
-All NPC assignments, presets, pitch/speed settings, and volume remain intact.
-
-Pitch is applied to each complete generated chunk before playback. Rubber Band
-uses the same official 4.0 R3 utility auditioned in the experiment, with a hidden
-process and temporary WAV files that are cleaned up after each chunk. No process
-is launched for zero pitch. Librosa is warmed at startup so switching to it does
-not incur its initial import/compilation delay during dialogue.
-
-The standalone comparison measured roughly 44-75 ms for R3 (including process
-startup and WAV I/O) versus 10-14 ms for warm in-memory Librosa, on 2.7-2.9-second
-speech recordings. These are processing measurements, not live latency guarantees.
-
-`setup.ps1` installs the official utility and verifies the downloaded archive's
-SHA-256. Existing installations can run `./setup-rubberband.ps1` separately.
-The executable, DLL, and supplied GPL license stay together under `tools/` and
-are not committed to this repository. If unavailable, pitched R3 speech reports
-an error; select Librosa or install the utility. There is no silent engine fallback.
-
-The default pool contains the 28 English voices exposed by the pinned Kokoro engine.
-On first encounter, a SHA-256 hash of the normalized NPC name picks an automatic
-voice, and the result is saved. Pool changes do not reshuffle existing assignments.
-Names are Unicode-normalized, whitespace-normalized, and case-insensitive for
-identity; NPCs with the same name share an assignment across zones/characters.
-Unnamed narration uses `config.json`'s `voice` and does not enter the registry.
-
-Assignments, preferences, mute state and last-seen times live in **npcs.sqlite3**
-beside `config.json`. Pitch, speed and global audio settings are stored there too.
-The first upgrade from v0.3 creates `npcs.sqlite3.v030.bak` using SQLite's backup
-API before adding tuning fields. Back up the database with the companion stopped. SQLite commits
-each edit/encounter atomically. Do not delete it unless you want to reset the registry.
-Use `--registry 'C:\path\to\npcs.sqlite3'` to keep separate profiles. Use a separate
-port per simultaneous companion, as before.
-
-Existing `config.json` `voices` entries are imported **once**, on registry creation,
-as manual overrides (including the Maat/Shantotto examples, if still configured).
-After that the editor/database is authoritative; editing that old mapping does not
-overwrite UI choices or undo resets. Legacy custom/blended voice values are
-preserved for playback, but the editor currently selects/previews English stock
-voices only. An unknown saved voice can be replaced using the dropdown.
-
-Setup copies `config.example.json` to `config.json` if missing. The `speed` and
-`volume` config values seed global settings only on first creation of the audio
-settings table; subsequent changes belong in the UI. Other engine settings still
-live in config and require restarting the companion. An optional `voice_pool` list
-restricts automatic assignments, for example `["af_heart", "am_michael", "bf_emma",
-"bm_george"]`. Include at least one voice of each category if using both preferences;
-an empty category produces an error instead of silently choosing the wrong pool.
-Manual assignments can use any of the 28 stock voices regardless of this pool.
-
-The initial `speed` accepts 0.5–2.0 and `volume` 0–3. `output_device_index` is a PyAudio device index, or `null`
-for the default output. `duplicate_seconds` suppresses immediately repeated,
-identical speaker/text within the chosen interval; set it to 0 to disable this.
-Unknown config fields fail validation to catch typos.
-
-## Investigating missed dialogue
-
-Install the updated Lua file with `install-addon.ps1`, then `/addon reload XISpeaks`.
-The companion does not need restarting for tracing. For a focused comparison:
-
-1. `/xis trace Halver`, speak to Halver, then `/xis trace off`.
-2. `/xis trace Faurie`, speak to Faurie, then `/xis trace off`.
-
-Each capture prints its path and creates a separate `trace-*.tsv` file in the
-installed XISpeaks addon folder. `/xis trace on` records all text instead, including
-player conversations; use named captures when you only need those NPCs. Logs stay
-local and are not sent to the companion. Captures are not enabled automatically.
-
-The trace includes full and low-byte modes, modified mode, injected/blocked flags,
-the speech filter's decision, and original/modified text as hex (to preserve game
-encoding and control bytes). `speech` means the line passed the addon filter, not
-confirmation of UDP delivery or audible playback. Selected incoming chat/dialogue/
-zone packet IDs and times are recorded for correlation; packet payloads are not.
-Metadata packet records are included even with a name filter and are not proof of
-a particular speaker. Text flags reflect what this callback sees, not necessarily
-the final state after all other addons have processed the event.
-
-Readable inspection from this project folder:
+Use 64-bit Python 3.10–3.12; the portable build uses Python 3.12. From the repository folder:
 
 ```powershell
-.\.venv\Scripts\python.exe companion\inspect_trace.py 'D:\path\to\trace-file.tsv'
-# For an all-chat capture, optionally filter the report:
-.\.venv\Scripts\python.exe companion\inspect_trace.py 'D:\path\to\trace-file.tsv' --contains Halver
+powershell -ExecutionPolicy Bypass -File .\setup.ps1
+powershell -ExecutionPolicy Bypass -File .\install-addon.ps1 -AddonRoot 'C:\path\to\Ashita\addons'
+.\run.cmd
 ```
 
-Compare Halver's low mode and decision with Faurie's. A different mode calls for
-examining that channel before adding it; an injected line calls for checking the
-addon producing it. Original/modified text and injected copies can explain replayed
-log entries without assuming the server sent duplicates. If Halver is entirely
-absent, the trace cannot establish why: check the name filter and consider testing
-with chat-formatting addons temporarily unloaded to isolate event delivery/order.
-
-The first comparison found Halver at full mode 654 (low byte 142), not injected or
-blocked. Faurie's originals were full mode 662 (low byte 150), followed by two
-timestamped copies per line at full mode 66200 (low byte 152). Those copies were
-blocked but **not** flagged injected, so checking the injection flag alone would
-not exclude them. Mode 152 remains excluded. The trace does not identify which
-component generated the copies. Halver's line also arrived after packet 0x052;
-an interaction-active-only filter could therefore miss this closing dialogue.
-
-Captures stop at 120 seconds or 1,000 records. Each text field is limited to 1,024
-bytes; original lengths are retained to identify truncation. The in-memory buffer
-holds at most 64 records and flushes on presentation every half second; overflow
-is counted in the completion message. Logs are buffered, so an abrupt game exit can
-lose the final buffer. Tracing makes no changes to speech-channel acceptance.
-
-## Scope and limitations
-
-- Channel 150 is a useful filter, not a guarantee that every line is spoken by an
-  NPC. Unnamed channel 150 text is read in the default voice. Player say, party,
-  linkshell, combat messages and injected addon messages are excluded.
-- Channel 142 is accepted only when it has a nonempty `Speaker : dialogue` prefix
-  (up to 48 speaker bytes in the addon). Unnamed notices remain excluded. Both the
-  addon and companion enforce this restriction. This is a text-format heuristic,
-  not a lookup proving the named speaker is an NPC. Other dialogue modes may still
-  require future traces; this does not claim exhaustive NPC coverage.
-- Channel 151 is opt-in because it also contains Home Point and other notices.
-  Cutscene-only narration detection is not implemented. Some server-specific
-  dialogue modes may need additions after real capture testing.
-- Input is assumed to be original FFXI Shift-JIS/CP932 bytes, as in Balloon.
-  Prompt/color codes and known custom glyphs are cleaned before decoding. English
-  voices are the default; Japanese text is preserved but needs an appropriate
-  Kokoro voice/language setup to sound correct.
-- UDP is nonblocking and best effort: no retries or replay after the companion
-  starts. `status` confirms reachability; a successful send alone does not.
-- One game client per companion/port is supported. Multiple clients sharing a
-  port would share the queue and stop controls. Use separate ports for multiboxing.
-- The listener binds only to `127.0.0.1`. Other local programs can send speech or
-  stop commands and edit voice assignments; it is not an authenticated local service.
-- RealtimeTTS may log internal synthesis/audio errors without raising exceptions.
-  A `ready` status confirms engine initialization, not audible output. Check the
-  console and `/xispeaks test` for audio device/model issues.
-
-## Validation
+Source setup downloads dependencies and model assets as needed. The development companion stays in the checkout; do not also run the portable companion on the same port. The installer defaults to the author's Vanacore directory, so supply `-AddonRoot` for your installation.
 
 ```powershell
-python -m unittest discover -s tests -v
+# Optional LuaJIT test dependency:
+.\.venv\Scripts\python.exe -m pip install lupa
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-Tests cover raw FFXI text cleanup, protocol rejection, voice mapping, queue order,
-duplicates, overflow, expiry, cancellation and actual loopback UDP traffic with
-a controlled speech backend. They do not require Kokoro or launch the game.
-Install the optional developer package `lupa` to include LuaJIT event-handler
-tests; otherwise those tests are skipped. The current suite passes 70 tests, including
-the observed Halver/Faurie modes, exclusion of unnamed mode 142 notices and mode
-152 duplicates, raw capture, name filtering, timeout, buffer limits and write errors.
-Registry/editor tests additionally cover stable hashing across restarts/pool changes,
-one-time migration, preferences, overrides/reset/mute, literal search/pagination,
-live queued-line changes, UI acknowledgements and retry deduplication.
-Audio tests cover pitch frequency and duration, bypass, volume limiting, cancellation
-during processing, rare hash distribution, database migration and atomic validation.
-The audio tests require the project's installed NumPy/librosa dependencies.
-Run `python tests/smoke_kokoro.py --voices af_heart am_michael bf_emma`
-for real-model switching tests that write `smoke-<voice>.wav` without playing aloud.
-Add `--speed 1.2 --pitch -1 --volume 2` to exercise all effects together.
-`python tests/benchmark_effects.py` measures processing time using `smoke-af_heart.wav`.
-Lua UI tests use mocked ImGui calls; actual in-game layout and interaction require
-a smoke test after reload.
+See [portable build instructions](packaging/BUILDING.md) to build an EXE/ZIP and include a chosen database's overrides and approvals. Listening experiments are under `experiments/`; they contain author-specific paths and are development aids, not installation steps.
 
-In-game checklist: run dry mode; speak to an NPC; verify speaker and text; send
-player chat and verify silence; test with Balloon loaded; change zones while speech
-is queued; verify `/xis off`; then restart without dry mode and check audible output.
+## License and acknowledgments
 
-## References
+XISpeaks code is licensed under **GPL-3.0-or-later**. See [LICENSE](LICENSE). Copyright (c) 2026 lord-daeloth.
 
-- [Esper](https://github.com/lord-daeloth/esper), inspected at
-  `cfd93079a64a092aa06502a1fb0d06f863ea7718` (`desktop/esper_tts.py`).
-- [Balloon for Ashita v4](https://github.com/onimitch/ffxi-balloon-ashitav4), local
-  version 4.3.2 (`Balloon.lua`, `defines.lua`), for channel and glyph behavior.
-- [RealtimeTTS](https://github.com/KoljaB/RealtimeTTS) and
-  [Kokoro](https://github.com/hexgrad/kokoro).
+Third-party code, models, and data retain their respective licenses. The release includes license notices, model attribution, XISpeaks source, and upstream source archives under `licenses/` and `source/`; model assets also retain their bundled notices.
 
-The integration is newly written; Esper/Balloon source is not bundled in the addon.
-The ignored `.reference` directory, if present in this development checkout, is
-research material only and should not be distributed.
+NPC catalog provenance is documented in [data/README.md](data/README.md), including LandSandBoat and FFXIclopedia sources. RealtimeTTS and Kokoro provide speech synthesis; Rubber Band and Librosa provide pitch processing. The companion architecture follows [Esper](https://github.com/lord-daeloth/esper), and Balloon's dialogue handling informed the initial capture approach.

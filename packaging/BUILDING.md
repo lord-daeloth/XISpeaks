@@ -1,5 +1,8 @@
 # Portable Windows release
 
+**Windows x64 only.** There is currently no supported Linux build.
+Download packaged releases from https://github.com/lord-daeloth/XISpeaks/releases.
+
 Extract `dist/XISpeaks-windows-x64.zip` into your Ashita addons directory, then
 double-click `XISpeaks/START-XISpeaks.cmd`. Load with `/addon load XISpeaks`.
 The companion EXE, Python runtime, Kokoro model, 28 English voices, tokenizer,
@@ -20,6 +23,16 @@ python -m pip install -r packaging/requirements-build.txt
 powershell -ExecutionPolicy Bypass -File setup-rubberband.ps1
 python scripts/build_release.py
 ```
+
+To include the current overrides and approvals from an installed companion:
+
+```powershell
+python scripts/build_release.py --registry 'C:\path\to\XISpeaks\companion\npcs.sqlite3' --output dist/XISpeaks-windows-x64-v0.9.0.zip
+```
+
+Use `--package-only` with an already rebuilt, tested EXE when only documentation
+or the curated seed changed. The ZIP includes the project LICENSE, third-party
+notices and source; generated binaries/models remain out of Git.
 
 The builder fetches pinned Kokoro assets and tokenizer data, creates a fresh
 seed database, freezes the app with PyInstaller, and produces a ZIP and SHA-256

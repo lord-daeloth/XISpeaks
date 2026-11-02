@@ -1,5 +1,9 @@
 XISpeaks - portable Windows x64 release
 
+Windows x64 only. Linux is not currently supported; a Linux companion may be
+explored later. Download updates from https://github.com/lord-daeloth/XISpeaks/releases
+XISpeaks code: GPL-3.0-or-later (see LICENSE). Third-party licenses remain separate.
+
 1. Extract the entire XISpeaks folder into your Ashita addons directory.
    Vanacore example: Vanacore\addons\ashita\XISpeaks
 2. Double-click START-XISpeaks.cmd. Keep its console open while playing.
