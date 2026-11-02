@@ -239,6 +239,7 @@ class Server:
         self.socket.settimeout(0.2)
         self.seen = {}
         self.ui_replies = {}
+        self.contributions = None
 
     def handle_ui(self, data, address):
         header, separator, body = data.partition(b'\n')
@@ -261,7 +262,18 @@ class Server:
             if self.registry is None:
                 raise ValueError('NPC registry is unavailable')
             action = request.get('action')
-            if action == 'list':
+            if action in ('contribution_prepare','contribution_open','contribution_folder'):
+                if self.contributions is None:
+                    from contributions import Contributions
+                    baseline = resource_root() / 'seed.sqlite3'
+                    if not baseline.is_file() and not getattr(__import__('sys'), 'frozen', False):
+                        baseline = app_root() / 'build/assets/seed.sqlite3'
+                    self.contributions = Contributions(self.registry, app_root() / 'contributions', baseline)
+                if action == 'contribution_prepare':
+                    result = dict(contribution=self.contributions.prepare())
+                else:
+                    result = dict(contribution_message=self.contributions.open(request.get('token'), action=='contribution_folder'))
+            elif action == 'list':
                 result = self.registry.page(request.get('search', ''), request.get('filter', 'all'), request.get('page', 0))
                 result['voices'] = VOICES
                 result['globals'] = self.registry.globals()
@@ -293,7 +305,7 @@ class Server:
             if action == 'list':
                 result.update(self.registry.review_state())
             result.update(ok=True, status=self.speech.status(), error=self.speech.last_error)
-        except (ValueError, TypeError, UnicodeError, sqlite3.Error) as exc:
+        except (ValueError, TypeError, UnicodeError, sqlite3.Error, OSError) as exc:
             result = dict(ok=False, error=str(exc)[:300])
         reply = b'XISUI\t' + identity.encode('ascii') + b'\n' + json.dumps(result, ensure_ascii=False).encode('utf-8')
         if len(reply) > MAX_DATAGRAM:

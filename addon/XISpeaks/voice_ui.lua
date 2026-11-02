@@ -5,6 +5,7 @@ local M = {}
 function M.new(send, clock, session)
     local ui = {visible=false, rows={}, voices={}, total=0, page=0, search='', filter='all',
         selected=nil, draft=nil, pending=nil, next_refresh=0, serial=0,
+        contribution=nil, contribution_message='',
         review=nil, review_enabled=false, review_count=0, next_review=0, review_unsupported=false,
         draft_speed=100, draft_pitch=0, global_speed=100, global_volume=100, global_dirty=false,
         globals={speed=1,volume=1}, pitch_engine='rubberband',
@@ -44,6 +45,12 @@ function M.new(send, clock, session)
             return true -- Search changed in flight: don't show an obsolete page.
         end
         if not result.ok then
+            if action:sub(1,13) == 'contribution_' then
+                self.contribution_message = result.error == 'Unknown UI action' and
+                    'Contributions need companion 0.10.0 or newer. Update and restart it.' or
+                    ('Error: ' .. tostring(result.error))
+                return true
+            end
             if action:sub(1,6) == 'review' and result.error == 'Unknown UI action' then
                 self.review_unsupported=true; self.review=nil; self.review_enabled=false
                 self.next_review=clock()+30
@@ -58,6 +65,12 @@ function M.new(send, clock, session)
             self.review_enabled = result.review_enabled
             self.review = type(result.review) == 'table' and result.review.key and result.review or nil
             self.review_count = result.review_count or 0
+        end
+        if action == 'contribution_prepare' then
+            self.contribution=result.contribution
+            self.contribution_message=''
+        elseif result.contribution_message then
+            self.contribution_message=result.contribution_message
         end
         if action == 'review' and query.decision == 'edit' and type(result.npc) == 'table' then
             self.visible=true; self.selected=result.npc; self.draft=result.npc.voice
@@ -148,6 +161,35 @@ function M.new(send, clock, session)
         local open = {self.visible}
         if imgui.Begin('XISpeaks - NPC voices', open, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
             imgui.Text('Companion: ' .. self.status)
+            if imgui.Button('Contribute voices') and not self.pending then
+                self:request({action='contribution_prepare'})
+            end
+            if not self.contribution and self.contribution_message ~= '' then
+                imgui.TextWrapped(self.contribution_message)
+            end
+            local contribution=self.contribution
+            if contribution then
+                if contribution.count == 0 then
+                    imgui.TextWrapped('No new corrections or valid approvals beyond the bundled catalogue yet.')
+                else
+                    imgui.TextWrapped(('%d NPCs: %d manual corrections, %d automatic approvals.'):format(
+                        contribution.count, contribution.manual, contribution.approvals))
+                    imgui.TextWrapped('Shares NPC voice settings only. No chat, encounter history, player identity, or global settings. GitHub submissions are public.')
+                    imgui.TextWrapped(contribution.attachment and
+                        'A JSON file is ready. Drag the selected file into the GitHub issue, then Submit.' or
+                        'The issue will contain your contribution. Sign in to GitHub, review, then Submit.')
+                    if imgui.Button('Open GitHub submission') and not self.pending then
+                        self:request({action='contribution_open',token=contribution.token})
+                    end
+                    imgui.SameLine()
+                    if imgui.Button('Open export folder') and not self.pending then
+                        self:request({action='contribution_folder',token=contribution.token})
+                    end
+                end
+                if self.contribution_message ~= '' then imgui.TextWrapped(self.contribution_message) end
+                if imgui.Button('Close contribution summary') then self.contribution=nil end
+                imgui.Separator()
+            end
             if self.pending and self.pending.action ~= 'list' and self.pending.action ~= 'review_poll'
                 and clock()-self.pending.sent >= 0.15 then
                 imgui.SameLine(); imgui.TextDisabled('Updating...')

@@ -23,6 +23,8 @@ REVISION = 'f3ff3571791e39611d31c381e3a41a3af07b4987'
 def distributable(relative):
     """Only build artifacts; never include runtime settings, backups or caches."""
     parts = relative.parts
+    if parts[:2] == ('source', 'maintainer'):
+        return False
     if parts[0] == 'companion':
         return len(parts) > 1 and (parts[1] == '_internal' or relative.as_posix() in (
             'companion/XISpeaks-Companion.exe', 'companion/config.example.json'))
@@ -34,11 +36,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--registry', type=Path, help='Read corrections from this NPC database (default: project npcs.sqlite3)')
     parser.add_argument('--catalog-only', action='store_true', help='Omit saved NPC corrections')
+    parser.add_argument('--curated', action='store_true', help='Use tracked release_npc_overrides.json, ignoring local databases')
     parser.add_argument('--output', type=Path, default=ROOT / 'dist/XISpeaks-windows-x64.zip', help='Destination ZIP')
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument('--freeze-only', action='store_true', help='Build the executable without assembling the release ZIP')
     mode.add_argument('--package-only', action='store_true', help='Assemble an already-frozen build; rebuild first if companion code changed')
     args = parser.parse_args()
+    if args.curated and (args.registry or args.catalog_only):
+        parser.error('--curated cannot be combined with --registry or --catalog-only')
     from huggingface_hub import hf_hub_download
     import nltk
     assets = ROOT / 'build/assets'
@@ -68,7 +73,9 @@ def main():
         if not args.catalog_only:
             source = args.registry or ROOT / 'npcs.sqlite3'
             saved = ROOT / 'data/release_npc_overrides.json'
-            if source.is_file():
+            if args.curated:
+                count = apply_overrides(registry, json.loads(saved.read_text(encoding='utf-8')))
+            elif source.is_file():
                 overrides = export_overrides(source, registry)
                 count = apply_overrides(registry, overrides)
                 saved.write_text(json.dumps(overrides, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')

@@ -336,6 +336,21 @@ class EditorIntegrationTests(RegistryFixture):
             self.assertEqual(self.request(request, 'repeat'), first)
         self.assertEqual(self.registry.voice_for('Halver'), 'am_michael')
 
+    def test_contribution_protocol_preview_and_idempotent_browser_open(self):
+        from contributions import Contributions
+        self.server.contributions = Contributions(self.registry, Path(self.temp.name)/'exports')
+        response = self.request(dict(action='contribution_prepare'))
+        self.assertTrue(response['ok'])
+        token = response['contribution']['token']
+        with patch('contributions.webbrowser.open', return_value=True) as browser, patch('contributions.subprocess.Popen'):
+            request=dict(action='contribution_open',token=token)
+            first=self.request(request,'contrib-open')
+            self.assertTrue(first['ok'])
+            self.assertEqual(self.request(request,'contrib-open'),first)
+            self.assertTrue(self.request(request)['ok'])
+            self.assertEqual(browser.call_count,1)
+        self.assertFalse(self.request(dict(action='contribution_open',token='unknown'))['ok'])
+
     def test_review_protocol_toggle_approval_and_stale_token(self):
         self.registry.encounter('Halver')
         self.assertTrue(self.request(dict(action='review_toggle', enabled=True))['review_enabled'])

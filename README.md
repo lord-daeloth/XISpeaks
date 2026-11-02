@@ -6,11 +6,37 @@ Local NPC text-to-speech for **Final Fantasy XI**, using an **Ashita v4 addon** 
 
 [Download the latest Windows release](https://github.com/lord-daeloth/XISpeaks/releases/latest) · [Release history](https://github.com/lord-daeloth/XISpeaks/releases) · [Build instructions](packaging/BUILDING.md)
 
+## Want to Contribute?
+
+We need **voice approvals and manual overrides** to build out the NPC catalogue.
+Listen to NPCs, approve automatic voices that fit, and correct voices, blends,
+race presets, or tuning that do not. You do not need Git, API tokens, or Python.
+
+With XISpeaks **0.10.0 or newer**:
+
+1. Open `/xis voices` and click **Contribute voices**.
+2. Review the counts of manual corrections and automatic approvals. Unchanged
+   bundled entries and outdated approvals are excluded.
+3. Click **Open GitHub submission** and sign into GitHub if needed.
+4. For a small contribution, review the prefilled issue and click **Submit**.
+   For a larger one, File Explorer opens with the exported JSON selected: drag
+   it into the GitHub issue, wait for the attachment to upload, then click **Submit**.
+
+The export shares NPC voice settings and the exact sound being endorsed, not
+chat, encounter history, player identity, or global volume/settings. Contributions
+are public when submitted to GitHub. XISpeaks never submits an issue automatically.
+You can also use **Open export folder** to keep or submit the JSON manually.
+
+Submissions are reviewed before inclusion; they do not automatically overwrite
+the official catalogue. Maintainers can use the
+[review/merge tool](https://github.com/lord-daeloth/XISpeaks/tree/main/maintainer),
+which is intentionally excluded from release ZIPs.
+
 ## Install the portable release
 
 **The companion must be running for speech to work.** Loading the addon alone is not enough: launch `START-XISpeaks.cmd` and keep the companion running while you play, or configure launcher auto-start below.
 
-1. Download the **XISpeaks-windows-x64-v0.9.0.zip** release asset. GitHub's automatic **Source code** archives do not contain the executable, models, or bundled dependencies.
+1. Download the **XISpeaks-windows-x64-v0.10.0.zip** release asset. GitHub's automatic **Source code** archives do not contain the executable, models, or bundled dependencies.
 2. Extract the entire `XISpeaks` folder into your Ashita addons directory. For Vanacore, use `Vanacore/addons/ashita/XISpeaks`.
 3. Double-click `XISpeaks/START-XISpeaks.cmd`. Keep its console open and wait for the speech engine to become ready.
 4. In game, run:

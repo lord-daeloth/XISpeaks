@@ -50,6 +50,14 @@ def check(executable):
                                 assert result['ok'], result
                             assert result['npc']['approval'] == token
                             client.settimeout(0.3)
+                        client.settimeout(3)
+                        client.sendto(b'XISUI\tcontribution-smoke\n{"action":"contribution_prepare"}', ('127.0.0.1', port))
+                        contribution = json.loads(client.recv(12000).split(b'\n', 1)[1])
+                        assert contribution['ok'] and contribution['contribution']['count'] >= 0, contribution
+                        if contribution['contribution']['count']:
+                            exported = executable.parent / 'contributions' / contribution['contribution']['filename']
+                            assert json.loads(exported.read_text())['format'] == 'xispeaks-contribution'
+                        client.settimeout(0.3)
                         with closing(sqlite3.connect(database)) as db, db:
                             count = db.execute('SELECT COUNT(*) FROM npcs').fetchone()[0]
                             with closing(sqlite3.connect(executable.parent / '_internal/seed.sqlite3')) as seed:

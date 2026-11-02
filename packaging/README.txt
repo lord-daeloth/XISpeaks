@@ -34,6 +34,15 @@ During cutscenes XISpeaks temporarily reveals Ashita's ImGui layer while a promp
 or editor is open. Other ImGui windows may also appear; visibility is restored
 when XISpeaks closes. No keyboard focus is automatically requested.
 
+Want to contribute? We need voice approvals and manual corrections to improve
+the catalogue. In /xis voices, click Contribute voices, review the summary, then
+Open GitHub submission. Sign into GitHub and review the prefilled issue. If a JSON
+file is selected in Explorer, drag it into the issue and wait for the upload.
+Click Submit on GitHub to finish. Small contributions are embedded in the issue.
+Only NPC voice settings are exported, not chat, history, player identity or global
+audio settings. Submissions are public and reviewed before inclusion. Open export
+folder lets you save/share the JSON manually. Git/API tokens are not required.
+
 Python, Kokoro, all 28 English voices, Librosa and Rubber Band R3 are included.
 No Python installation, API key, model download or internet connection is needed.
 Keep the companion folder and its _internal directory together.

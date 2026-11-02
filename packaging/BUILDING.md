@@ -45,6 +45,9 @@ is absent, the saved JSON is used, so source releases retain the corrections.
 Use --registry PATH to read a different live database, or --catalog-only to omit
 corrections. --package-only refreshes the seed without rebuilding the EXE.
 Existing users' databases remain untouched; these defaults apply to new installs.
+Use `--curated` after reviewing community contributions to package the tracked
+JSON without replacing it from a local database. The `maintainer/` review/merge
+tool is repository-only and is excluded from release ZIPs, including source copies.
 The optional review-mode toggle is personal and is never exported.
 Source, upstream
 source archives, model attribution and third-party notices accompany the release.

@@ -66,6 +66,17 @@ class VoiceUITests(unittest.TestCase):
         self.lua.execute("ui.search='Halver'; ui.filter='unreviewed'; ui.page=3; clicks['Recent NPCs']=true; ui:draw(); ui:tick()")
         self.assertEqual(self.last_request()[1], dict(action='list', search='', filter='recent', page=0))
 
+    def test_contribution_preview_requires_explicit_open(self):
+        self.load_list()
+        self.lua.execute("clicks['Contribute voices']=true; ui:draw()")
+        self.assertEqual(self.last_request()[1],dict(action='contribution_prepare'))
+        self.respond(dict(contribution=dict(token='test-token',count=2,manual=1,approvals=1,attachment=True,filename='voices.json')))
+        self.lua.execute("clicks['Open GitHub submission']=true; ui:draw()")
+        self.assertEqual(self.last_request()[1],dict(action='contribution_open',token='test-token'))
+        self.respond(dict(contribution_message='GitHub opened.'))
+        self.lua.execute("clicks['Close contribution summary']=true; ui:draw()")
+        self.assertIsNone(self.lua.globals().ui.contribution)
+
     def test_old_companion_backoff_and_automatic_recovery(self):
         self.lua.execute('ui:tick()')
         header, _ = self.last_request()
