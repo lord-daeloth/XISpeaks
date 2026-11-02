@@ -23,6 +23,9 @@ def eventually(predicate, timeout=2):
 
 class DialogueTests(unittest.TestCase):
     def test_double_dash_pauses_preserve_other_punctuation(self):
+        self.assertEqual(speech_text('Hm. hm? HM! Hmm Hmmmm... ha ha ha!'),
+                         'Hmmmm. hmmmm? Hmmmm! Hmm Hmmmm... ha ha ha!')
+        self.assertEqual(speech_text('Ohm rhythm Bahman'), 'Ohm rhythm Bahman')
         text = "The master faced many threats--not just that one--and became a hero."
         self.assertEqual(speech_text(text), "The master faced many threats [xis_dash] not just that one [xis_dash] and became a hero.")
         self.assertEqual(speech_text('Wait -- please---listen!'), 'Wait [xis_dash] please [xis_dash] listen!')

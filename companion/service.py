@@ -18,7 +18,8 @@ LOG = logging.getLogger('XISpeaks')
 
 
 def speech_text(text):
-    """Turn double-dash asides into explicit, short pauses for playback only."""
+    """Normalize short hums and double-dash pauses for playback only."""
+    text = re.sub(r'\bhm\b', lambda match: match[0][0] + 'mmmm', text, flags=re.IGNORECASE)
     return re.sub(r'\s*--+\s*', ' [xis_dash] ', text)
 
 
