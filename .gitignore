@@ -16,3 +16,5 @@ build-release.log
 /piper_trainer/output/
 /piper_voices/
 /piper-runtime/
+
+/voice_editor/output/

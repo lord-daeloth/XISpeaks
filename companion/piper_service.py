@@ -15,24 +15,41 @@ import registry
 
 
 def configure_catalog(path=VOICES/'catalog.json'):
-    catalog=json.loads(path.read_text(encoding='utf-8-sig'))
-    if not catalog:raise ValueError('Empty Piper catalog; run setup_voices.py')
-    configs={}
-    for key,item in catalog.items():
-        if not re.fullmatch('[abx][fmu]_[a-z0-9_]+',key):raise ValueError('Invalid voice ID: '+key)
-        model=(path.parent/item['model']).resolve()
-        if not model.is_relative_to(path.parent.resolve()) or not model.is_file() or not Path(str(model)+'.json').is_file():
-            raise ValueError('Missing/invalid model: '+str(model))
-        if model not in configs:configs[model]=json.loads(Path(str(model)+'.json').read_text(encoding='utf-8'))
-        config=configs[model]
-        speaker=item.get('speaker_id')
-        count=config.get('num_speakers',1)
-        if (count>1 and speaker is None) or (speaker is not None and (type(speaker) is not int or not 0<=speaker<count)):
-            raise ValueError('Invalid speaker ID: '+key)
+    from voice_catalog import load
+    catalog=load(path)
     registry.VOICES[:]=sorted(catalog)
     registry.YOUNG_VOICES=()
     registry.BLENDING_ENABLED=False
     return catalog
+
+class CatalogRuntime:
+    def __init__(self,db,config,path=VOICES/'catalog.json'):
+        self.db,self.config,self.path=db,config,Path(path)
+        self.stamp=self.path.stat().st_mtime_ns;self.next_check=0;self.db.catalog_revision=str(self.stamp)
+    def reload(self):
+        import time
+        if time.monotonic()<self.next_check:return
+        self.next_check=time.monotonic()+.5
+        try:
+            stamp=self.path.stat().st_mtime_ns
+            if stamp==self.stamp:return
+            from voice_catalog import load,Policy,playback_models
+            catalog=load(self.path)
+            with self.db.lock,self.db.db:
+                removed=set(self.db.voice_catalog or {})-set(catalog)
+                for key in removed:
+                    self.db.db.execute('UPDATE npcs SET manual_voice=NULL,approval=NULL WHERE manual_voice=?',(key,))
+                registry.VOICES[:]=sorted(catalog)
+                self.db.voice_catalog=catalog;self.db.voice_policy=Policy(catalog);self.db.pool=list(catalog)
+                self.db.default=self.db.voice_policy.choose('__narrator__','unknown',{})
+                self.config['voice_catalog']=catalog;self.config['voice_pool']=list(catalog)
+                self.config['piper_models']=playback_models(catalog,self.path.parent)
+                self.db.review_queue.clear();self.db.review_heard.clear();self.db.review_deferred.clear()
+                self.db.catalog_revision=str(stamp)
+            self.stamp=stamp
+            logging.info('Reloaded voice catalog: %d voices',len(catalog))
+        except (OSError,ValueError,TypeError,KeyError):
+            logging.exception('Unable to reload voice catalog; retaining last valid catalog')
 
 
 def migrate_pacing_and_moogles(db,path):
@@ -46,7 +63,7 @@ def migrate_pacing_and_moogles(db,path):
     with db.lock,db.db:
         for item in catalog['npcs']:
             key=registry.name_key(item['name']);speed,pitch=registry.choose_tuning(key)
-            voice=registry.choose_voice(key,'unknown',db.pool)
+            voice=db.initial_voice(key,'unknown')
             db.db.execute('INSERT OR IGNORE INTO npcs (key,name,auto_voice,auto_speed,auto_pitch) VALUES (?,?,?,?,?)',
                 (key,item['name'],voice,speed,pitch))
             db.db.execute('UPDATE npcs SET preset_moogle=1,approval=NULL WHERE key=?',(key,))
@@ -65,6 +82,7 @@ def create_registry(config,path):
         corrections=json.loads((ROOT/'data/release_npc_overrides.json').read_text(encoding='utf-8'))
         for item in corrections['npcs']:
             item['manual_voice']=None
+            item['manual_speed']=None;item['manual_pitch']=None
             item['approval']=None
         apply_overrides(db,corrections)
         with db.db:db.db.execute("INSERT INTO metadata VALUES ('piper_seed_v1','1')")
@@ -89,7 +107,7 @@ def create_registry(config,path):
                 old['approval']=None
                 db.db.execute('UPDATE npcs SET approval=NULL WHERE key=?',(old['key'],))
             if old['auto_voice'] not in config['voice_pool'] or (not old['manual_voice'] and not old['approval']):
-                voice=registry.choose_voice(old['key'],old['preference'],config['voice_pool'])
+                voice=db.initial_voice(old['key'],old['preference'])
                 db.db.execute('UPDATE npcs SET auto_voice=?,approval=NULL WHERE key=?',(voice,old['key']))
     with db.db:db.db.execute("INSERT OR REPLACE INTO metadata VALUES ('piper_pool_signature',?)",(signature,))
     return db
@@ -106,14 +124,16 @@ def main():
     audio_effects.RUBBERBAND=ASSETS/'tools/rubberband-4.0.0-gpl-executable-windows/rubberband.exe'
     sys.path.insert(0,str(ROOT/'scripts'))
     runtime=ROOT/'piper-runtime';runtime.mkdir(exist_ok=True)
-    pool=[key for key,item in catalog.items() if item.get('automatic',True)]
-    config=dict(service.DEFAULTS,voice='am_ryan',voice_pool=pool,piper_models={key:dict(path=VOICES/item['model'],speaker_id=item.get('speaker_id')) for key,item in catalog.items()})
+    from voice_catalog import playback_models
+    pool=list(catalog)
+    config=dict(service.DEFAULTS,voice='am_ryan' if 'am_ryan' in catalog else pool[0],voice_pool=pool,voice_catalog=catalog,piper_models=playback_models(catalog,VOICES))
     logging.basicConfig(level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s')
     db=create_registry(config,runtime/'npcs.sqlite3')
     speech=service.SpeechQueue(config,service.DryBackend if args.dry_run else PiperBackend,db)
     server=None
     try:
         server=service.Server(speech,49153,db)
+        server.catalog_reload=CatalogRuntime(db,config).reload
         server.run(threading.Event())
     except KeyboardInterrupt:pass
     finally:

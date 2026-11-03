@@ -108,7 +108,12 @@ class Registry:
         self.pool = config.get('voice_pool', VOICES)
         if not isinstance(self.pool, list) or not self.pool or any(v not in VOICES for v in self.pool):
             raise ValueError('voice_pool must be a nonempty list of supported English voice IDs')
-        self.default = config['voice']
+        self.voice_catalog=config.get('voice_catalog')
+        self.voice_policy=None
+        if self.voice_catalog is not None:
+            from voice_catalog import Policy
+            self.voice_policy=Policy(self.voice_catalog)
+        self.default = self.voice_policy.choose('__narrator__','unknown',{}) if self.voice_policy else config['voice']
         self.lock = threading.RLock()
         self.review_queue = {}
         self.review_heard = {}
@@ -152,11 +157,15 @@ class Registry:
                     # Preserve legacy choices, including user-supplied blended voices.
                     key = name_key(name)
                     self.db.execute('INSERT OR IGNORE INTO npcs (key,name,auto_voice,manual_voice) VALUES (?,?,?,?)',
-                                    (key, name.strip(), choose_voice(key, 'unknown', self.pool), voice))
+                                    (key, name.strip(), self.initial_voice(key, 'unknown'), voice))
                 self.db.execute("INSERT INTO metadata VALUES ('legacy_imported','1')")
             for row in self.db.execute('SELECT key FROM npcs WHERE auto_speed IS NULL OR auto_pitch IS NULL').fetchall():
                 speed, pitch = choose_tuning(row['key'])
                 self.db.execute('UPDATE npcs SET auto_speed=?,auto_pitch=? WHERE key=?', (speed, pitch, row['key']))
+
+    def initial_voice(self,key,preference):
+        # Persistent seed only: Piper's live policy makes the final eligibility decision.
+        return choose_voice(key,'unknown' if self.voice_policy else preference,self.pool)
 
     def encounter(self, name):
         key = name_key(name)
@@ -165,7 +174,7 @@ class Registry:
             self.db.execute('''INSERT INTO npcs (key,name,auto_voice,last_seen,encounters,auto_speed,auto_pitch)
                 VALUES (?,?,?,?,1,?,?) ON CONFLICT(key) DO UPDATE SET
                 last_seen=excluded.last_seen, encounters=npcs.encounters+1''',
-                (key, name.strip(), choose_voice(key, 'unknown', self.pool), time.time(), speed, pitch))
+                (key, name.strip(), self.initial_voice(key, 'unknown'), time.time(), speed, pitch))
 
     def globals(self):
         with self.lock:
@@ -199,7 +208,7 @@ class Registry:
                     voice, speed, pitch = npc['voice'], npc['speed'], npc['pitch']
                     if npc['muted']:
                         voice = None
-            return dict(voice=voice, speed=max(0.5, min(2.0, settings['speed'] * speed)),
+            return dict(voice=voice or None, speed=max(0.5, min(2.0, settings['speed'] * speed)),
                         pitch=pitch, volume=settings['volume'], pitch_engine=settings['pitch_engine'])
 
     def voice_for(self, name):
@@ -228,7 +237,7 @@ class Registry:
         result['presets'] = presets
         result['preset_speed'], result['preset_pitch'] = preset_effects(presets)
         pool = self.pool
-        if not result['manual_voice'] and any(presets.values()):
+        if not self.voice_policy and not result['manual_voice'] and any(presets.values()):
             preference = 'feminine' if presets['mithra'] else result['preference']
             pool = self.pool
             if presets['child']:
@@ -246,10 +255,23 @@ class Registry:
                 result['voice'] = choose_voice(result['key'], preference, british)
             elif presets['mithra'] or presets['child']:
                 result['voice'] = choose_voice(result['key'], preference, pool)
-        if not result['manual_voice']:
+        if not self.voice_policy and not result['manual_voice']:
             result['voice'] = choose_blend(result['key'], result['voice'], pool, presets['elvaan'])
+        if self.voice_policy:
+            if not result['manual_voice'] or result['manual_voice'] not in self.voice_catalog:
+                result['source']='automatic'
+                preferred=result['auto_voice'] if result.get('approval') else None
+                result['voice']=self.voice_policy.choose(result['key'],result['preference'],presets,preferred)
+            if not result['voice']:
+                result['assignment_error']='No eligible automatic voice. Enable matching voices in the catalog editor or choose a manual override.'
         result = apply_presets(result, presets)
         sound = [result['voice'], round(result['speed'], 6), round(result['pitch'], 6)]
+        if self.voice_catalog and result['voice'] in self.voice_catalog:
+            entry=self.voice_catalog[result['voice']]
+            result['voice_speed']=entry['speed'];result['voice_volume']=entry['volume']
+            if entry.get('sound_revision') or entry['speed']!=1 or entry['volume']!=1:
+                from voice_catalog import sound_fields
+                sound.extend(sound_fields(entry)+[entry.get('sound_revision','')])
         result['fingerprint'] = hashlib.sha256(json.dumps(sound).encode()).hexdigest()[:32]
         result['review_status'] = ('manual' if result['source'] == 'manual' or result['tuning_source'] == 'manual'
                                    else 'approved' if result.get('approval') == result['fingerprint'] else 'unreviewed')
@@ -315,6 +337,9 @@ class Registry:
             if not npc or fingerprint != npc['fingerprint']:
                 raise ValueError('Voice changed; listen again before approving')
             if decision == 'approve':
+                if not npc['voice']:raise ValueError('No eligible voice to approve')
+                if self.voice_policy and npc['source']=='automatic':
+                    self.db.execute('UPDATE npcs SET auto_voice=? WHERE key=?',(npc['voice'],key))
                 self.db.execute('UPDATE npcs SET approval=? WHERE key=?', (fingerprint, key))
             elif decision in ('later', 'edit'):
                 self.review_deferred.add(key)
@@ -350,7 +375,7 @@ class Registry:
                 if value not in PREFERENCES:
                     raise ValueError('Invalid voice preference')
                 if value != row['preference']:
-                    auto = choose_voice(key, value, self.pool)
+                    auto = self.initial_voice(key, value)
                     self.db.execute('UPDATE npcs SET preference=?,auto_voice=? WHERE key=?', (value, auto, key))
             elif action == 'preset':
                 if not isinstance(value, dict) or value.get('name') not in PRESETS or type(value.get('enabled')) is not bool:
@@ -373,6 +398,7 @@ class Registry:
             raise ValueError('Invalid list filter')
         if type(page) is not int or not 0 <= page <= 100000:
             raise ValueError('Invalid page')
+        page_size=8 if self.voice_policy else 12
         # instr is a literal substring match: player-supplied %/_ are not wildcards.
         conditions, args = ['instr(key,?) > 0'], [unicodedata.normalize('NFKC', search).casefold()]
         if filter_name == 'manual':
@@ -386,13 +412,13 @@ class Registry:
             if filter_name == 'unreviewed':
                 rows = [self.public(row) for row in self.db.execute('SELECT * FROM npcs WHERE ' + where +
                         ' ORDER BY last_seen DESC,key', args) if self.public(row)['review_status'] == 'unreviewed']
-                page = min(page, max(0, (len(rows) - 1) // 12))
-                return dict(rows=rows[page*12:page*12+12], total=len(rows), page=page)
+                page = min(page, max(0, (len(rows) - 1) // page_size))
+                return dict(rows=rows[page*page_size:page*page_size+page_size], total=len(rows), page=page, page_size=page_size)
             total = self.db.execute('SELECT count(*) FROM npcs WHERE ' + where, args).fetchone()[0]
-            page = min(page, max(0, (total - 1) // 12))
+            page = min(page, max(0, (total - 1) // page_size))
             rows = self.db.execute('SELECT * FROM npcs WHERE ' + where +
-                                   ' ORDER BY last_seen DESC,key LIMIT 12 OFFSET ?', args + [page * 12]).fetchall()
-            return dict(rows=[self.public(row) for row in rows], total=total, page=page)
+                                   ' ORDER BY last_seen DESC,key LIMIT ? OFFSET ?', args + [page_size,page * page_size]).fetchall()
+            return dict(rows=[self.public(row) for row in rows], total=total, page=page, page_size=page_size)
 
     def close(self):
         with self.lock:

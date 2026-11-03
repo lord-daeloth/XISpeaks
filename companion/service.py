@@ -277,7 +277,7 @@ class Server:
                     result = dict(contribution_message=self.contributions.open(request.get('token'), action=='contribution_folder'))
             elif action == 'list':
                 result = self.registry.page(request.get('search', ''), request.get('filter', 'all'), request.get('page', 0))
-                result['voices'] = VOICES[:40] if not getattr(self.registry,'contributions_enabled',True) else VOICES
+                result['voices'] = [] if not getattr(self.registry,'contributions_enabled',True) else VOICES
                 result['voice_total'] = len(VOICES)
                 result['globals'] = self.registry.globals()
             elif action == 'voice_list':
@@ -285,9 +285,11 @@ class Server:
                 page=request.get('page',0)
                 if not isinstance(search,str) or len(search)>100 or type(page) is not int or page<0:
                     raise ValueError('Invalid voice search/page')
-                matches=[v for v in VOICES if search.casefold() in v.casefold()]
-                page=min(page,max(0,(len(matches)-1)//40))
-                result=dict(voices=matches[page*40:(page+1)*40],voice_total=len(matches),voice_page=page)
+                catalog=getattr(self.registry,'voice_catalog',None) or {}
+                matches=[v for v in VOICES if search.casefold() in (v+' '+catalog.get(v,{}).get('label','')).casefold()]
+                page=min(page,max(0,(len(matches)-1)//20))
+                result=dict(voices=matches[page*20:(page+1)*20],voice_total=len(matches),voice_page=page,voice_page_size=20)
+                result['voice_info']={v:dict(gender=catalog[v]['gender'],label=catalog[v]['label'].encode('utf-8')[:100].decode('utf-8','ignore'),accent=catalog[v]['accent'],speed=catalog[v]['speed'],volume=catalog[v]['volume']) for v in result['voices'] if v in catalog}
             elif action == 'edit':
                 result = {'npc': self.registry.edit(request.get('key'), request.get('edit'), request.get('value'))}
             elif action == 'review_poll':
@@ -297,11 +299,12 @@ class Server:
                 result = self.registry.review_state()
             elif action == 'review':
                 npc = self.registry.review_action(request.get('key'), request.get('fingerprint'), request.get('decision'))
-                result = dict(self.registry.review_state(), npc=npc, voices=VOICES[:40] if not getattr(self.registry,'contributions_enabled',True) else VOICES)
+                result = dict(self.registry.review_state(), npc=npc, voices=[] if not getattr(self.registry,'contributions_enabled',True) else VOICES)
             elif action == 'globals':
                 result = {'globals': self.registry.set_globals(request.get('speed'), request.get('volume'), request.get('pitch_engine'))}
             elif action == 'preview':
                 voice = request.get('voice')
+                if not voice:raise ValueError('Select a voice before previewing')
                 validate_voice(voice)
                 profile = dict(voice=voice,
                                speed=number(request.get('speed', 1.0), 0.7, 1.3, 'NPC speed'),
@@ -315,6 +318,7 @@ class Server:
                 raise ValueError('Unknown UI action')
             if action == 'list':
                 result.update(self.registry.review_state())
+            if getattr(self.registry,'catalog_revision',None):result['catalog_revision']=self.registry.catalog_revision
             result.update(ok=True, status=self.speech.status(), error=self.speech.last_error)
         except (ValueError, TypeError, UnicodeError, sqlite3.Error, OSError) as exc:
             result = dict(ok=False, error=str(exc)[:300])
@@ -327,6 +331,8 @@ class Server:
         self.socket.sendto(reply, address)
 
     def handle(self, data, address):
+        reload_catalog=getattr(self,'catalog_reload',None)
+        if reload_catalog:reload_catalog()
         if data.startswith(b'XISUI\t'):
             self.handle_ui(data, address)
             return

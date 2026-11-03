@@ -4,7 +4,7 @@ local M = {}
 
 function M.new(send, clock, session)
     local ui = {visible=false, rows={}, voices={}, total=0, page=0, search='', filter='all',
-        voice_search='', voice_page=0, voice_total=0, voice_loaded=false, voice_next=0,
+        page_size=12, voice_page_size=40, voice_info={}, voice_search='', voice_page=0, voice_total=0, voice_loaded=false, voice_next=0,
         selected=nil, draft=nil, pending=nil, next_refresh=0, serial=0,
         contribution=nil, contribution_message='',
         review=nil, review_enabled=false, review_count=0, next_review=0, review_unsupported=false,
@@ -59,6 +59,9 @@ function M.new(send, clock, session)
             end
             self.message = 'Error: ' .. tostring(result.error); return true
         end
+        if result.catalog_revision and result.catalog_revision ~= self.catalog_revision then
+            self.catalog_revision=result.catalog_revision;self.voice_loaded=false;self.voice_next=0;self.voice_info={}
+        end
         self.status = result.status or 'Connected'
         self.message = (result.error and result.error ~= '') and ('Speech error: ' .. result.error) or ''
         if type(result.review_enabled) == 'boolean' then
@@ -91,13 +94,14 @@ function M.new(send, clock, session)
         end
         if action == 'voice_list' then
             if query.search == self.voice_search and query.page == self.voice_page then
-                self.voices=result.voices or {}; self.voice_total=result.voice_total or 0; self.voice_page=result.voice_page or 0; self.voice_loaded=true
+                self.voices=result.voices or {}; for key, info in pairs(result.voice_info or {}) do self.voice_info[key]=info end; self.voice_total=result.voice_total or 0; self.voice_page=result.voice_page or 0; self.voice_page_size=result.voice_page_size or 40; self.voice_loaded=true
             else self.voice_loaded=false end
         end
         if action == 'list' and type(result.rows) == 'table' and type(result.voices) == 'table' then
             self.rows = result.rows
             if not self.voice_loaded then self.voices=result.voices; self.voice_total=result.voice_total or #result.voices end
             self.total, self.page = result.total or 0, result.page or 0
+            self.page_size=result.page_size or 12
             if self.selected then
                 for _, row in ipairs(self.rows) do
                     if row.key == self.selected.key then self.selected = row; break end
@@ -270,7 +274,7 @@ function M.new(send, clock, session)
             imgui.EndChild()
             if imgui.Button('Previous') and self.page > 0 and not self.pending then self.page=self.page-1; self.next_refresh=0 end
             imgui.SameLine()
-            if imgui.Button('Next') and (self.page+1)*12 < self.total and not self.pending then self.page=self.page+1; self.next_refresh=0 end
+            if imgui.Button('Next') and (self.page+1)*self.page_size < self.total and not self.pending then self.page=self.page+1; self.next_refresh=0 end
             imgui.Separator()
             local npc = self.selected
             if npc then
@@ -296,6 +300,7 @@ function M.new(send, clock, session)
                     end
                     imgui.EndCombo()
                 end
+                if npc.assignment_error then imgui.TextWrapped(npc.assignment_error) end
                 local current = self.draft or npc.voice
                 local w, a, wb, b = current:match('^(0%.%d+)%*([%w_]+) %+ (0%.%d+)%*([%w_]+)$')
                 local blending = a ~= nil
@@ -312,15 +317,17 @@ function M.new(send, clock, session)
                 end
                 if imgui.Button('Previous voices') and self.voice_page>0 then self.voice_page=self.voice_page-1;self.voice_loaded=false;self.voice_next=0 end
                 imgui.SameLine()
-                if imgui.Button('Next voices') and (self.voice_page+1)*40<self.voice_total then self.voice_page=self.voice_page+1;self.voice_loaded=false;self.voice_next=0 end
+                if imgui.Button('Next voices') and (self.voice_page+1)*self.voice_page_size<self.voice_total then self.voice_page=self.voice_page+1;self.voice_loaded=false;self.voice_next=0 end
                 imgui.SameLine()
                 imgui.Text(('%d matches | page %d'):format(self.voice_total,self.voice_page+1))
                 imgui.SetNextItemWidth(400)
                 if imgui.BeginCombo('Voice', a) then
                     for _, voice in ipairs(self.voices) do
-                        local style = voice:sub(2,2) == 'm' and 'masculine' or (voice:sub(2,2) == 'f' and 'feminine' or 'unclassified')
-                        local accent = voice:sub(1,1) == 'a' and 'US/Canada' or (voice:sub(1,1) == 'b' and 'UK/Ireland' or 'other accent')
-                        if imgui.Selectable(voice .. ' (' .. accent .. ', ' .. style .. ')', voice == a) then a=voice end
+                        local info=self.voice_info[voice] or {}
+                        local gender=info.gender or voice:sub(2,2)
+                        local style = gender == 'm' and 'masculine' or (gender == 'f' and 'feminine' or (gender == 'a' and 'androgynous' or 'unclassified'))
+                        local accent = (info.accent or voice:sub(1,1)) == 'a' and 'US/Canada' or ((info.accent or voice:sub(1,1)) == 'b' and 'UK/Ireland' or 'other accent')
+                        if imgui.Selectable(voice .. (info.label and (' - ' .. info.label) or '') .. ' (' .. accent .. ', ' .. style .. ')', voice == a) then a=voice end
                     end
                     imgui.EndCombo()
                 end
@@ -341,6 +348,8 @@ function M.new(send, clock, session)
                 else
                     self.draft = a
                 end
+                local calibration=self.voice_info[self.draft or npc.voice] or {speed=npc.voice_speed or 1,volume=npc.voice_volume or 1}
+                imgui.TextDisabled(('Voice calibration: %.0f%% speed / %.0f%% volume'):format(calibration.speed*100,calibration.volume*100))
                 local speed, pitch = {self.draft_speed}, {self.draft_pitch/10}
                 imgui.SetNextItemWidth(230)
                 if imgui.SliderInt('NPC speed (%)', speed, 70, 130) then self.draft_speed=speed[1] end
@@ -349,7 +358,7 @@ function M.new(send, clock, session)
                     self.draft_pitch=math.floor(pitch[1]*10+0.5)
                 end
                 imgui.Text(('Pitch: %+.1f semitones | Effective speed: %.0f%%'):format(
-                    math.max(-4,math.min(4,self.draft_pitch/10+(npc.preset_pitch or 0))), math.max(50,math.min(200,self.globals.speed*self.draft_speed*(npc.preset_speed or 1)))))
+                    math.max(-4,math.min(4,self.draft_pitch/10+(npc.preset_pitch or 0))), math.max(50,math.min(200,self.globals.speed*self.draft_speed*(npc.preset_speed or 1)))*(calibration.speed or 1)))
                 imgui.TextDisabled(('Automatic: %.0f%% speed, %+.1f semitones | Tuning: %s'):format(
                     (npc.auto_speed or 1)*100, npc.auto_pitch or 0, npc.tuning_source or 'automatic'))
                 if imgui.Button('Preview voice') and not self.pending then

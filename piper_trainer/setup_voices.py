@@ -13,7 +13,6 @@ QUALITY={'x_low':0,'low':1,'medium':2,'high':3}
 # Verified existing voices and explicitly gendered dataset names. Unknowns stay unknown.
 GENDERS={'alan':'m','cori':'f','lessac':'f','ryan':'m','hfc_female':'f','hfc_male':'m',
          'northern_english_male':'m','southern_english_female':'f','ljspeech':'f'}
-REMOVED={'am_halver','bm_halver'}
 
 def best_english(index):
     selected={}
@@ -113,19 +112,15 @@ def main():
     with ThreadPoolExecutor(max_workers=3) as workers:list(workers.map(download,entries))
     catalog=make_catalog(entries,speaker_genders(),vctk_metadata())
     path=VOICES/'catalog.json'
-    if path.exists():
-        old=json.loads(path.read_text(encoding='utf-8'))
-        shutil.copyfile(path,VOICES/'catalog.before-all-english.json')
-        for key,item in old.items():
-            if not item.get('automatic',True) and key not in REMOVED and not item.get('stock'):catalog[key]=item
+    import sys
+    sys.path.insert(0,str(ROOT/'companion'))
+    from voice_catalog import merge_stock
+    old=json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
+    if path.exists():shutil.copyfile(path,VOICES/'catalog.before-all-english.json')
+    removed=VOICES/'catalog-removed.json'
+    catalog=merge_stock(catalog,old,json.loads(removed.read_text()) if removed.exists() else [])
     temporary=path.with_suffix('.tmp');temporary.write_text(json.dumps(catalog,indent=2),encoding='utf-8');temporary.replace(path)
     (VOICES/'english-models.json').write_text(json.dumps(dict(revision=REVISION,entries=entries,total_speakers=len(catalog)),indent=2),encoding='utf-8')
-    # Remove only known exported Halver test artifacts, preserving recordings/training runs.
-    for key in REMOVED:
-        for suffix in ('.onnx','.onnx.json','.provenance.json','.MODEL_CARD'):
-            target=(VOICES/(key+suffix)).resolve()
-            if target.parent!=VOICES.resolve():raise ValueError('Invalid removal path')
-            target.unlink(missing_ok=True)
     print(f'Catalog ready: {len(entries)} models, {len(catalog)} selectable speakers',flush=True)
 
 if __name__=='__main__':main()

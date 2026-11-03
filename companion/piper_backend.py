@@ -20,6 +20,7 @@ class PiperBackend:
         self.audio=pyaudio.PyAudio()
         self.stream=None
         self.device=config.get('output_device_index')
+        self.config=config
         self.models=config['piper_models']
         self.cache=OrderedDict()
         self.configure(1,0,1)
@@ -31,10 +32,13 @@ class PiperBackend:
         from piper import PiperVoice, SynthesisConfig
         from scipy.signal import resample_poly
         from audio_effects import process_pcm
-        if voice not in self.models:raise ValueError('Unknown Piper voice: '+voice)
-        entry=self.models[voice]
+        models=getattr(self,'config',{}).get('piper_models',self.models)
+        if voice not in models:raise ValueError('Unknown Piper voice: '+voice)
+        entry=models[voice]
         path=entry['path'] if isinstance(entry,dict) else entry
         speaker=entry.get('speaker_id') if isinstance(entry,dict) else None
+        voice_speed=entry.get('speed',1.0) if isinstance(entry,dict) else 1.0
+        voice_volume=entry.get('volume',1.0) if isinstance(entry,dict) else 1.0
         cache_key=str(path)
         if cache_key not in self.cache:
             # Keep at most two sessions; hundreds of installed voices need not stay in RAM.
@@ -47,7 +51,7 @@ class PiperBackend:
             if cancelled():return
             if not part.strip():continue
             pending=None
-            for chunk in model.synthesize(part,syn_config=SynthesisConfig(length_scale=1/(self.speed*BASE_SPEED),speaker_id=speaker)):
+            for chunk in model.synthesize(part,syn_config=SynthesisConfig(length_scale=1/(self.speed*BASE_SPEED*voice_speed),speaker_id=speaker)):
                 if cancelled():return
                 if pending is not None:
                     yield pending
@@ -57,7 +61,7 @@ class PiperBackend:
                     divisor=gcd(chunk.sample_rate,24000)
                     pcm=resample_poly(pcm,24000//divisor,chunk.sample_rate//divisor)
                 data=np.rint(np.clip(pcm,-1,1)*32767).astype('<i2').tobytes()
-                pending=process_pcm(data,self.pitch,self.volume,self.pitch_engine)
+                pending=process_pcm(data,self.pitch,self.volume*voice_volume,self.pitch_engine)
             if pending is not None:
                 yield pending
                 yield b'\0\0'*(4320 if index<len(parts)-1 else 7200)

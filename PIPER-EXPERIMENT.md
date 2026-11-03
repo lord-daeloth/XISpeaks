@@ -58,7 +58,7 @@ trainer or launcher. Do not point the experiment at the regular NPC database.
 All automatic NPC assignments use the full English stock catalog: **30 model
 families, highest available quality per family, and 1,998 selectable speaker
 entries**. Search the voice picker by family or speaker ID, then use Previous /
-Next voices to browse 40 results at a time. Multi-speaker selections pass the
+Next voices to browse 20 results at a time. Multi-speaker selections pass the
 actual speaker ID to Piper and share a cached model session. Entries across
 LibriTTS and LibriTTS-R can represent the same person; the count is not unique people.
 
@@ -166,3 +166,10 @@ Kupont. Placeholder models and object/event names are not treated as race eviden
 `scripts/build_moogle_catalog.py` reproduces this overlay. Manual voices and tuning
 are retained, and later user changes to the toggle survive restarts. The database
 is backed up as `.before-moogles.bak` before the overlay/settings migration.
+
+## Voice catalog editor
+
+Launch **START-Voice-Catalog.cmd** to add/remove voices, edit labels and gender
+(including androgynous), control NPC-type eligibility, and calibrate per-voice
+speed and volume. Text previews report peak/RMS digital level and exact duration.
+See the [catalog editor guide](voice_editor/README.md) for save/reload behavior.

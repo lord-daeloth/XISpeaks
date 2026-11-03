@@ -1,4 +1,4 @@
-param([ValidateSet('trainer','companion','setup')][string]$Mode='trainer')
+param([ValidateSet('trainer','companion','setup','catalog')][string]$Mode='trainer')
 $ErrorActionPreference='Stop'
 $assetsRoot=$PSScriptRoot
 $localConfig=Join-Path $PSScriptRoot 'piper-development.json'
@@ -9,6 +9,7 @@ Set-Location -LiteralPath $PSScriptRoot
 switch($Mode){
  'trainer' {& $pythonPath 'piper_trainer/app.py'}
  'companion' {& $pythonPath 'companion/piper_service.py'}
+ 'catalog' {& $pythonPath 'voice_editor/app.py'}
  'setup' {& $pythonPath 'piper_trainer/setup_voices.py'}
 }
 exit $LASTEXITCODE

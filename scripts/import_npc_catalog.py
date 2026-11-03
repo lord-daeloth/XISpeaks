@@ -27,7 +27,7 @@ def import_catalog(registry, catalog, overwrite=False, race_only=False, correct_
         if not isinstance(profile['presets'], list) or any(p not in PRESETS for p in profile['presets']):
             raise ValueError('Invalid catalog preset')
         # Respect the user's enabled voice pool; fail atomically if it cannot satisfy a preference.
-        voice = choose_voice(key, profile['preference'], registry.pool)
+        voice = registry.initial_voice(key, profile['preference'])
         speed, pitch = choose_tuning(key)
         rows.append((key,item['name'],profile,voice,speed,pitch))
     counts = dict(inserted=0, updated=0, preserved=0)
@@ -42,7 +42,7 @@ def import_catalog(registry, catalog, overwrite=False, race_only=False, correct_
             if race_only:
                 current = registry.db.execute('SELECT preference FROM npcs WHERE key=?', (key,)).fetchone()
                 preference = current['preference'] if current['preference'] != 'unknown' and not correct_preferences else profile['preference']
-                primary = choose_voice(key, preference, registry.pool)
+                primary = registry.initial_voice(key, preference)
                 registry.db.execute('''UPDATE npcs SET preference=?,auto_voice=?,
                     preset_goblin=?,preset_galka=?,preset_mithra=?,preset_tarutaru=?,preset_elvaan=? WHERE key=?''',
                     (preference,primary,*[int(p in profile['presets']) for p in ('goblin','galka','mithra','tarutaru','elvaan')],key))

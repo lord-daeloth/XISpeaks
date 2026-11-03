@@ -83,7 +83,7 @@ class App:
         ttk.Button(row,text='Play recording',command=self.play_reference).pack(side='left')
         ttk.Button(row,text='Stop audio',command=lambda:winsound.PlaySound(None,0)).pack(side='left')
         row=ttk.Frame(compare);row.pack(fill='x',pady=12)
-        ttk.Label(row,text='Keeper ID (am_, af_, bm_, bf_):').pack(side='left')
+        ttk.Label(row,text='Keeper ID (accent + gender):').pack(side='left')
         ttk.Entry(row,textvariable=self.voice_id,width=25).pack(side='left',padx=6)
         ttk.Button(row,text='Export keeper to experimental addon',command=self.export).pack(side='left')
         ttk.Label(compare,text='Custom voices are manual overrides only. Restart the Piper companion after export.\nOriginal recordings and training snapshots stay local; the addon only needs ONNX + JSON.').pack(anchor='w')
@@ -286,7 +286,7 @@ class App:
     def export(self):
         try:
             self.guard();_,path,step,info=self.candidate();key=self.voice_id.get().strip()
-            if not re.fullmatch('[ab][fm]_[a-z0-9_]+',key):raise ValueError('Use am_, af_, bm_ or bf_, followed by lowercase letters, digits, underscores')
+            if not re.fullmatch('[abx][fmua]_[a-z0-9_]+',key):raise ValueError('Use accent a/b/x + gender m/f/u/a + underscore, then lowercase letters, digits or underscores')
             output=VOICES/(key+'.onnx')
             if output.exists():raise ValueError('That keeper ID already exists; choose another')
             def work():
