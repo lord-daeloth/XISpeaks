@@ -1,5 +1,32 @@
 # Piper volunteer likeness pilot
 
+## Repeating with a new recording
+
+The runner accepts a reviewed JSON manifest and a separate output directory:
+
+```powershell
+.\build\piper-train-env\Scripts\python.exe -u experiments/piper_training/run.py --manifest build/piper-training/new-manifest.json --output experiments/piper_training/output-new-reference
+```
+
+A manifest specifies `source` (absolute WAV path), `segments` (ordered,
+nonoverlapping `start`/`end` seconds and exact `text`), `texts` (first audition is
+training dialogue, remaining auditions are unseen), `stages` (ascending actual
+batch counts), and optional `peak_db` (-20 to -1 dBFS). It validates boundaries
+before writing output, averages stereo to mono, applies one fixed gain to the
+whole recording, then resamples clips. It never overwrites the source or an
+existing output directory. Preparation tests cover gain, stereo conversion,
+source preservation, resampling and invalid boundaries.
+
+The second run uses the supplied 93.6-second `new-reference.wav`, 14 reviewed
+paragraph clips totaling 87.18 seconds, a -3 dBFS peak target (+9.81 dB gain), and
+100/300/1,000-batch snapshots. It starts afresh from Ryan, not the first adapted
+model. The merchant/watchtower passages from the recording instructions are
+reserved for testing and are absent from training. Both data amount and levels
+changed, so this does not isolate recording volume as the cause of any difference.
+`dataset.json` records preprocessing and the actual segment transcripts/bounds.
+
+The sections below describe the original short-recording pilot and environment.
+
 Separate, local GPU fine-tuning experiment. It does not modify the companion,
 addon, Studio, official NPC profiles, or original recording. It starts from
 **Ryan medium (American male)**, not Alan/British, at the user's request.
