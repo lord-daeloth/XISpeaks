@@ -16,8 +16,8 @@ af_nova af_river af_sarah af_sky am_adam am_echo am_eric am_fenrir am_liam
 am_michael am_onyx am_puck am_santa bf_alice bf_emma bf_isabella bf_lily
 bm_daniel bm_fable bm_george bm_lewis'''.split())
 BLENDING_ENABLED = True
-PRESETS = {'goblin': (1.15, 3.5), 'child': (1.03, 1.0), 'galka': (0.9, -3.5),
-           'mithra': (1.0, 0.0), 'elvaan': (1.0, 0.0), 'tarutaru': (1.1, 1.0)}
+PRESETS = {'goblin': (1.15, 3.0), 'child': (1.0, 1.0), 'galka': (0.9, -3.5),
+           'mithra': (1.0, 0.0), 'elvaan': (1.0, 0.0), 'tarutaru': (1.1, 1.0), 'moogle': (1.075, 1.5)}
 YOUNG_VOICES = ('af_sky', 'af_bella', 'bf_lily', 'am_puck')
 
 

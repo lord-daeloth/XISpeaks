@@ -145,3 +145,24 @@ Model licensing is separate from the GPL app. In particular, the Ryan base model
 card identifies a CC BY-NC-SA 4.0 dataset; this prototype does not establish that
 a derived volunteer voice is unrestricted. Preserve the relevant base model
 cards and resolve redistribution terms before publishing voice packs.
+
+## Piper pacing and Moogle presets
+
+Piper playback now uses a 0.90 base-rate multiplier: the UI's **100%** is the
+former **90%**. NPC and global speed controls remain relative to that baseline.
+On the first restart after this update, a saved global speed of exactly 90% is
+converted to 100% so the experimental adjustment is not applied twice. Other
+saved global percentages are left as chosen.
+
+* Goblin: **+3.0 semitones**, **115%** relative speed.
+* Child: **+1.0 semitone**, **100%** relative speed (no speed increase).
+* Moogle: **+1.5 semitones**, **107.5%** relative speed.
+
+The Moogle toggle is in `/xisp voices`. The companion imports
+`data/moogle_associations.json` once, enabling it for 37 names using explicit
+Moogle NPC names or consistent Moogle model appearances in the pinned
+LandSandBoat catalog. This includes named Moogles such as Kupofried and Monsieur
+Kupont. Placeholder models and object/event names are not treated as race evidence.
+`scripts/build_moogle_catalog.py` reproduces this overlay. Manual voices and tuning
+are retained, and later user changes to the toggle survive restarts. The database
+is backed up as `.before-moogles.bak` before the overlay/settings migration.

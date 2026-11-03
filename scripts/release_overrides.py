@@ -36,7 +36,7 @@ def apply_overrides(registry, document):
     if document.get('schema') != 1 or not isinstance(document.get('npcs'), list):
         raise ValueError('Invalid release NPC overrides')
     seen = set()
-    document = dict(document, npcs=[dict(item, approval=item.get('approval')) for item in document['npcs']])
+    document = dict(document, npcs=[dict(item, approval=item.get('approval'), preset_moogle=item.get('preset_moogle',0)) for item in document['npcs']])
     for item in document['npcs']:
         if set(item) != {'name', *FIELDS} or not isinstance(item['name'], str) or not item['name'].strip():
             raise ValueError('Invalid release NPC profile')

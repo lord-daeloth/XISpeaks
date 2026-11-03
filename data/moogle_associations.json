@@ -1,0 +1,298 @@
+{
+  "schema": 1,
+  "source": "https://github.com/LandSandBoat/server",
+  "revision": "81a13ab0febcace751017044529ec77773180ad1",
+  "notes": "Models 50 and 52 are placeholders; 2290 and 2326 are objects/effects. Never infer Moogles from those models. Named Moogle records may include these placeholder looks.",
+  "moogle_models": [
+    82,
+    981,
+    1418,
+    2361,
+    2364,
+    2365,
+    2401,
+    2405,
+    2406,
+    2419,
+    2452
+  ],
+  "npcs": [
+    {
+      "name": "Agent Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        50,
+        2365
+      ]
+    },
+    {
+      "name": "Ancestry Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        50,
+        82
+      ]
+    },
+    {
+      "name": "Artisan Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        82
+      ]
+    },
+    {
+      "name": "Bonanza Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        981
+      ]
+    },
+    {
+      "name": "Coordinator Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        82
+      ]
+    },
+    {
+      "name": "Curator Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        2361
+      ]
+    },
+    {
+      "name": "Curio Vendor Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        82
+      ]
+    },
+    {
+      "name": "Dealer Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        50,
+        981,
+        2364
+      ]
+    },
+    {
+      "name": "Ephemeral Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        50,
+        82
+      ]
+    },
+    {
+      "name": "Erudite Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        2364
+      ]
+    },
+    {
+      "name": "Explorer Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        981
+      ]
+    },
+    {
+      "name": "Explorer_Moogle",
+      "evidence": "all recorded appearances use a Moogle model",
+      "models": [
+        981
+      ]
+    },
+    {
+      "name": "Festive Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        82
+      ]
+    },
+    {
+      "name": "Green Thumb Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        2361
+      ]
+    },
+    {
+      "name": "Greeter Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        50,
+        2419
+      ]
+    },
+    {
+      "name": "Henchman Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        52
+      ]
+    },
+    {
+      "name": "Kupatete",
+      "evidence": "all recorded appearances use a Moogle model",
+      "models": [
+        2364
+      ]
+    },
+    {
+      "name": "Kupert",
+      "evidence": "all recorded appearances use a Moogle model",
+      "models": [
+        2364
+      ]
+    },
+    {
+      "name": "Kupignol",
+      "evidence": "all recorded appearances use a Moogle model",
+      "models": [
+        2364
+      ]
+    },
+    {
+      "name": "Kupivolo",
+      "evidence": "all recorded appearances use a Moogle model",
+      "models": [
+        2364
+      ]
+    },
+    {
+      "name": "Kupofried",
+      "evidence": "all recorded appearances use a Moogle model",
+      "models": [
+        2401,
+        2452
+      ]
+    },
+    {
+      "name": "Kupuckl",
+      "evidence": "all recorded appearances use a Moogle model",
+      "models": [
+        2364
+      ]
+    },
+    {
+      "name": "Magian Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        2401,
+        2405,
+        2406
+      ]
+    },
+    {
+      "name": "Market Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        981
+      ]
+    },
+    {
+      "name": "Mogsack Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        50
+      ]
+    },
+    {
+      "name": "Monsieur Kupont",
+      "evidence": "all recorded appearances use a Moogle model",
+      "models": [
+        981
+      ]
+    },
+    {
+      "name": "Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        50,
+        52,
+        82,
+        2290,
+        2326,
+        2361
+      ]
+    },
+    {
+      "name": "Munitions Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        82
+      ]
+    },
+    {
+      "name": "Nomad Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        981,
+        1418
+      ]
+    },
+    {
+      "name": "Novice Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        82
+      ]
+    },
+    {
+      "name": "Pilgrimage Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        52
+      ]
+    },
+    {
+      "name": "Porter Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        50,
+        82
+      ]
+    },
+    {
+      "name": "Repairer Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        50,
+        82
+      ]
+    },
+    {
+      "name": "Skipper Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        2361
+      ]
+    },
+    {
+      "name": "Smithy Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        82
+      ]
+    },
+    {
+      "name": "Stooge Moogle",
+      "evidence": "explicit Moogle NPC name",
+      "models": [
+        52,
+        2364
+      ]
+    },
+    {
+      "name": "The Great Kupellion",
+      "evidence": "all recorded appearances use a Moogle model",
+      "models": [
+        2401
+      ]
+    }
+  ]
+}

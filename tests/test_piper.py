@@ -39,7 +39,7 @@ class PiperTests(unittest.TestCase):
             parts=list(backend.pcm('Hm? Look--over there!', 'am_test'))
             self.assertEqual([len(x) for x in parts],[4800,14400,4800,8640,4800,14400,4800,14400])
             self.assertEqual(calls[0][0],'Hmmmm? Look')
-            self.assertAlmostEqual(calls[0][1],1/1.2)
+            self.assertAlmostEqual(calls[0][1],1/(1.2*.9))
             self.assertEqual(list(backend.pcm('Stop','am_test',lambda:True)),[])
             self.assertEqual(len(calls),2)
 
@@ -106,7 +106,7 @@ class ExpandedCatalogTests(unittest.TestCase):
                 self.assertEqual(db.voice_for('Approved'),'am_ryan')
                 self.assertTrue(db.db.execute("SELECT approval FROM npcs WHERE key='approved'").fetchone()[0])
                 db.close()
-            self.assertEqual(len(list(Path(folder).glob('*.bak'))),1)
+            self.assertEqual(len(list(Path(folder).glob('*.bak'))),2)
 
     def test_voice_search_fits_udp_and_supports_last_page(self):
         import service
@@ -121,5 +121,38 @@ class ExpandedCatalogTests(unittest.TestCase):
         self.assertTrue(all(len(r)<12000 for r in responses))
         last=json.loads(responses[-1].partition(b'\n')[2]);self.assertEqual(last['voices'],['au_speaker_1997'])
         self.assertEqual(json.loads(responses[0].partition(b'\n')[2])['voice_total'],1998)
+
+class MooglePacingTests(unittest.TestCase):
+    def test_preset_values_and_child_stacking(self):
+        self.assertEqual(registry.preset_effects({'goblin':True}),(1.15,3.0))
+        self.assertEqual(registry.preset_effects({'child':True}),(1.0,1.0))
+        self.assertEqual(registry.preset_effects({'moogle':True}),(1.075,1.5))
+        self.assertEqual(registry.preset_effects({'child':True,'tarutaru':True}),(1.1,2.0))
+
+    def test_moogle_migration_is_once_only_and_preserves_manual_profile(self):
+        import service
+        from piper_service import migrate_pacing_and_moogles
+        db=registry.Registry(':memory:',dict(service.DEFAULTS))
+        try:
+            db.encounter('Moogle');db.edit('moogle','voice','am_echo');db.set_globals(.9,1.4)
+            migrate_pacing_and_moogles(db,':memory:')
+            self.assertEqual(db.globals()['speed'],1)
+            self.assertEqual(db.globals()['volume'],1.4)
+            row=db.db.execute("SELECT * FROM npcs WHERE key='moogle'").fetchone()
+            self.assertEqual(row['manual_voice'],'am_echo')
+            self.assertEqual(row['encounters'],1)
+            self.assertTrue(db.public(row)['presets']['moogle'])
+            self.assertEqual(db.db.execute('SELECT COUNT(*) FROM npcs WHERE preset_moogle=1').fetchone()[0],37)
+            db.edit('moogle','preset',dict(name='moogle',enabled=False));db.set_globals(.9,1.4)
+            migrate_pacing_and_moogles(db,':memory:')
+            self.assertEqual(db.globals()['speed'],.9)
+            self.assertEqual(db.db.execute("SELECT preset_moogle FROM npcs WHERE key='moogle'").fetchone()[0],0)
+        finally:db.close()
+
+    def test_catalog_excludes_objects_and_includes_named_moogles(self):
+        data=json.loads((ROOT/'data/moogle_associations.json').read_text(encoding='utf-8'))
+        names={n['name'] for n in data['npcs']}
+        self.assertTrue({'Moogle','Kupofried','Monsieur Kupont','Nomad Moogle'}<=names)
+        self.assertFalse({"Moogle's Letter",'Moogle Meeting','Magian Mooglehood','Apollyon Operator'} & names)
 
 if __name__=='__main__':unittest.main()

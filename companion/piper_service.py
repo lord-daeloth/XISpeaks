@@ -35,6 +35,26 @@ def configure_catalog(path=VOICES/'catalog.json'):
     return catalog
 
 
+def migrate_pacing_and_moogles(db,path):
+    marker='piper_pacing_moogles_v1'
+    if db.db.execute('SELECT 1 FROM metadata WHERE key=?',(marker,)).fetchone():return
+    if str(path)!=':memory:':
+        backup=Path(str(path)+'.before-moogles.bak')
+        if not backup.exists():
+            with closing(sqlite3.connect(str(backup))) as target:db.db.backup(target)
+    catalog=json.loads((ROOT/'data/moogle_associations.json').read_text(encoding='utf-8'))
+    with db.lock,db.db:
+        for item in catalog['npcs']:
+            key=registry.name_key(item['name']);speed,pitch=registry.choose_tuning(key)
+            voice=registry.choose_voice(key,'unknown',db.pool)
+            db.db.execute('INSERT OR IGNORE INTO npcs (key,name,auto_voice,auto_speed,auto_pitch) VALUES (?,?,?,?,?)',
+                (key,item['name'],voice,speed,pitch))
+            db.db.execute('UPDATE npcs SET preset_moogle=1,approval=NULL WHERE key=?',(key,))
+        # Preserve the user's experimentally chosen 90% pace after redefining 100%.
+        db.db.execute('UPDATE audio_settings SET speed=1.0 WHERE ABS(speed-0.9)<0.000001')
+        db.db.execute('INSERT INTO metadata VALUES (?,?)',(marker,'1'))
+
+
 def create_registry(config,path):
     from import_npc_catalog import import_catalog
     from release_overrides import apply_overrides
@@ -48,6 +68,7 @@ def create_registry(config,path):
             item['approval']=None
         apply_overrides(db,corrections)
         with db.db:db.db.execute("INSERT INTO metadata VALUES ('piper_seed_v1','1')")
+    migrate_pacing_and_moogles(db,path)
     signature=hashlib.sha256(json.dumps(config['voice_pool'],sort_keys=True).encode()).hexdigest()
     previous=db.db.execute("SELECT value FROM metadata WHERE key='piper_pool_signature'").fetchone()
     if previous and previous[0]==signature:return db

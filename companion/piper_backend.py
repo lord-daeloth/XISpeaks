@@ -11,6 +11,9 @@ def speech_parts(text):
     return re.split(r'\s*(?:--+|\u2014)\s*',text)
 
 
+BASE_SPEED = 0.9  # UI 100% means 90% of the native Piper pace.
+
+
 class PiperBackend:
     def __init__(self,config):
         import pyaudio
@@ -44,7 +47,7 @@ class PiperBackend:
             if cancelled():return
             if not part.strip():continue
             pending=None
-            for chunk in model.synthesize(part,syn_config=SynthesisConfig(length_scale=1/self.speed,speaker_id=speaker)):
+            for chunk in model.synthesize(part,syn_config=SynthesisConfig(length_scale=1/(self.speed*BASE_SPEED),speaker_id=speaker)):
                 if cancelled():return
                 if pending is not None:
                     yield pending

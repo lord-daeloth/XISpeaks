@@ -141,7 +141,7 @@ class RegistryTests(RegistryFixture):
         self.registry.edit('halver', 'preset', dict(name='child', enabled=True))
         npc = self.registry.edit('halver', 'preset', dict(name='tarutaru', enabled=True))
         self.assertIn(npc['voice'], ('af_sky', 'af_bella', 'bf_lily', 'am_puck'))
-        self.assertAlmostEqual(npc['speed'], npc['base_speed'] * 1.03 * 1.1)
+        self.assertAlmostEqual(npc['speed'], npc['base_speed'] * 1.1)
         self.assertAlmostEqual(npc['pitch'], npc['base_pitch'] + 2.0)
         self.registry.close()
         self.registry = Registry(self.path, self.config)
@@ -161,7 +161,7 @@ class RegistryTests(RegistryFixture):
         self.assertEqual(npc['pitch'], 4)
         self.assertAlmostEqual(npc['speed'], 1.38)
         npc = self.registry.edit('maat', 'preset', dict(name='galka', enabled=True))
-        self.assertEqual(npc['pitch'], 1)
+        self.assertEqual(npc['pitch'], 0.5)
         self.registry.set_globals(2, 2)
         self.assertEqual(self.registry.playback('Maat')['speed'], 2)
         for value in (dict(name='bad', enabled=True), dict(name='child', enabled=1)):
