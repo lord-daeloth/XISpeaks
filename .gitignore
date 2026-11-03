@@ -12,3 +12,7 @@ dist/
 build-release.log
 /contributions/
 /voice_studio/output/
+/piper-development.json
+/piper_trainer/output/
+/piper_voices/
+/piper-runtime/

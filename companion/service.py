@@ -263,6 +263,8 @@ class Server:
                 raise ValueError('NPC registry is unavailable')
             action = request.get('action')
             if action in ('contribution_prepare','contribution_open','contribution_folder'):
+                if not getattr(self.registry, 'contributions_enabled', True):
+                    raise ValueError('Piper experimental profiles cannot be submitted to the Kokoro catalog')
                 if self.contributions is None:
                     from contributions import Contributions
                     baseline = resource_root() / 'seed.sqlite3'

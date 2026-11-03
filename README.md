@@ -1,5 +1,7 @@
 # XISpeaks
 
+> **Piper experimental branch — Windows only.** Start with [Piper trainer and addon instructions](PIPER-EXPERIMENT.md). Launch `START-Piper-Trainer.cmd` for training or `START-XISpeaks-Piper.cmd` for the experimental companion. The documentation below describes the stable Kokoro release.
+
 Local NPC text-to-speech for **Final Fantasy XI**, using an **Ashita v4 addon** and a **Kokoro voice companion**.
 
 **Windows x64 only.** The current release, setup scripts, and bundled companion target Windows. There is no supported Linux build. A Linux companion may be explored later; game/addon compatibility and audio dependencies would need separate validation.

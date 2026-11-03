@@ -15,6 +15,7 @@ VOICES = sorted('''af_heart af_alloy af_aoede af_bella af_jessica af_kore af_nic
 af_nova af_river af_sarah af_sky am_adam am_echo am_eric am_fenrir am_liam
 am_michael am_onyx am_puck am_santa bf_alice bf_emma bf_isabella bf_lily
 bm_daniel bm_fable bm_george bm_lewis'''.split())
+BLENDING_ENABLED = True
 PRESETS = {'goblin': (1.15, 3.5), 'child': (1.03, 1.0), 'galka': (0.9, -3.5),
            'mithra': (1.0, 0.0), 'elvaan': (1.0, 0.0), 'tarutaru': (1.1, 1.0)}
 YOUNG_VOICES = ('af_sky', 'af_bella', 'bf_lily', 'am_puck')
@@ -78,6 +79,8 @@ def validate_voice(value):
         raise ValueError('Choose an English voice or a two-voice blend')
     if value in VOICES:
         return value
+    if not BLENDING_ENABLED:
+        raise ValueError('Piper supports individual voices, not blends')
     match = re.fullmatch(r'(0\.\d{2})\*([ab][fm]_[a-z]+) \+ (0\.\d{2})\*([ab][fm]_[a-z]+)', value)
     if not match:
         raise ValueError('Invalid two-voice blend')
@@ -88,6 +91,8 @@ def validate_voice(value):
 
 
 def choose_blend(key, primary, pool, elvaan=False):
+    if not BLENDING_ENABLED:
+        return primary
     # Keep the primary dominant. Elvaan allow cross-accent, same-gender partners.
     digest = hashlib.sha256(('XISpeaks-blend-v1:' + key).encode('utf-8')).digest()
     choices = sorted(set(v for v in pool if v != primary and (v[1] == primary[1] if elvaan else v[:2] == primary[:2])))
