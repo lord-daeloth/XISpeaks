@@ -29,18 +29,22 @@ class PiperBackend:
         from scipy.signal import resample_poly
         from audio_effects import process_pcm
         if voice not in self.models:raise ValueError('Unknown Piper voice: '+voice)
-        if voice not in self.cache:
+        entry=self.models[voice]
+        path=entry['path'] if isinstance(entry,dict) else entry
+        speaker=entry.get('speaker_id') if isinstance(entry,dict) else None
+        cache_key=str(path)
+        if cache_key not in self.cache:
             # Keep at most two sessions; hundreds of installed voices need not stay in RAM.
             if len(self.cache)>=2:self.cache.popitem(last=False)
-            self.cache[voice]=PiperVoice.load(self.models[voice],use_cuda=False)
-        self.cache.move_to_end(voice)
-        model=self.cache[voice]
+            self.cache[cache_key]=PiperVoice.load(path,use_cuda=False)
+        self.cache.move_to_end(cache_key)
+        model=self.cache[cache_key]
         parts=speech_parts(text)
         for index,part in enumerate(parts):
             if cancelled():return
             if not part.strip():continue
             pending=None
-            for chunk in model.synthesize(part,syn_config=SynthesisConfig(length_scale=1/self.speed)):
+            for chunk in model.synthesize(part,syn_config=SynthesisConfig(length_scale=1/self.speed,speaker_id=speaker)):
                 if cancelled():return
                 if pending is not None:
                     yield pending

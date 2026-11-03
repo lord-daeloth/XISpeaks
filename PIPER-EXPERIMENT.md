@@ -55,10 +55,26 @@ The Piper addon uses **UDP 49153** and **`piper-runtime/npcs.sqlite3`**. The reg
 addon uses 49152 and its own database. No live addon files are deployed by the
 trainer or launcher. Do not point the experiment at the regular NPC database.
 
-All automatic NPC assignments use stock Piper voices: Ryan (US masculine),
-Lessac (US feminine), Alan (UK masculine), and Cori (UK feminine). Their IDs are
-`am_ryan`, `af_lessac`, `bm_alan`, `bf_cori`. Custom voices are manual overrides.
-The exported Halver voice is already available locally as **`am_halver`**.
+All automatic NPC assignments use the full English stock catalog: **30 model
+families, highest available quality per family, and 1,998 selectable speaker
+entries**. Search the voice picker by family or speaker ID, then use Previous /
+Next voices to browse 40 results at a time. Multi-speaker selections pass the
+actual speaker ID to Piper and share a cached model session. Entries across
+LibriTTS and LibriTTS-R can represent the same person; the count is not unique people.
+
+Dataset gender metadata is used for LibriTTS and VCTK; model-card gender is used
+where stated. Unclassified voices use `au_`, `bu_`, or `xu_` IDs and can be chosen
+manually or assigned to NPCs with unknown gender. They do not enter masculine or
+feminine automatic pools. Known VCTK accent groups use `a` (US/Canada), `b`
+(UK/Ireland), or `x` (other); a model's language label alone is not proof of an
+individual speaker's accent.
+
+The experimental Halver export has been removed. Its source recording and training
+runs are preserved. Existing overrides using the removed voice return to automatic
+on restart. Other valid manual choices and valid approvals are retained; unapproved
+automatic choices are redistributed over the larger pool. Database backups are
+saved beside the registry before catalog migration. Cori was upgraded from medium
+to high, so previous automatic Cori approvals are cleared.
 
 The initial registry imports the confirmed NPC race catalogue and bundled race,
 preference, pitch and speed corrections. It replaces Kokoro voice choices and
@@ -82,17 +98,16 @@ At most two voice models are cached in memory. Training and playback are separat
 | Kokoro shared model | 312.1 |
 | All 28 installed English Kokoro voice packs | 14.0 combined |
 | Piper Alan medium | 60.3 |
-| Piper Cori medium | 60.6 |
+| Piper Cori high | 108.9 |
 | Piper Lessac high | 108.6 |
 | Piper Ryan high | 115.2 |
-| Halver, trained for 1,000 batches, exported for playback | **60.6** |
+| Previously exported Halver (1,000 batches) | **60.6** |
 | Halver generator-only training snapshot | 90.5 |
 | Original full Ryan training checkpoint | 806.7 |
 
 Kokoro shares one large model across small voice packs. Piper generally carries
 a full model per voice. A multi-gigabyte English collection is not required:
-install just the voices used. The four stock voices here total about 344.7 MiB;
-adding Halver makes about 405.2 MiB. These figures exclude Python/runtime libraries.
+install just the voices used. The complete highest-quality English selection occupies about 2.26 GB (2.11 GiB). These figures exclude Python/runtime libraries.
 Many bespoke NPC voices would therefore be better distributed as optional packs.
 CUDA/PyTorch training dependencies are not needed for a future player-only build.
 
@@ -119,8 +134,10 @@ Experimental extra packages (installed outside the stable Python environment):
 & "$assets/build/piper-train-env/Scripts/python.exe" piper_trainer/setup_voices.py
 ```
 
-Set `$assets` to the assets checkout first. Setup downloads only the four stock
-models and their upstream model cards. Recordings, weights and databases are
+Set `$assets` to the assets checkout first. Setup downloads the highest-quality English models and their upstream model cards.
+Files are verified against revision-pinned repository hashes. Speaker counts/maps
+come from the actual downloaded configurations: the upstream voices.json index
+currently overstates LibriTTS-R speaker count. Recordings, weights and databases are
 ignored by Git. The stable release packager remains for Kokoro; do not use it to
 publish a Piper release yet.
 

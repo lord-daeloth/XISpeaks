@@ -29,7 +29,7 @@ class PiperAddonTests(unittest.TestCase):
         fixture=ui_tests.VoiceUITests();fixture.setUp();lua=fixture.lua
         module=lua.execute((ROOT/'addon/XISpeaksPiper/voice_ui.lua').read_text())
         lua.globals().piper_module=module
-        lua.execute("ui=piper_module.new(function(wire) table.insert(sent,wire) end,function() return now end,'test'); ui.visible=true")
+        lua.execute("ui=piper_module.new(function(wire) table.insert(sent,wire) end,function() return now end,'test'); ui.visible=true; ui.voice_loaded=true")
         fixture.load_list()
         before=len(lua.globals().sent)
         lua.execute("clicks['Contribute voices']=true; clicks['Blend two voices']=true; ui:draw(); assert(depth==0)")

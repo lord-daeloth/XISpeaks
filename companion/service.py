@@ -277,8 +277,17 @@ class Server:
                     result = dict(contribution_message=self.contributions.open(request.get('token'), action=='contribution_folder'))
             elif action == 'list':
                 result = self.registry.page(request.get('search', ''), request.get('filter', 'all'), request.get('page', 0))
-                result['voices'] = VOICES
+                result['voices'] = VOICES[:40] if not getattr(self.registry,'contributions_enabled',True) else VOICES
+                result['voice_total'] = len(VOICES)
                 result['globals'] = self.registry.globals()
+            elif action == 'voice_list':
+                search=request.get('search','')
+                page=request.get('page',0)
+                if not isinstance(search,str) or len(search)>100 or type(page) is not int or page<0:
+                    raise ValueError('Invalid voice search/page')
+                matches=[v for v in VOICES if search.casefold() in v.casefold()]
+                page=min(page,max(0,(len(matches)-1)//40))
+                result=dict(voices=matches[page*40:(page+1)*40],voice_total=len(matches),voice_page=page)
             elif action == 'edit':
                 result = {'npc': self.registry.edit(request.get('key'), request.get('edit'), request.get('value'))}
             elif action == 'review_poll':
@@ -288,7 +297,7 @@ class Server:
                 result = self.registry.review_state()
             elif action == 'review':
                 npc = self.registry.review_action(request.get('key'), request.get('fingerprint'), request.get('decision'))
-                result = dict(self.registry.review_state(), npc=npc, voices=VOICES)
+                result = dict(self.registry.review_state(), npc=npc, voices=VOICES[:40] if not getattr(self.registry,'contributions_enabled',True) else VOICES)
             elif action == 'globals':
                 result = {'globals': self.registry.set_globals(request.get('speed'), request.get('volume'), request.get('pitch_engine'))}
             elif action == 'preview':

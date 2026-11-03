@@ -4,6 +4,7 @@ local M = {}
 
 function M.new(send, clock, session)
     local ui = {visible=false, rows={}, voices={}, total=0, page=0, search='', filter='all',
+        voice_search='', voice_page=0, voice_total=0, voice_loaded=false, voice_next=0,
         selected=nil, draft=nil, pending=nil, next_refresh=0, serial=0,
         contribution=nil, contribution_message='',
         review=nil, review_enabled=false, review_count=0, next_review=0, review_unsupported=false,
@@ -74,7 +75,7 @@ function M.new(send, clock, session)
         end
         if action == 'review' and query.decision == 'edit' and type(result.npc) == 'table' then
             self.visible=true; self.selected=result.npc; self.draft=result.npc.voice
-            self.voices=result.voices or self.voices
+            if not self.voice_loaded then self.voices=result.voices or self.voices end
             self.draft_speed=math.floor((result.npc.base_speed or 1)*100+0.5)
             self.draft_pitch=math.floor((result.npc.base_pitch or 0)*10+0.5)
             self.search=''; self.filter='all'; self.page=0; self.next_refresh=0
@@ -88,8 +89,14 @@ function M.new(send, clock, session)
                 self.global_dirty = false
             end
         end
+        if action == 'voice_list' then
+            if query.search == self.voice_search and query.page == self.voice_page then
+                self.voices=result.voices or {}; self.voice_total=result.voice_total or 0; self.voice_page=result.voice_page or 0; self.voice_loaded=true
+            else self.voice_loaded=false end
+        end
         if action == 'list' and type(result.rows) == 'table' and type(result.voices) == 'table' then
-            self.rows, self.voices = result.rows, result.voices
+            self.rows = result.rows
+            if not self.voice_loaded then self.voices=result.voices; self.voice_total=result.voice_total or #result.voices end
             self.total, self.page = result.total or 0, result.page or 0
             if self.selected then
                 for _, row in ipairs(self.rows) do
@@ -125,6 +132,9 @@ function M.new(send, clock, session)
                 self.next_refresh = now + 5
                 self.next_review = now + 5
             end
+        end
+        if self.visible and not self.pending and not self.voice_loaded and now >= self.voice_next then
+            self:request({action='voice_list',search=self.voice_search,page=self.voice_page}); self.voice_next=now+1
         end
         if self.visible and not self.pending and now >= self.next_refresh then self:refresh() end
         if not self.pending and now >= self.next_review then
@@ -295,11 +305,21 @@ function M.new(send, clock, session)
                 local enabled = {blending}
                 blending = false
                 imgui.TextDisabled('Piper: individual stock or trained voices')
-                imgui.SetNextItemWidth(230)
+                local voice_search={self.voice_search}
+                imgui.SetNextItemWidth(300)
+                if imgui.InputText('Search voices / speaker IDs',voice_search,100) then
+                    self.voice_search=voice_search[1];self.voice_page=0;self.voice_loaded=false;self.voice_next=0
+                end
+                if imgui.Button('Previous voices') and self.voice_page>0 then self.voice_page=self.voice_page-1;self.voice_loaded=false;self.voice_next=0 end
+                imgui.SameLine()
+                if imgui.Button('Next voices') and (self.voice_page+1)*40<self.voice_total then self.voice_page=self.voice_page+1;self.voice_loaded=false;self.voice_next=0 end
+                imgui.SameLine()
+                imgui.Text(('%d matches | page %d'):format(self.voice_total,self.voice_page+1))
+                imgui.SetNextItemWidth(400)
                 if imgui.BeginCombo('Voice', a) then
                     for _, voice in ipairs(self.voices) do
-                        local style = voice:sub(2,2) == 'm' and 'masculine' or 'feminine'
-                        local accent = voice:sub(1,1) == 'a' and 'US' or 'UK'
+                        local style = voice:sub(2,2) == 'm' and 'masculine' or (voice:sub(2,2) == 'f' and 'feminine' or 'unclassified')
+                        local accent = voice:sub(1,1) == 'a' and 'US/Canada' or (voice:sub(1,1) == 'b' and 'UK/Ireland' or 'other accent')
                         if imgui.Selectable(voice .. ' (' .. accent .. ', ' .. style .. ')', voice == a) then a=voice end
                     end
                     imgui.EndCombo()
