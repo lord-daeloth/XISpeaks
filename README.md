@@ -1,10 +1,10 @@
 # XISpeaks
 
-XISpeaks reads Final Fantasy XI NPC dialogue aloud with local Piper voices. The Ashita addon captures NPC lines and sends them to a companion on your PC. The current release supports **Windows x64 only**.
+XISpeaks reads Final Fantasy XI NPC dialogue aloud with local Piper voices. The Ashita addon captures NPC lines and sends them to a companion on your PC. The Piper server beta supports **Windows x64 only**.
 
 ## Install and play
 
-1. Download the Windows ZIP from [Releases](https://github.com/lord-daeloth/XISpeaks/releases/latest). Close the previous companion and unload the previous addon. When upgrading from Kokoro, move the old XISpeaks folder to a backup location before extracting.
+1. Download the Windows ZIP from [the Piper beta release](https://github.com/lord-daeloth/XISpeaks/releases/tag/v1.0.0-beta.1). Close the previous companion and unload the previous addon. When upgrading from Kokoro, move the old XISpeaks folder to a backup location before extracting.
 2. Extract the entire **XISpeaks** folder into the Ashita addons directory. For CatsEyeXI with Vanacore, use `Vanacore\addons\ashita\XISpeaks`.
 3. Run **START-XISpeaks.cmd** and keep the companion open while playing. The ZIP includes the Windows executable, Python runtime, speech and pitch engines, and a starter voice model. On first launch it downloads the remaining English weights directly from the pinned upstream collection (about 2 GB). Re-run the launcher after an interrupted download. Speech runs locally after setup.
 4. In game, enter `/addon load XISpeaks`, then `/xis test`. Use `/xis voices` for recent NPCs, search, voice overrides, pitch, speed, volume and review prompts. Use `/xis stop` to interrupt speech or `/xis status` to check the companion. The default local UDP port is 49152.
