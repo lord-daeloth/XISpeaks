@@ -1,4 +1,7 @@
-# Experimental Piper branch (Windows only)
+# Piper development history and training notes
+
+The addon has graduated to XISpeaks. For current installation, commands and release instructions, use [the README](README.md). The paths and commands below describe the isolated development build.
+
 
 This checkout is **XISpeaks-Piper**, branch `codex/piper-transition`. The working
 Kokoro checkout and installed addon remain separate. This is a source experiment,
@@ -79,10 +82,8 @@ to high, so previous automatic Cori approvals are cleared.
 The initial registry imports the confirmed NPC race catalogue and bundled race,
 preference, pitch and speed corrections. It replaces Kokoro voice choices and
 clears old approval fingerprints. Existing experimental edits are preserved on
-later launches. Elvaan still prefer British voices, Mithra feminine voices, and
-race effects still apply. Kokoro blending is disabled because these independent
-Piper models cannot use Kokoro voice-vector blends. Child has pitch/speed effects
-but no special stock-voice subset yet. Contribution upload is disabled so these
+later launches. The catalog flags determine which voices each NPC type can use. Race pitch and speed effects still apply. Kokoro blending is disabled because these independent
+Piper models cannot use Kokoro voice-vector blends. Contribution upload is disabled so these
 experimental profiles cannot enter the Kokoro catalogue by mistake.
 
 Playback uses CPU ONNX, native speed control, 24 kHz resampling for the existing
@@ -148,11 +149,7 @@ cards and resolve redistribution terms before publishing voice packs.
 
 ## Piper pacing and Moogle presets
 
-Piper playback now uses a 0.90 base-rate multiplier: the UI's **100%** is the
-former **90%**. NPC and global speed controls remain relative to that baseline.
-On the first restart after this update, a saved global speed of exactly 90% is
-converted to 100% so the experimental adjustment is not applied twice. Other
-saved global percentages are left as chosen.
+At 100% global speed, Piper uses the catalog speed multiplied by the NPC speed setting.
 
 * Goblin: **+3.0 semitones**, **115%** relative speed.
 * Child: **+1.0 semitone**, **100%** relative speed (no speed increase).

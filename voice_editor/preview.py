@@ -18,8 +18,17 @@ class Renderer:
         from piper_backend import PiperBackend
         self.backend=PiperBackend.__new__(PiperBackend)
         self.backend.cache=OrderedDict();self.backend.models={};self.backend.configure(1,0,1)
-    def render(self,key,entry,folder,text,path,cancelled):
+    def render(self,key,entry,folder,text,path,cancelled,mode="fixed",seed=42):
         from voice_catalog import playback_models
+        import onnxruntime
+        if mode not in ('fixed','zero'):raise ValueError('Unknown preview noise mode')
+        if not isinstance(seed,int) or not 0<=seed<=2147483647:
+            raise ValueError('Seed must be an integer from 0 to 2147483647')
+        # Random operators own session-local state. Reset the seed BEFORE creating
+        # a fresh session; reusing a cached session would advance its random stream.
+        self.backend.cache.clear()
+        onnxruntime.set_seed(seed if mode=='fixed' else 42)
+        self.backend.synthesis_options={'noise_scale':0.0,'noise_w_scale':0.0} if mode=='zero' else {}
         self.backend.models=playback_models({key:entry},folder)
         data=b''.join(self.backend.pcm(text,key,cancelled))
         if cancelled():return None

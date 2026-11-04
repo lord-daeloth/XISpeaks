@@ -38,7 +38,7 @@ class VoiceUITests(unittest.TestCase):
                 Checkbox=function(label,value) if clicked(label) then value[1]=not value[1]; return true end; return false end
             } end
         ''')
-        module = self.lua.execute((Path(__file__).resolve().parents[1] / 'addon/XISpeaks/voice_ui.lua').read_text())
+        module = self.lua.execute((Path(__file__).resolve().parents[1] / 'legacy/kokoro/addon/voice_ui.lua').read_text())
         self.lua.globals().ui = module.new(self.lua.eval('function(wire) table.insert(sent,wire) end'),
                                           self.lua.eval('function() return now end'), 'test')
         self.npc = dict(key='halver', name='Halver', voice='am_michael', auto_voice='am_michael',

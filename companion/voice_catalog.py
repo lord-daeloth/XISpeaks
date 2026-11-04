@@ -62,15 +62,13 @@ def sound_fields(entry):
 class Policy:
     def __init__(self,catalog):self.catalog=catalog;self.cache={}
     def candidates(self,preference,presets):
-        if presets.get('mithra'):preference='feminine'
         types=tuple(k for k in NPC_TYPES if k!='other' and presets.get(k)) or ('other',)
         signature=(preference,types)
         if signature not in self.cache:
             wanted='m' if preference=='masculine' else 'f'
             self.cache[signature]=sorted(key for key,item in self.catalog.items()
                 if item['automatic'] and (preference=='unknown' or item['gender'] in (wanted,'a'))
-                and all(item['npc_types'][kind] for kind in types)
-                and ('elvaan' not in types or item['accent']=='b'))
+                and all(item['npc_types'][kind] for kind in types))
         return self.cache[signature]
     def choose(self,key,preference,presets,preferred=None):
         candidates=self.candidates(preference,presets)

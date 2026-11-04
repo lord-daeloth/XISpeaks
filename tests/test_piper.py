@@ -39,7 +39,7 @@ class PiperTests(unittest.TestCase):
             parts=list(backend.pcm('Hm? Look--over there!', 'am_test'))
             self.assertEqual([len(x) for x in parts],[4800,14400,4800,8640,4800,14400,4800,14400])
             self.assertEqual(calls[0][0],'Hmmmm? Look')
-            self.assertAlmostEqual(calls[0][1],1/(1.2*.9))
+            self.assertAlmostEqual(calls[0][1],1/1.2)
             self.assertEqual(list(backend.pcm('Stop','am_test',lambda:True)),[])
             self.assertEqual(len(calls),2)
 
@@ -136,7 +136,7 @@ class MooglePacingTests(unittest.TestCase):
         try:
             db.encounter('Moogle');db.edit('moogle','voice','am_echo');db.set_globals(.9,1.4)
             migrate_pacing_and_moogles(db,':memory:')
-            self.assertEqual(db.globals()['speed'],1)
+            self.assertEqual(db.globals()['speed'],.9)
             self.assertEqual(db.globals()['volume'],1.4)
             row=db.db.execute("SELECT * FROM npcs WHERE key='moogle'").fetchone()
             self.assertEqual(row['manual_voice'],'am_echo')

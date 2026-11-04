@@ -1,6 +1,6 @@
 # Piper Voice Catalog Editor
 
-Launch **START-Voice-Catalog.cmd** from the XISpeaks-Piper checkout. This is a
+Launch **START-Voice-Catalog.cmd** from the XISpeaks checkout. This is a
 separate Windows GUI from the trainer and maintainer tools. It uses the existing
 Piper environment and edits `piper_voices/catalog.json`.
 
@@ -37,9 +37,7 @@ Gender is stored as a property independent of the ID prefix:
 Each voice has flags for Child, Goblin, Moogle, Elvaan, Galka, Mithra, Tarutaru,
 and **Other / no NPC preset**, which includes Hume NPCs. All active NPC presets
 must be allowed: Child + Tarutaru requires both flags. With no active preset, the
-Other flag applies. Elvaan also require the UK/Ireland accent group; Mithra use the
-feminine pool, including androgynous voices. Existing voices initially allow every
-type, preserving the old eligibility until edited.
+Other flag applies. Accent is descriptive. An NPC's own gender preference applies consistently across all types.
 
 These restrictions affect automatic assignment only. Manual overrides may use any
 catalog entry. If nothing qualifies, the NPC remains silent and the addon shows
@@ -48,7 +46,7 @@ an explanation so you can adjust the catalog or choose an override.
 ## Preview and calibration
 
 Enter a short passage and click **Preview voice**. The preview uses the companion's
-Piper backend and audio processing: current base pace (old 90% = new 100%), the
+Piper backend and audio processing: native Piper pace, the
 voice's speed/volume corrections, global controls at 100%, and no NPC race effects.
 **Stop** cancels synthesis between chunks or stops playback.
 
@@ -66,7 +64,7 @@ under `voice_editor/output/` and are ignored by Git.
 
 ## Companion integration
 
-Restart the companion and reload XISpeaksPiper once after installing this update.
+Restart the companion and reload XISpeaks once after installing this update.
 After that, saved catalog edits reload automatically when the companion receives
 an addon request/dialogue. A line already playing finishes with its original
 settings. The addon picker displays edited labels/genders and voice calibration.
@@ -78,3 +76,11 @@ fields in the Piper database while retaining race presets, encounter history and
 global settings. `scripts/reset_piper_profiles.py` performs this explicitly, with
 a complete SQLite backup; it does not reset profiles on every startup. Fresh Piper
 registries also skip the old bundled Kokoro manual tuning.
+
+### Repeatable calibration previews
+
+The preview defaults to **Fixed noise / seed**, with seed **42**. Keep the same sample text and seed while comparing voices or adjusting their volume and speed. **New seed** chooses another repeatable take; you can also enter a seed from 0 to 2147483647. The seed stays the same when switching voices during this editor session.
+
+**Zero noise** sets both Piper noise controls to zero and disables the seed field. This removes random variation, but may sound different from normal gameplay. Different voice models still have different delivery even with the same seed.
+
+These controls only affect editor previews, not saved voice profiles or the companion. Each preview reloads its model to reset the random state, so previews incur model-loading time. The measurement label records which mode/seed produced the sample. Repeatability applies to the same model, text, settings and installed runtime; it is not a guarantee across different hardware or runtime versions.

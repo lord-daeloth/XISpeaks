@@ -16,7 +16,7 @@ af_nova af_river af_sarah af_sky am_adam am_echo am_eric am_fenrir am_liam
 am_michael am_onyx am_puck am_santa bf_alice bf_emma bf_isabella bf_lily
 bm_daniel bm_fable bm_george bm_lewis'''.split())
 BLENDING_ENABLED = True
-PRESETS = {'goblin': (1.15, 3.0), 'child': (1.0, 1.0), 'galka': (0.9, -3.5),
+PRESETS = {'goblin': (1.15, 3.0), 'child': (1.0, 1.0), 'galka': (0.9, -2.5),
            'mithra': (1.0, 0.0), 'elvaan': (1.0, 0.0), 'tarutaru': (1.1, 1.0), 'moogle': (1.075, 1.5)}
 YOUNG_VOICES = ('af_sky', 'af_bella', 'bf_lily', 'am_puck')
 
@@ -226,6 +226,10 @@ class Registry:
         result['voice'] = result['manual_voice'] or result['auto_voice']
         result['source'] = 'manual' if result['manual_voice'] else 'automatic'
         result['speed'] = result['manual_speed'] if result['manual_speed'] is not None else result['auto_speed']
+        if not result['preset_galka']:
+            # Stored hash offsets span -1 to +1. Scale at lookup so existing NPCs
+            # keep their relative variation, including when their preset changes.
+            result['auto_pitch'] = max(-0.3, min(0.3, result['auto_pitch'] * 0.3))
         result['pitch'] = result['manual_pitch'] if result['manual_pitch'] is not None else result['auto_pitch']
         result['tuning_source'] = 'manual' if result['manual_speed'] is not None or result['manual_pitch'] is not None else 'automatic'
         if result['preset_galka'] and result['manual_pitch'] is None:

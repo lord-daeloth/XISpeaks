@@ -1,12 +1,12 @@
-addon.name = 'XISpeaksPiper'
+addon.name = 'XISpeaks'
 addon.author = 'Daeloth'
-addon.version = '0.11.0-piper'
-addon.desc = 'NPC dialogue speech through a local Piper companion.'
+addon.version = '0.10.0'
+addon.desc = 'NPC dialogue speech through a local Kokoro companion.'
 
 require('common')
 local socket = require('socket')
 local settings = require('settings')
-local config = settings.load(T{enabled = true, system = false, port = 49153})
+local config = settings.load(T{enabled = true, system = false, port = 49152})
 local udp, pending_ping, sequence = nil, nil, 0
 local session = tostring(os.time()) .. '-' .. tostring(math.random(100000, 999999))
 local busy = false
@@ -41,7 +41,7 @@ local function editor()
 end
 
 local function report(text)
-    print('[XISpeaksPiper] ' .. text)
+    print('[XISpeaks] ' .. text)
 end
 
 local function is_named_dialogue(message)
@@ -94,7 +94,7 @@ local function start_trace(filter)
         filter=filter and filter:lower(), lines={
             'elapsed_ms\tkind\tmode_or_packet\tmode_low\tmode_modified\tinjected\tblocked\tdecision\toriginal_bytes\tmodified_bytes\toriginal_hex\tmodified_hex\n'}}
     report('Tracing for 120 seconds' .. (filter and ('; text filter: ' .. filter) or '; all chat text')
-        .. '. Talk to the NPCs, then /xisp trace off. File: ' .. path)
+        .. '. Talk to the NPCs, then /xis trace off. File: ' .. path)
 end
 
 local function trace_event(kind, e, decision)
@@ -139,23 +139,23 @@ local function send(command, mode, message)
     return ok ~= nil
 end
 
-settings.register('settings', 'xispeakspiper_settings', function(updated)
+settings.register('settings', 'xispeaks_settings', function(updated)
     if updated then config = updated; connect() end
 end)
 
-ashita.events.register('load', 'xispeakspiper_load', function()
+ashita.events.register('load', 'xispeaks_load', function()
     connect()
-    report('Loaded. Start the companion, then use /xispeakspiper status.')
+    report('Loaded. Start the companion, then use /xispeaks status.')
 end)
 
-ashita.events.register('unload', 'xispeakspiper_unload', function()
+ashita.events.register('unload', 'xispeaks_unload', function()
     review_visibility(false)
     stop_trace('saved on unload')
     send('stop')
     if udp then udp:close(); udp = nil end
 end)
 
-ashita.events.register('text_in', 'xispeakspiper_text', function(e)
+ashita.events.register('text_in', 'xispeaks_text', function(e)
     if busy then return end
     -- Always use original text: Balloon may hide or reformat message_modified.
     local mode = bit.band(e.mode, 0xFF)
@@ -172,7 +172,7 @@ ashita.events.register('text_in', 'xispeakspiper_text', function(e)
     busy = false
 end)
 
-ashita.events.register('packet_in', 'xispeakspiper_zone', function(e)
+ashita.events.register('packet_in', 'xispeaks_zone', function(e)
     -- Correlation only: never record packet payloads or infer dialogue from them.
     if e.id == 0x017 or e.id == 0x032 or e.id == 0x033 or e.id == 0x034
             or e.id == 0x052 or e.id == 0x00A or e.id == 0x00B then
@@ -181,7 +181,7 @@ ashita.events.register('packet_in', 'xispeakspiper_zone', function(e)
     if e.id == 0x00A or e.id == 0x00B then send('stop') end
 end)
 
-ashita.events.register('d3d_present', 'xispeakspiper_poll', function()
+ashita.events.register('d3d_present', 'xispeaks_poll', function()
     if trace then
         if socket.gettime() - trace.started >= 120 or trace.count >= 1000 then
             stop_trace('saved at capture limit')
@@ -213,9 +213,9 @@ ashita.events.register('d3d_present', 'xispeakspiper_poll', function()
     end
 end)
 
-ashita.events.register('command', 'xispeakspiper_command', function(e)
+ashita.events.register('command', 'xispeaks_command', function(e)
     local args = e.command:args()
-    if #args == 0 or (args[1]:lower() ~= '/xispeakspiper' and args[1]:lower() ~= '/xisp') then return end
+    if #args == 0 or (args[1]:lower() ~= '/xispeaks' and args[1]:lower() ~= '/xis') then return end
     e.blocked = true
     local command = (args[2] or 'voices'):lower()
     if command == 'voices' or command == 'ui' then
@@ -225,7 +225,7 @@ ashita.events.register('command', 'xispeakspiper_command', function(e)
         if option == 'off' then stop_trace('saved')
         elseif option == 'on' then start_trace()
         elseif option ~= '' then start_trace(table.concat(args, ' ', 3))
-        else report('/xisp trace on | off | <NPC name>; capture lasts up to 120 seconds.') end
+        else report('/xis trace on | off | <NPC name>; capture lasts up to 120 seconds.') end
     elseif command == 'on' or command == 'off' then
         config.enabled = command == 'on'
         if not config.enabled then send('stop') end
@@ -251,6 +251,6 @@ ashita.events.register('command', 'xispeakspiper_command', function(e)
         config.port = tonumber(args[3]); settings.save(); connect()
         report('Port set to ' .. config.port .. '. Match the companion --port option.')
     else
-        report('/xispeakspiper voices | on | off | stop | status | test | system on/off | port <1024-65535> | trace on/off/<NPC>')
+        report('/xispeaks voices | on | off | stop | status | test | system on/off | port <1024-65535> | trace on/off/<NPC>')
     end
 end)

@@ -12,8 +12,7 @@ if ($LASTEXITCODE) { throw 'A compatible Python is required. Pass -Python with i
 if ($LASTEXITCODE) { throw 'Virtual environment creation failed.' }
 & '.\.venv\Scripts\python.exe' -m pip install -r requirements.txt
 if ($LASTEXITCODE) { throw 'Dependency installation failed.' }
-if (-not (Test-Path -LiteralPath 'config.json')) {
-    Copy-Item -LiteralPath 'config.example.json' -Destination 'config.json'
-}
 & (Join-Path $PSScriptRoot 'setup-rubberband.ps1')
-Write-Host 'Setup complete. Run run.cmd. The first speech-engine startup may download model assets.'
+& '.\.venv\Scripts\python.exe' companion/voice_install.py
+if ($LASTEXITCODE) { throw 'Voice installation failed. Re-run setup to resume.' }
+Write-Host 'Setup complete. Run run.cmd.'

@@ -1,8 +1,6 @@
-RealtimeTTS[kokoro]==0.7.4
-kokoro==0.9.4
-# Kokoro 0.9 uses the Transformers 4 model interfaces.
-transformers==4.57.6
-# Verified Windows tokenizer pair; 3.8.16/3.0.14 failed model loading locally.
-spacy==3.8.14
-preshed==3.0.13
-librosa==0.11.0
+piper-tts==1.8.0
+onnxruntime==1.31.1
+numpy==2.5.4
+scipy==1.18.1
+PyAudio==0.2.14
+librosa==1.0.0

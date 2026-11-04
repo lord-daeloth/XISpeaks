@@ -1,7 +1,7 @@
 addon.name = 'XISpeaks'
 addon.author = 'Daeloth'
-addon.version = '0.10.0'
-addon.desc = 'NPC dialogue speech through a local Kokoro companion.'
+addon.version = '1.0.0'
+addon.desc = 'NPC dialogue speech through a local Piper companion.'
 
 require('common')
 local socket = require('socket')
@@ -215,7 +215,7 @@ end)
 
 ashita.events.register('command', 'xispeaks_command', function(e)
     local args = e.command:args()
-    if #args == 0 or (args[1]:lower() ~= '/xispeaks' and args[1]:lower() ~= '/xis') then return end
+    if #args == 0 or (args[1]:lower() ~= '/xispeaks' and args[1]:lower() ~= '/xis' and args[1]:lower() ~= '/xisp') then return end
     e.blocked = true
     local command = (args[2] or 'voices'):lower()
     if command == 'voices' or command == 'ui' then

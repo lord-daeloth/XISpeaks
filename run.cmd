@@ -6,5 +6,5 @@ if not exist ".venv\Scripts\python.exe" (
     pause
     exit /b 1
 )
-".venv\Scripts\python.exe" companion\service.py %*
+".venv\Scripts\python.exe" companion\piper_service.py %*
 if errorlevel 1 pause

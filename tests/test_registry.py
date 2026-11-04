@@ -116,24 +116,30 @@ class RegistryTests(RegistryFixture):
         self.registry.edit('maat', 'profile', dict(voice='am_michael', speed=1, pitch=0))
         npc = self.registry.edit('maat', 'preset', dict(name='galka', enabled=True))
         self.assertEqual(npc['speed'], .9)
-        self.assertEqual(npc['pitch'], -3.5)
+        self.assertEqual(npc['pitch'], -2.5)
 
     def test_galka_automatic_variation_and_manual_tuning(self):
         self.registry.edit('maat', 'reset')
         self.registry.edit('maat', 'preset', dict(name='galka', enabled=True))
-        for stored, expected in [(-1, -4), (-.5, -4), (0, -3.5), (.5, -3), (1, -3)]:
+        for stored, expected in [(-1, -3), (-.5, -3), (0, -2.5), (.5, -2), (1, -2)]:
             with self.registry.db:
                 self.registry.db.execute("UPDATE npcs SET auto_pitch=? WHERE key='maat'", (stored,))
             npc = self.registry.page(search='maat')['rows'][0]
             self.assertEqual(npc['pitch'], expected)
-            self.assertEqual(npc['base_pitch'], expected + 3.5)
+            self.assertEqual(npc['base_pitch'], expected + 2.5)
             self.assertEqual(npc['auto_pitch'], stored)
         npc = self.registry.edit('maat', 'profile', dict(voice='am_michael', speed=1, pitch=2))
-        self.assertEqual(npc['pitch'], -1.5)
+        self.assertEqual(npc['pitch'], -.5)
         self.assertEqual(npc['base_pitch'], 2)
         self.registry.edit('maat', 'reset_tuning')
         npc = self.registry.edit('maat', 'preset', dict(name='galka', enabled=False))
-        self.assertEqual(npc['pitch'], 1)
+        self.assertEqual(npc['pitch'], .3)
+        for stored in (-1, -.5, 0, .5, 1):
+            with self.registry.db:
+                self.registry.db.execute("UPDATE npcs SET auto_pitch=? WHERE key='maat'", (stored,))
+            npc = self.registry.page(search='maat')['rows'][0]
+            self.assertEqual(npc['auto_pitch'], stored * .3)
+            self.assertEqual(npc['pitch'], stored * .3)
 
     def test_presets_stack_restore_and_persist(self):
         self.registry.encounter('Halver')
@@ -161,7 +167,7 @@ class RegistryTests(RegistryFixture):
         self.assertEqual(npc['pitch'], 4)
         self.assertAlmostEqual(npc['speed'], 1.38)
         npc = self.registry.edit('maat', 'preset', dict(name='galka', enabled=True))
-        self.assertEqual(npc['pitch'], 0.5)
+        self.assertEqual(npc['pitch'], 1.5)
         self.registry.set_globals(2, 2)
         self.assertEqual(self.registry.playback('Maat')['speed'], 2)
         for value in (dict(name='bad', enabled=True), dict(name='child', enabled=1)):

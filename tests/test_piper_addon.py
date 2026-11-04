@@ -16,9 +16,9 @@ class PiperAddonTests(unittest.TestCase):
                 return socket
             end
         ''')
-        lua.execute((ROOT/'addon/XISpeaksPiper/XISpeaksPiper.lua').read_text())
-        lua.execute('''handlers.load(); assert(addon.name=='XISpeaksPiper'); assert(selected_port==49153)
-            local old={command='/xis test'};handlers.command(old);assert(not old.blocked)
+        lua.execute((ROOT/'addon/XISpeaks/XISpeaks.lua').read_text())
+        lua.execute('''handlers.load(); assert(addon.name=='XISpeaks'); assert(selected_port==49152)
+            local old={command='/xis test'};handlers.command(old);assert(old.blocked)
             local new={command='/xisp test'};handlers.command(new);assert(new.blocked)
             handlers.text_in({mode=654,message='Halver : Welcome.'})
             assert(sent[#sent]:find('Halver : Welcome.',1,true))
@@ -27,7 +27,7 @@ class PiperAddonTests(unittest.TestCase):
 
     def test_piper_editor_does_not_offer_blends_or_contributions(self):
         fixture=ui_tests.VoiceUITests();fixture.setUp();lua=fixture.lua
-        module=lua.execute((ROOT/'addon/XISpeaksPiper/voice_ui.lua').read_text())
+        module=lua.execute((ROOT/'addon/XISpeaks/voice_ui.lua').read_text())
         lua.globals().piper_module=module
         lua.execute("ui=piper_module.new(function(wire) table.insert(sent,wire) end,function() return now end,'test'); ui.visible=true; ui.voice_loaded=true")
         fixture.load_list()

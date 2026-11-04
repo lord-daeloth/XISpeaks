@@ -14,6 +14,9 @@ class CatalogTests(unittest.TestCase):
     def test_androgynous_metadata_and_intersection(self):
         data=self.catalog();data['au_both']['npc_types']['goblin']=False
         policy=Policy(data)
+        self.assertIn('am_one',policy.candidates('masculine',{'elvaan':True}))
+        self.assertIn('am_one',policy.candidates('unknown',{'mithra':True}))
+        self.assertNotIn('am_one',policy.candidates('feminine',{'mithra':True}))
         self.assertIn('au_both',policy.candidates('masculine',{'child':True}))
         self.assertIn('au_both',policy.candidates('feminine',{'child':True}))
         self.assertIn('au_both',policy.candidates('unknown',{}))
@@ -79,6 +82,25 @@ class CatalogTests(unittest.TestCase):
                 self.assertEqual(db.voice_catalog['af_two']['gender'],'f')
             finally:db.close()
 
+    def test_preview_resets_session_seed_and_zero_noise(self):
+        from preview import Renderer
+        from types import SimpleNamespace
+        events=[]
+        renderer=Renderer()
+        def pcm(*args):
+            self.assertFalse(renderer.backend.cache)
+            events.append(dict(renderer.backend.synthesis_options))
+            renderer.backend.cache['session']=object()
+            return [np.full(240,1000,dtype='<i2').tobytes()]
+        renderer.backend.pcm=pcm
+        entry=dict(model='test.onnx',speaker_id=None,speed=1,volume=1)
+        with tempfile.TemporaryDirectory() as folder,patch.dict(sys.modules,onnxruntime=SimpleNamespace(set_seed=lambda value:events.append(value))):
+            path=Path(folder)/'sample.wav'
+            renderer.render('am_test',entry,folder,'Hello',path,lambda:False,'fixed',123)
+            renderer.render('am_test',entry,folder,'Hello',path,lambda:False,'zero',999)
+            self.assertEqual(events,[123,{},42,{'noise_scale':0.0,'noise_w_scale':0.0}])
+            with self.assertRaises(ValueError):renderer.render('am_test',entry,folder,'Hello',path,lambda:False,'fixed',-1)
+
     def test_calibration_multiplies_global_speed_and_gain(self):
         import scipy.signal
         from collections import OrderedDict
@@ -92,7 +114,7 @@ class CatalogTests(unittest.TestCase):
             yield SimpleNamespace(audio_int16_bytes=np.full(2400,4000,dtype='<i2').tobytes(),sample_rate=24000)
         fake=SimpleNamespace(PiperVoice=SimpleNamespace(load=lambda *a,**k:SimpleNamespace(synthesize=synth)),SynthesisConfig=SimpleNamespace)
         with patch.dict(sys.modules,piper=fake):parts=list(backend.pcm('Hello','am_test'))
-        self.assertAlmostEqual(scales[0],1/(1.2*.9*.8))
+        self.assertAlmostEqual(scales[0],1/(1.2*.8))
         self.assertAlmostEqual(int(np.frombuffer(parts[0],dtype='<i2')[0]),2000,delta=1)
 
 if __name__=='__main__':unittest.main()

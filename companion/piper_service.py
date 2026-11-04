@@ -1,4 +1,4 @@
-"""Launch the isolated Piper companion. No Kokoro synthesis or stable database access."""
+"""Run the XISpeaks Piper companion."""
 import json
 import hashlib
 import sqlite3
@@ -67,8 +67,6 @@ def migrate_pacing_and_moogles(db,path):
             db.db.execute('INSERT OR IGNORE INTO npcs (key,name,auto_voice,auto_speed,auto_pitch) VALUES (?,?,?,?,?)',
                 (key,item['name'],voice,speed,pitch))
             db.db.execute('UPDATE npcs SET preset_moogle=1,approval=NULL WHERE key=?',(key,))
-        # Preserve the user's experimentally chosen 90% pace after redefining 100%.
-        db.db.execute('UPDATE audio_settings SET speed=1.0 WHERE ABS(speed-0.9)<0.000001')
         db.db.execute('INSERT INTO metadata VALUES (?,?)',(marker,'1'))
 
 
@@ -116,12 +114,15 @@ def create_registry(config,path):
 def main():
     import argparse
     parser=argparse.ArgumentParser();parser.add_argument('--dry-run',action='store_true')
+    parser.add_argument('--port',type=int,default=49152)
     args=parser.parse_args()
     catalog=configure_catalog()
     import service
     from piper_backend import PiperBackend
     import audio_effects
-    audio_effects.RUBBERBAND=ASSETS/'tools/rubberband-4.0.0-gpl-executable-windows/rubberband.exe'
+    from portable import resource_root
+    effects_root = resource_root() if getattr(sys,'frozen',False) else ASSETS
+    audio_effects.RUBBERBAND=effects_root/'tools/rubberband-4.0.0-gpl-executable-windows/rubberband.exe'
     sys.path.insert(0,str(ROOT/'scripts'))
     runtime=ROOT/'piper-runtime';runtime.mkdir(exist_ok=True)
     from voice_catalog import playback_models
@@ -132,7 +133,7 @@ def main():
     speech=service.SpeechQueue(config,service.DryBackend if args.dry_run else PiperBackend,db)
     server=None
     try:
-        server=service.Server(speech,49153,db)
+        server=service.Server(speech,args.port,db)
         server.catalog_reload=CatalogRuntime(db,config).reload
         server.run(threading.Event())
     except KeyboardInterrupt:pass
