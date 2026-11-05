@@ -1,5 +1,9 @@
 # XISpeaks
 
+<p align="center">
+  <img src="assets/branding/xispeaks-logo.png" alt="XISpeaks logo" width="280">
+</p>
+
 XISpeaks reads Final Fantasy XI NPC dialogue aloud with local Piper voices. The Ashita addon captures NPC lines and sends them to a companion on your PC. The Piper server beta supports **Windows x64 only**.
 
 ## Install and play
