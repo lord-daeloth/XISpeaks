@@ -27,7 +27,7 @@ def digest(file):
 def main():
     dist=ROOT/'dist'
     dist.mkdir(exist_ok=True)
-    archive=dist/'XISpeaks-windows-x64-v1.0.0-beta.1.zip'
+    archive=dist/'XISpeaks-windows-x64-v1.0.0-beta.2.zip'
     with tempfile.TemporaryDirectory(dir=ROOT/'build') as temp:
         stage=Path(temp)/'XISpeaks'
         shutil.copytree(ROOT/'addon/XISpeaks',stage)

@@ -10,7 +10,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'companion'))
-from registry import VOICES, choose_voice, name_key
+from registry import name_key
 
 RACES = {1: ('hume','masculine'), 2: ('hume','feminine'),
          3: ('elvaan','masculine'), 4: ('elvaan','feminine'),
@@ -82,7 +82,6 @@ def apply_reviewed_overrides(document, overrides):
             entry['model_classification'] = dict(status=previous['status'], profile=previous['profile'])
         entry.update(override)
         entry.setdefault('entities', [])
-        entry['suggested_voice'] = choose_voice(key, override['profile']['preference'], [v for v in VOICES if v.startswith('b')] if override['profile']['race']=='elvaan' else VOICES)
         document['associations'][key] = entry
     for key, decision in overrides.get('unresolved', {}).items():
         if key in document['associations']:
@@ -144,7 +143,6 @@ def generate(source, output):
         status, profile = resolve(entries)
         counts[status] += 1
         associations[key] = dict(name=entries[0]['name'], status=status, profile=profile,
-                                 suggested_voice=choose_voice(key, profile['preference'] if profile else 'unknown', [v for v in VOICES if v.startswith('b')] if profile and profile['race'] == 'elvaan' else VOICES),
                                  entities=entries)
     document = dict(schema=1, source='https://github.com/LandSandBoat/server', revision=revision,
         rules='Only confirmed entries are eligible for import; partial/unknown/conflicting names require review.',
