@@ -2,10 +2,6 @@
 
 XISpeaks reads Final Fantasy XI NPC dialogue aloud with local Piper voices. The Ashita addon captures NPC lines and sends them to a companion on your PC. The Piper server beta supports **Windows x64 only**.
 
-[![Watch XISpeaks read NPC dialogue aloud](docs/media/xispeaks-demo.jpg)](https://github.com/lord-daeloth/XISpeaks/blob/main/docs/media/xispeaks-demo.mp4)
-
-**[Watch the demo with sound (1 minute 55 seconds)](https://github.com/lord-daeloth/XISpeaks/blob/main/docs/media/xispeaks-demo.mp4)**
-
 ## Install and play
 
 1. Download the Windows ZIP from [the Piper beta release](https://github.com/lord-daeloth/XISpeaks/releases/tag/v1.0.0-beta.2). Close the previous companion and unload the previous addon. When upgrading from Kokoro, move the old XISpeaks folder to a backup location before extracting.
