@@ -18,3 +18,7 @@ build-release.log
 /piper-runtime/
 
 /voice_editor/output/
+
+/pocket-development.json
+/pocket_voices/
+/pocket-runtime/

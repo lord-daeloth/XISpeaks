@@ -212,8 +212,13 @@ class SpeechQueue:
                     # One failed voice download must not disable every NPC.
                     self.last_error = str(exc)[:300]
                     LOG.exception('Voice playback failed: %s', voice)
-                    if hasattr(backend, 'stream'):
-                        backend.stream.stop()
+                    stream = getattr(backend, 'stream', None)
+                    if stream is not None:
+                        if hasattr(stream, 'stop_stream'):
+                            stream.stop_stream()
+                            stream.start_stream()
+                        elif hasattr(stream, 'stop'):
+                            stream.stop()
                 with self.condition:
                     self.state = 'ready'
         except Exception:
