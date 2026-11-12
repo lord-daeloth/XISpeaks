@@ -6,13 +6,13 @@ XISpeaks reads Final Fantasy XI NPC dialogue aloud using local **Pocket TTS Engl
 
 ## Install beta 3
 
-1. Download the **app ZIP and both voice ZIPs** from [the latest release](https://github.com/lord-daeloth/XISpeaks/releases/latest). Extract all three into the same Ashita addons directory. They combine into one **XISpeaks** folder. With CatsEyeXI/VanaCore, the usual path is `D:\Games\CatsEyeXi\catseyexi-client\Vanacore\addons\ashita\XISpeaks`; standalone Ashita users should use their own `addons\XISpeaks` directory.
+1. Download the **app ZIP and both voice ZIPs** from [the latest release](https://github.com/lord-daeloth/XISpeaks/releases/latest). Extract all three into the same Ashita addons directory. They combine into one **XISpeaks** folder. With CatsEyeXI/VanaCore, the usual path is `[Install Drive:]\Games\CatsEyeXi\catseyexi-client\Vanacore\addons\ashita\XISpeaks`; standalone Ashita users should use their own `addons\XISpeaks` directory.
 2. Run **START-XISpeaks.cmd** inside that folder and keep the companion running. The package includes the EXE, runtime, public model, tokenizer, and curated voices. No Python installation, Hugging Face account, model access agreement, or first-run voice download is needed for playback.
 3. In game: `/addon load XISpeaks`, then `/xis test`. Use `/xis voices` to edit NPC voices, `/xis stop` to interrupt speech, and `/xis status` to check the connection. The default local UDP port is 49152.
 
 **CatsEyeXI Launcher auto-start:** Settings → Companion Apps → add **START-XISpeaks.cmd** → check **Auto-Start**. The companion then starts when the launcher opens.
 
-**Upgrading:** Close the old companion and unload its addon. Back up the old XISpeaks folder, then extract into a fresh folder; do not overlay a Piper installation. Piper voice assignments cannot be reused with Pocket. From the Pocket test build, unload XISpeaksPocket and copy only `companion/pocket-runtime/npcs.sqlite3` (with the companion closed) into the new `companion/pocket-runtime` directory if you want your personal history/overrides. Do not copy the old voice folder over the curated beta catalog. The addon is now named XISpeaks and uses `/xis` instead of `/xispt`.
+**Upgrading:** Close the old companion and unload its addon. Back up the old XISpeaks folder, then extract into a fresh folder; do not overlay a Piper installation. Piper voice assignments cannot be reused with Pocket. 
 
 **Uninstall:** `/addon unload XISpeaks`, close the companion, remove its launcher auto-start entry if configured, and delete the XISpeaks folder. Back up `companion/pocket-runtime` first if keeping personal settings.
 
