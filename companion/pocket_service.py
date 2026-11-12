@@ -1,4 +1,4 @@
-"""Isolated XISpeaks Pocket 18M companion, localhost UDP 49154."""
+"""Isolated XISpeaks Pocket 18M companion, localhost UDP 49152."""
 import argparse
 import hashlib
 import json
@@ -22,17 +22,14 @@ def create_registry(config,path):
     if not db.db.execute("SELECT 1 FROM metadata WHERE key='pocket_seed_v1'").fetchone():
         import_catalog(db,json.loads((ROOT/'data/npc_associations.json').read_text()))
         corrections=json.loads((ROOT/'data/release_npc_overrides.json').read_text())
-        for item in corrections['npcs']:
-            for field in ('manual_voice','manual_speed','manual_pitch','approval'):item[field]=None
         apply_overrides(db,corrections)
         from piper_service import migrate_pacing_and_moogles
         migrate_pacing_and_moogles(db,path)
-        db.encounter('Halver')
-        db.edit('halver','voice','am_halver_long')
         with db.db:
-            db.db.execute("UPDATE npcs SET last_seen=0,encounters=0 WHERE key='halver'")
             db.db.execute("INSERT INTO metadata VALUES ('pocket_seed_v1','1')")
         db.set_globals(1,1,'rubberband')
+    with db.db:
+        db.db.execute("UPDATE npcs SET manual_voice=NULL,approval=NULL WHERE manual_voice IN ('am_halver_long','am_halver_short')")
     return db
 
 
@@ -71,7 +68,7 @@ class CatalogReload:
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--port',type=int,default=49154)
+    parser.add_argument('--port',type=int,default=49152)
     parser.add_argument('--dry-run',action='store_true')
     args=parser.parse_args()
     if not 1024<=args.port<=65535:parser.error('Invalid port')

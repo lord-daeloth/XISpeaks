@@ -22,3 +22,6 @@ build-release.log
 /pocket-development.json
 /pocket_voices/
 /pocket-runtime/
+/pocket_studio/output/
+
+/experiments/pocket_tts/output/

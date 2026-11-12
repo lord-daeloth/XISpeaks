@@ -12,13 +12,14 @@ catalog=pocket_catalog.load(VOICES/'catalog.json')
 registry.VOICES[:]=sorted(catalog);registry.BLENDING_ENABLED=False
 config=dict(service.DEFAULTS,voice='bf_alba',voice_pool=list(catalog),voice_catalog=catalog)
 db=create_registry(config,':memory:')
-assert db.voice_for('Halver')=='am_halver_long'
+assert db.voice_for('Halver') in catalog
 assert db.db.execute('select count(*) from npcs').fetchone()[0]>=3700
 backend=PocketBackend(config)
+assert not backend.model.has_voice_cloning
 out=root/'build/pocket-smoke';out.mkdir(parents=True,exist_ok=True)
 text='Welcome, adventurer. There is much we have yet to discover beyond these walls.'
 lengths=[]
-for name,voice,speed,pitch in [('neutral','bf_alba',1,0),('volunteer','am_halver_long',1,0),('galka','am_halver_long',.9,-2.5)]:
+for name,voice,speed,pitch in [('neutral','bf_alba',1,0),('volunteer','bf_alba',1,0),('galka','bf_alba',.9,-2.5)]:
     backend.configure(speed,pitch,1)
     start=time.perf_counter();data=b''.join(backend.pcm(text,voice))
     assert len(data)>24000 and any(data)

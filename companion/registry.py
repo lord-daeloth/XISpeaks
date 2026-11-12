@@ -3,6 +3,7 @@ import hashlib
 import json
 from contextlib import closing
 import math
+import secrets
 import re
 from pathlib import Path
 import sqlite3
@@ -363,6 +364,13 @@ class Registry:
             if action == 'voice':
                 validate_voice(value)
                 self.db.execute('UPDATE npcs SET manual_voice=? WHERE key=?', (value, key))
+            elif action == 'random_eligible':
+                if not self.voice_policy:raise ValueError('Random eligible voice requires a catalog policy')
+                presets={name:bool(row['preset_'+name]) for name in PRESETS}
+                choices=self.voice_policy.candidates(row['preference'],presets)
+                if not choices:raise ValueError('No eligible voices match this NPC. Check catalog flags and NPC preferences.')
+                voice=secrets.choice(choices)
+                self.db.execute('UPDATE npcs SET manual_voice=? WHERE key=?',(voice,key))
             elif action == 'profile':
                 if not isinstance(value, dict):
                     raise ValueError('Invalid voice profile')

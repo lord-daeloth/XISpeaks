@@ -1,6 +1,1 @@
-piper-tts==1.8.0
-onnxruntime==1.31.1
-numpy==2.5.4
-scipy==1.18.1
-PyAudio==0.2.14
-librosa==1.0.0
+-r packaging/requirements-pocket-build.txt

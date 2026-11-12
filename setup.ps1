@@ -6,13 +6,11 @@ if (-not $Python) {
     if (Test-Path -LiteralPath $candidate) { $Python = $candidate }
     else { $Python = 'python' }
 }
-& $Python -c 'import sys; assert (3,10) <= sys.version_info[:2] < (3,13) and sys.maxsize > 2**32, "Use 64-bit Python 3.10-3.12"'
+& $Python -c 'import sys; assert sys.version_info[:2] == (3,12) and sys.maxsize > 2**32, "Use 64-bit Python 3.12"'
 if ($LASTEXITCODE) { throw 'A compatible Python is required. Pass -Python with its full path.' }
 & $Python -m venv .venv
 if ($LASTEXITCODE) { throw 'Virtual environment creation failed.' }
-& '.\.venv\Scripts\python.exe' -m pip install -r requirements.txt
+& '.\.venv\Scripts\python.exe' -m pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements.txt
 if ($LASTEXITCODE) { throw 'Dependency installation failed.' }
 & (Join-Path $PSScriptRoot 'setup-rubberband.ps1')
-& '.\.venv\Scripts\python.exe' companion/voice_install.py
-if ($LASTEXITCODE) { throw 'Voice installation failed. Re-run setup to resume.' }
-Write-Host 'Setup complete. Run run.cmd.'
+Write-Host 'Dependencies ready. Copy models and pocket_voices from the beta release into the project root, then run run.cmd.'

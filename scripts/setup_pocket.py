@@ -30,13 +30,6 @@ def main():
         target=VOICES/(name+'.safetensors')
         if not target.exists():shutil.copyfile(source,target)
         catalog.setdefault(key,normalize(key,dict(model=target.name,engine_model=MODEL,label=name.title(),gender=gender,accent=accent)))
-    for variant in ('long','short'):
-        source=ASSETS/f'experiments/pocket_tts/output/likeness/{MODEL}-{variant}.safetensors'
-        target=VOICES/f'halver-{variant}.safetensors'
-        if not source.is_file():raise FileNotFoundError('Run the likeness comparison first: '+str(source))
-        if not target.exists():shutil.copyfile(source,target)
-        key='am_halver_'+variant
-        catalog.setdefault(key,normalize(key,dict(model=target.name,engine_model=MODEL,label='Halver volunteer ('+variant+' reference)',automatic=False)))
     temp=path.with_suffix('.tmp')
     temp.write_text(json.dumps(catalog,indent=2)+'\n')
     temp.replace(path)

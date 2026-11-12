@@ -15,24 +15,26 @@ def measure(pcm,rate=24000):
 
 class Renderer:
     def __init__(self):
-        from piper_backend import PiperBackend
-        self.backend=PiperBackend.__new__(PiperBackend)
-        self.backend.cache=OrderedDict();self.backend.models={};self.backend.configure(1,0,1)
+        self.backend=None
     def render(self,key,entry,folder,text,path,cancelled,mode="fixed",seed=42):
-        from voice_catalog import playback_models
-        import onnxruntime
+        import hashlib
+        import torch
+        from pocket_backend import PocketBackend
         if mode not in ('fixed','zero'):raise ValueError('Unknown preview noise mode')
-        if not isinstance(seed,int) or not 0<=seed<=2147483647:
-            raise ValueError('Seed must be an integer from 0 to 2147483647')
-        # Random operators own session-local state. Reset the seed BEFORE creating
-        # a fresh session; reusing a cached session would advance its random stream.
-        self.backend.cache.clear()
-        onnxruntime.set_seed(seed if mode=='fixed' else 42)
-        self.backend.synthesis_options={'noise_scale':0.0,'noise_w_scale':0.0} if mode=='zero' else {}
-        self.backend.models=playback_models({key:entry},folder)
-        data=b''.join(self.backend.pcm(text,key,cancelled))
+        if type(seed) is not int or not 0<=seed<=2147483647:raise ValueError('Invalid seed')
+        entry=dict(entry,sound_revision=hashlib.sha256((Path(folder)/entry['model']).read_bytes()).hexdigest())
+        if self.backend is None:self.backend=PocketBackend({'voice_catalog':{}},voice_folder=folder)
+        self.backend.voice_folder=Path(folder)
+        self.backend.config['voice_catalog']={key:entry}
+        self.backend.configure(1,0,1)
+        torch.manual_seed(seed if mode=='fixed' else 42)
+        normal_temp=self.backend.model.temp
+        try:
+            if mode=='zero':self.backend.model.temp=0
+            data=b''.join(self.backend.pcm(text,key,cancelled))
+        finally:self.backend.model.temp=normal_temp
         if cancelled():return None
         if not data:raise ValueError('No speech generated')
         with wave.open(str(path),'wb') as output:
-            output.setparams((1,2,24000,0,'NONE','not compressed'));output.writeframes(data)
-        return measure(data)
+            output.setparams((1,2,self.backend.rate,0,'NONE','not compressed'));output.writeframes(data)
+        return measure(data,self.backend.rate)

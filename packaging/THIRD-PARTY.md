@@ -1,7 +1,21 @@
-# Third-party software and models
+# XISpeaks beta 3 distribution
 
-XISpeaks is GPL-3.0-or-later. The Windows build uses [Piper 1.8.0](https://github.com/OHF-Voice/piper1-gpl/tree/v1.8.0) (GPL-3.0-or-later) and the eSpeak NG revision pinned by that release. [Rubber Band 4.0.0](https://breakfastquay.com/rubberband/) supplies the R3 pitch effect. Their source archives accompany the release, together with libsndfile source. Python, ONNX Runtime, PyAudio, NumPy, SciPy, librosa and their dependencies retain their respective licenses. See the licenses directory in the ZIP.
+XISpeaks code is GPL-3.0-or-later. Pocket TTS 4.0.1 by Kyutai is MIT;
+the public English 18M model and tokenizer carry CC BY 4.0, and are distributed
+unchanged. Model source: https://huggingface.co/kyutai/pocket-tts-without-voice-cloning
+Pinned model revision: a7056f505a4a8ca72d8b5fb1440071d6f1a35739.
+Tokenizer revision: 08ffc58775e62aad9409511b9591c9af626270f3.
 
-The bundled English LibriTTS high voice was trained from scratch on LibriTTS train-clean-360. The model card credits [LibriTTS](https://www.openslr.org/60/) (CC BY 4.0, Heiga Zen and collaborators). XISpeaks distributes the original model unchanged. [Model card](https://huggingface.co/rhasspy/piper-voices/blob/e7229f7d33a10e145e109b886d661984201ac3c4/en/en_US/libritts/high/MODEL_CARD) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Voice states are generated adaptations of recordings in Kyutai's tts-voices
+collection. The pinned source URL and license for each imported profile are in
+companion/pocket_voices/sources.json and catalog.json. See VOICE-LICENSES.md.
+Voice licenses apply separately from the program's GPL license. Expresso and
+EARS profiles are CC BY-NC 4.0; this curated beta pack includes them and is
+not a commercial-use voice pack. Original collection attribution is reproduced
+in licenses/UPSTREAM-VOICES.md. Custom profiles retain their supplied credit and permission notes in VOICE-LICENSES.md; they must not be described as volunteer recordings unless that is documented.
 
-Other weights are obtained from [the upstream Piper collection](https://huggingface.co/rhasspy/piper-voices/tree/e7229f7d33a10e145e109b886d661984201ac3c4/en). Consult each model card under companion/data/piper-model-info before use. Terms vary by model and dataset, and some restrict commercial use. The XISpeaks license covers its code.
+Rubber Band 4.0.0 by Breakfast Quay is GPL; its source archive and binary notices
+are included. libsndfile 1.2.2 source is included alongside it. Python, PyTorch,
+NumPy, SciPy, PyAudio, librosa, SentencePiece, safetensors, and other dependencies
+retain their own licenses, reproduced under licenses/. packages.json records
+the build environment. No Piper models or gated cloning weights are included.

@@ -634,16 +634,17 @@
     {
       "name": "Halver",
       "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
+      "manual_voice": "bm_ardbert_joe_dempsie_1",
+      "manual_speed": 1.0,
+      "manual_pitch": 0.0,
       "approval": null,
       "preset_goblin": 0,
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Ilgusin",
@@ -672,6 +673,21 @@
       "preset_mithra": 0,
       "preset_elvaan": 0,
       "preset_tarutaru": 0
+    },
+    {
+      "name": "Jufaue",
+      "preference": "feminine",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 1,
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Katharina",
@@ -1024,6 +1040,21 @@
       "preset_tarutaru": 0
     },
     {
+      "name": "Pursuivant",
+      "preference": "masculine",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 1,
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
+    },
+    {
       "name": "Quemaricond",
       "preference": "masculine",
       "manual_voice": null,
@@ -1250,16 +1281,17 @@
     {
       "name": "Trion",
       "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
+      "manual_voice": "bm_alphinaud_leveilleur_colin_ryan_2",
+      "manual_speed": 1.0,
+      "manual_pitch": 0.0,
       "approval": null,
       "preset_goblin": 0,
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Tsugumi",
@@ -1274,6 +1306,21 @@
       "preset_mithra": 0,
       "preset_elvaan": 0,
       "preset_tarutaru": 0
+    },
+    {
+      "name": "Valderotaux",
+      "preference": "masculine",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 1,
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Vijartal",

@@ -1,7 +1,7 @@
 addon.name = 'XISpeaks'
 addon.author = 'Daeloth'
-addon.version = '1.0.0-beta.2'
-addon.desc = 'NPC dialogue speech through a local Piper companion.'
+addon.version = '1.0.0-beta.3'
+addon.desc = 'NPC dialogue speech through a local Pocket 18M companion.'
 
 require('common')
 local socket = require('socket')

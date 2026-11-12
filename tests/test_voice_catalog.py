@@ -11,6 +11,23 @@ from preview import measure
 class CatalogTests(unittest.TestCase):
     def catalog(self):
         return {key:normalize(key,dict(model='test.onnx',gender=gender)) for key,gender in [('am_one','m'),('af_two','f'),('au_both','a')]}
+    def test_random_eligible_uses_policy_and_keeps_tuning(self):
+        import service
+        data=self.catalog();data['am_one']['automatic']=False
+        with patch.object(registry,'VOICES',list(data)),patch.object(registry,'BLENDING_ENABLED',False):
+            db=registry.Registry(':memory:',dict(service.DEFAULTS,voice='am_one',voice_pool=list(data),voice_catalog=data))
+            try:
+                db.encounter('Npc');db.edit('npc','preference','masculine')
+                db.edit('npc','profile',dict(voice='af_two',speed=.9,pitch=-1))
+                result=db.edit('npc','random_eligible')
+                self.assertEqual(result['voice'],'au_both')
+                self.assertEqual(result['base_speed'],.9);self.assertEqual(result['base_pitch'],-1)
+                data['au_both']['npc_types']['goblin']=False
+                db.edit('npc','preset',dict(name='goblin',enabled=True))
+                with self.assertRaisesRegex(ValueError,'No eligible'):db.edit('npc','random_eligible')
+                self.assertEqual(db.voice_for('Npc'),'au_both')
+            finally:db.close()
+
     def test_androgynous_metadata_and_intersection(self):
         data=self.catalog();data['au_both']['npc_types']['goblin']=False
         policy=Policy(data)
@@ -87,18 +104,19 @@ class CatalogTests(unittest.TestCase):
         from types import SimpleNamespace
         events=[]
         renderer=Renderer()
+        renderer.backend=SimpleNamespace(config={},model=SimpleNamespace(temp=.3),rate=24000,configure=lambda *args:None)
         def pcm(*args):
-            self.assertFalse(renderer.backend.cache)
-            events.append(dict(renderer.backend.synthesis_options))
-            renderer.backend.cache['session']=object()
+            events.append(renderer.backend.model.temp)
             return [np.full(240,1000,dtype='<i2').tobytes()]
         renderer.backend.pcm=pcm
-        entry=dict(model='test.onnx',speaker_id=None,speed=1,volume=1)
-        with tempfile.TemporaryDirectory() as folder,patch.dict(sys.modules,onnxruntime=SimpleNamespace(set_seed=lambda value:events.append(value))):
+        entry=dict(model='test.safetensors',speaker_id=None,speed=1,volume=1)
+        with tempfile.TemporaryDirectory() as folder,patch.dict(sys.modules,torch=SimpleNamespace(manual_seed=lambda value:events.append(value))):
+            (Path(folder)/entry['model']).write_bytes(b'fixture')
             path=Path(folder)/'sample.wav'
             renderer.render('am_test',entry,folder,'Hello',path,lambda:False,'fixed',123)
             renderer.render('am_test',entry,folder,'Hello',path,lambda:False,'zero',999)
-            self.assertEqual(events,[123,{},42,{'noise_scale':0.0,'noise_w_scale':0.0}])
+            self.assertEqual(events,[123,.3,42,0])
+            self.assertEqual(renderer.backend.model.temp,.3)
             with self.assertRaises(ValueError):renderer.render('am_test',entry,folder,'Hello',path,lambda:False,'fixed',-1)
 
     def test_calibration_multiplies_global_speed_and_gain(self):

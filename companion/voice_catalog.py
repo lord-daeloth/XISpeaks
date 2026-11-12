@@ -78,13 +78,14 @@ class Policy:
         return candidates[int.from_bytes(digest[:8],'big')%len(candidates)]
 
 class Store:
+    validate = staticmethod(validate)
     def __init__(self,path):self.path=Path(path);self.reload()
     def reload(self):
-        self.catalog=load(self.path);self.digest=hashlib.sha256(self.path.read_bytes()).hexdigest()
+        self.catalog=self.validate(json.loads(self.path.read_text(encoding='utf-8-sig')),self.path.parent);self.digest=hashlib.sha256(self.path.read_bytes()).hexdigest()
         removed=self.path.with_name('catalog-removed.json')
         self.removed=set(json.loads(removed.read_text()) if removed.exists() else [])
     def save(self,catalog,removed=None):
-        catalog=validate(catalog,self.path.parent)
+        catalog=self.validate(catalog,self.path.parent)
         if hashlib.sha256(self.path.read_bytes()).hexdigest()!=self.digest:raise ValueError('Catalog changed in another app. Reload before saving; your draft has not overwritten it.')
         for key,entry in catalog.items():
             old=self.catalog.get(key)

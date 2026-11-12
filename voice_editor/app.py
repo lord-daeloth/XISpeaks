@@ -1,4 +1,4 @@
-"""Standalone editor for Piper voices, eligibility, calibration and previews."""
+"""Standalone editor for Pocket voices, eligibility, calibration and previews."""
 import copy
 import json
 import queue
@@ -11,23 +11,24 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog,messagebox,ttk
 import winsound
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(sys.executable).resolve().parent if getattr(sys,'frozen',False) else Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/'companion'),str(ROOT/'piper_trainer')]
-from paths import VOICES
-from voice_catalog import Store,NPC_TYPES,normalize,validate
+from pocket_paths import VOICES, MODEL
+from voice_catalog import NPC_TYPES,normalize
+from pocket_catalog import Store,validate,validate_state
 from preview import Renderer
 
 GENDER_LABELS={'m':'Masculine (m)','f':'Feminine (f)','a':'Androgynous (a)','u':'Unknown (u)'}
 ACCENT_LABELS={'a':'US / Canada','b':'UK / Ireland','x':'Other / unknown'}
 TYPE_LABELS={kind:kind.title() for kind in NPC_TYPES}|{'other':'Other / no NPC preset (includes Hume)'}
-OUTPUT=ROOT/'voice_editor/output'
+OUTPUT=ROOT/'pocket-runtime/catalog-previews'
 
 class Editor:
     def __init__(self,root,path=VOICES/'catalog.json'):
-        self.root=root;self.store=Store(path);self.catalog=copy.deepcopy(self.store.catalog);self.removed=set(self.store.removed)
+        self.root=root;self.store=Store(path,prune_missing=True);self.catalog=copy.deepcopy(self.store.catalog);self.removed=set(self.store.removed)
         self.selected=None;self.loading=False;self.dirty=False;self.busy=False;self.cancel=threading.Event();self.events=queue.Queue();self.renderer=None;self.generation=0
-        root.title('XISpeaks - Piper Voice Catalog');root.geometry(f'{min(1190,root.winfo_screenwidth()-80)}x{min(860,root.winfo_screenheight()-80)}');root.minsize(960,650)
-        self.status=tk.StringVar(value='Choose a voice to edit. Save catalog applies changes to the running companion.')
+        root.title('XISpeaks - Pocket Voice Catalog');root.geometry(f'{min(1190,root.winfo_screenwidth()-80)}x{min(860,root.winfo_screenheight()-80)}');root.minsize(960,650)
+        self.status=tk.StringVar(value=self.catalog_status('Catalog: '+str(self.store.path)))
         self.stats=tk.StringVar(value='Preview a sample to measure its digital peak level and duration.')
         self.noise_mode=tk.StringVar(value='fixed');self.seed=tk.StringVar(value='42')
         self.search=tk.StringVar();self.gender_filter=tk.StringVar(value='All genders')
@@ -35,10 +36,10 @@ class Editor:
         self.type_filters={kind:tk.BooleanVar() for kind in NPC_TYPES}
         self.type_filter_label=tk.StringVar(value='All NPC types')
         self.label=tk.StringVar();self.gender=tk.StringVar();self.accent=tk.StringVar();self.automatic=tk.BooleanVar()
-        self.speed=tk.StringVar(value='100');self.volume=tk.StringVar(value='100');self.model=tk.StringVar();self.speaker=tk.StringVar()
+        self.speed=tk.StringVar(value='100');self.volume=tk.StringVar(value='100');self.model=tk.StringVar();self.speaker=tk.StringVar(value=MODEL)
         self.flags={kind:tk.BooleanVar(value=True) for kind in NPC_TYPES}
         outer=ttk.Frame(root,padding=12);outer.pack(fill='both',expand=True)
-        ttk.Label(outer,text='Piper Voice Catalog',font=('Segoe UI',19,'bold')).pack(anchor='w')
+        ttk.Label(outer,text='Pocket Voice Catalog',font=('Segoe UI',19,'bold')).pack(anchor='w')
         ttk.Label(outer,text='Edit voice properties, audition a sample, then save. Voice IDs remain stable when gender changes.').pack(anchor='w',pady=(0,10))
         toolbar=ttk.Frame(outer);toolbar.pack(fill='x',pady=(0,8))
         for text,command in [('Add voice…',self.add_voice),('Remove selected',self.remove_voice),('Save catalog',self.save),('Reload from disk',self.reload)]:
@@ -94,7 +95,7 @@ class Editor:
         self.identity=tk.StringVar(value='No voice selected')
         ttk.Label(right,textvariable=self.identity,font=('Segoe UI',12,'bold')).pack(anchor='w')
         form=ttk.Frame(right);form.pack(fill='x',pady=6);form.columnconfigure(1,weight=1)
-        fields=[('Label',self.label),('Model file',self.model),('Speaker ID (blank for a single speaker)',self.speaker)]
+        fields=[('Label',self.label),('Voice state file',self.model)]
         for row,(title,var) in enumerate(fields):
             ttk.Label(form,text=title).grid(row=row,column=0,sticky='w',padx=(0,8),pady=3)
             if var is self.model:
@@ -112,7 +113,7 @@ class Editor:
         for i,(title,var,low,high) in enumerate([('Volume (%)',self.volume,0,300),('Speed (%)',self.speed,50,200)]):
             ttk.Label(tuning,text=title).grid(row=i,column=0,sticky='w',padx=6,pady=3)
             ttk.Spinbox(tuning,from_=low,to=high,increment=1,textvariable=var,width=12).grid(row=i,column=1,sticky='w')
-        ttk.Label(tuning,text='100% is neutral. Applied in addition to NPC presets and global controls.\nPreview uses global 100%, no race effect, and native Piper pace.',wraplength=570).grid(row=2,column=0,columnspan=2,sticky='w',pady=5)
+        ttk.Label(tuning,text='100% is neutral. Applied in addition to NPC presets and global controls.\nPreview uses global 100%, no race effect, and native Pocket pace.',wraplength=570).grid(row=2,column=0,columnspan=2,sticky='w',pady=5)
         controls=ttk.Frame(right);controls.pack(fill='x')
         ttk.Button(controls,text='Preview voice',command=self.preview).pack(side='left')
         ttk.Button(controls,text='Stop',command=self.stop).pack(side='left',padx=6)
@@ -132,7 +133,7 @@ class Editor:
             state='normal' if self.noise_mode.get()=='fixed' else 'disabled'
             self.seed_entry.configure(state=state);self.seed_button.configure(state=state)
         self.noise_mode.trace_add('write',noise_changed)
-        ttk.Label(noise,text='Use the same text, mode and seed across voices. Zero noise removes random variation; delivery still differs by voice. Preview reloads the model each time.',wraplength=570).grid(row=2,column=0,columnspan=3,sticky='w',pady=4)
+        ttk.Label(noise,text='Use the same text, mode and seed across voices. Fixed mode is recommended for comparisons. Zero noise uses temperature 0 and may distort delivery or fail to finish naturally. The model stays loaded.',wraplength=570).grid(row=2,column=0,columnspan=3,sticky='w',pady=4)
         ttk.Separator(outer).pack(fill='x',pady=8)
         ttk.Label(outer,textvariable=self.status,wraplength=1130).pack(anchor='w')
         self.search.trace_add('write',lambda *args:self.refresh())
@@ -142,7 +143,11 @@ class Editor:
             var.trace_add('write',self.changed)
         root.protocol('WM_DELETE_WINDOW',self.close);root.after(100,self.poll);self.refresh()
 
-    def models(self):return sorted(p.name for p in self.store.path.parent.glob('*.onnx'))
+    def models(self):return sorted(p.name for p in self.store.path.parent.glob('*.safetensors'))
+    def catalog_status(self,message):
+        if self.store.missing_removed:
+            return f'Removed {len(self.store.missing_removed)} voices with missing files; original catalog saved in catalog-backups. '+message
+        return message
     def error(self,exc):messagebox.showerror('Voice catalog',str(exc),parent=self.root)
     def changed(self,*args):
         if not self.loading and self.selected:
@@ -150,7 +155,7 @@ class Editor:
     def draft(self):
         if not self.selected:raise ValueError('Select a voice first')
         entry=copy.deepcopy(self.catalog[self.selected])
-        entry.update(label=self.label.get().strip(),model=self.model.get(),speaker_id=int(self.speaker.get()) if self.speaker.get().strip() else None,
+        entry.update(label=self.label.get().strip(),model=self.model.get(),speaker_id=None,
             gender=next(k for k,v in GENDER_LABELS.items() if v==self.gender.get()),
             accent=next(k for k,v in ACCENT_LABELS.items() if v==self.accent.get()),automatic=self.automatic.get(),
             volume=float(self.volume.get())/100,speed=float(self.speed.get())/100,npc_types={kind:var.get() for kind,var in self.flags.items()})
@@ -235,51 +240,53 @@ class Editor:
         try:
             self.store.reload();self.catalog=copy.deepcopy(self.store.catalog);self.removed=set(self.store.removed)
             self.selected=None;self.dirty=False;self.refresh();self.identity.set('Select a voice');self.model_box['values']=self.models()
-            self.status.set('Catalog reloaded.')
+            self.status.set(self.catalog_status('Catalog reloaded.'))
         except Exception as exc:self.error(exc)
     def remove_voice(self):
-        if not self.selected:return
-        if len(self.catalog)==1:self.error('Keep one catalog entry; you may disable its automatic assignment.');return
-        key=self.selected;self.stop();self.selected=None;del self.catalog[key];self.removed.add(key);self.dirty=True
-        self.identity.set('No voice selected');self.refresh();self.status.set(f'{key} removed from the draft catalog. Save to apply. The shared model file is retained.')
+        keys=list(self.tree.selection())
+        if not keys:return
+        if len(keys)>=len(self.catalog):self.error('Keep one catalog entry; you may disable its automatic assignment.');return
+        self.stop();self.selected=None
+        for key in keys:
+            del self.catalog[key];self.removed.add(key)
+        self.dirty=True;self.identity.set('No voice selected');self.refresh()
+        self.status.set(f'{len(keys)} voices removed from the draft catalog. Save to apply. Voice files are retained.')
     def add_voice(self):
         try:self.stage()
         except Exception as exc:self.error(exc);return
-        dialog=tk.Toplevel(self.root);dialog.title('Add Piper voice');dialog.transient(self.root);dialog.grab_set()
+        dialog=tk.Toplevel(self.root);dialog.title('Add Pocket voice');dialog.transient(self.root);dialog.grab_set()
         frame=ttk.Frame(dialog,padding=16);frame.pack(fill='both',expand=True)
-        key=tk.StringVar(value='au_new_voice');model=tk.StringVar();speaker=tk.StringVar()
-        for row,(title,var) in enumerate([('Stable ID',key),('Model',model),('Speaker ID (blank for single speaker)',speaker)]):
+        key=tk.StringVar(value='au_new_voice');model=tk.StringVar();speaker=tk.StringVar(value=MODEL)
+        for row,(title,var) in enumerate([('Stable ID',key),('Voice state file',model)]):
             ttk.Label(frame,text=title).grid(row=row,column=0,sticky='w',padx=6,pady=6)
             if var is model:
                 model_box=ttk.Combobox(frame,textvariable=var,values=self.models(),state='readonly',width=38);model_box.grid(row=row,column=1)
             else:ttk.Entry(frame,textvariable=var,width=40).grid(row=row,column=1)
-        help_text=tk.StringVar(value='Select a downloaded model, or import an ONNX model with its .onnx.json sidecar.')
+        help_text=tk.StringVar(value='Import a voice state exported for English 18M (2026-10). Other Pocket models are incompatible.')
         ttk.Label(frame,textvariable=help_text,wraplength=520).grid(row=3,column=0,columnspan=2,sticky='w')
         def model_changed(*args):
             try:
-                config=json.loads((self.store.path.parent/(model.get()+'.json')).read_text(encoding='utf-8'))
-                count=config.get('num_speakers',1);speaker.set('0' if count>1 else '')
-                mapping=config.get('speaker_id_map',{})
-                help_text.set(f'{count} speakers; IDs 0–{count-1}. '+', '.join(f'{name}={value}' for name,value in list(mapping.items())[:8]))
+                validate_state(self.store.path.parent/model.get())
+                help_text.set('Compatible English 18M state; one voice per file.')
             except Exception as exc:help_text.set(str(exc))
         model.trace_add('write',model_changed)
         def import_model():
-            source=filedialog.askopenfilename(parent=dialog,filetypes=[('Piper model','*.onnx')])
+            source=filedialog.askopenfilename(parent=dialog,filetypes=[('Pocket 18M voice state','*.safetensors')])
             if not source:return
             try:
-                source=Path(source);config=Path(str(source)+'.json')
-                json.loads(config.read_text(encoding='utf-8'))
+                source=Path(source)
+                validate_state(source)
                 destination=self.store.path.parent/source.name
                 if source.resolve()!=destination.resolve():
-                    if destination.exists() or Path(str(destination)+'.json').exists():raise ValueError('A model with this filename already exists. Rename the imported model and its sidecar first.')
-                    shutil.copyfile(source,destination);shutil.copyfile(config,str(destination)+'.json')
+                    if destination.exists():raise ValueError('A voice state with this filename already exists. Rename the imported file first.')
+                    shutil.copyfile(source,destination)
                 model_box['values']=self.models();self.model_box['values']=self.models();model.set(destination.name)
             except Exception as exc:self.error(exc)
         def add():
             try:
                 identity=key.get().strip()
                 if identity in self.catalog:raise ValueError('That voice ID already exists')
-                item=normalize(identity,dict(model=model.get(),speaker_id=int(speaker.get()) if speaker.get().strip() else None,automatic=False,stock=False))
+                item=normalize(identity,dict(model=model.get(),engine_model=MODEL,speaker_id=None,automatic=False,stock=False))
                 item=validate({identity:item},self.store.path.parent)[identity]
                 self.catalog[identity]=item;self.removed.discard(identity);self.dirty=True
                 self.selected=None;self.clear_type_filters();self.accent_filter.set('All accent groups')
@@ -297,7 +304,7 @@ class Editor:
             if not 0<=seed<=2147483647:raise ValueError('Seed must be between 0 and 2147483647')
             reference=f'Fixed seed {seed}' if mode=='fixed' else 'Zero noise'
             self.stop();self.cancel=threading.Event();cancel=self.cancel;self.busy=True;generation=self.generation
-            OUTPUT.mkdir(exist_ok=True);path=OUTPUT/f'preview-{time.time_ns()}.wav'
+            OUTPUT.mkdir(parents=True,exist_ok=True);path=OUTPUT/f'preview-{time.time_ns()}.wav'
             self.stats.set(f'Generating {key}…')
             def work():
                 try:
@@ -330,6 +337,9 @@ class Editor:
 
 if __name__=='__main__':
     root=tk.Tk()
-    try:Editor(root)
+    try:
+        import argparse
+        parser=argparse.ArgumentParser();parser.add_argument('--catalog',type=Path,default=VOICES/'catalog.json')
+        Editor(root,parser.parse_args().catalog)
     except Exception as exc:messagebox.showerror('Voice catalog',str(exc));root.destroy();raise
     root.mainloop()

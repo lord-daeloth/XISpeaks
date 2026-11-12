@@ -26,6 +26,14 @@ class PocketAddonTests(unittest.TestCase):
             assert(sent[#sent]:find('Halver : Welcome.',1,true))
             handlers.unload()""")
 
+@unittest.skipIf(addon_tests.LuaRuntime is None,'LuaJIT not installed')
+class BetaAddonTests(unittest.TestCase):
+    def test_promoted_name_commands_and_default_port(self):
+        fixture=addon_tests.AddonTests();fixture.setUp();lua=fixture.lua
+        lua.execute("handlers.unload(); sent={}; local old=package.loaded.socket.udp; package.loaded.socket.udp=function() local s=old();s.setpeername=function(self,h,p) selected_port=p end;return s end")
+        lua.execute((ROOT/'addon/XISpeaks/XISpeaks.lua').read_text())
+        lua.execute("handlers.load(); assert(addon.name=='XISpeaks'); assert(addon.version=='1.0.0-beta.3'); assert(selected_port==49152); local e={command='/xis test'};handlers.command(e);assert(e.blocked);handlers.unload()")
+
 class PocketCatalogTests(unittest.TestCase):
     def test_reject_mismatched_state_model_and_escape(self):
         import tempfile
@@ -35,7 +43,9 @@ class PocketCatalogTests(unittest.TestCase):
             directory=Path(folder);(directory/'voice.safetensors').write_bytes(b'fixture')
             path=directory/'catalog.json'
             value={'am_test':dict(model='voice.safetensors',engine_model=MODEL)}
-            path.write_text(json.dumps(value));self.assertIn('am_test',pocket_catalog.load(path))
+            path.write_text(json.dumps(value))
+            with patch.object(pocket_catalog,'validate_state'):
+                self.assertIn('am_test',pocket_catalog.load(path))
             value['am_test']['engine_model']='english_7m_2026-10'
             path.write_text(json.dumps(value))
             with self.assertRaises(ValueError):pocket_catalog.load(path)

@@ -7,19 +7,31 @@ import tempfile
 import threading
 import wave
 import numpy as np
-from pocket_paths import ASSETS, MODEL, VOICES
+from pocket_paths import ASSETS, MODEL, VOICES, ROOT
 
 
 class PocketBackend:
-    def __init__(self, config):
+    def __init__(self, config, voice_folder=None):
+        self.voice_folder=Path(voice_folder) if voice_folder else VOICES
         os.environ['HF_HOME'] = str(ASSETS/'build/pocket-hf')
         os.environ['HF_HUB_OFFLINE'] = '1'
         os.environ['HF_HUB_DISABLE_TELEMETRY'] = '1'
         from pocket_tts import TTSModel
         import pyaudio
-        self.model = TTSModel.load_model(language=MODEL)
-        if not self.model.has_voice_cloning:
-            raise RuntimeError('Pocket 18M cloning weights are required for the volunteer voice.')
+        model_config = Path(__file__).with_name('pocket-public-18m.yaml')
+        if (ROOT/'models/model.safetensors').is_file():
+            import yaml
+            document = yaml.safe_load(model_config.read_text(encoding='utf8'))
+            document['weights_path'] = str(ROOT/'models/model.safetensors')
+            document['weights_path_without_voice_cloning'] = document['weights_path']
+            document['flow_lm']['lookup_table']['tokenizer_path'] = str(ROOT/'models/tokenizer.model')
+            runtime = ROOT/'pocket-runtime'
+            runtime.mkdir(exist_ok=True)
+            model_config = runtime/'model-config.yaml'
+            model_config.write_text(yaml.safe_dump(document), encoding='utf8')
+        self.model = TTSModel.load_model(config=model_config)
+        # Playback accepts exported states, not enrollment from recordings.
+        self.model.has_voice_cloning = False
         self.config = config
         self.states = OrderedDict()
         self.audio = pyaudio.PyAudio()
@@ -37,7 +49,7 @@ class PocketBackend:
         entry = self.config['voice_catalog'][voice]
         signature = (entry['model'], entry['sound_revision'])
         if signature not in self.states:
-            state = self.model.get_state_for_audio_prompt(VOICES/entry['model'])
+            state = self.model.get_state_for_audio_prompt(self.voice_folder/entry['model'])
             self.states[signature] = state
             if len(self.states)>8:
                 self.states.popitem(last=False)

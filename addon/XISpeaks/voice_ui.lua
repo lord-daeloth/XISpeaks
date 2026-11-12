@@ -92,6 +92,24 @@ function M.new(send, clock, session)
                 self.global_dirty = false
             end
         end
+        if action == 'voice_list' and query.random_npc then
+            if not query.random_index then
+                local count=result.voice_total or 0
+                if count < 1 then self.message='No catalog voices available.'; return true end
+                local index=math.random(1,count)-1
+                self:request({action='voice_list', search='', page=math.floor(index/(result.voice_page_size or 20)),
+                    random_npc=query.random_npc, random_index=index, random_revision=result.catalog_revision})
+            else
+                if query.random_revision ~= result.catalog_revision then
+                    self.message='Catalog changed; click Random voice again.'; return true
+                end
+                local offset=query.random_index-(result.voice_page or 0)*(result.voice_page_size or 20)+1
+                local voice=(result.voices or {})[offset]
+                if not voice then self.message='Catalog changed; click Random voice again.'; return true end
+                self:request({action='edit', key=query.random_npc, edit='voice', value=voice})
+            end
+            return true
+        end
         if action == 'voice_list' then
             if query.search == self.voice_search and query.page == self.voice_page then
                 self.voices=result.voices or {}; for key, info in pairs(result.voice_info or {}) do self.voice_info[key]=info end; self.voice_total=result.voice_total or 0; self.voice_page=result.voice_page or 0; self.voice_page_size=result.voice_page_size or 40; self.voice_loaded=true
@@ -157,7 +175,7 @@ function M.new(send, clock, session)
         local review = self.review
         if review and self.review_enabled and not self.visible then
             imgui.SetNextWindowSize({410, 150}, ImGuiCond_FirstUseEver)
-            if imgui.Begin('XISpeaks - Review voice', nil, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
+            if imgui.Begin('XISpeaks Pocket 18M - Review voice', nil, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
                 imgui.Text(review.name .. ' | ' .. tostring(self.review_count) .. ' pending')
                 imgui.TextWrapped(review.voice)
                 for i, item in ipairs({{'Approve','approve'}, {'Edit voice','edit'}, {'Later','later'}}) do
@@ -173,7 +191,7 @@ function M.new(send, clock, session)
         if not self.visible then return end
         imgui.SetNextWindowSize({780, 790}, ImGuiCond_FirstUseEver)
         local open = {self.visible}
-        if imgui.Begin('XISpeaks - NPC voices', open, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
+        if imgui.Begin('XISpeaks Pocket 18M - NPC voices', open, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
             imgui.Text('Companion: ' .. self.status)
             imgui.TextDisabled('Voice submissions are unavailable in this release.')
             if not self.contribution and self.contribution_message ~= '' then
@@ -309,7 +327,7 @@ function M.new(send, clock, session)
                 local ratio = math.floor((tonumber(w) or 0.7)*100+0.5)
                 local enabled = {blending}
                 blending = false
-                imgui.TextDisabled('Piper: individual stock or trained voices')
+                imgui.TextDisabled('Pocket 18M: stock or volunteer voices')
                 local voice_search={self.voice_search}
                 imgui.SetNextItemWidth(300)
                 if imgui.InputText('Search voices / speaker IDs',voice_search,100) then
@@ -370,6 +388,12 @@ function M.new(send, clock, session)
                 end
                 imgui.SameLine()
                 if imgui.Button('Reset to automatic') then self:edit('reset') end
+                if imgui.Button('Random voice (entire catalog)') and not self.pending then
+                    self:request({action='voice_list',search='',page=0,random_npc=npc.key})
+                end
+                imgui.TextDisabled('Random voice saves immediately, ignoring all automatic-assignment rules.')
+                if imgui.Button('Random voice (NPC rules)') and not self.pending then self:edit('random_eligible') end
+                imgui.TextDisabled('Uses catalog eligibility and NPC preferences; saves immediately.')
                 if imgui.Button('Reset pitch/speed only') then self:edit('reset_tuning') end
                 local mute = {npc.muted}
                 if imgui.Checkbox('Mute this NPC', mute) then self:edit('mute', mute[1]) end

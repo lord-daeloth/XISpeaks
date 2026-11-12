@@ -1,14 +1,12 @@
-# Windows x64 release build
+# Windows beta 3 build
 
-Use Python 3.12 on Windows x64. Create a dedicated virtual environment in build/release-env, then install packaging/requirements-build.txt into it. Run setup-rubberband.ps1 and use companion/voice_install.py to populate the pinned local stock voices. The starter model checksum is verified during packaging.
+Use 64-bit Python 3.12 and packaging/requirements-pocket-build.txt (CPU PyTorch from https://download.pytorch.org/whl/cpu). Player packages need no Python installation.
 
-From the project root run the following commands in PowerShell.
+1. Build `python -m PyInstaller --noconfirm --distpath build/beta3-frozen packaging/companion.spec`.
+2. Snapshot the curated catalog into data/pocket-catalog.json; retain referenced .safetensors in the chosen voice directory. The source tree tracks metadata, not model binaries or reference recordings.
+3. Run `python scripts/package_beta3.py --voices PATH`. This stages only referenced states, the public model/tokenizer, frozen executables, notices, and corresponding source archives. It never includes the private HF cache, studio sessions, credentials, or personal runtime databases.
+4. Run the staged companion with `--self-test` and `--dry-run` protocol checks. Run the test suite, then `python scripts/package_beta3.py --zip` to create the app and two voice ZIPs with checksums. Test a fresh extraction of all three.
 
-```powershell
-& ./build/release-env/Scripts/python.exe -m PyInstaller --noconfirm --distpath build/frozen --workpath build/freeze packaging/companion.spec
-& ./build/release-env/Scripts/python.exe scripts/build_release.py
-```
+The helper uses the local Pocket cache for pinned public weights, and build/pocket-release/XISpeaksPocket for previously collected third-party license/source archives. Configure pocket-development.json with an assets_root only for local development; never distribute it. See packaging/POCKET-BUILDING.md for original asset preparation details.
 
-The packager collects the upstream source archives, third-party notices, catalog, model cards, model manifests, addon and prebuilt companion into dist/XISpeaks-windows-x64-v1.0.0-beta.2.zip. Extract the ZIP to a fresh directory. Run START-XISpeaks.cmd --self-test to check offline synthesis and both pitch engines, then run the companion and test /xis status and /xis test.
-
-The checked-in data/piper-catalog.json is the release snapshot. To publish future catalog edits, validate the working piper_voices/catalog.json against the installed models, copy it into data/piper-catalog.json and review the diff before building.
+Build the separate cloning studio into a temporary staging directory, then copy application files into its installed directory. Never rebuild directly over its directory: studio sessions live alongside it and must be preserved.
