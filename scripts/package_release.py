@@ -1,12 +1,12 @@
-"""Package curated Pocket beta 3; never copy unreferenced voices or runtime data."""
+"""Package curated Pocket beta 4; never copy unreferenced voices or runtime data."""
 import argparse,hashlib,json,shutil,sys,zipfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'companion'))
 from pocket_paths import ASSETS,MODEL
 from pocket_catalog import validate
-VERSION='v1.0.0-beta.3'
-STAGE=ROOT/'build/beta3-release/XISpeaks'
+VERSION='v1.0.0-beta.4'
+STAGE=ROOT/'build/beta4-release/XISpeaks'
 def digest(p):
     with p.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
 def main():
@@ -16,12 +16,14 @@ def main():
         if args.voices is None:parser.error('--voices is required for staging')
         catalog=json.loads((ROOT/'data/pocket-catalog.json').read_text(encoding='utf-8'))
         validate(catalog,args.voices)
+        corrections=json.loads((ROOT/'data/release_npc_overrides.json').read_text())
+        assert all(all(n.get(k) is None for k in ('manual_voice','manual_speed','manual_pitch','approval')) for n in corrections['npcs'])
         shutil.copytree(ROOT/'addon/XISpeaks',STAGE)
-        companion=STAGE/'companion';shutil.copytree(ROOT/'build/beta3-frozen/XISpeaks-Companion',companion)
+        companion=STAGE/'companion';shutil.copytree(ROOT/'build/beta4-frozen/XISpeaks-Companion',companion)
         voices=companion/'pocket_voices';voices.mkdir()
         shutil.copyfile(ROOT/'data/pocket-catalog.json',voices/'catalog.json')
         for name in sorted({v['model'] for v in catalog.values()}):shutil.copyfile(args.voices/name,voices/name)
-        old=ROOT/'build/pocket-release/XISpeaksPocket'
+        old=ROOT/'build/release-assets'
         shutil.copytree(old/'licenses',STAGE/'licenses')
         shutil.copytree(old/'companion/models',companion/'models')
         shutil.copytree(old/'companion/tools',companion/'tools')
@@ -34,7 +36,7 @@ def main():
             lines.append('| '+key+' | '+clean(v.get('source') or v.get('credit','Unspecified'))+' | '+clean(v.get('license') or v.get('permission_notes','Unspecified'))+' |')
         (STAGE/'VOICE-LICENSES.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
         source=STAGE/'source';source.mkdir()
-        for folder in ('addon/XISpeaks','companion','scripts','packaging','voice_editor'):
+        for folder in ('addon/XISpeaks','companion','scripts','packaging','voice_editor','docs'):
             shutil.copytree(ROOT/folder,source/folder,ignore=shutil.ignore_patterns('__pycache__','output','*.pyc'))
         shutil.copyfile(ROOT/'LICENSE',source/'LICENSE')
         for name in ('rubberband-4.0.0.tar.bz2','libsndfile-1.2.2.zip'):shutil.copyfile(old/'source'/name,source/name)
@@ -52,7 +54,7 @@ def main():
     groups=[[],[]];sizes=[0,0]
     for p in sorted(states,key=lambda p:p.stat().st_size,reverse=True):
         i=sizes.index(min(sizes));groups[i].append(p);sizes[i]+=p.stat().st_size
-    out=ROOT/'dist/beta3';out.mkdir(parents=True,exist_ok=True)
+    out=ROOT/'dist/beta4';out.mkdir(parents=True,exist_ok=True)
     hashes=[]
     for label,group in [('app',app),('voices-1',groups[0]),('voices-2',groups[1])]:
         archive=out/f'XISpeaks-{VERSION}-windows-x64-{label}.zip'

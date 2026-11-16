@@ -1,4 +1,4 @@
-# XISpeaks beta 3 distribution
+# XISpeaks beta 4 distribution
 
 XISpeaks code is GPL-3.0-or-later. Pocket TTS 4.0.1 by Kyutai is MIT;
 the public English 18M model and tokenizer carry CC BY 4.0, and are distributed

@@ -21,7 +21,7 @@ def main():
         catalog=pocket_catalog.load(VOICES/'catalog.json')
         registry.VOICES[:]=sorted(catalog)
         registry.BLENDING_ENABLED=False
-        config=dict(service.DEFAULTS,voice='bf_alba',voice_pool=list(catalog),voice_catalog=catalog)
+        config=dict(service.DEFAULTS,random_tuning=False,voice='bf_alba',voice_pool=list(catalog),voice_catalog=catalog)
         db=create_registry(config,':memory:')
         backend=PocketBackend(config)
         results=[]

@@ -38,12 +38,16 @@ class PocketBackend:
         self.stream = None
         self.rate = self.model.sample_rate
         self.configure(1, 0, 1)
+        self.configure_environment()
 
     def configure(self, speed, pitch, volume, pitch_engine='rubberband'):
         self.speed = speed
         self.pitch = pitch
         self.volume = volume
         self.pitch_engine = pitch_engine
+
+    def configure_environment(self,preset='dry',strength=1):
+        self.environment_preset=preset;self.environment_strength=strength
 
     def generate(self, text, voice, cancelled=lambda:False):
         entry = self.config['voice_catalog'][voice]
@@ -102,6 +106,8 @@ class PocketBackend:
 
     def pcm(self,text,voice,cancelled=lambda:False):
         from audio_effects import process_pcm
+        from environment_effects import Reverb
+        effect=Reverb(getattr(self,'environment_preset','dry'),getattr(self,'environment_strength',1),self.rate)
         entry=self.config['voice_catalog'][voice]
         speed=self.speed*entry['speed']
         volume=self.volume*entry['volume']
@@ -115,7 +121,13 @@ class PocketBackend:
         try:
             for audio in chunks:
                 if cancelled():return
-                data=np.rint(np.clip(audio,-1,1)*32767).astype('<i2').tobytes()
+                for start in range(0,len(audio),1024):
+                    if cancelled():return
+                    processed=effect.process(audio[start:start+1024])
+                    data=np.rint(np.clip(processed,-1,1)*32767).astype('<i2').tobytes()
+                    yield process_pcm(data,volume=volume)
+            for tail in effect.flush(cancelled):
+                data=np.rint(np.clip(tail,-1,1)*32767).astype('<i2').tobytes()
                 yield process_pcm(data,volume=volume)
         finally:
             if hasattr(chunks,'close'):chunks.close()

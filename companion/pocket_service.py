@@ -79,7 +79,7 @@ def main():
     registry.YOUNG_VOICES=()
     import service
     from pocket_backend import PocketBackend
-    config=dict(service.DEFAULTS,voice='bf_alba',voice_pool=list(catalog),voice_catalog=catalog)
+    config=dict(service.DEFAULTS,random_tuning=False,voice='bf_alba',voice_pool=list(catalog),voice_catalog=catalog)
     runtime=ROOT/'pocket-runtime';runtime.mkdir(exist_ok=True)
     logging.basicConfig(level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s')
     db=create_registry(config,runtime/'npcs.sqlite3')

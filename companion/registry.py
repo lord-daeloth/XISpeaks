@@ -22,19 +22,20 @@ PRESETS = {'goblin': (1.15, 3.0), 'child': (1.0, 1.0), 'galka': (0.9, -2.5),
 YOUNG_VOICES = ('af_sky', 'af_bella', 'bf_lily', 'am_puck')
 
 
-def preset_effects(presets):
+def preset_effects(presets, settings=None):
     if not isinstance(presets, dict) or any(k not in PRESETS or type(v) is not bool for k, v in presets.items()):
         raise ValueError('Invalid NPC presets')
+    settings = settings or PRESETS
     speed, pitch = 1.0, 0.0
     for key, enabled in presets.items():
         if enabled:
-            speed *= PRESETS[key][0]
-            pitch += PRESETS[key][1]
+            speed *= settings[key][0]
+            pitch += settings[key][1]
     return speed, pitch
 
 
-def apply_presets(profile, presets):
-    speed, pitch = preset_effects(presets)
+def apply_presets(profile, presets, settings=None):
+    speed, pitch = preset_effects(presets, settings)
     return dict(profile, speed=profile['speed'] * speed,
                 pitch=max(-4.0, min(4.0, profile['pitch'] + pitch)))
 
@@ -106,6 +107,7 @@ def choose_blend(key, primary, pool, elvaan=False):
 
 class Registry:
     def __init__(self, path, config):
+        self.random_tuning = config.get('random_tuning', True)
         self.pool = config.get('voice_pool', VOICES)
         if not isinstance(self.pool, list) or not self.pool or any(v not in VOICES for v in self.pool):
             raise ValueError('voice_pool must be a nonempty list of supported English voice IDs')
@@ -117,6 +119,9 @@ class Registry:
         self.default = self.voice_policy.choose('__narrator__','unknown',{}) if self.voice_policy else config['voice']
         self.lock = threading.RLock()
         self.review_queue = {}
+        self.review_lines = {}
+        self.review_trials = {}
+        self.review_ready = {}
         self.review_heard = {}
         self.review_deferred = set()
         self.db = sqlite3.connect(str(path), check_same_thread=False)
@@ -161,7 +166,7 @@ class Registry:
                                     (key, name.strip(), self.initial_voice(key, 'unknown'), voice))
                 self.db.execute("INSERT INTO metadata VALUES ('legacy_imported','1')")
             for row in self.db.execute('SELECT key FROM npcs WHERE auto_speed IS NULL OR auto_pitch IS NULL').fetchall():
-                speed, pitch = choose_tuning(row['key'])
+                speed, pitch = choose_tuning(row['key']) if self.random_tuning else (1.0,0.0)
                 self.db.execute('UPDATE npcs SET auto_speed=?,auto_pitch=? WHERE key=?', (speed, pitch, row['key']))
 
     def initial_voice(self,key,preference):
@@ -171,11 +176,49 @@ class Registry:
     def encounter(self, name):
         key = name_key(name)
         with self.lock, self.db:
-            speed, pitch = choose_tuning(key)
+            speed, pitch = choose_tuning(key) if self.random_tuning else (1.0,0.0)
             self.db.execute('''INSERT INTO npcs (key,name,auto_voice,last_seen,encounters,auto_speed,auto_pitch)
                 VALUES (?,?,?,?,1,?,?) ON CONFLICT(key) DO UPDATE SET
                 last_seen=excluded.last_seen, encounters=npcs.encounters+1''',
                 (key, name.strip(), self.initial_voice(key, 'unknown'), time.time(), speed, pitch))
+
+    def preset_settings(self):
+        with self.lock:
+            row=self.db.execute("SELECT value FROM metadata WHERE key='npc_type_tuning'").fetchone()
+            return dict(PRESETS,**json.loads(row[0])) if row else dict(PRESETS)
+
+    def set_preset_settings(self,name,speed=None,pitch=None,reset=False):
+        if name not in PRESETS:raise ValueError('Unknown NPC type')
+        value=PRESETS[name] if reset else (number(speed,.5,1.5,'Type speed'),number(pitch,-4,4,'Type pitch'))
+        with self.lock,self.db:
+            settings=self.preset_settings();settings[name]=value
+            self.db.execute("INSERT OR REPLACE INTO metadata VALUES ('npc_type_tuning',?)",(json.dumps(settings),))
+            return settings
+
+    def effects(self):
+        with self.lock:
+            row=self.db.execute("SELECT value FROM metadata WHERE key='environment_effects'").fetchone()
+            return json.loads(row[0]) if row else dict(enabled=True,strength=1.0,environment='auto')
+
+    def set_effects(self,enabled,strength,environment):
+        from environment_effects import PRESETS as EFFECTS
+        if type(enabled) is not bool or environment not in ('auto',*EFFECTS):raise ValueError('Invalid effect settings')
+        settings=dict(enabled=enabled,strength=number(strength,0,1,'Effects strength'),environment=environment)
+        with self.lock,self.db:
+            self.db.execute("INSERT OR REPLACE INTO metadata VALUES ('environment_effects',?)",(json.dumps(settings),))
+        return settings
+
+    def npc_effect(self,key):
+        row=self.db.execute('SELECT value FROM metadata WHERE key=?',('npc_effect:'+key,)).fetchone()
+        return row[0] if row else 'inherit'
+
+    def effect_profile(self,name,zone=0,override=None):
+        from environment_effects import ZONE_PRESETS,PRESETS as EFFECTS
+        with self.lock:
+            settings=self.effects();preset=override if override is not None else self.npc_effect(name_key(name)) if name else 'inherit'
+            if preset not in ('inherit',*EFFECTS):raise ValueError('Invalid effect preset')
+            if preset=='inherit':preset=ZONE_PRESETS.get(zone,'dry') if settings['environment']=='auto' else settings['environment']
+            return dict(preset=preset if settings['enabled'] else 'dry',strength=settings['strength'])
 
     def globals(self):
         with self.lock:
@@ -226,6 +269,7 @@ class Registry:
         result['muted'] = bool(result['muted'])
         result['voice'] = result['manual_voice'] or result['auto_voice']
         result['source'] = 'manual' if result['manual_voice'] else 'automatic'
+        if not self.random_tuning:result['auto_speed'],result['auto_pitch']=1.0,0.0
         result['speed'] = result['manual_speed'] if result['manual_speed'] is not None else result['auto_speed']
         if not result['preset_galka']:
             # Stored hash offsets span -1 to +1. Scale at lookup so existing NPCs
@@ -240,7 +284,8 @@ class Registry:
         result['base_speed'], result['base_pitch'] = result['speed'], result['pitch']
         presets = {key: bool(result.pop('preset_' + key)) for key in PRESETS}
         result['presets'] = presets
-        result['preset_speed'], result['preset_pitch'] = preset_effects(presets)
+        result['effect'] = self.npc_effect(result['key'])
+        result['preset_speed'], result['preset_pitch'] = preset_effects(presets,self.preset_settings())
         pool = self.pool
         if not self.voice_policy and not result['manual_voice'] and any(presets.values()):
             preference = 'feminine' if presets['mithra'] else result['preference']
@@ -265,11 +310,11 @@ class Registry:
         if self.voice_policy:
             if not result['manual_voice'] or result['manual_voice'] not in self.voice_catalog:
                 result['source']='automatic'
-                preferred=result['auto_voice'] if result.get('approval') else None
+                preferred=self.review_trials.get(result['key'],result['auto_voice'] if result.get('approval') else None)
                 result['voice']=self.voice_policy.choose(result['key'],result['preference'],presets,preferred)
             if not result['voice']:
                 result['assignment_error']='No eligible automatic voice. Enable matching voices in the catalog editor or choose a manual override.'
-        result = apply_presets(result, presets)
+        result = apply_presets(result, presets,self.preset_settings())
         sound = [result['voice'], round(result['speed'], 6), round(result['pitch'], 6)]
         if self.voice_catalog and result['voice'] in self.voice_catalog:
             entry=self.voice_catalog[result['voice']]
@@ -298,6 +343,7 @@ class Registry:
     def clear_reviews(self):
         with self.lock:
             self.review_queue.clear()
+            self.review_lines.clear();self.review_trials.clear();self.review_ready.clear()
             self.review_heard.clear()
             self.review_deferred.clear()
 
@@ -309,18 +355,21 @@ class Registry:
             npc = self.public(row) if row else None
             return npc if npc and not npc['muted'] and npc['review_status'] == 'unreviewed' else None
 
-    def heard_for_review(self, name, fingerprint):
+    def heard_for_review(self, name, fingerprint, dialogue=None):
         with self.lock:
             npc = self.review_candidate(name)
             if not npc or npc['fingerprint'] != fingerprint:
                 return
             key, now = npc['key'], time.monotonic()
+            self.review_ready[key]=fingerprint
+            if dialogue is not None and (key not in self.review_queue or key not in self.review_lines):self.review_lines[key]=dialogue
             if now - self.review_heard.get(key, -1e9) >= 60:
                 self.review_deferred.discard(key)
             if len(self.review_heard) >= 512:
                 oldest = min(self.review_heard, key=self.review_heard.get)
                 self.review_heard.pop(oldest)
                 self.review_deferred.discard(oldest)
+                self.review_lines.pop(oldest,None);self.review_ready.pop(oldest,None);self.review_trials.pop(oldest,None)
             self.review_heard[key] = now
             if key not in self.review_deferred and len(self.review_queue) < 64:
                 self.review_queue[key] = fingerprint
@@ -331,9 +380,25 @@ class Registry:
                 npc = self.review_candidate(key)
                 if not npc or npc['fingerprint'] != fingerprint:
                     self.review_queue.pop(key, None)
+                    self.review_lines.pop(key,None);self.review_trials.pop(key,None);self.review_ready.pop(key,None)
             key = next(iter(self.review_queue), None)
             return dict(review_enabled=self.review_enabled(), review=self.review_candidate(key) if key else None,
                         review_count=len(self.review_queue))
+
+    def review_replay(self,key,fingerprint,reject=False):
+        with self.lock:
+            npc=self.review_candidate(key)
+            if not npc or npc['fingerprint']!=fingerprint or key not in self.review_queue:raise ValueError('Voice changed; refresh the review')
+            dialogue=self.review_lines.get(key)
+            if dialogue is None:raise ValueError('No replay line saved. Talk to this NPC again.')
+            if reject:
+                if not self.voice_policy:raise ValueError('Reject requires a voice catalog')
+                choices=[v for v in self.voice_policy.candidates(npc['preference'],npc['presets']) if v!=npc['voice']]
+                if not choices:raise ValueError('No other eligible voice matches this NPC. Use Edit voice to adjust the rules.')
+                self.review_trials[key]=secrets.choice(choices)
+                self.review_ready.pop(key,None)
+                npc=self.review_candidate(key);self.review_queue[key]=npc['fingerprint']
+            return dialogue
 
     def review_action(self, key, fingerprint, decision):
         with self.lock, self.db:
@@ -342,6 +407,7 @@ class Registry:
             if not npc or fingerprint != npc['fingerprint']:
                 raise ValueError('Voice changed; listen again before approving')
             if decision == 'approve':
+                if key in self.review_trials and self.review_ready.get(key)!=fingerprint:raise ValueError('Listen to the new voice before approving')
                 if not npc['voice']:raise ValueError('No eligible voice to approve')
                 if self.voice_policy and npc['source']=='automatic':
                     self.db.execute('UPDATE npcs SET auto_voice=? WHERE key=?',(npc['voice'],key))
@@ -352,6 +418,8 @@ class Registry:
             else:
                 raise ValueError('Invalid review decision')
             self.review_queue.pop(key, None)
+            if decision=='approve':self.review_trials.pop(key,None)
+            self.review_lines.pop(key,None);self.review_ready.pop(key,None)
             return self.public(self.db.execute('SELECT * FROM npcs WHERE key=?', (key,)).fetchone())
 
     def edit(self, key, action, value=None):
@@ -371,6 +439,10 @@ class Registry:
                 if not choices:raise ValueError('No eligible voices match this NPC. Check catalog flags and NPC preferences.')
                 voice=secrets.choice(choices)
                 self.db.execute('UPDATE npcs SET manual_voice=? WHERE key=?',(voice,key))
+            elif action == 'effect':
+                from environment_effects import PRESETS as EFFECTS
+                if value not in ('inherit',*EFFECTS):raise ValueError('Invalid NPC effect')
+                self.db.execute('INSERT OR REPLACE INTO metadata VALUES (?,?)',('npc_effect:'+key,value))
             elif action == 'profile':
                 if not isinstance(value, dict):
                     raise ValueError('Invalid voice profile')

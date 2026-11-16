@@ -9,6 +9,8 @@ function M.new(send, clock, session)
         contribution=nil, contribution_message='',
         review=nil, review_enabled=false, review_count=0, next_review=0, review_unsupported=false,
         draft_speed=100, draft_pitch=0, global_speed=100, global_volume=100, global_dirty=false,
+        type_tuning={},type_selected='galka',type_speed=90,type_pitch=-2.5,type_dirty=false,
+        effects={enabled=true,strength=1,environment='auto'}, effects_dirty=false, zone=0,
         globals={speed=1,volume=1}, pitch_engine='rubberband',
         message='Start the companion, then Refresh.', status='Not connected'}
 
@@ -83,6 +85,16 @@ function M.new(send, clock, session)
             self.draft_pitch=math.floor((result.npc.base_pitch or 0)*10+0.5)
             self.search=''; self.filter='all'; self.page=0; self.next_refresh=0
         end
+        if type(result.type_tuning)=='table' then
+            self.type_tuning=result.type_tuning
+            if not self.type_dirty or action=='type_tuning' then
+                local values=self.type_tuning[self.type_selected]
+                if values then self.type_speed=values[1]*100;self.type_pitch=values[2] end
+                self.type_dirty=false
+            end
+            if action=='type_tuning' then self.next_refresh=0 end
+        end
+        if type(result.effects)=='table' and (not self.effects_dirty or action=='effects') then self.effects=result.effects;self.effects_dirty=false end
         if type(result.globals) == 'table' then
             self.globals = result.globals
             if not self.global_dirty or action == 'globals' then
@@ -125,13 +137,15 @@ function M.new(send, clock, session)
                     if row.key == self.selected.key then self.selected = row; break end
                 end
             end
-        elseif (action == 'edit' or (action == 'review' and query.decision == 'approve')) and type(result.npc) == 'table' then
+        elseif (action == 'edit' or (action == 'review' and (query.decision == 'approve' or query.decision == 'reject'))) and type(result.npc) == 'table' then
             self.selected = result.npc
             self.draft = result.npc.voice
             self.draft_speed = math.floor((result.npc.base_speed or result.npc.speed or 1)*100+0.5)
             self.draft_pitch = math.floor((result.npc.base_pitch or result.npc.pitch or 0)*10+0.5)
-            self.message = 'Saved.'
+            self.message = (action=='review' and query.decision=='reject') and 'Trying another voice. Approve after listening to keep it.' or 'Saved.'
             self.next_refresh = 0
+        elseif action=='review' and query.decision=='replay' then
+            self.message='Playing the same line again.'
         elseif action == 'preview' then
             self.message = 'Preview queued. First use of a voice may download its assets.'
         elseif action == 'globals' then
@@ -175,11 +189,11 @@ function M.new(send, clock, session)
         local review = self.review
         if review and self.review_enabled and not self.visible then
             imgui.SetNextWindowSize({410, 150}, ImGuiCond_FirstUseEver)
-            if imgui.Begin('XISpeaks Pocket 18M - Review voice', nil, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
+            if imgui.Begin('XISpeaks - Review voice', nil, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
                 imgui.Text(review.name .. ' | ' .. tostring(self.review_count) .. ' pending')
                 imgui.TextWrapped(review.voice)
-                for i, item in ipairs({{'Approve','approve'}, {'Edit voice','edit'}, {'Later','later'}}) do
-                    if i > 1 then imgui.SameLine() end
+                for i, item in ipairs({{'Play Again','replay'}, {'Reject','reject'}, {'Approve','approve'}, {'Edit voice','edit'}, {'Later','later'}}) do
+                    if i > 1 and i ~= 3 then imgui.SameLine() end
                     if imgui.Button(item[1]) and not self.pending then
                         self:request({action='review', key=review.key, fingerprint=review.fingerprint, decision=item[2]})
                     end
@@ -191,7 +205,7 @@ function M.new(send, clock, session)
         if not self.visible then return end
         imgui.SetNextWindowSize({780, 790}, ImGuiCond_FirstUseEver)
         local open = {self.visible}
-        if imgui.Begin('XISpeaks Pocket 18M - NPC voices', open, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
+        if imgui.Begin('XISpeaks - NPC voices', open, ImGuiWindowFlags_NoFocusOnAppearing or 0) then
             imgui.Text('Companion: ' .. self.status)
             imgui.TextDisabled('Voice submissions are unavailable in this release.')
             if not self.contribution and self.contribution_message ~= '' then
@@ -252,6 +266,38 @@ function M.new(send, clock, session)
                 self:request({action='globals', speed=self.global_speed/100, volume=self.global_volume/100, pitch_engine=self.pitch_engine})
             end
             imgui.TextDisabled('100% = normal. Boosted peaks are limited. Apply before previewing global changes.')
+            if imgui.CollapsingHeader('NPC type pitch / speed') then
+                if imgui.BeginCombo('NPC type',self.type_selected) then
+                    for _,kind in ipairs({'galka','goblin','child','mithra','tarutaru','elvaan','moogle'}) do
+                        if imgui.Selectable(kind,self.type_selected==kind) then
+                            self.type_selected=kind;self.type_dirty=false
+                            local values=self.type_tuning[kind] or {1,0};self.type_speed=values[1]*100;self.type_pitch=values[2]
+                        end
+                    end
+                    imgui.EndCombo()
+                end
+                local speed,pitch={self.type_speed},{self.type_pitch}
+                if imgui.SliderFloat('Type speed (%)',speed,50,150,'%.1f') then self.type_speed=speed[1];self.type_dirty=true end
+                if imgui.SliderFloat('Type pitch (semitones)',pitch,-4,4,'%.1f') then self.type_pitch=math.floor(pitch[1]*10+0.5)/10;self.type_dirty=true end
+                if imgui.Button('Save type settings') and not self.pending then self:request({action='type_tuning',name=self.type_selected,speed=self.type_speed/100,pitch=self.type_pitch}) end
+                imgui.SameLine()
+                if imgui.Button('Reset type defaults') and not self.pending then self:request({action='type_tuning',name=self.type_selected,reset=true}) end
+                imgui.TextWrapped('Applies to every NPC with this type enabled, including previews. Multiple types stack. Manual NPC tuning is additional. Random pitch/speed variation is disabled for Pocket.')
+            end
+            local effect_names={auto='Automatic by map',inherit='Use map effect',dry='Dry / none',small_room='Small Room',stone_hall='Stone Hall',cave='Cave',ethereal='Ethereal'}
+            local fx_enabled={self.effects.enabled}
+            if imgui.Checkbox('Enable room / NPC effects',fx_enabled) then self.effects.enabled=fx_enabled[1];self.effects_dirty=true end
+            local strength={math.floor(self.effects.strength*100+0.5)}
+            if imgui.SliderInt('Effects strength (%)',strength,0,100) then self.effects.strength=strength[1]/100;self.effects_dirty=true end
+            if imgui.BeginCombo('Environment effect',effect_names[self.effects.environment]) then
+                for _,kind in ipairs({'auto','dry','small_room','stone_hall','cave','ethereal'}) do
+                    if imgui.Selectable(effect_names[kind],self.effects.environment==kind) then self.effects.environment=kind;self.effects_dirty=true end
+                end
+                imgui.EndCombo()
+            end
+            if imgui.Button('Apply effects') and not self.pending then self:request({action='effects',enabled=self.effects.enabled,strength=self.effects.strength,environment=self.effects.environment}) end
+            imgui.TextDisabled('Zone '..tostring(self.zone)..'. Unmapped zones are dry. NPC effects override the map.')
+
             imgui.Separator()
             local search = {self.search}
             imgui.SetNextItemWidth(280)
@@ -303,6 +349,13 @@ function M.new(send, clock, session)
                 end
                 local seen = (npc.last_seen or 0) > 0 and os.date('%Y-%m-%d %H:%M', math.floor(npc.last_seen)) or 'Not encountered yet'
                 imgui.TextDisabled('Last heard: ' .. seen)
+                if imgui.BeginCombo('NPC effect',effect_names[npc.effect or 'inherit']) then
+                    for _,kind in ipairs({'inherit','dry','small_room','stone_hall','cave','ethereal'}) do
+                        if imgui.Selectable(effect_names[kind],(npc.effect or 'inherit')==kind) then self:edit('effect',kind) end
+                    end
+                    imgui.EndCombo()
+                end
+
                 for i, preset in ipairs({'goblin','child','galka','mithra','tarutaru','elvaan','moogle'}) do
                     if i > 1 then imgui.SameLine() end
                     local enabled = {npc.presets and npc.presets[preset] or false}
@@ -380,7 +433,7 @@ function M.new(send, clock, session)
                 imgui.TextDisabled(('Automatic: %.0f%% speed, %+.1f semitones | Tuning: %s'):format(
                     (npc.auto_speed or 1)*100, npc.auto_pitch or 0, npc.tuning_source or 'automatic'))
                 if imgui.Button('Preview voice') and not self.pending then
-                    self:request({action='preview', voice=self.draft or npc.voice, speed=self.draft_speed/100, pitch=self.draft_pitch/10, presets=npc.presets})
+                    self:request({action='preview', voice=self.draft or npc.voice, speed=self.draft_speed/100, pitch=self.draft_pitch/10, presets=npc.presets,effect=npc.effect or 'inherit',zone=self.zone})
                 end
                 imgui.SameLine()
                 if imgui.Button('Save override') then

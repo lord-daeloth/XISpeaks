@@ -12,12 +12,14 @@ class Message:
     identity: str
     mode: int
     raw: bytes
+    zone: int = 0
 
 
 @dataclass(frozen=True)
 class Dialogue:
     speaker: str
     text: str
+    zone: int = 0
 
 
 def parse_frame(data: bytes) -> Message:
@@ -27,9 +29,11 @@ def parse_frame(data: bytes) -> Message:
     if not separator or len(header) > 160:
         raise ValueError('Missing or oversized header')
     parts = header.decode('ascii').split('\t')
-    if len(parts) != 4 or parts[0] != 'XIS1':
+    if len(parts) not in (4,5) or parts[0] != 'XIS1':
         raise ValueError('Unknown protocol')
-    _, command, identity, mode = parts
+    _, command, identity, mode = parts[:4]
+    zone=int(parts[4]) if len(parts)==5 else 0
+    if not 0<=zone<=65535:raise ValueError('Invalid zone')
     if command not in {'speak', 'stop', 'ping'} or not re.fullmatch(r'[\w-]{1,80}', identity):
         raise ValueError('Invalid command or identity')
     mode = int(mode)
@@ -37,7 +41,7 @@ def parse_frame(data: bytes) -> Message:
         raise ValueError('Not an NPC/narration channel')
     if command != 'speak' and (raw or mode != 0):
         raise ValueError('Invalid control frame')
-    return Message(command, identity, mode, raw)
+    return Message(command, identity, mode, raw, zone)
 
 
 def clean_dialogue(raw: bytes) -> Dialogue | None:

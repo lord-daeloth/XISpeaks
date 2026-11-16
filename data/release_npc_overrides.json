@@ -13,21 +13,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "A.M.A.N. Liaison",
-      "preference": "unknown",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "A.M.A.N. Validator",
@@ -41,21 +28,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Aaveleon",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Abeaule",
@@ -69,7 +43,23 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
+    },
+    {
+      "name": "Agent Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Ailbeche",
@@ -83,11 +73,12 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
-      "name": "Amutiyaal",
-      "preference": "masculine",
+      "name": "Ancestry Moogle",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -96,36 +87,9 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Anilla",
-      "preference": "feminine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Antreneau",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Aravoge, T.K.",
@@ -139,7 +103,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Artinien",
@@ -153,7 +118,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Artisan Moogle",
@@ -167,7 +133,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Authere",
@@ -181,7 +148,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Bacherume",
@@ -195,10 +163,11 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
-      "name": "Bernal",
+      "name": "Balasiel",
       "preference": "masculine",
       "manual_voice": null,
       "manual_speed": null,
@@ -209,21 +178,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Bertenont",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Blendare",
@@ -237,11 +193,12 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
-      "name": "Boizo-Naizo",
-      "preference": "masculine",
+      "name": "Bonanza Moogle",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -251,21 +208,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 1
-    },
-    {
-      "name": "Boncort",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Brifalien",
@@ -279,21 +223,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Cahaurme",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Chaloutte",
@@ -307,7 +238,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Chalvatot",
@@ -321,7 +253,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Cheh Raihah",
@@ -335,25 +268,12 @@
       "preset_galka": 0,
       "preset_mithra": 1,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Cherlodeau",
-      "preference": "unknown",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Claidie",
-      "preference": "unknown",
+      "preference": "feminine",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -363,7 +283,23 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
+    },
+    {
+      "name": "Coordinator Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Corua",
@@ -377,7 +313,38 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
+    },
+    {
+      "name": "Cotelle",
+      "preference": "feminine",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 1,
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
+    },
+    {
+      "name": "Curator Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Curilla",
@@ -391,7 +358,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Curio Vendor Moogle",
@@ -405,38 +373,11 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Daggao",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 1,
-      "preset_mithra": 0,
-      "preset_elvaan": 0,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Deraquien",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Destin",
+      "name": "Dealer Moogle",
       "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
@@ -447,7 +388,23 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
+    },
+    {
+      "name": "Destin",
+      "preference": "masculine",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 1,
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Doumina",
@@ -461,10 +418,11 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
-      "name": "Elmemague",
+      "name": "Endracion",
       "preference": "masculine",
       "manual_voice": null,
       "manual_speed": null,
@@ -475,11 +433,12 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
-      "name": "Exoroche",
-      "preference": "masculine",
+      "name": "Ephemeral Moogle",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -488,8 +447,54 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
+    },
+    {
+      "name": "Erudite Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
+    },
+    {
+      "name": "Explorer Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
+    },
+    {
+      "name": "Explorer_Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Faurie",
@@ -503,35 +508,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Femitte",
-      "preference": "feminine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Ferdechiond",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Festive Moogle",
@@ -545,11 +523,12 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Giaunne",
-      "preference": "feminine",
+      "name": "Green Thumb Moogle",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -558,36 +537,9 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Glenne",
-      "preference": "feminine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Gondebaud",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Greeter Moogle",
@@ -601,42 +553,15 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Guilerme",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Gulemont",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Halver",
       "preference": "masculine",
-      "manual_voice": "bm_ardbert_joe_dempsie_1",
-      "manual_speed": 1.0,
-      "manual_pitch": 0.0,
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
       "approval": null,
       "preset_goblin": 0,
       "preset_child": 0,
@@ -647,21 +572,7 @@
       "preset_moogle": 0
     },
     {
-      "name": "Ilgusin",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Iroha",
+      "name": "Henchman Moogle",
       "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
@@ -672,7 +583,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Jufaue",
@@ -690,21 +602,7 @@
       "preset_moogle": 0
     },
     {
-      "name": "Katharina",
-      "preference": "feminine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 0,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Lion",
+      "name": "Kupatete",
       "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
@@ -715,24 +613,11 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Lusiane",
-      "preference": "feminine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Maat",
+      "name": "Kupert",
       "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
@@ -743,11 +628,12 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Machielle",
-      "preference": "feminine",
+      "name": "Kupignol",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -756,12 +642,13 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Malecharisant",
-      "preference": "masculine",
+      "name": "Kupivolo",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -770,12 +657,13 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Maloquedil",
-      "preference": "masculine",
+      "name": "Kupofried",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -784,12 +672,13 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Matildie",
-      "preference": "feminine",
+      "name": "Kupuckl",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -798,8 +687,39 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
+    },
+    {
+      "name": "Magian Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
+    },
+    {
+      "name": "Market Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Melledanne",
@@ -813,67 +733,27 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
-      "name": "Michea",
-      "preference": "feminine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Millechairale",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Montaube",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Mystrix",
+      "name": "Mogsack Moogle",
       "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
       "approval": null,
-      "preset_goblin": 1,
+      "preset_goblin": 0,
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Narvecaint",
-      "preference": "masculine",
+      "name": "Monsieur Kupont",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -882,12 +762,13 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Nogelle",
-      "preference": "feminine",
+      "name": "Moogle",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -896,12 +777,13 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Parcarin",
-      "preference": "masculine",
+      "name": "Munitions Moogle",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -910,12 +792,13 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Perdiouvilet",
-      "preference": "masculine",
+      "name": "Nomad Moogle",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -924,8 +807,24 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
+    },
+    {
+      "name": "Novice Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Perfaumand",
@@ -939,80 +838,26 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Petva",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 0,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Phairet",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Phairupegiont",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Phersula",
-      "preference": "feminine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Phillone",
-      "preference": "feminine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Pieuje",
+      "preference": "masculine",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 1,
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
+    },
+    {
+      "name": "Pilgrimage Moogle",
       "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
@@ -1022,12 +867,13 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
-      "name": "Pomilla",
-      "preference": "feminine",
+      "name": "Porter Moogle",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -1036,8 +882,9 @@
       "preset_child": 0,
       "preset_galka": 0,
       "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Pursuivant",
@@ -1055,34 +902,6 @@
       "preset_moogle": 0
     },
     {
-      "name": "Quemaricond",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Radeivepart",
-      "preference": "unknown",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
       "name": "Rahal",
       "preference": "masculine",
       "manual_voice": null,
@@ -1094,7 +913,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Raimbroy",
@@ -1108,7 +928,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Raminel",
@@ -1122,53 +943,12 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
-      "name": "Raogrimm",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 1,
-      "preset_mithra": 0,
-      "preset_elvaan": 0,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Regine",
-      "preference": "feminine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Rochefogne",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Roido",
-      "preference": "masculine",
+      "name": "Repairer Moogle",
+      "preference": "unknown",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -1178,7 +958,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Rouva",
@@ -1192,35 +973,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Rugiette",
-      "preference": "feminine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Sedal-Godjal",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 0,
-      "preset_tarutaru": 1
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Shadow Lord",
@@ -1234,39 +988,12 @@
       "preset_galka": 1,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
-      "name": "Shantotto",
-      "preference": "feminine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 0,
-      "preset_tarutaru": 1
-    },
-    {
-      "name": "Sweepstox",
+      "name": "Shamonde",
       "preference": "unknown",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 1,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 0,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Thierride",
-      "preference": "masculine",
       "manual_voice": null,
       "manual_speed": null,
       "manual_pitch": null,
@@ -1276,14 +1003,75 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 1,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
+    },
+    {
+      "name": "Skipper Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
+    },
+    {
+      "name": "Smithy Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
+    },
+    {
+      "name": "Stooge Moogle",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
+    },
+    {
+      "name": "The Great Kupellion",
+      "preference": "unknown",
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
+      "approval": null,
+      "preset_goblin": 0,
+      "preset_child": 0,
+      "preset_galka": 0,
+      "preset_mithra": 0,
+      "preset_elvaan": 0,
+      "preset_tarutaru": 0,
+      "preset_moogle": 1
     },
     {
       "name": "Trion",
       "preference": "masculine",
-      "manual_voice": "bm_alphinaud_leveilleur_colin_ryan_2",
-      "manual_speed": 1.0,
-      "manual_pitch": 0.0,
+      "manual_voice": null,
+      "manual_speed": null,
+      "manual_pitch": null,
       "approval": null,
       "preset_goblin": 0,
       "preset_child": 0,
@@ -1305,7 +1093,8 @@
       "preset_galka": 0,
       "preset_mithra": 0,
       "preset_elvaan": 0,
-      "preset_tarutaru": 0
+      "preset_tarutaru": 0,
+      "preset_moogle": 0
     },
     {
       "name": "Valderotaux",
@@ -1321,34 +1110,6 @@
       "preset_elvaan": 1,
       "preset_tarutaru": 0,
       "preset_moogle": 0
-    },
-    {
-      "name": "Vijartal",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 0,
-      "preset_mithra": 0,
-      "preset_elvaan": 1,
-      "preset_tarutaru": 0
-    },
-    {
-      "name": "Zeid",
-      "preference": "masculine",
-      "manual_voice": null,
-      "manual_speed": null,
-      "manual_pitch": null,
-      "approval": null,
-      "preset_goblin": 0,
-      "preset_child": 0,
-      "preset_galka": 1,
-      "preset_mithra": 0,
-      "preset_elvaan": 0,
-      "preset_tarutaru": 0
     }
   ]
 }

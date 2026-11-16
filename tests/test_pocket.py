@@ -6,33 +6,12 @@ sys.path[:0]=[str(ROOT/'companion'),str(ROOT/'scripts')]
 import test_addon as addon_tests
 
 @unittest.skipIf(addon_tests.LuaRuntime is None,'LuaJIT not installed')
-class PocketAddonTests(unittest.TestCase):
-    def test_commands_port_and_npc_capture(self):
-        fixture=addon_tests.AddonTests();fixture.setUp()
-        lua=fixture.lua
-        lua.execute("""handlers.unload(); sent={}
-            local old=package.loaded.socket.udp
-            package.loaded.socket.udp=function()
-                local socket=old();socket.setpeername=function(self,host,port) selected_port=port;return true end
-                return socket
-            end""")
-        lua.execute((ROOT/'addon/XISpeaksPocket/XISpeaksPocket.lua').read_text())
-        lua.execute("""handlers.load(); assert(addon.name=='XISpeaksPocket'); assert(selected_port==49154)
-            for _,command in ipairs({'/xis test','/xisp test'}) do
-                local e={command=command};handlers.command(e);assert(not e.blocked)
-            end
-            local e={command='/xispt test'};handlers.command(e);assert(e.blocked)
-            handlers.text_in({mode=654,message='Halver : Welcome.'})
-            assert(sent[#sent]:find('Halver : Welcome.',1,true))
-            handlers.unload()""")
-
-@unittest.skipIf(addon_tests.LuaRuntime is None,'LuaJIT not installed')
 class BetaAddonTests(unittest.TestCase):
     def test_promoted_name_commands_and_default_port(self):
         fixture=addon_tests.AddonTests();fixture.setUp();lua=fixture.lua
         lua.execute("handlers.unload(); sent={}; local old=package.loaded.socket.udp; package.loaded.socket.udp=function() local s=old();s.setpeername=function(self,h,p) selected_port=p end;return s end")
         lua.execute((ROOT/'addon/XISpeaks/XISpeaks.lua').read_text())
-        lua.execute("handlers.load(); assert(addon.name=='XISpeaks'); assert(addon.version=='1.0.0-beta.3'); assert(selected_port==49152); local e={command='/xis test'};handlers.command(e);assert(e.blocked);handlers.unload()")
+        lua.execute("handlers.load(); assert(addon.name=='XISpeaks'); assert(addon.version=='1.0.0-beta.4'); assert(selected_port==49152); local e={command='/xis test'};handlers.command(e);assert(e.blocked);handlers.unload()")
 
 class PocketCatalogTests(unittest.TestCase):
     def test_reject_mismatched_state_model_and_escape(self):

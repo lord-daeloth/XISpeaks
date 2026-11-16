@@ -199,6 +199,9 @@ class SpeechQueue:
                 else:
                     profile = dict(voice=voice_override or self.config['voices'].get(dialogue.speaker, self.config['voice']),
                                    speed=self.config['speed'], pitch=0, volume=self.config.get('volume', 1.0))
+                if self.registry and hasattr(backend,'configure_environment'):
+                    effect_override=voice_override.get('effect') if isinstance(voice_override,dict) else None
+                    backend.configure_environment(**self.registry.effect_profile(dialogue.speaker,dialogue.zone,effect_override))
                 voice = profile.pop('voice')
                 try:
                     if voice is not None and not cancelled():
@@ -207,7 +210,7 @@ class SpeechQueue:
                         backend.speak(dialogue, voice, cancelled)
                         self.last_error = ''
                         if self.registry and review and not cancelled() and not isinstance(backend, DryBackend):
-                            self.registry.heard_for_review(dialogue.speaker, review['fingerprint'])
+                            self.registry.heard_for_review(dialogue.speaker, review['fingerprint'],dialogue)
                 except Exception as exc:
                     # One failed voice download must not disable every NPC.
                     self.last_error = str(exc)[:300]
@@ -285,6 +288,8 @@ class Server:
                 result['voices'] = [] if not getattr(self.registry,'contributions_enabled',True) else VOICES
                 result['voice_total'] = len(VOICES)
                 result['globals'] = self.registry.globals()
+                result['effects'] = self.registry.effects()
+                result['type_tuning'] = self.registry.preset_settings()
             elif action == 'voice_list':
                 search=request.get('search','')
                 page=request.get('page',0)
@@ -303,8 +308,19 @@ class Server:
                 self.registry.set_review_enabled(request.get('enabled'))
                 result = self.registry.review_state()
             elif action == 'review':
-                npc = self.registry.review_action(request.get('key'), request.get('fingerprint'), request.get('decision'))
+                if request.get('decision') in ('replay','reject'):
+                    if self.speech.state=='error' or self.speech.closed:raise ValueError('Speech engine is unavailable')
+                    dialogue=self.registry.review_replay(request.get('key'),request.get('fingerprint'),request['decision']=='reject')
+                    self.speech.stop()
+                    if not self.speech.submit(dialogue):raise ValueError('Could not queue replay')
+                    npc=self.registry.review_candidate(request.get('key'))
+                else:
+                    npc = self.registry.review_action(request.get('key'), request.get('fingerprint'), request.get('decision'))
                 result = dict(self.registry.review_state(), npc=npc, voices=[] if not getattr(self.registry,'contributions_enabled',True) else VOICES)
+            elif action == 'type_tuning':
+                result={'type_tuning':self.registry.set_preset_settings(request.get('name'),request.get('speed'),request.get('pitch'),request.get('reset') is True)}
+            elif action == 'effects':
+                result={'effects':self.registry.set_effects(request.get('enabled'),request.get('strength'),request.get('environment'))}
             elif action == 'globals':
                 result = {'globals': self.registry.set_globals(request.get('speed'), request.get('volume'), request.get('pitch_engine'))}
             elif action == 'preview':
@@ -314,9 +330,13 @@ class Server:
                 profile = dict(voice=voice,
                                speed=number(request.get('speed', 1.0), 0.7, 1.3, 'NPC speed'),
                                pitch=number(request.get('pitch', 0.0), -4, 4, 'Pitch'))
-                profile = apply_presets(profile, request.get('presets', {}))
+                profile = apply_presets(profile, request.get('presets', {}),self.registry.preset_settings())
+                if 'effect' in request:
+                    from environment_effects import PRESETS as EFFECTS
+                    if request['effect'] not in ('inherit',*EFFECTS):raise ValueError('Invalid effect')
+                    profile['effect']=request['effect']
                 self.speech.stop()
-                if not self.speech.submit(Dialogue('', "Welcome to Vana'diel. May your travels be safe, my friend."), profile):
+                if not self.speech.submit(Dialogue('', "Welcome to Vana'diel. May your travels be safe, my friend.", int(request.get('zone',0))), profile):
                     raise ValueError('Speech engine is unavailable; check the companion console')
                 result = {'message': 'Preview queued'}
             else:
@@ -371,6 +391,7 @@ class Server:
                     except (ValueError, sqlite3.Error):
                         LOG.exception('Unable to persist NPC encounter')
                         return
+                dialogue=Dialogue(dialogue.speaker,dialogue.text,frame.zone)
                 self.speech.submit(dialogue)
 
     def run(self, stopped):

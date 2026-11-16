@@ -313,14 +313,14 @@ class Studio:
         self.flags={}
         for i,kind in enumerate(NPC_TYPES):
             var=tk.BooleanVar(value=True);self.flags[kind]=var;ttk.Checkbutton(flags,text=kind.title(),variable=var).grid(row=i//4,column=i%4,sticky='w',padx=18,pady=4)
-        default=Path('D:/Games/CatsEyeXi/catseyexi-client/Vanacore/addons/ashita/XISpeaksPocket/companion/pocket_voices/catalog.json')
+        default=Path('D:/Games/CatsEyeXi/catseyexi-client/Vanacore/addons/ashita/XISpeaks/companion/pocket_voices/catalog.json')
         self.catalog=tk.StringVar(value=str(default if default.exists() else engine.ROOT/'pocket_voices/catalog.json'))
         row=ttk.Frame(self.export_tab);row.pack(fill='x',pady=10);ttk.Label(row,text='Target catalog').pack(side='left');ttk.Entry(row,textvariable=self.catalog).pack(side='left',fill='x',expand=True,padx=6)
         self.button(row,'Browse…',self.choose_catalog).pack(side='left')
         row=ttk.Frame(self.export_tab);row.pack(fill='x',pady=10)
         self.button(row,'Export voice + metadata…',self.export_voice).pack(side='left',padx=4)
         self.button(row,'Install into catalog',self.install_voice).pack(side='left',padx=4)
-        ttk.Label(self.export_tab,text='Exports contain the voice state and catalog metadata, not the original recording or your local paths.\nAfter installing, assign it to the NPC in /xispt voices. Replacing an existing voice requires confirmation; NPC assignments keep the same voice ID.',wraplength=1060).pack(anchor='w',pady=8)
+        ttk.Label(self.export_tab,text='Exports contain the voice state and catalog metadata, not the original recording or your local paths.\nAfter installing, assign it to the NPC in /xis voices. Replacing an existing voice requires confirmation; NPC assignments keep the same voice ID.',wraplength=1060).pack(anchor='w',pady=8)
     def entry(self):
         folder=self.one_candidate();f={k:v.get() for k,v in self.fields.items()};flags={k:v.get() for k,v in self.flags.items()}
         return folder,f['id'],engine.profile(folder,f['id'],f['label'],f['gender'],f['accent'],f['credit'],f['permission'],flags,f['npc'],automatic=self.automatic.get())

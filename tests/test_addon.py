@@ -106,8 +106,8 @@ class AddonTests(unittest.TestCase):
             handlers.text_in({mode=654, message='Halver : Injected.', injected=true})
             handlers.text_in({mode=14, message='Halver : Player linkshell message.'})
             assert(#sent == 2)
-            assert(sent[1]:find(string.char(9) .. '142' .. string.char(10), 1, true))
-            assert(sent[2]:find(string.char(9) .. '150' .. string.char(10), 1, true))
+            assert(sent[1]:find(string.char(9) .. '142' .. string.char(9) .. '0' .. string.char(10), 1, true))
+            assert(sent[2]:find(string.char(9) .. '150' .. string.char(9) .. '0' .. string.char(10), 1, true))
         ''')
 
     def test_trace_captures_filtered_and_injected_without_speaking_them(self):

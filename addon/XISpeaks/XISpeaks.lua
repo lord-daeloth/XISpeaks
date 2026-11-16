@@ -1,6 +1,6 @@
 addon.name = 'XISpeaks'
 addon.author = 'Daeloth'
-addon.version = '1.0.0-beta.3'
+addon.version = '1.0.0-beta.4'
 addon.desc = 'NPC dialogue speech through a local Pocket 18M companion.'
 
 require('common')
@@ -129,8 +129,10 @@ end
 local function send(command, mode, message)
     if not udp then return false end
     sequence = sequence + 1
-    local frame = ('XIS1\t%s\t%s-%d\t%d\n%s'):format(
-        command, session, sequence, mode or 0, message or '')
+    local zone=0
+    pcall(function() zone=AshitaCore:GetMemoryManager():GetParty():GetMemberZone(0) or 0 end)
+    local frame = ('XIS1\t%s\t%s-%d\t%d\t%d\n%s'):format(
+        command, session, sequence, mode or 0, zone, message or '')
     if #frame > 12000 then
         report('Dialogue exceeds transport limit; skipped.')
         return false
@@ -190,6 +192,7 @@ ashita.events.register('d3d_present', 'xispeaks_poll', function()
         end
     end
     local ui = editor()
+    pcall(function() ui.zone=AshitaCore:GetMemoryManager():GetParty():GetMemberZone(0) or 0 end)
     ui:tick()
     review_visibility(ui.visible or (ui.review_enabled and ui.review ~= nil))
     ui:draw()
